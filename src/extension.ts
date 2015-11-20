@@ -29,10 +29,10 @@ export function activate(context: vscode.ExtensionContext) {
 
 export class Driver {
 	public insertTextCurrentPosition(text:string) {
-		vscode.window.activeTextEditor.edit((editBuilder) => {
-			var p = vscode.window.activeTextEditor.selection.active;
-			editBuilder.insert(p,text);
+		var editor = vscode.window.activeTextEditor.edit((editBuilder) => {
+			editBuilder.insert(vscode.window.activeTextEditor.selection.active,text);
 		})
+		vscode.commands.executeCommand("editor.action.triggerSuggest");
 	}
 	public moveLeft(){
 		vscode.commands.executeCommand("cursorLeft");	
