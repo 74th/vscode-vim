@@ -30,6 +30,7 @@ export class Vim {
 		if (key == Key.esc) {
 			console.log("to normalmode");
 			this.mode = ViMode.Normal;
+			driver.hideSuggest();
 		}
 		if (this.mode == ViMode.Insert) {
 			this.inputDirectKey(key);

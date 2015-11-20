@@ -29,6 +29,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 export class Driver {
 	public insertTextCurrentPosition(text:string) {
+		
 		var editor = vscode.window.activeTextEditor.edit((editBuilder) => {
 			editBuilder.insert(vscode.window.activeTextEditor.selection.active,text);
 		})
@@ -45,5 +46,8 @@ export class Driver {
 	}
 	public moveDown(){
 		vscode.commands.executeCommand("cursorDown");	
+	}
+	public hideSuggest(){
+		vscode.commands.executeCommand("hideSuggestWidget");
 	}
 }

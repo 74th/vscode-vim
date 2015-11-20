@@ -19,31 +19,31 @@
 				"command": "vim.h",
 				"key": "h",
 				"mac": "h",
-				"when": "editorTextFocus"
+				"when": "editorTextFocus && !suggestWidgetVisible"
 			},
 			{
 				"command": "vim.i",
 				"key": "i",
 				"mac": "i",
-				"when": "editorTextFocus"
+				"when": "editorTextFocus && !suggestWidgetVisible"
 			},
 			{
 				"command": "vim.j",
 				"key": "j",
 				"mac": "j",
-				"when": "editorTextFocus"
+				"when": "editorTextFocus && !suggestWidgetVisible"
 			},
 			{
 				"command": "vim.k",
 				"key": "k",
 				"mac": "k",
-				"when": "editorTextFocus"
+				"when": "editorTextFocus && !suggestWidgetVisible"
 			},
 			{
 				"command": "vim.l",
 				"key": "l",
 				"mac": "l",
-				"when": "editorTextFocus"
+				"when": "editorTextFocus && !suggestWidgetVisible"
 			},
 			{
 				"command": "vim.esc",
