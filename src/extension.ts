@@ -1,32 +1,49 @@
 import * as vscode from 'vscode';
-import * as likevi from "./likevi";
+import * as vim from "./vim";
 
 export function activate(context: vscode.ExtensionContext) {
 
 	var driver = new Driver();
-	var main = new likevi.Likevi(driver);
+	var main = new vim.Vim(driver);
 	var v = vscode;
-
-	var disposable = vscode.commands.registerCommand('likevi.j', () => {
-		main.pushKey(likevi.Key.j);
+	var disposable = vscode.commands.registerCommand('vim.h', () => {
+		main.pushKey(vim.Key.h);
 	});
-	var disposable = vscode.commands.registerCommand('likevi.k', () => {
-		main.pushKey(likevi.Key.k);
+	var disposable = vscode.commands.registerCommand('vim.i', () => {
+		main.pushKey(vim.Key.i);
 	});
-	var disposable = vscode.commands.registerCommand('likevi.i', () => {
-		main.pushKey(likevi.Key.i);
+	var disposable = vscode.commands.registerCommand('vim.j', () => {
+		main.pushKey(vim.Key.j);
 	});
-	var disposable = vscode.commands.registerCommand('likevi.esc', () => {
-		main.pushKey(likevi.Key.esc);
+	var disposable = vscode.commands.registerCommand('vim.k', () => {
+		main.pushKey(vim.Key.k);
+	});
+	var disposable = vscode.commands.registerCommand('vim.l', () => {
+		main.pushKey(vim.Key.l);
+	});
+	var disposable = vscode.commands.registerCommand('vim.esc', () => {
+		main.pushKey(vim.Key.esc);
 	});
 	context.subscriptions.push(disposable);
 }
 
 export class Driver {
-	public getInsertTextCurrentPosition(text:string) {
+	public insertTextCurrentPosition(text:string) {
 		vscode.window.activeTextEditor.edit((editBuilder) => {
 			var p = vscode.window.activeTextEditor.selection.active;
 			editBuilder.insert(p,text);
 		})
+	}
+	public moveLeft(){
+		vscode.commands.executeCommand("cursorLeft");	
+	}
+	public moveRight(){
+		vscode.commands.executeCommand("cursorRight");	
+	}
+	public moveUp(){
+		vscode.commands.executeCommand("cursorUp");	
+	}
+	public moveDown(){
+		vscode.commands.executeCommand("cursorDown");	
 	}
 }
