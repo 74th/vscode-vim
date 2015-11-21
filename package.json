@@ -173,158 +173,158 @@
 			},
 			{
 				"command": "vim.A",
-				"key": "A",
-				"mac": "A",
+				"key": "shift+a",
+				"mac": "shift+a",
 				"when": "editorTextFocus && !suggestWidgetVisible"
 			},
 			{
 				"command": "vim.B",
-				"key": "B",
-				"mac": "B",
+				"key": "shift+b",
+				"mac": "shift+b",
 				"when": "editorTextFocus && !suggestWidgetVisible"
 			},
 			{
 				"command": "vim.C",
-				"key": "C",
-				"mac": "C",
+				"key": "shift+c",
+				"mac": "shift+c",
 				"when": "editorTextFocus && !suggestWidgetVisible"
 			},
 			{
 				"command": "vim.D",
-				"key": "D",
-				"mac": "D",
+				"key": "shift+d",
+				"mac": "shift+d",
 				"when": "editorTextFocus && !suggestWidgetVisible"
 			},
 			{
 				"command": "vim.E",
-				"key": "E",
-				"mac": "E",
+				"key": "shift+e",
+				"mac": "shift+e",
 				"when": "editorTextFocus && !suggestWidgetVisible"
 			},
 			{
 				"command": "vim.F",
-				"key": "F",
-				"mac": "F",
+				"key": "shift+f",
+				"mac": "shift+f",
 				"when": "editorTextFocus && !suggestWidgetVisible"
 			},
 			{
 				"command": "vim.G",
-				"key": "G",
-				"mac": "G",
+				"key": "shift+g",
+				"mac": "shift+g",
 				"when": "editorTextFocus && !suggestWidgetVisible"
 			},
 			{
 				"command": "vim.H",
-				"key": "H",
-				"mac": "H",
+				"key": "shift+h",
+				"mac": "shift+h",
 				"when": "editorTextFocus && !suggestWidgetVisible"
 			},
 			{
 				"command": "vim.I",
-				"key": "I",
-				"mac": "I",
+				"key": "shift+i",
+				"mac": "shift+i",
 				"when": "editorTextFocus && !suggestWidgetVisible"
 			},
 			{
 				"command": "vim.J",
-				"key": "J",
-				"mac": "J",
+				"key": "shift+j",
+				"mac": "shift+j",
 				"when": "editorTextFocus && !suggestWidgetVisible"
 			},
 			{
 				"command": "vim.K",
-				"key": "K",
-				"mac": "K",
+				"key": "shift+k",
+				"mac": "shift+k",
 				"when": "editorTextFocus && !suggestWidgetVisible"
 			},
 			{
 				"command": "vim.L",
-				"key": "L",
-				"mac": "L",
+				"key": "shift+l",
+				"mac": "shift+l",
 				"when": "editorTextFocus && !suggestWidgetVisible"
 			},
 			{
 				"command": "vim.M",
-				"key": "M",
-				"mac": "M",
+				"key": "shift+m",
+				"mac": "shift+m",
 				"when": "editorTextFocus && !suggestWidgetVisible"
 			},
 			{
 				"command": "vim.N",
-				"key": "N",
-				"mac": "N",
+				"key": "shift+n",
+				"mac": "shift+n",
 				"when": "editorTextFocus && !suggestWidgetVisible"
 			},
 			{
 				"command": "vim.O",
-				"key": "O",
-				"mac": "O",
+				"key": "shift+o",
+				"mac": "shift+o",
 				"when": "editorTextFocus && !suggestWidgetVisible"
 			},
 			{
 				"command": "vim.P",
-				"key": "P",
-				"mac": "P",
+				"key": "shift+p",
+				"mac": "shift+p",
 				"when": "editorTextFocus && !suggestWidgetVisible"
 			},
 			{
 				"command": "vim.Q",
-				"key": "Q",
-				"mac": "Q",
+				"key": "shift+q",
+				"mac": "shift+q",
 				"when": "editorTextFocus && !suggestWidgetVisible"
 			},
 			{
 				"command": "vim.R",
-				"key": "R",
-				"mac": "R",
+				"key": "shift+r",
+				"mac": "shift+r",
 				"when": "editorTextFocus && !suggestWidgetVisible"
 			},
 			{
 				"command": "vim.S",
-				"key": "S",
-				"mac": "S",
+				"key": "shift+s",
+				"mac": "shift+s",
 				"when": "editorTextFocus && !suggestWidgetVisible"
 			},
 			{
 				"command": "vim.T",
-				"key": "T",
-				"mac": "T",
+				"key": "shift+t",
+				"mac": "shift+t",
 				"when": "editorTextFocus && !suggestWidgetVisible"
 			},
 			{
 				"command": "vim.U",
-				"key": "U",
-				"mac": "U",
+				"key": "shift+u",
+				"mac": "shift+u",
 				"when": "editorTextFocus && !suggestWidgetVisible"
 			},
 			{
                 "command": "vim.V",
-                "key": "V",
-				"mac": "V",
+                "key": "shift+v",
+				"mac": "shift+v",
 				"when": "editorTextFocus && !suggestWidgetVisible"
 			},
 			{
 				"command": "vim.W",
-				"key": "W",
-				"mac": "W",
+				"key": "shift+w",
+				"mac": "shift+w",
 				"when": "editorTextFocus && !suggestWidgetVisible"
 			},
 			{
 				"command": "vim.X",
-				"key": "X",
-				"mac": "X",
+				"key": "shift+x",
+				"mac": "shift+x",
 				"when": "editorTextFocus && !suggestWidgetVisible"
 			},
 			{
 				"command": "vim.Y",
-				"key": "Y",
-				"mac": "Y",
+				"key": "shift+y",
+				"mac": "shift+y",
 				"when": "editorTextFocus && !suggestWidgetVisible"
 			},
 			{
 				"command": "vim.Z",
-				"key": "Z",
-				"mac": "Z",
+				"key": "shift+z",
+				"mac": "shift+z",
 				"when": "editorTextFocus && !suggestWidgetVisible"
 			},
 			{
@@ -385,6 +385,12 @@
 				"command": "vim.n9",
 				"key": "9",
 				"mac": "9",
+				"when": "editorTextFocus && !suggestWidgetVisible"
+			},
+			{
+				"command": "vim.doller",
+				"key": "shift+4",
+				"mac": "shift+4",
 				"when": "editorTextFocus && !suggestWidgetVisible"
 			},
 			{

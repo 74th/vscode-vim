@@ -25,7 +25,7 @@ tsc
 
 ## support
 
-* i,a
+* i,a,I,A
 * h,j,k,l,0,$,Nh,Nj,Nk,Nl
 
 ## never support
@@ -34,9 +34,9 @@ tsc
 
 ## future suppprt
 
-* a
-* d
-* I,A
+* x,d,y,c,p
+* dd,yy,pp,
+* "xd,"xy,"xc,"xp
 * f,t
-* Ctrl-U,Ctrl-D
+* w,b
 * ...

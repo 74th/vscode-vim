@@ -4,6 +4,7 @@ import {IAction} from './action/IAction';
 import {PanicAction} from './action/PanicAction';
 import {CombinationAction} from './action/CombinationAction';
 import {InsertAction} from './action/InsertAction';
+import {FirstInsertAction} from './action/FirstInsertAction';
 import {MoveAction} from './action/MoveAction';
 import {IMotion} from './motion/IMotion';
 import {RightMotion} from './motion/RightMotion';
@@ -100,6 +101,10 @@ export class CommandFactory {
 				return new InsertAction();
 			case Enums.Key.a:
 				return this.createAppendAction();
+			case Enums.Key.I:
+				return new FirstInsertAction();
+			case Enums.Key.A:
+				return this.createEndAppendAction();
 			// TODO
 			default:
 				return new PanicAction();
@@ -127,6 +132,8 @@ export class CommandFactory {
 			case Enums.Key.doller:
 				motion = new EndMotion();
 				break;
+			default :
+				throw new Error("Panic!");
 		}
 		motion.SetCount(count);
 		return new MoveAction(motion);
@@ -175,12 +182,22 @@ export class CommandFactory {
 	}
 
 	private createAppendAction():IAction{
-		var rightMotion = new RightMotion();
-		rightMotion.SetCount(1);
+		var motion = new RightMotion();
+		motion.SetCount(1);
 		return new CombinationAction([
-			new MoveAction(rightMotion),
+			new MoveAction(motion),
 			new InsertAction()
 		]);
+	}
+	
+	private createEndAppendAction():IAction{
+		var motion = new EndMotion();
+		motion.SetCount(1);
+		return new CombinationAction([
+			new MoveAction(motion),
+			new InsertAction()
+		]);
+		
 	}
 
 }
@@ -209,6 +226,8 @@ function SelectKeyClass(key: Enums.Key): KeyClass {
 			return KeyClass.Motion;
 		case Enums.Key.x:
 		case Enums.Key.s:
+		case Enums.Key.I:
+		case Enums.Key.A:
 			return KeyClass.SingleAction;
 		case Enums.Key.i:
 		case Enums.Key.a:
