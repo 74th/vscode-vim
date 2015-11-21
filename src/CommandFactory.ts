@@ -4,6 +4,7 @@ import {IAction} from './action/IAction';
 import {PanicAction} from './action/PanicAction';
 import {CombinationAction} from './action/CombinationAction';
 import {InsertAction} from './action/InsertAction';
+import {DeleteAction} from './action/DeleteAction';
 import {FirstInsertAction} from './action/FirstInsertAction';
 import {MoveAction} from './action/MoveAction';
 import {IMotion} from './motion/IMotion';
@@ -68,7 +69,7 @@ export class CommandFactory {
 		switch (keyClass) {
 			case KeyClass.TextObjectOrSingleAction:
 			case KeyClass.SingleAction:
-				return this.createSingleAction(key);
+				return this.createSingleAction(key,1);
 			case KeyClass.Motion:
 			case KeyClass.Zero:
 				return this.createMoveAction(key, 1);
@@ -88,12 +89,16 @@ export class CommandFactory {
 			case KeyClass.Motion:
 				return this.createMoveAction(key,this.numStock);
 			case KeyClass.NumWithoutZero:
-			case KeyClass.Zero:
-				this.setNumStock(key);
-		}
+            case KeyClass.Zero:
+                this.setNumStock(key);
+                return null;
+            case KeyClass.SingleAction:
+                return this.createSingleAction(key, this.numStock);
+        }
+        throw new Error("Panic!");
 	}
 
-	private createSingleAction(key: Enums.Key): IAction {
+	private createSingleAction(key: Enums.Key,count:number): IAction {
 		var action:IAction;
 		var list:IAction[];
 		switch (key) {
@@ -104,7 +109,9 @@ export class CommandFactory {
 			case Enums.Key.I:
 				return new FirstInsertAction();
 			case Enums.Key.A:
-				return this.createEndAppendAction();
+                return this.createEndAppendAction();
+            case Enums.Key.x:
+                return this.createCharactorDeleteAction(count);    
 			// TODO
 			default:
 				return new PanicAction();
@@ -193,12 +200,18 @@ export class CommandFactory {
 	private createEndAppendAction():IAction{
 		var motion = new EndMotion();
 		motion.SetCount(1);
-		return new CombinationAction([
-			new MoveAction(motion),
-			new InsertAction()
-		]);
-		
-	}
+        return new CombinationAction([
+            new MoveAction(motion),
+            new InsertAction()
+        ]);
+    }
+    
+    // commnad: x
+    private createCharactorDeleteAction(c:number):IAction {
+        var m = new RightMotion();
+        m.SetCount(c);
+        return new DeleteAction(m);
+    }
 
 }
 

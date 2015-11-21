@@ -12,7 +12,7 @@ export class UpMotion extends AbstractMotion{
 		if( end.line < 0 ){
 			end.line = 0;
 		}
-		var line = editor.GetLine(end.line);
+		var line = editor.ReadLine(end.line);
 		if( end.char > line.length ){
 			end.char = line.length;
 		}
