@@ -4,7 +4,6 @@ vim style key-binding for VSCode
 
 * VSCode 0.10.1
 * typescrpt ```npm install -g typescript```
-* and OpenVim https://github.com/mattn/vscode-openvim
 
 ## install
 
@@ -31,12 +30,29 @@ tsc
 ## never support
 
 * : (you should get use to command palette)
+* /,? (you shoud use default search function)
+* Ctrl-[a-zA-Z]
 
 ## future suppprt
 
 * x,d,y,c,p
 * dd,yy,pp,
 * "xd,"xy,"xc,"xp
-* f,t
+* f,t,;,,
 * w,b
+* g
+* ~
+* >,<
+* %,[,]
+* +,-
+* ...
+
+## low priority
+
+* .
+* =
+* *
+* m,`
+* q,@
+* v
 * ...
