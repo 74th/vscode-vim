@@ -25,8 +25,8 @@ tsc
 
 ## support
 
-* i
-* h,j,k,l,Nh,Nj,Nk,Nl
+* i,a
+* h,j,k,l,0,$,Nh,Nj,Nk,Nl
 
 ## never support
 
