@@ -24,6 +24,7 @@ export function activate(context: vscode.ExtensionContext) {
 	});
 	var disposable = vscode.commands.registerCommand('vim.esc', () => {
 		vim.PushEscKey();
+		vscode.commands.executeCommand("hideSuggestWidget");
 	});
 	context.subscriptions.push(disposable);
 }
