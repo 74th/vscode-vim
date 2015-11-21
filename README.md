@@ -24,8 +24,8 @@ tsc
 
 ## support
 
-* i,a,I,A
-* h,j,k,l,0,$,Nh,Nj,Nk,Nl
+* i a I A
+* h j k l 0 $ Nh Nj Nk Nl
 
 ## never support
 
@@ -35,16 +35,16 @@ tsc
 
 ## future suppprt
 
-* x,d,y,c,p
-* dd,yy,pp,
-* "xd,"xy,"xc,"xp
-* f,t,;,,
-* w,b
+* x d y c p
+* dd yy pp
+* "xd "xy "xc "xp
+* f t ; ,
+* w b
 * g
 * ~
-* >,<
-* %,[,]
-* +,-
+* > <
+* % [ ]
+* + -
 * ...
 
 ## low priority
@@ -52,7 +52,7 @@ tsc
 * .
 * =
 * *
-* m,`
-* q,@
+* m `
+* q @
 * v
 * ...
