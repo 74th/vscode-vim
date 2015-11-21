@@ -26,7 +26,7 @@ tsc
 ## support
 
 * i
-* h,j,k,l
+* h,j,k,l,Nh,Nj,Nk,Nl
 
 ## never support
 
@@ -35,6 +35,7 @@ tsc
 ## future suppprt
 
 * a
+* d
 * I,A
 * f,t
 * Ctrl-U,Ctrl-D
