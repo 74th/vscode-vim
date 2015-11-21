@@ -6,6 +6,10 @@ import {IMotion} from "../motion/IMotion"
 export class MoveAction implements IAction {
 
 	private motion:IMotion;
+	
+	constructor(motion:IMotion){
+		this.motion = motion;
+	}
 
 	public SetMotion(motion:IMotion){
 		this.motion = motion;	

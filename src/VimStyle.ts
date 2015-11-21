@@ -2,6 +2,7 @@ import * as Enums from "./VimStyleEnums";
 import {CommandFactory} from "./CommandFactory";
 import {InsertModeExecute} from "./mode/InsertMode";
 import {IEditor} from "./IEditor"
+import * as Utils from "./Utils"
 
 enum Mode {
 	Normal,
@@ -13,11 +14,13 @@ export class VimStyle {
 	private mode: Mode;
 	private editor: IEditor;
 	private commandFactory: CommandFactory;
+	public Register;
 
 	constructor(editor: IEditor) {
 		this.editor = editor;
 		this.mode = Mode.Normal;
 		this.commandFactory = new CommandFactory();
+		this.Register = new Register(); 
 	}
 
 	public PushKey(key: Enums.Key) {
@@ -64,4 +67,37 @@ export class Position{
 export class Range{
 	public start:Position;
 	public end:Position;
+}
+
+class Register{
+	private register :any;
+	private rollregister: string[]
+	constructor(){
+		this.register = {};
+		this.rollregister = [];
+	}
+	public Set(key:Enums.Key,value:string){
+		this.register[key] = value;
+	}
+	public Get(key:Enums.Key):string{
+		if( this.register[key] == undefined ){
+			return "";
+		}
+		return this.register[key];
+	}
+	public SetRoll(value){
+		this.rollregister.unshift(value);
+		if( this.rollregister.length > 10 ){
+			this.rollregister.length = 10;
+		}
+	}
+	public GetRollFirst(value){
+		if( this.rollregister.length > 0){
+			return this.rollregister[0];
+		}
+		return "";
+	}
+	public GetRoll(key:Enums.Key){
+		
+	}
 }

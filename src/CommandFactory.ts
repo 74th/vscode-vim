@@ -2,6 +2,7 @@ import {VimStyle} from './VimStyle';
 import * as Enums from "./VimStyleEnums";
 import {IAction} from './action/IAction';
 import {PanicAction} from './action/PanicAction';
+import {CombinationAction} from './action/CombinationAction';
 import {InsertAction} from './action/InsertAction';
 import {MoveAction} from './action/MoveAction';
 import {IMotion} from './motion/IMotion';
@@ -9,6 +10,8 @@ import {RightMotion} from './motion/RightMotion';
 import {LeftMotion} from './motion/LeftMotion';
 import {UpMotion} from './motion/UpMotion';
 import {DownMotion} from './motion/DownMotion'
+import {FirstMotion} from './motion/FirstMotion'
+import {EndMotion} from './motion/EndMotion'
 
 
 enum CommandStatus {
@@ -66,6 +69,7 @@ export class CommandFactory {
 			case KeyClass.SingleAction:
 				return this.createSingleAction(key);
 			case KeyClass.Motion:
+			case KeyClass.Zero:
 				return this.createMoveAction(key, 1);
 			case KeyClass.NumWithoutZero:
 				this.status = CommandStatus.FirstNum;
@@ -89,9 +93,13 @@ export class CommandFactory {
 	}
 
 	private createSingleAction(key: Enums.Key): IAction {
+		var action:IAction;
+		var list:IAction[];
 		switch (key) {
 			case Enums.Key.i:
 				return new InsertAction();
+			case Enums.Key.a:
+				return this.createAppendAction();
 			// TODO
 			default:
 				return new PanicAction();
@@ -99,7 +107,6 @@ export class CommandFactory {
 	}
 
 	private createMoveAction(key: Enums.Key, count: number): IAction {
-		var action = new MoveAction();
 		var motion: IMotion;
 		switch (key) {
 			case Enums.Key.l:
@@ -114,10 +121,15 @@ export class CommandFactory {
 			case Enums.Key.k:
 				motion = new UpMotion();
 				break;
+			case Enums.Key.n0:
+				motion = new FirstMotion();
+				break;
+			case Enums.Key.doller:
+				motion = new EndMotion();
+				break;
 		}
 		motion.SetCount(count);
-		action.SetMotion(motion);
-		return action;
+		return new MoveAction(motion);
 	}
 	
 	private setNumStock(key: Enums.Key): IAction {
@@ -162,6 +174,15 @@ export class CommandFactory {
 		return null;
 	}
 
+	private createAppendAction():IAction{
+		var rightMotion = new RightMotion();
+		rightMotion.SetCount(1);
+		return new CombinationAction([
+			new MoveAction(rightMotion),
+			new InsertAction()
+		]);
+	}
+
 }
 
 function SelectKeyClass(key: Enums.Key): KeyClass {
@@ -184,6 +205,7 @@ function SelectKeyClass(key: Enums.Key): KeyClass {
 		case Enums.Key.j:
 		case Enums.Key.k:
 		case Enums.Key.l:
+		case Enums.Key.doller:
 			return KeyClass.Motion;
 		case Enums.Key.x:
 		case Enums.Key.s:
