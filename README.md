@@ -31,7 +31,7 @@ tsc
 
 * : (you should get use to command palette)
 * /,? (you shoud use default search function)
-* Ctrl-[a-zA-Z]
+* Ctrl-x,Cmd-x,Alt-x,Meta-x
 
 ## future suppprt
 
