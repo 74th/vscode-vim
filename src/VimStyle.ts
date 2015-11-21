@@ -42,10 +42,17 @@ export class VimStyle {
 
 	private readCommand(key: Enums.Key) {
 		var action = this.commandFactory.PushKey(key);
-		if(action != null){
-			action.Execute(this.editor,this);
-			this.commandFactory.Clear();
+		if(action == null){
+			this.showCommand();
+			return;
 		}
+		this.editor.CloseStatus();
+		action.Execute(this.editor,this);
+		this.commandFactory.Clear();
+	}
+	
+	private showCommand(){
+		this.editor.ShowStatus(this.commandFactory.GetCommandString());
 	}
 }
 

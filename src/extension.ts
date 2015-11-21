@@ -22,36 +22,39 @@ export function activate(context: vscode.ExtensionContext) {
 	vscode.commands.registerCommand('vim.l', () => {
 		vim.PushKey(VimStyleEnums.Key.l);
 	});
+	vscode.commands.registerCommand('vim.n0', () => {
+		vim.PushKey(VimStyleEnums.Key.n0);
+	});
+	vscode.commands.registerCommand('vim.n1', () => {
+		vim.PushKey(VimStyleEnums.Key.n1);
+	});
+	vscode.commands.registerCommand('vim.n2', () => {
+		vim.PushKey(VimStyleEnums.Key.n2);
+	});
+	vscode.commands.registerCommand('vim.n3', () => {
+		vim.PushKey(VimStyleEnums.Key.n3);
+	});
+	vscode.commands.registerCommand('vim.n4', () => {
+		vim.PushKey(VimStyleEnums.Key.n4);
+	});
+	vscode.commands.registerCommand('vim.n5', () => {
+		vim.PushKey(VimStyleEnums.Key.n5);
+	});
+	vscode.commands.registerCommand('vim.n6', () => {
+		vim.PushKey(VimStyleEnums.Key.n6);
+	});
+	vscode.commands.registerCommand('vim.n7', () => {
+		vim.PushKey(VimStyleEnums.Key.n7);
+	});
+	vscode.commands.registerCommand('vim.n8', () => {
+		vim.PushKey(VimStyleEnums.Key.n8);
+	});
+	vscode.commands.registerCommand('vim.n9', () => {
+		vim.PushKey(VimStyleEnums.Key.n9);
+	});
 	var disposable = vscode.commands.registerCommand('vim.esc', () => {
 		vim.PushEscKey();
 		vscode.commands.executeCommand("hideSuggestWidget");
 	});
 	context.subscriptions.push(disposable);
-}
-
-export class Driver {
-	public insertTextCurrentPosition(text:string) {
-		vscode.window.activeTextEditor.edit((editBuilder) => {
-			editBuilder.insert(vscode.window.activeTextEditor.selection.active,text);
-		})
-		vscode.commands.executeCommand("editor.action.triggerSuggest");
-	}
-	public moveLeft(){
-		var p = vscode.window.activeTextEditor.selection.active;
-		var p2 = p.translate(0,-1);
-		var s = new vscode.Selection(p2,p2);
-		vscode.window.activeTextEditor.selection = s;
-	}
-	public moveRight(){
-		vscode.commands.executeCommand("cursorRight");	
-	}
-	public moveUp(){
-		vscode.commands.executeCommand("cursorUp");	
-	}
-	public moveDown(){
-		vscode.commands.executeCommand("cursorDown");	
-	}
-	public hideSuggest(){
-		vscode.commands.executeCommand("hideSuggestWidget");
-	}
 }

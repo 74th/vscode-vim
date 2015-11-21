@@ -46,6 +46,66 @@
 				"when": "editorTextFocus && !suggestWidgetVisible"
 			},
 			{
+				"command": "vim.n0",
+				"key": "0",
+				"mac": "0",
+				"when": "editorTextFocus && !suggestWidgetVisible"
+			},
+			{
+				"command": "vim.n1",
+				"key": "1",
+				"mac": "1",
+				"when": "editorTextFocus && !suggestWidgetVisible"
+			},
+			{
+				"command": "vim.n2",
+				"key": "2",
+				"mac": "2",
+				"when": "editorTextFocus && !suggestWidgetVisible"
+			},
+			{
+				"command": "vim.n3",
+				"key": "3",
+				"mac": "3",
+				"when": "editorTextFocus && !suggestWidgetVisible"
+			},
+			{
+				"command": "vim.n4",
+				"key": "4",
+				"mac": "4",
+				"when": "editorTextFocus && !suggestWidgetVisible"
+			},
+			{
+				"command": "vim.n5",
+				"key": "5",
+				"mac": "5",
+				"when": "editorTextFocus && !suggestWidgetVisible"
+			},
+			{
+				"command": "vim.n6",
+				"key": "6",
+				"mac": "6",
+				"when": "editorTextFocus && !suggestWidgetVisible"
+			},
+			{
+				"command": "vim.n7",
+				"key": "7",
+				"mac": "7",
+				"when": "editorTextFocus && !suggestWidgetVisible"
+			},
+			{
+				"command": "vim.n8",
+				"key": "8",
+				"mac": "8",
+				"when": "editorTextFocus && !suggestWidgetVisible"
+			},
+			{
+				"command": "vim.n9",
+				"key": "9",
+				"mac": "9",
+				"when": "editorTextFocus && !suggestWidgetVisible"
+			},
+			{
 				"command": "vim.esc",
 				"key": "escape",
 				"mac": "escape",
