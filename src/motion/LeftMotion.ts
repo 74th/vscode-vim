@@ -2,15 +2,14 @@ import {AbstractMotion} from "./AbstractMotion"
 import {IEditor} from "../IEditor"
 import {Position} from "../VimStyle"
 
-export class RightMotion extends AbstractMotion{
+export class LeftMotion extends AbstractMotion{
 	
 	public CalculateEnd(editor:IEditor,start:Position){
-		var line = editor.GetLineAtCurrentPosition();
 		var end = new Position();
 		end.line = start.line;
-		end.char = start.char + this.GetCount();
-		if( line.length < end.char ){
-			end.char = line.length;
+		end.char = start.char - this.GetCount();
+		if( end.char < 0 ){
+			end.char = 0;
 		}
 		return end;
 	}

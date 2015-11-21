@@ -7,4 +7,5 @@ export interface IEditor{
 	GetLine(line:number):string;
 	GetCurrentPosition():Position;
 	SetPosition(position:Position);
+	GetLineCount():number;
 }

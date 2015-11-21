@@ -4,14 +4,14 @@ import {Position} from "../VimStyle"
 
 export class AbstractMotion implements IMotion{
 	
-	private counter:number;
+	private count:number;
 	
-	public GetCounter(){
-		return this.counter;
+	public GetCount(){
+		return this.count;
 	}
 	
 	public SetCount(count:number){
-		this.counter = count;
+		this.count = count;
 	}
 	
 	public CalculateEnd(editor:IEditor,start:Position){

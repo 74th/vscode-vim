@@ -5,6 +5,10 @@ import {InsertAction} from './action/InsertAction';
 import {MoveAction} from './action/MoveAction';
 import {IMotion} from './motion/IMotion';
 import {RightMotion} from './motion/RightMotion';
+import {LeftMotion} from './motion/LeftMotion';
+import {UpMotion} from './motion/UpMotion';
+import {DownMotion} from './motion/DownMotion'
+
 
 enum CommandStatus {
 	None,
@@ -26,20 +30,20 @@ export class CommandFactory {
 	private status: CommandStatus;
 	private stack: any[];
 	private commandString: string;
-	
-	constructor(){
+
+	constructor() {
 		this.status = CommandStatus.None;
 		this.stack = [];
 		this.commandString = "";
 	}
-	
+
 	public PushKey(key: Enums.Key): IAction {
-		switch(this.status){
+		switch (this.status) {
 			case CommandStatus.None:
-			return this.pushKeyAtStart(key);
+				return this.pushKeyAtStart(key);
 		}
 	}
-	
+
 	public Clear() {
 		this.status = CommandStatus.None;
 		this.stack = [];
@@ -49,34 +53,43 @@ export class CommandFactory {
 	public GetCommandString(): string {
 		return this.commandString;
 	}
-	
-	private pushKeyAtStart(key):IAction{
+
+	private pushKeyAtStart(key): IAction {
 		var keyClass = SelectKeyClass(key);
 		// TODO other
-		switch(keyClass){
+		switch (keyClass) {
 			case KeyClass.TextObjectOrSingleAction:
 			case KeyClass.SingleAction:
 				return this.createSingleAction(key);
 			case KeyClass.Motion:
-				return this.createMoveAction(key,1);
+				return this.createMoveAction(key, 1);
 		}
-		
+
 	}
-	
-	private createSingleAction(key):IAction{
-		switch(key) {
+
+	private createSingleAction(key): IAction {
+		switch (key) {
 			case Enums.Key.i:
 				return new InsertAction();
 			// TODO other
 		}
 	}
-	
-	private createMoveAction(key,count:number):IAction{
+
+	private createMoveAction(key, count: number): IAction {
 		var action = new MoveAction();
-		var motion : IMotion;
-		switch(key) {
+		var motion: IMotion;
+		switch (key) {
 			case Enums.Key.l:
 				motion = new RightMotion();
+				break;
+			case Enums.Key.h:
+				motion = new LeftMotion();
+				break;
+			case Enums.Key.j:
+				motion = new DownMotion();
+				break;
+			case Enums.Key.k:
+				motion = new UpMotion();
 				break;
 		}
 		motion.SetCount(count);

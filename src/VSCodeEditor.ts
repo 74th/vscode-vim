@@ -32,6 +32,9 @@ export class VSCodeEditor implements IEditor {
 		var s = new vscode.Selection(cp,cp);
 		vscode.window.activeTextEditor.selection = s;
 	}
+	public GetLineCount():number{
+		return vscode.window.activeTextEditor.document.lineCount;
+	}
 
 }
 function tranceVimStylePosition(org: vscode.Position): Position {
