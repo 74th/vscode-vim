@@ -10,7 +10,7 @@ export function activate(context: vscode.ExtensionContext) {
     var isJisKeyboard: boolean;
     var conf = vscode.workspace.getConfiguration('vimStyle');
     isJisKeyboard = conf.get<boolean>("useJisKeyboard");
-    isJisKeyboard = true;
+    
     var disposable = vscode.commands.registerCommand('vim.a', () => {
         vim.PushKey(VimStyleEnums.Key.a);
     });
