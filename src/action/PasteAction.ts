@@ -1,8 +1,8 @@
 import {IEditor} from "../IEditor";
 import {VimStyle, Position} from "../VimStyle";
-import * as Enums from "../VimStyleEnums"
-import {IAction} from "./IAction"
-import {RegisterItem} from "../Register"
+import * as Enums from "../VimStyleEnums";
+import {IAction} from "./IAction";
+import {RegisterItem} from "../Register";
 
 export class PasteAction implements IAction {
 
@@ -69,7 +69,7 @@ export class PasteAction implements IAction {
                     var lp = editor.GetLastPosition();
                     editor.Insert(lp, content);
                     editor.SetPosition(np);
-                    return
+                    return;
                 }
             }
             editor.Insert(np, content);

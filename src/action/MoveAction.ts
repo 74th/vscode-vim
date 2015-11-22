@@ -5,19 +5,19 @@ import {IMotion} from "../motion/IMotion"
 
 export class MoveAction implements IAction {
 
-	private motion:IMotion;
-	
-	constructor(motion:IMotion){
-		this.motion = motion;
-	}
+    private motion: IMotion;
 
-	public SetMotion(motion:IMotion){
-		this.motion = motion;	
-	}	
-	
-	public Execute(editor:IEditor, vim:VimStyle){
-		var from = editor.GetCurrentPosition();
-		var to = this.motion.CalculateEnd(editor,from);
-		editor.SetPosition(to);
-	}
+    constructor(motion: IMotion) {
+        this.motion = motion;
+    }
+
+    public SetMotion(motion: IMotion) {
+        this.motion = motion;
+    }
+
+    public Execute(editor: IEditor, vim: VimStyle) {
+        var from = editor.GetCurrentPosition();
+        var to = this.motion.CalculateEnd(editor, from);
+        editor.SetPosition(to);
+    }
 }

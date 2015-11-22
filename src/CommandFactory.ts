@@ -95,6 +95,9 @@ export class CommandFactory {
                 return null;
             case KeyClass.SingleAction:
                 return this.createSingleAction(key, this.numStock);
+            case KeyClass.RequireMotionAction:
+                this.status = CommandStatus.RequireMotion;
+                return this.stackRequireMotionAction(key, this.numStock);
         }
         throw new Error("Panic!");
     }
@@ -230,7 +233,7 @@ export class CommandFactory {
     
     // command: dm ym cm 
     private stackRequireMotionAction(key: Enums.Key, c: number): IAction{
-        var a: IAction;
+        var a: IRequireMotionAction;
         switch (key) {
             case Enums.Key.d:
                 a = new DeleteAction();
@@ -300,6 +303,7 @@ export class CommandFactory {
         var m = new RightMotion();
         m.SetCount(c);
         var a = new DeleteAction();
+        a.SetSmallOption();
         a.SetMotion(m);
         return a;
     }

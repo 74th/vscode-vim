@@ -36,7 +36,7 @@ tsc
 
 ## future suppprt
 
-* d y c p
+* y c p
 * f t ; ,
 * w b
 * o O

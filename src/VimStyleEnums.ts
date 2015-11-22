@@ -110,3 +110,12 @@ export enum RegisterType {
     Text,
     LineText
 }
+
+export enum ActionType {
+    Combination,
+    Delete,
+    FirstInsert,
+    Insert,
+    Move,
+    Paste
+}

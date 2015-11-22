@@ -22,7 +22,7 @@ export class DeleteAction implements IAction {
     }
     
     public SetSmallOption() {
-        this.isLarge = false;
+        this.isLarge = true;
     }
     
     public SetMotion(motion: IMotion) {
@@ -59,6 +59,7 @@ export class DeleteAction implements IAction {
             }
             item.Type = Enums.RegisterType.LineText;
         } else {
+            item.Body = editor.ReadRange(r);
             item.Type = Enums.RegisterType.Text;
         }    
 
