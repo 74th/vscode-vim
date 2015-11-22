@@ -8,7 +8,7 @@ export class UpMotion extends AbstractMotion{
 		var end = new Position();
 		end.line = start.line - this.GetCount();
 		end.char = start.char;
-		var c = editor.GetLineCount()
+		var c = editor.GetLastLineNum()
 		if( end.line < 0 ){
 			end.line = 0;
 		}

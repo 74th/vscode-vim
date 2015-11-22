@@ -194,7 +194,7 @@ export function activate(context: vscode.ExtensionContext) {
 		vim.PushKey(VimStyleEnums.Key.n9);
 	});
 	vscode.commands.registerCommand('vim.doller', () => {
-		vim.PushKey(VimStyleEnums.Key.doller);
+		vim.PushKey(VimStyleEnums.Key.Doller);
 	});
 	var disposable = vscode.commands.registerCommand('vim.esc', () => {
 		vim.PushEscKey();

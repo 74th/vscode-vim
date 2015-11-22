@@ -16,8 +16,15 @@ export class VSCodeEditor implements IEditor {
     public InsertTextAtCurrentPosition(text: string) {
         vscode.window.activeTextEditor.edit((editBuilder) => {
             editBuilder.insert(vscode.window.activeTextEditor.selection.active, text);
-        })
-        vscode.commands.executeCommand("editor.action.triggerSuggest");
+        });
+        if (text.length == 1) {
+            vscode.commands.executeCommand("editor.action.triggerSuggest");
+        }
+    }
+    public Insert(position: Position, text: string) {
+        vscode.window.activeTextEditor.edit((editBuilder) => {
+            editBuilder.insert(tranceVSCodePosition(position), text);
+        });
     }
     public DeleteRange(range: Range) {
         vscode.window.activeTextEditor.edit((editBuilder) => {
@@ -42,7 +49,7 @@ export class VSCodeEditor implements IEditor {
     }
     
     // Read Range
-    public ReadRange(range: Range):string {
+    public ReadRange(range: Range): string {
         return vscode.window.activeTextEditor.document.getText(tranceVSCodeRange(range));
     }
     
@@ -55,10 +62,14 @@ export class VSCodeEditor implements IEditor {
         var s = new vscode.Selection(cp, cp);
         vscode.window.activeTextEditor.selection = s;
     }
+    public GetLastPosition(): Position{
+        var end = vscode.window.activeTextEditor.document.lineAt(vscode.window.activeTextEditor.document.lineCount - 1).range.end;
+        return tranceVimStylePosition(end);
+    }
     
     // Document Info
-    public GetLineCount(): number {
-        return vscode.window.activeTextEditor.document.lineCount;
+    public GetLastLineNum(): number {
+        return vscode.window.activeTextEditor.document.lineCount -1;
     }
 
 }

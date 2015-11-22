@@ -189,7 +189,7 @@ export function InsertModeExecute(key: Enums.Key, editor: IEditor) {
 		case Enums.Key.n9:
 			editor.InsertTextAtCurrentPosition("9");
 			return;
-		case Enums.Key.doller:
+		case Enums.Key.Doller:
 			editor.InsertTextAtCurrentPosition("$");
 			return;
 	}

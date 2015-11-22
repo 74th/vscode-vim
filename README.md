@@ -24,8 +24,8 @@ tsc
 
 ## support
 
-* i a I A
-* x Nx
+* i a I A x Nx
+* dd Ndd p P
 * h j k l 0 $ Nh Nj Nk Nl
 
 ## never support
@@ -40,7 +40,7 @@ tsc
 * f t ; ,
 * w b
 * o O
-* dd yy pp
+* dd yy cc
 * "xd "xy "xc "xp
 * g
 * ~

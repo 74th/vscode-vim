@@ -8,7 +8,7 @@ export class DownMotion extends AbstractMotion{
 		var end = new Position();
 		end.line = start.line + this.GetCount();
 		end.char = start.char;
-		var c = editor.GetLineCount() -1;
+		var c = editor.GetLastLineNum();
 		if( end.line > c ){
 			end.line = c;
 		}

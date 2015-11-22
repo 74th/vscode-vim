@@ -3,6 +3,7 @@ import {CommandFactory} from "./CommandFactory";
 import {InsertModeExecute} from "./mode/InsertMode";
 import {IEditor} from "./IEditor"
 import * as Utils from "./Utils"
+import {Register} from "./Register"
 
 enum Mode {
     Normal,
@@ -67,37 +68,21 @@ export class Position {
 export class Range {
     public start: Position;
     public end: Position;
-}
-
-class Register {
-    private register: any;
-    private rollregister: string[]
-    constructor() {
-        this.register = {};
-        this.rollregister = [];
-    }
-    public Set(key: Enums.Key, value: string) {
-        this.register[key] = value;
-    }
-    public Get(key: Enums.Key): string {
-        if (this.register[key] == undefined) {
-            return "";
+    
+    public Sort() {
+        var isReverse = false;
+        if (this.end.line < this.start.line) {
+            isReverse = true;
+        } else if (this.end.line == this.start.line) {
+            if (this.end.char < this.start.char) {
+                isReverse = true;
+            }
         }
-        return this.register[key];
-    }
-    public SetRoll(value: string) {
-        this.rollregister.unshift(value);
-        if (this.rollregister.length > 10) {
-            this.rollregister.length = 10;
+        if (isReverse) {
+        var b: Position;
+            b = this.start;
+            this.start = this.end;
+            this.end = b;
         }
-    }
-    public GetRollFirst(value: string) {
-        if (this.rollregister.length > 0) {
-            return this.rollregister[0];
-        }
-        return "";
-    }
-    public GetRoll(key: Enums.Key) {
-
     }
 }
