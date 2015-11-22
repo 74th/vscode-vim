@@ -1,418 +1,618 @@
 {
-	"name": "vscodevi",
-	"description": "vi like extension",
-	"version": "0.0.1",
-	"publisher": "74th",
-	"engines": {
-		"vscode": "^0.10.1"
-	},
-	"categories": [
-		"Other"
-	],
-	"activationEvents": [
-		"*"
-	],
-	"main": "./out/src/extension",
-	"contributes": {
-		"keybindings": [
-			{
-				"command": "vim.a",
-				"key": "a",
-				"mac": "a",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.b",
-				"key": "b",
-				"mac": "b",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.c",
-				"key": "c",
-				"mac": "c",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.d",
-				"key": "d",
-				"mac": "d",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.e",
-				"key": "e",
-				"mac": "e",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.f",
-				"key": "f",
-				"mac": "f",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.g",
-				"key": "g",
-				"mac": "g",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.h",
-				"key": "h",
-				"mac": "h",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.i",
-				"key": "i",
-				"mac": "i",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.j",
-				"key": "j",
-				"mac": "j",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.k",
-				"key": "k",
-				"mac": "k",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.l",
-				"key": "l",
-				"mac": "l",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.m",
-				"key": "m",
-				"mac": "m",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.n",
-				"key": "n",
-				"mac": "n",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.o",
-				"key": "o",
-				"mac": "o",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.p",
-				"key": "p",
-				"mac": "p",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.q",
-				"key": "q",
-				"mac": "q",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.r",
-				"key": "r",
-				"mac": "r",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.s",
-				"key": "s",
-				"mac": "s",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.t",
-				"key": "t",
-				"mac": "t",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.u",
-				"key": "u",
-				"mac": "u",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.v",
-				"key": "v",
-				"mac": "v",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.w",
-				"key": "w",
-				"mac": "w",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.x",
-				"key": "x",
-				"mac": "x",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.y",
-				"key": "y",
-				"mac": "y",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.z",
-				"key": "z",
-				"mac": "z",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.A",
-				"key": "shift+a",
-				"mac": "shift+a",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.B",
-				"key": "shift+b",
-				"mac": "shift+b",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.C",
-				"key": "shift+c",
-				"mac": "shift+c",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.D",
-				"key": "shift+d",
-				"mac": "shift+d",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.E",
-				"key": "shift+e",
-				"mac": "shift+e",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.F",
-				"key": "shift+f",
-				"mac": "shift+f",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.G",
-				"key": "shift+g",
-				"mac": "shift+g",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.H",
-				"key": "shift+h",
-				"mac": "shift+h",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.I",
-				"key": "shift+i",
-				"mac": "shift+i",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.J",
-				"key": "shift+j",
-				"mac": "shift+j",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.K",
-				"key": "shift+k",
-				"mac": "shift+k",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.L",
-				"key": "shift+l",
-				"mac": "shift+l",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.M",
-				"key": "shift+m",
-				"mac": "shift+m",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.N",
-				"key": "shift+n",
-				"mac": "shift+n",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.O",
-				"key": "shift+o",
-				"mac": "shift+o",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.P",
-				"key": "shift+p",
-				"mac": "shift+p",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.Q",
-				"key": "shift+q",
-				"mac": "shift+q",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.R",
-				"key": "shift+r",
-				"mac": "shift+r",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.S",
-				"key": "shift+s",
-				"mac": "shift+s",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.T",
-				"key": "shift+t",
-				"mac": "shift+t",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.U",
-				"key": "shift+u",
-				"mac": "shift+u",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
+    "name": "vimStyle",
+    "description": "vim style keybinding extension",
+    "version": "0.1.0",
+    "publisher": "74th",
+    "engines": {
+        "vscode": "^0.10.1"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "*"
+    ],
+    "main": "./out/src/extension",
+    "contributes": {
+        "configuration": {
+            "type": "object",
+            "title": "vim style configuration",
+            "properties": {
+                "vimstyle.useJisKeyboard": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "JIS keyboard keybinding"
+                }
+            }
+        },
+        "keybindings": [
+            {
+                "command": "vim.a",
+                "key": "a",
+                "mac": "a",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.b",
+                "key": "b",
+                "mac": "b",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.c",
+                "key": "c",
+                "mac": "c",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.d",
+                "key": "d",
+                "mac": "d",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.e",
+                "key": "e",
+                "mac": "e",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.f",
+                "key": "f",
+                "mac": "f",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.g",
+                "key": "g",
+                "mac": "g",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.h",
+                "key": "h",
+                "mac": "h",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.i",
+                "key": "i",
+                "mac": "i",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.j",
+                "key": "j",
+                "mac": "j",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.k",
+                "key": "k",
+                "mac": "k",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.l",
+                "key": "l",
+                "mac": "l",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.m",
+                "key": "m",
+                "mac": "m",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.n",
+                "key": "n",
+                "mac": "n",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.o",
+                "key": "o",
+                "mac": "o",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.p",
+                "key": "p",
+                "mac": "p",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.q",
+                "key": "q",
+                "mac": "q",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.r",
+                "key": "r",
+                "mac": "r",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.s",
+                "key": "s",
+                "mac": "s",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.t",
+                "key": "t",
+                "mac": "t",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.u",
+                "key": "u",
+                "mac": "u",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.v",
+                "key": "v",
+                "mac": "v",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.w",
+                "key": "w",
+                "mac": "w",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.x",
+                "key": "x",
+                "mac": "x",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.y",
+                "key": "y",
+                "mac": "y",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.z",
+                "key": "z",
+                "mac": "z",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.A",
+                "key": "shift+a",
+                "mac": "shift+a",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.B",
+                "key": "shift+b",
+                "mac": "shift+b",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.C",
+                "key": "shift+c",
+                "mac": "shift+c",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.D",
+                "key": "shift+d",
+                "mac": "shift+d",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.E",
+                "key": "shift+e",
+                "mac": "shift+e",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.F",
+                "key": "shift+f",
+                "mac": "shift+f",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.G",
+                "key": "shift+g",
+                "mac": "shift+g",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.H",
+                "key": "shift+h",
+                "mac": "shift+h",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.I",
+                "key": "shift+i",
+                "mac": "shift+i",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.J",
+                "key": "shift+j",
+                "mac": "shift+j",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.K",
+                "key": "shift+k",
+                "mac": "shift+k",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.L",
+                "key": "shift+l",
+                "mac": "shift+l",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.M",
+                "key": "shift+m",
+                "mac": "shift+m",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.N",
+                "key": "shift+n",
+                "mac": "shift+n",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.O",
+                "key": "shift+o",
+                "mac": "shift+o",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.P",
+                "key": "shift+p",
+                "mac": "shift+p",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.Q",
+                "key": "shift+q",
+                "mac": "shift+q",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.R",
+                "key": "shift+r",
+                "mac": "shift+r",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.S",
+                "key": "shift+s",
+                "mac": "shift+s",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.T",
+                "key": "shift+t",
+                "mac": "shift+t",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.U",
+                "key": "shift+u",
+                "mac": "shift+u",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
                 "command": "vim.V",
                 "key": "shift+v",
-				"mac": "shift+v",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.W",
-				"key": "shift+w",
-				"mac": "shift+w",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.X",
-				"key": "shift+x",
-				"mac": "shift+x",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.Y",
-				"key": "shift+y",
-				"mac": "shift+y",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.Z",
-				"key": "shift+z",
-				"mac": "shift+z",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.n0",
-				"key": "0",
-				"mac": "0",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.n1",
-				"key": "1",
-				"mac": "1",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.n2",
-				"key": "2",
-				"mac": "2",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.n3",
-				"key": "3",
-				"mac": "3",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.n4",
-				"key": "4",
-				"mac": "4",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.n5",
-				"key": "5",
-				"mac": "5",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.n6",
-				"key": "6",
-				"mac": "6",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.n7",
-				"key": "7",
-				"mac": "7",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.n8",
-				"key": "8",
-				"mac": "8",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.n9",
-				"key": "9",
-				"mac": "9",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.doller",
-				"key": "shift+4",
-				"mac": "shift+4",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.doublequote",
-				"key": "shift+'",
-				"mac": "shift+'",
-				"when": "editorTextFocus && !suggestWidgetVisible"
-			},
-			{
-				"command": "vim.esc",
-				"key": "escape",
-				"mac": "escape",
-				"when": "editorTextFocus"
-			}
-		]
-	},
-	"scripts": {
-		"vscode:prepublish": "node ./node_modules/vscode/bin/compile",
-		"compile": "node ./node_modules/vscode/bin/compile -watch -p ./"
-	},
-	"devDependencies": {
-		"typescript": "^1.6.2",
-		"vscode": "0.10.x"
-	}
+                "mac": "shift+v",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.W",
+                "key": "shift+w",
+                "mac": "shift+w",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.X",
+                "key": "shift+x",
+                "mac": "shift+x",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.Y",
+                "key": "shift+y",
+                "mac": "shift+y",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.Z",
+                "key": "shift+z",
+                "mac": "shift+z",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.n0",
+                "key": "0",
+                "mac": "0",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.n1",
+                "key": "1",
+                "mac": "1",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.n2",
+                "key": "2",
+                "mac": "2",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.n3",
+                "key": "3",
+                "mac": "3",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.n4",
+                "key": "4",
+                "mac": "4",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.n5",
+                "key": "5",
+                "mac": "5",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.n6",
+                "key": "6",
+                "mac": "6",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.n7",
+                "key": "7",
+                "mac": "7",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.n8",
+                "key": "8",
+                "mac": "8",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.n9",
+                "key": "9",
+                "mac": "9",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.GA",
+                "key": "`",
+                "mac": "`",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.SGA",
+                "key": "shift+`",
+                "mac": "shift+`",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.S1",
+                "key": "shift+1",
+                "mac": "shift+1",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.S2",
+                "key": "shift+2",
+                "mac": "shift+2",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.S3",
+                "key": "shift+3",
+                "mac": "shift+3",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.S4",
+                "key": "shift+4",
+                "mac": "shift+4",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.S5",
+                "key": "shift+5",
+                "mac": "shift+5",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.S6",
+                "key": "shift+6",
+                "mac": "shift+6",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.S7",
+                "key": "shift+7",
+                "mac": "shift+7",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.S8",
+                "key": "shift+8",
+                "mac": "shift+8",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.S9",
+                "key": "shift+9",
+                "mac": "shift+9",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.S0",
+                "key": "shift+0",
+                "mac": "shift+0",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.Hy",
+                "key": "-",
+                "mac": "-",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.SHp",
+                "key": "shift+-",
+                "mac": "shift+-",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.Eq",
+                "key": "=",
+                "mac": "=",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.SEq",
+                "key": "shift+=",
+                "mac": "shift+=",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.LB",
+                "key": "[",
+                "mac": "[",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.SLB",
+                "key": "shift+[",
+                "mac": "shift+[",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.RB",
+                "key": "]",
+                "mac": "]",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.SRB",
+                "key": "shift+]",
+                "mac": "shift+]",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            // 動作しない
+            // {
+            //     "command": "vim.RS",
+            //     "key": "\\",
+            //     "mac": "\\",
+            //     "when": "editorTextFocus && !suggestWidgetVisible"
+            // },
+            // 動作しない
+            // {
+            //     "command": "vim.SRS",
+            //     "key": "shift+\\",
+            //     "mac": "shift+\\",
+            //     "when": "editorTextFocus && !suggestWidgetVisible"
+            // },
+            {
+                "command": "vim.Sc",
+                "key": ";",
+                "mac": ";",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            // {
+            //     "command": "vim.SSc",
+            //     "key": "shift+;",
+            //     "mac": "shift+;",
+            //     "when": "editorTextFocus && !suggestWidgetVisible"
+            // },
+            // {
+            //     "command": "vim.Ap",
+            //     "key": "'",
+            //     "mac": "'",
+            //     "when": "editorTextFocus && !suggestWidgetVisible"
+            // },
+            {
+                "command": "vim.SAp",
+                "key": "shift+'",
+                "mac": "shift+'",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.Cm",
+                "key": ",",
+                "mac": ",",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.LT",
+                "key": "shift+,",
+                "mac": "shift+,",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.Pd",
+                "key": ".",
+                "mac": ".",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.SPd",
+                "key": "shift+.",
+                "mac": "shift+.",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.Sl",
+                "key": "/",
+                "mac": "/",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.SSl",
+                "key": "shift+/",
+                "mac": "shift+/",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            // 動作しない
+            // {
+            //     "command": "vim.Sp",
+            //     "key": "space",
+            //     "mac": "space",
+            //     "when": "editorTextFocus && !suggestWidgetVisible"
+            // },
+            {
+                "command": "vim.Ec",
+                "key": "escape",
+                "mac": "escape",
+                "when": "editorTextFocus"
+            }
+        ]
+    },
+    "scripts": {
+        "vscode:prepublish": "node ./node_modules/vscode/bin/compile",
+        "compile": "node ./node_modules/vscode/bin/compile -watch -p ./"
+    },
+    "devDependencies": {
+        "typescript": "^1.6.2",
+        "vscode": "0.10.x"
+    }
 }

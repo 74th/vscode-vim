@@ -2,10 +2,10 @@ import {IEditor} from "../IEditor";
 import {VimStyle, Range} from "../VimStyle";
 import {RegisterItem} from "../Register";
 import * as Enums from "../VimStyleEnums";
-import {IAction} from "./IAction";
+import {IRequireMotionAction} from "./IAction";
 import {IMotion} from "../motion/IMotion";
 
-export class DeleteAction implements IAction {
+export class DeleteAction implements IRequireMotionAction {
 
     public motion: IMotion;
     public isLine: boolean;
@@ -44,7 +44,12 @@ export class DeleteAction implements IAction {
     public Execute(editor: IEditor, vim: VimStyle) {
         var r = new Range();
         r.start = editor.GetCurrentPosition();
-        r.end = this.motion.CalculateEnd(editor, r.start);
+        var p = this.motion.CalculateEnd(editor, r.start);
+        if (p == null) {
+            // cancel
+            return;
+        }
+        r.end = p; 
         r.Sort();
 
         var item = new RegisterItem();

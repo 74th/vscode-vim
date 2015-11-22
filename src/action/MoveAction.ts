@@ -7,8 +7,7 @@ export class MoveAction implements IAction {
 
     private motion: IMotion;
 
-    constructor(motion: IMotion) {
-        this.motion = motion;
+    constructor() {
     }
 
     public SetMotion(motion: IMotion) {
@@ -18,6 +17,10 @@ export class MoveAction implements IAction {
     public Execute(editor: IEditor, vim: VimStyle) {
         var from = editor.GetCurrentPosition();
         var to = this.motion.CalculateEnd(editor, from);
+        if (to == null) {
+            // cancel
+            return;
+        }
         editor.SetPosition(to);
     }
 }

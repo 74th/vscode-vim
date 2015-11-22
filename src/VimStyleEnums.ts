@@ -1,6 +1,3 @@
-/**
- * keys
- */
 export enum Key {
     a,
     b,
@@ -85,7 +82,7 @@ export enum Key {
     LessThan,
     Equals,
     GreaterThan,
-    Questio,
+    Question,
     AtMark,
     LeftSquareBracket,
     ReverseSolidus,
@@ -118,4 +115,9 @@ export enum ActionType {
     Insert,
     Move,
     Paste
+}
+
+export enum Direction {
+    Right,
+    Left
 }

@@ -13,21 +13,24 @@ import {IMotion} from './motion/IMotion';
 import {RightMotion} from './motion/RightMotion';
 import {LeftMotion} from './motion/LeftMotion';
 import {UpMotion} from './motion/UpMotion';
-import {DownMotion} from './motion/DownMotion'
-import {FirstMotion} from './motion/FirstMotion'
-import {EndMotion} from './motion/EndMotion'
+import {DownMotion} from './motion/DownMotion';
+import {FirstMotion} from './motion/FirstMotion';
+import {EndMotion} from './motion/EndMotion';
+import {ForwardCharMotion} from './motion/ForwardCharMotion';
 
 
 enum CommandStatus {
     None,
     FirstNum,
     RequireMotion,
-    RequireMotionNum
+    RequireMotionNum,
+    RequireCharForMotion
 }
 export class CommandFactory {
 
     private status: CommandStatus;
     private stack: IAction;
+    private stackMotion: ForwardCharMotion;
     private stackedKey: Enums.Key;
     private numStock: number;
     private commandString: string;
@@ -45,9 +48,11 @@ export class CommandFactory {
             case CommandStatus.RequireMotion:
                 return this.pushKeyAtRequireMotion(key);
             case CommandStatus.RequireMotionNum:
-                return this.pushKeyAtRequireMotionNum(key);    
+                return this.pushKeyAtRequireMotionNum(key);
+            case CommandStatus.RequireCharForMotion:
+                return this.pushKeyAtRequireCharForMotion(key);
         }
-        throw new Error("Panic!");
+        return new PanicAction();
     }
 
     public Clear() {
@@ -78,6 +83,9 @@ export class CommandFactory {
             case KeyClass.RequireMotionAction:
                 this.status = CommandStatus.RequireMotion;
                 return this.stackRequireMotionAction(key, 1);
+            case KeyClass.RequireCharMotion:
+                this.status = CommandStatus.RequireCharForMotion;
+                return this.stackForwardCharMoveAction(key, 1);
             default:
                 this.Clear();
                 return new PanicAction();
@@ -98,15 +106,18 @@ export class CommandFactory {
             case KeyClass.RequireMotionAction:
                 this.status = CommandStatus.RequireMotion;
                 return this.stackRequireMotionAction(key, this.numStock);
+            case KeyClass.RequireCharMotion:
+                this.status = CommandStatus.RequireCharForMotion;
+                return this.stackForwardCharMoveAction(key, this.numStock);
         }
-        throw new Error("Panic!");
+        return new PanicAction();
     }
-    
+
     private pushKeyAtRequireMotion(key: Enums.Key): IAction {
         var keyClass = SelectKeyClass(key);
         switch (keyClass) {
             case KeyClass.Motion:
-            case KeyClass.Zero:    
+            case KeyClass.Zero:
                 return this.setMotionToStackAction(key, 1);
             case KeyClass.NumWithoutZero:
                 this.status = CommandStatus.RequireMotionNum;
@@ -114,10 +125,14 @@ export class CommandFactory {
                 return this.stackNumeric(key);
             case KeyClass.RequireMotionAction:
                 return this.setLineToStackAction(key, 1);
+            case KeyClass.RequireCharMotion:
+                this.status = CommandStatus.RequireCharForMotion;
+                return this.stackForwardCharMotion(key, 1);
         }
+        return new PanicAction();
     }
-    
-    private pushKeyAtRequireMotionNum(key: Enums.Key): IAction{
+
+    private pushKeyAtRequireMotionNum(key: Enums.Key): IAction {
         var keyClass = SelectKeyClass(key);
         switch (keyClass) {
             case KeyClass.Motion:
@@ -128,8 +143,16 @@ export class CommandFactory {
                 return null;
             case KeyClass.SingleAction:
                 return this.setLineToStackAction(key, this.numStock);
+            case KeyClass.RequireCharMotion:
+                this.status = CommandStatus.RequireCharForMotion;
+                return this.stackForwardCharMotion(key, this.numStock);
         }
-        throw new Error("Panic!");
+        return new PanicAction();
+    }
+    
+    private pushKeyAtRequireCharForMotion(key: Enums.Key): IAction {
+        this.stackMotion.SetChar(Utils.KeyToChar(key));
+        return this.stack;
     }
 
     private createSingleAction(key: Enums.Key, count: number): IAction {
@@ -157,9 +180,9 @@ export class CommandFactory {
             case Enums.Key.Y:
                 return this.createYancToEndAction();
             case Enums.Key.C:
-                return this.createDeleteInsertToEndAction();    
+                return this.createDeleteInsertToEndAction();
             case Enums.Key.p:
-                return this.createPasteAction(false, count); 
+                return this.createPasteAction(false, count);
             case Enums.Key.P:
                 return this.createPasteAction(true, count);    
             // TODO
@@ -168,7 +191,7 @@ export class CommandFactory {
         }
     }
 
-    private createMotion(key: Enums.Key, count: number): IMotion{
+    private createMotion(key: Enums.Key, count: number): IMotion {
         var m: IMotion;
         switch (key) {
             case Enums.Key.l:
@@ -189,15 +212,18 @@ export class CommandFactory {
             case Enums.Key.Doller:
                 m = new EndMotion();
                 break;
-            default:
+            default:    
                 throw new Error("Panic!");
         }
         m.SetCount(count);
         return m;
     }
-        
+
     private createMoveAction(key: Enums.Key, count: number): IAction {
-        return new MoveAction(this.createMotion(key, count));
+        var m = this.createMotion(key, count);
+        var a = new MoveAction();
+        a.SetMotion(m);
+        return a;
     }
 
     private stackNumeric(key: Enums.Key): IAction {
@@ -244,7 +270,7 @@ export class CommandFactory {
     }
     
     // command: dm ym cm 
-    private stackRequireMotionAction(key: Enums.Key, c: number): IAction{
+    private stackRequireMotionAction(key: Enums.Key, c: number): IAction {
         var a: IRequireMotionAction;
         switch (key) {
             case Enums.Key.d:
@@ -268,50 +294,93 @@ export class CommandFactory {
         this.stackedKey = key;
         return null;
     }
-    
-    private setMotionToStackAction(key: Enums.Key, c: number): IAction{
+
+    private setMotionToStackAction(key: Enums.Key, c: number): IAction {
         var a = <IRequireMotionAction>this.stack;
         a.SetMotion(this.createMotion(key, c));
         return a;
     }
-    
-    private setLineToStackAction(key: Enums.Key, c: number): IAction{
+
+    private setLineToStackAction(key: Enums.Key, c: number): IAction {
         var a = <IRequireMotionAction>this.stack;
         var m: IMotion;
         a.SetLineOption();
         if (this.stackedKey == key) {
-            
+
             if (c == 0) {
                 // dd yy cc
                 return a;
             }
-            
+
             m = new DownMotion();
             m.SetCount(c - 1);
         } else {
             m = this.createMotion(key, c);
         }
-        
+
         a.SetMotion(m);
         return a;
     }
 
+    private stackForwardCharMoveAction(key: Enums.Key, c: number): IAction {
+        var a = new MoveAction();
+        var m = this.createForwardCharMotion(key, c);
+        a.SetMotion(m);
+        this.stack = a;
+        this.stackMotion = m;
+        this.commandString += Utils.KeyToChar(key);
+        return null;
+    }
+    
+    private stackForwardCharMotion(key: Enums.Key, c: number): IAction{
+        var m = this.createForwardCharMotion(key, c);
+        var a = <IRequireMotionAction>this.stack;
+        a.SetMotion(m);
+        this.stackMotion = m;
+        this.commandString += Utils.KeyToChar(key);
+        return null;
+    }
+
+    private createForwardCharMotion(key: Enums.Key, c: number): ForwardCharMotion {
+        var m: ForwardCharMotion;
+        switch (key) {
+            case Enums.Key.f:
+                m = new ForwardCharMotion(Enums.Direction.Right, Enums.Direction.Left);
+                break;
+            case Enums.Key.F:
+                m = new ForwardCharMotion(Enums.Direction.Left, Enums.Direction.Left);
+                break;
+            case Enums.Key.t:
+                m = new ForwardCharMotion(Enums.Direction.Right, Enums.Direction.Right);
+                break;
+            case Enums.Key.T:
+                m = new ForwardCharMotion(Enums.Direction.Left, Enums.Direction.Right);
+                break;
+        }
+        m.SetCount(c);
+        return m;
+    }
+
     // command: a    
     private createAppendAction(): IAction {
-        var motion = new RightMotion();
-        motion.SetCount(1);
+        var m = new RightMotion();
+        m.SetCount(1);
+        var ma = new MoveAction();
+        ma.SetMotion(m);
         return new CombinationAction([
-            new MoveAction(motion),
+            ma,
             new InsertAction()
         ]);
     }
 
     // command: A    
     private createEndAppendAction(): IAction {
-        var motion = new EndMotion();
-        motion.SetCount(1);
+        var m = new EndMotion();
+        m.SetCount(1);
+        var ma = new MoveAction();
+        ma.SetMotion(m);
         return new CombinationAction([
-            new MoveAction(motion),
+            ma,
             new InsertAction()
         ]);
     }
@@ -413,7 +482,9 @@ enum KeyClass {
     // i a 
     TextObjectOrSingleAction,
     // d y c
-    RequireMotionAction
+    RequireMotionAction,
+    // f t F T
+    RequireCharMotion
 }
 function SelectKeyClass(key: Enums.Key): KeyClass {
     switch (key) {
@@ -446,7 +517,7 @@ function SelectKeyClass(key: Enums.Key): KeyClass {
         case Enums.Key.I:
         case Enums.Key.A:
         case Enums.Key.p:
-        case Enums.Key.P: 
+        case Enums.Key.P:
             return KeyClass.SingleAction;
         case Enums.Key.i:
         case Enums.Key.a:
@@ -454,6 +525,11 @@ function SelectKeyClass(key: Enums.Key): KeyClass {
         case Enums.Key.d:
         case Enums.Key.y:
         case Enums.Key.c:
-            return KeyClass.RequireMotionAction;    
+            return KeyClass.RequireMotionAction;
+        case Enums.Key.f:
+        case Enums.Key.t:
+        case Enums.Key.F:
+        case Enums.Key.T:
+            return KeyClass.RequireCharMotion;
     }
 }
