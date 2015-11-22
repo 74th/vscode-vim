@@ -146,6 +146,18 @@ export class CommandFactory {
                 return this.createEndAppendAction();
             case Enums.Key.x:
                 return this.createCharactorDeleteAction(count);
+            case Enums.Key.X:
+                return this.createBeforeCharactorDeleteAction(count);
+            case Enums.Key.s:
+                return this.createCharactorDeleteInsertAction(count);
+            case Enums.Key.S:
+                return this.createLineDeleteInsertAction(count);
+            case Enums.Key.D:
+                return this.createDeleteToEndAction();
+            case Enums.Key.Y:
+                return this.createYancToEndAction();
+            case Enums.Key.C:
+                return this.createDeleteInsertToEndAction();    
             case Enums.Key.p:
                 return this.createPasteAction(false, count); 
             case Enums.Key.P:
@@ -239,9 +251,15 @@ export class CommandFactory {
                 a = new DeleteAction();
                 break;
             case Enums.Key.y:
-                // TODO
+                var ya = new DeleteAction();
+                ya.SetOnlyYancOption();
+                a = ya;
+                break;
             case Enums.Key.c:
-                // TODO    
+                var ca = new DeleteAction();
+                ca.SetInsertOption();
+                a = ca;
+                break;
             default:
                 throw new Error("Panic!");
         }
@@ -308,6 +326,70 @@ export class CommandFactory {
         return a;
     }
     
+    // commnad: X NX
+    private createBeforeCharactorDeleteAction(c: number): IAction {
+        var m = new LeftMotion();
+        m.SetCount(c);
+        var a = new DeleteAction();
+        a.SetSmallOption();
+        a.SetMotion(m);
+        return a;
+    }
+    
+    // commnad: s
+    private createCharactorDeleteInsertAction(c: number): IAction {
+        var m = new RightMotion();
+        m.SetCount(1);
+        var a = new DeleteAction();
+        a.SetSmallOption();
+        a.SetMotion(m);
+        a.SetInsertOption()
+        return a;
+    }
+    
+    // command: S
+    private createLineDeleteInsertAction(c: number) {
+        var m = new DownMotion();
+        m.SetCount(c - 1);
+        var a = new DeleteAction();
+        a.SetLineOption();
+        a.SetMotion(m);
+        a.SetInsertOption()
+        return a;
+    }
+    
+    // command: D
+    private createDeleteToEndAction() {
+        var m = new EndMotion();
+        m.SetCount(1);
+        var a = new DeleteAction();
+        a.SetSmallOption();
+        a.SetMotion(m);
+        return a;
+    }
+    
+    // command: C
+    private createDeleteInsertToEndAction() {
+        var m = new EndMotion();
+        m.SetCount(1);
+        var a = new DeleteAction();
+        a.SetSmallOption();
+        a.SetMotion(m);
+        a.SetInsertOption();
+        return a;
+    }
+    
+    // command: Y
+    private createYancToEndAction() {
+        var m = new EndMotion();
+        m.SetCount(1);
+        var a = new DeleteAction();
+        a.SetSmallOption();
+        a.SetMotion(m);
+        a.SetOnlyYancOption()
+        return a;
+    }
+    
     // command: p P np NP
     private createPasteAction(isBack: boolean, c: number) {
         var a = new PasteAction();
@@ -326,7 +408,7 @@ enum KeyClass {
     Zero,
     // w b h j k l $
     Motion,
-    // x s I A p P
+    // x s I A p P C D S
     SingleAction,
     // i a 
     TextObjectOrSingleAction,
@@ -356,11 +438,15 @@ function SelectKeyClass(key: Enums.Key): KeyClass {
         case Enums.Key.Doller:
             return KeyClass.Motion;
         case Enums.Key.x:
+        case Enums.Key.x:
         case Enums.Key.s:
+        case Enums.Key.S:
+        case Enums.Key.C:
+        case Enums.Key.D:
         case Enums.Key.I:
         case Enums.Key.A:
         case Enums.Key.p:
-        case Enums.Key.P:    
+        case Enums.Key.P: 
             return KeyClass.SingleAction;
         case Enums.Key.i:
         case Enums.Key.a:

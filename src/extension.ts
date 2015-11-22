@@ -62,7 +62,7 @@ export function activate(context: vscode.ExtensionContext) {
 		vim.PushKey(VimStyleEnums.Key.r);
 	});
 	vscode.commands.registerCommand('vim.s', () => {
-		vim.PushKey(VimStyleEnums.Key.w);
+		vim.PushKey(VimStyleEnums.Key.s);
 	});
 	vscode.commands.registerCommand('vim.t', () => {
 		vim.PushKey(VimStyleEnums.Key.t);
@@ -140,7 +140,7 @@ export function activate(context: vscode.ExtensionContext) {
 		vim.PushKey(VimStyleEnums.Key.R);
 	});
 	vscode.commands.registerCommand('vim.S', () => {
-		vim.PushKey(VimStyleEnums.Key.W);
+		vim.PushKey(VimStyleEnums.Key.S);
 	});
 	vscode.commands.registerCommand('vim.T', () => {
 		vim.PushKey(VimStyleEnums.Key.T);

@@ -10,21 +10,33 @@ export class DeleteAction implements IAction {
     public motion: IMotion;
     public isLine: boolean;
     public isLarge: boolean;
+    public isInsert: boolean;
+    public isOnlyYanc: boolean;
 
     constructor() {
         this.motion = null;
         this.isLine = false;
         this.isLarge = true;
+        this.isInsert = false;
+        this.isOnlyYanc = false;
     }
 
     public SetLineOption() {
         this.isLine = true;
     }
-    
+
     public SetSmallOption() {
         this.isLarge = true;
     }
-    
+
+    public SetInsertOption() {
+        this.isInsert = true;
+    }
+
+    public SetOnlyYancOption() {
+        this.isOnlyYanc = true;
+    }
+
     public SetMotion(motion: IMotion) {
         this.motion = motion;
     }
@@ -37,7 +49,7 @@ export class DeleteAction implements IAction {
 
         var item = new RegisterItem();
         if (this.isLine) {
-            
+
             r.start.char = 0;
             r.end.line = r.end.line + 1;
             r.end.char = 0;
@@ -50,7 +62,7 @@ export class DeleteAction implements IAction {
                 item.Body = editor.ReadRange(r) + "\n";
                 if (r.start.line > 0) {
                     // delete previous \n
-                    var preLine = editor.ReadLine(r.start.line -1);
+                    var preLine = editor.ReadLine(r.start.line - 1);
                     r.start.line = r.start.line - 1;
                     r.start.char = preLine.length;
                 }
@@ -61,11 +73,21 @@ export class DeleteAction implements IAction {
         } else {
             item.Body = editor.ReadRange(r);
             item.Type = Enums.RegisterType.Text;
-        }    
+        }
 
         if (this.isLarge) {
             vim.Register.SetRoll(item);
         }
-        editor.DeleteRange(r);
+        if (!this.isOnlyYanc) {
+            if (this.isLine && this.isInsert) {
+                editor.ReplaceRange(r, "\n");
+            } else {
+                editor.DeleteRange(r);
+            }
+        }
+
+        if (this.isInsert) {
+            vim.ApplyInsertMode();
+        }
     }
 }
