@@ -24,9 +24,9 @@ tsc
 
 ## support
 
+* h j k l 0 $ Nh Nj Nk Nl
 * i a s x I A S X Nx NX
 * d y c dd yy cc Ndd Nyy Ncc D C p P
-* h j k l 0 $ Nh Nj Nk Nl
 
 ## never support
 
