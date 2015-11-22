@@ -40,7 +40,7 @@ tsc
 * w b
 * o O
 * "xd "xy "xc "xp
-* g
+* g G
 * ~
 * > <
 * % [ ]
