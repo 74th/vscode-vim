@@ -61,6 +61,7 @@ export class VSCodeEditor implements IEditor {
         var cp = tranceVSCodePosition(p);
         var s = new vscode.Selection(cp, cp);
         vscode.window.activeTextEditor.selection = s;
+        vscode.window.activeTextEditor.revealRange(s, vscode.TextEditorRevealType.Default);
     }
     public GetLastPosition(): Position{
         var end = vscode.window.activeTextEditor.document.lineAt(vscode.window.activeTextEditor.document.lineCount - 1).range.end;
