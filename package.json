@@ -518,38 +518,38 @@
                 "mac": "shift+]",
                 "when": "editorTextFocus && !suggestWidgetVisible"
             },
-            // 動作しない
-            // {
-            //     "command": "vim.RS",
-            //     "key": "\\",
-            //     "mac": "\\",
-            //     "when": "editorTextFocus && !suggestWidgetVisible"
-            // },
-            // 動作しない
-            // {
-            //     "command": "vim.SRS",
-            //     "key": "shift+\\",
-            //     "mac": "shift+\\",
-            //     "when": "editorTextFocus && !suggestWidgetVisible"
-            // },
+            {
+                // 動作しない not work
+                "command": "vim.RS",
+                "key": "\\",
+                "mac": "\\",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                // 動作しない not work
+                "command": "vim.SRS",
+                "key": "shift+\\",
+                "mac": "shift+\\",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
             {
                 "command": "vim.Sc",
                 "key": ";",
                 "mac": ";",
                 "when": "editorTextFocus && !suggestWidgetVisible"
             },
-            // {
-            //     "command": "vim.SSc",
-            //     "key": "shift+;",
-            //     "mac": "shift+;",
-            //     "when": "editorTextFocus && !suggestWidgetVisible"
-            // },
-            // {
-            //     "command": "vim.Ap",
-            //     "key": "'",
-            //     "mac": "'",
-            //     "when": "editorTextFocus && !suggestWidgetVisible"
-            // },
+            {
+                "command": "vim.SSc",
+                "key": "shift+;",
+                "mac": "shift+;",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
+            {
+                "command": "vim.Ap",
+                "key": "'",
+                "mac": "'",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
             {
                 "command": "vim.SAp",
                 "key": "shift+'",
@@ -592,13 +592,13 @@
                 "mac": "shift+/",
                 "when": "editorTextFocus && !suggestWidgetVisible"
             },
-            // 動作しない
-            // {
-            //     "command": "vim.Sp",
-            //     "key": "space",
-            //     "mac": "space",
-            //     "when": "editorTextFocus && !suggestWidgetVisible"
-            // },
+            {
+                // 動作しない not work
+                "command": "vim.Sp",
+                "key": "space",
+                "mac": "space",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
             {
                 "command": "vim.Ec",
                 "key": "escape",

@@ -5,6 +5,7 @@ import {IAction, IRequireMotionAction} from './action/IAction';
 import {PanicAction} from './action/PanicAction';
 import {CombinationAction} from './action/CombinationAction';
 import {InsertAction} from './action/InsertAction';
+import {InsertNewLineAction} from './action/InsertNewLineAction';
 import {PasteAction} from './action/PasteAction';
 import {DeleteAction} from './action/DeleteAction';
 import {FirstInsertAction} from './action/FirstInsertAction';
@@ -167,6 +168,10 @@ export class CommandFactory {
                 return new FirstInsertAction();
             case Enums.Key.A:
                 return this.createEndAppendAction();
+            case Enums.Key.o:
+                return this.createInsertNewLineAction(false);
+            case Enums.Key.O:
+                return this.createInsertNewLineAction(true);
             case Enums.Key.x:
                 return this.createCharactorDeleteAction(count);
             case Enums.Key.X:
@@ -360,6 +365,15 @@ export class CommandFactory {
         m.SetCount(c);
         return m;
     }
+    
+    // command: o O
+    public createInsertNewLineAction(isPre: boolean) {
+        var a = new InsertNewLineAction();
+        if (isPre) {
+            a.SetBackOption();
+        }
+        return a;
+    }
 
     // command: a    
     private createAppendAction(): IAction {
@@ -516,6 +530,8 @@ function SelectKeyClass(key: Enums.Key): KeyClass {
         case Enums.Key.D:
         case Enums.Key.I:
         case Enums.Key.A:
+        case Enums.Key.o:
+        case Enums.Key.O:
         case Enums.Key.p:
         case Enums.Key.P:
             return KeyClass.SingleAction;
