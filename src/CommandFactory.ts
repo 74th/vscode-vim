@@ -18,7 +18,7 @@ import {DownMotion} from './motion/DownMotion';
 import {FirstMotion} from './motion/FirstMotion';
 import {EndMotion} from './motion/EndMotion';
 import {ForwardCharMotion} from './motion/ForwardCharMotion';
-
+import {ForwardWordMotion} from './motion/ForwardWordMotion';
 
 enum CommandStatus {
     None,
@@ -216,6 +216,14 @@ export class CommandFactory {
                 break;
             case Enums.Key.Doller:
                 m = new EndMotion();
+                break;
+            case Enums.Key.w:
+                m = new ForwardWordMotion();
+                break;
+            case Enums.Key.b:
+                var bm = new ForwardWordMotion();
+                bm.SetBack();
+                m = bm;
                 break;
             default:    
                 throw new Error("Panic!");

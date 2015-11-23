@@ -121,3 +121,12 @@ export enum Direction {
     Right,
     Left
 }
+
+export enum CharGroup {
+    AlphabetAndNumber,
+    Marks,
+    Spaces,
+    Hiragana,
+    Katakana,
+    Other
+}

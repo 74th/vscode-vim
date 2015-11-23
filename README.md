@@ -24,8 +24,8 @@ tsc
 
 ## support
 
-* h j k l 0 $ Nh Nj Nk Nl t f T F
-* i a s o x I A S O X Nx NX
+* h j k l 0 $ w b tx fx Tx Fx
+* i a s o x I A S O X
 * d y c dd yy cc Ndd Nyy Ncc D C p P
 
 ## never support
@@ -36,7 +36,6 @@ tsc
 
 ## future suppprt
 
-* w b
 * g G
 * ; ,
 * J
@@ -59,5 +58,5 @@ tsc
 
 ## JISキーボードユーザへ
 
-キーバインドの不具合が見つかっています。tX、fXのアクションや、Insertモード中に入力できない文字があります。
-Ctrl-Spaceのサジェスチョン表示中はVimStyleでは制御しないようにしているため、その表示中に入力してください。
+VSCodeのキーバインドの不具合が見つかっています。tX、fXのアクションや、Insertモード中に入力できない文字があります。
+その場合、Ctrl-Spaceのサジェスチョン表示し、その時に入力してください。サジェスチョン表示中はVimStyleでは制御しないようにしています。

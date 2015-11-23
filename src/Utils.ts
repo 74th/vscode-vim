@@ -292,3 +292,63 @@ export function GetKeyType(key: Enums.Key): Enums.KeyType {
             return Enums.KeyType.Mark;
     }
 }
+
+export function GetCharClass(charCode: number): Enums.CharGroup {
+    if (charCode <= 0x20) {
+        // Space,Tab,LF...
+        return Enums.CharGroup.Spaces;
+    }
+    if (charCode <= 0x2F) {
+        // ! - /
+        return Enums.CharGroup.Marks;
+    }
+    if (charCode <= 0x39) {
+        // 0 - 9
+        return Enums.CharGroup.AlphabetAndNumber;
+    }
+    if (charCode <= 0x40) {
+        // : - @
+        return Enums.CharGroup.Marks;
+    }
+    if (charCode <= 0x5A) {
+        // A - Z
+        return Enums.CharGroup.AlphabetAndNumber;
+    }
+    if (charCode <= 0x60) {
+        // [ - `
+        return Enums.CharGroup.Marks;
+    }
+    if (charCode <= 0x7A) {
+        // a - z
+        return Enums.CharGroup.AlphabetAndNumber;
+    }
+    if (charCode <= 0x7E) {
+        // { - ~
+        return Enums.CharGroup.Marks;
+    }
+    if (charCode == 0x7F) {
+        // DEL
+        return Enums.CharGroup.Spaces;
+    }
+    if (charCode < 0x3000) {
+        // 漢字とか
+        return Enums.CharGroup.Other;
+    }
+    if (charCode == 0x3000) {
+        // 全角スペース
+        return Enums.CharGroup.Spaces;
+    }
+    if (charCode <= 0x303F) {
+        // 全角記号
+        return Enums.CharGroup.Marks;
+    }
+    if (charCode <= 0x309F) {
+        // 平仮名
+        return Enums.CharGroup.Hiragana;
+    }
+    if (charCode <= 0x30FF) {
+        // 片仮名
+        return Enums.CharGroup.Katakana;
+    }
+    return Enums.CharGroup.Other;
+}
