@@ -1,26 +1,19 @@
 vim style key-binding for VSCode
 
+* https://github.com/74th/vscode-vim
+* https://marketplace.visualstudio.com/items/74th.vimStyle
+
+VSCode key-binding system has some issue. This plugin does not work compltely.
+
 ## Require
 
 * VSCode 0.10.1
-* typescrpt ```npm install -g typescript```
 
 ## install
 
-### windows
-
 ```
-git clone https://github.com/74th/vscode-vim.git %USERPROFILE%\.vscode\extensions\vscode-vim
-cd %USERPROFILE%\.vscode\extensions\vscode-vim
-tsc
+ext install vimStyle
 ```
-### Mac,Linux
-
-```
-git clone https://github.com/74th/vscode-vim.git $HOME/.vscode/extensions/vscode-vim
-cd $HOME/.vscode/extensions/vscode-vim
-tsc
-``` 
 
 ## support
 
@@ -60,3 +53,7 @@ tsc
 
 VSCodeのキーバインドの不具合が見つかっています。tX、fXのアクションや、Insertモード中に入力できない文字があります。
 その場合、Ctrl-Spaceのサジェスチョン表示し、その時に入力してください。サジェスチョン表示中はVimStyleでは制御しないようにしています。
+
+## License
+
+MIT License

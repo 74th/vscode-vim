@@ -1,7 +1,18 @@
 {
     "name": "vimStyle",
+    "displayname": "Vim Style",
     "description": "vim style keybinding extension",
-    "version": "0.1.0",
+    "icon": "bluevim.png",
+    "license": "MIT License",
+    "bugs": {
+        "url": "https://github.com/74th/vscode-vim/issues"
+    },
+    "homepage": "https://github.com/74th/vscode-vim",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/74th/vscode-vim.git"
+    },
+    "version": "0.1.1",
     "publisher": "74th",
     "engines": {
         "vscode": "^0.10.1"
