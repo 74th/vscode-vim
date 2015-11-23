@@ -24,8 +24,8 @@ tsc
 
 ## support
 
-* h j k l 0 $ Nh Nj Nk Nl
-* i a s x I A S X Nx NX
+* h j k l 0 $ Nh Nj Nk Nl t f T F
+* i a s o x I A S O X Nx NX
 * d y c dd yy cc Ndd Nyy Ncc D C p P
 
 ## never support
@@ -36,11 +36,11 @@ tsc
 
 ## future suppprt
 
-* f t ; ,
 * w b
-* o O
-* "xd "xy "xc "xp
 * g G
+* ; ,
+* J
+* "xd "xy "xc "xp
 * ~
 * > <
 * % [ ]
