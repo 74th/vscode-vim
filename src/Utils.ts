@@ -27,6 +27,16 @@ export function KeyToNum(key: Enums.Key): number {
     }
 }
 
+/**
+ * isNumber: Check if value is a number, including
+ * the number 0.
+ */
+export function isNumber(val) {
+    console.log('testing val', val);
+    var res = parseInt(val, 10);
+    return isNaN ? null : res;
+} 
+
 export function KeyToChar(key: Enums.Key): string {
     switch (key) {
         case Enums.Key.a:
@@ -43,7 +53,7 @@ export function KeyToChar(key: Enums.Key): string {
             return "f";
         case Enums.Key.g:
             return "g";
-        case Enums.Key.a:
+        case Enums.Key.h:
             return "h";
         case Enums.Key.i:
             return "i";
