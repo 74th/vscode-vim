@@ -1,10 +1,9 @@
 import {AbstractMotion} from "./AbstractMotion"
-import {IEditor} from "../IEditor"
-import {Position} from "../VimStyle"
+import {Position} from "../VimStyle";
 
 export class RightMotion extends AbstractMotion{
 	
-	public CalculateEnd(editor:IEditor,start:Position){
+	public CalculateEnd(editor: IEditor,start: IPosition): IPosition {
 		var line = editor.ReadLineAtCurrentPosition();
 		var end = new Position();
 		end.line = start.line;

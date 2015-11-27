@@ -1,5 +1,4 @@
 import {AbstractMotion} from "./AbstractMotion";
-import {IEditor} from "../IEditor";
 import * as Enums from "../VimStyleEnums";
 import * as Utils from "../Utils";
 import {Position} from "../VimStyle";
@@ -17,7 +16,7 @@ export class ForwardWordMotion extends AbstractMotion {
         this.isBack = true;
     };
 
-    public CalculateEnd(editor: IEditor, start: Position) {
+    public CalculateEnd(editor: IEditor, start: IPosition): IPosition {
         
         var count = this.GetCount();
         var beforeCharClass: Enums.CharGroup;

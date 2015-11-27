@@ -1,8 +1,3 @@
-import {IEditor} from "../IEditor";
-import {VimStyle} from "../VimStyle";
-import {IAction} from "./IAction";
-import {IMotion} from "../motion/IMotion"
-
 export class MoveAction implements IAction {
 
     private motion: IMotion;
@@ -14,7 +9,7 @@ export class MoveAction implements IAction {
         this.motion = motion;
     }
 
-    public Execute(editor: IEditor, vim: VimStyle) {
+    public Execute(editor: IEditor, vim: IVimStyle) {
         var from = editor.GetCurrentPosition();
         var to = this.motion.CalculateEnd(editor, from);
         if (to == null) {

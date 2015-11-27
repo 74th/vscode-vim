@@ -1,8 +1,5 @@
-import {IEditor} from "../IEditor";
-import {VimStyle, Position} from "../VimStyle";
+import {Position} from '../VimStyle';
 import * as Enums from "../VimStyleEnums";
-import {IAction} from "./IAction";
-import {RegisterItem} from "../Register";
 
 export class PasteAction implements IAction {
 
@@ -27,8 +24,8 @@ export class PasteAction implements IAction {
         this.registerKey = key;
     }
 
-    public Execute(editor: IEditor, vim: VimStyle) {
-        var item: RegisterItem;
+    public Execute(editor: IEditor, vim: IVimStyle) {
+        var item: IRegisterItem;
         if (this.registerKey == null) {
             item = vim.Register.GetUnName();
         } else {

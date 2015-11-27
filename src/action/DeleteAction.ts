@@ -1,9 +1,6 @@
-import {IEditor} from "../IEditor";
 import {VimStyle, Range} from "../VimStyle";
 import {RegisterItem} from "../Register";
 import * as Enums from "../VimStyleEnums";
-import {IRequireMotionAction} from "./IAction";
-import {IMotion} from "../motion/IMotion";
 
 export class DeleteAction implements IRequireMotionAction {
 

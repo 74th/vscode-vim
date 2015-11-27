@@ -1,9 +1,7 @@
-import {IEditor} from "../IEditor";
-import {VimStyle, Position} from "../VimStyle";
-import {IAction} from "./IAction"
+import {Position} from "../VimStyle";
 
 export class FirstInsertAction implements IAction {
-    public Execute(editor: IEditor, vim: VimStyle) {
+    public Execute(editor: IEditor, vim: IVimStyle) {
         var line = editor.ReadLineAtCurrentPosition();
         var lineNum = editor.GetCurrentPosition().line;
         var l = line.length;

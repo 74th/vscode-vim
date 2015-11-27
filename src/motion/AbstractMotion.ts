@@ -1,12 +1,8 @@
-import {IMotion} from "./IMotion"
-import {IEditor} from "../IEditor"
-import {Position} from "../VimStyle"
-
 export class AbstractMotion implements IMotion {
 
     private count: number;
 
-    public GetCount() {
+    public GetCount(): number {
         return this.count;
     }
 
@@ -14,7 +10,7 @@ export class AbstractMotion implements IMotion {
         this.count = count;
     }
 
-    public CalculateEnd(editor: IEditor, start: Position): Position {
+    public CalculateEnd(editor: IEditor, start: IPosition): IPosition {
         throw new Error("UnImplemented");
     }
 }

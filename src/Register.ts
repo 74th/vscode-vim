@@ -6,32 +6,32 @@ export class RegisterItem {
     public Body: string;
 }
 
-export class Register {
-    private char: RegisterItem[];
-    private roll: RegisterItem[];
-    private yank: RegisterItem;
-    private unName: RegisterItem;
+export class Register implements IRegister {
+    private char: IRegisterItem[];
+    private roll: IRegisterItem[];
+    private yank: IRegisterItem;
+    private unName: IRegisterItem;
     constructor() {
         this.char = [];
         this.roll = [];
         this.yank = null;
         this.unName = null;
     }
-    public Set(key: Enums.Key, value: RegisterItem) {
+    public Set(key: Enums.Key, value: IRegisterItem) {
         this.char[key] = value;
     }
-    public SetYank(value: RegisterItem) {
+    public SetYank(value: IRegisterItem) {
         this.unName = value;
         this.yank = value;
     }
-    public SetRoll(value: RegisterItem) {
+    public SetRoll(value: IRegisterItem) {
         this.unName = value;
         this.roll.unshift(value);
         if (this.roll.length > 10) {
             this.roll.length = 10;
         }
     }
-    public Get(key: Enums.Key): RegisterItem {
+    public Get(key: Enums.Key): IRegisterItem {
         switch (key) {
             case Enums.Key.n0:
                 return this.yank;
@@ -46,10 +46,10 @@ export class Register {
         }
         return null;
     }
-    public GetUnName(): RegisterItem{
+    public GetUnName(): IRegisterItem{
         return this.unName;
     }
-    public GetRollFirst(value: RegisterItem) {
+    public GetRollFirst(value: IRegisterItem) {
         if (this.roll.length > 0) {
             return this.roll[0];
         }

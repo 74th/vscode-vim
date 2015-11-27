@@ -1,6 +1,4 @@
-import {IEditor} from "../IEditor";
 import {VimStyle} from "../VimStyle";
-import {IAction} from "./IAction"
 
 export class CombinationAction implements IAction {
     private actionList: IAction[];

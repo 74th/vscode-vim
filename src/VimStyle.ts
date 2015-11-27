@@ -1,47 +1,41 @@
 import * as Enums from "./VimStyleEnums";
 import {CommandFactory} from "./CommandFactory";
 import {InsertModeExecute} from "./mode/InsertMode";
-import {IEditor} from "./IEditor"
 import * as Utils from "./Utils"
 import {Register} from "./Register"
 
-enum Mode {
-    Normal,
-    Insert
-}
+export class VimStyle implements IVimStyle {
 
-export class VimStyle {
-
-    private mode: Mode;
+    private mode: Enums.Mode;
     private editor: IEditor;
-    private commandFactory: CommandFactory;
-    public Register: Register;
+    private commandFactory: ICommandFactory;
+    public Register: IRegister;
 
     constructor(editor: IEditor) {
         this.editor = editor;
-        this.mode = Mode.Normal;
+        this.setMode(Enums.Mode.Normal);
         this.commandFactory = new CommandFactory();
         this.Register = new Register();
     }
 
     public PushKey(key: Enums.Key) {
         switch (this.mode) {
-            case Mode.Normal:
+            case Enums.Mode.Normal:
                 this.readCommand(key);
                 return;
-            case Mode.Insert:
+            case Enums.Mode.Insert:
                 InsertModeExecute(key, this.editor)
         }
     }
 
     public PushEscKey() {
-        this.mode = Mode.Normal;
+        this.setMode(Enums.Mode.Normal);
         this.commandFactory.Clear()
         this.editor.CloseStatus();
     }
 
     public ApplyInsertMode() {
-        this.mode = Mode.Insert;
+        this.setMode(Enums.Mode.Insert);
     }
 
     private readCommand(key: Enums.Key) {
@@ -58,16 +52,20 @@ export class VimStyle {
     private showCommand() {
         this.editor.ShowStatus(this.commandFactory.GetCommandString());
     }
+    
+    private setMode(mode : Enums.Mode) {
+        this.mode = mode;
+    }
 }
 
-export class Position {
+export class Position implements IPosition {
     public line: number;
     public char: number;
 }
 
-export class Range {
-    public start: Position;
-    public end: Position;
+export class Range implements IRange {
+    public start: IPosition;
+    public end: IPosition;
     
     public Sort() {
         var isReverse = false;
@@ -79,8 +77,7 @@ export class Range {
             }
         }
         if (isReverse) {
-        var b: Position;
-            b = this.start;
+            var b = this.start;
             this.start = this.end;
             this.end = b;
         }

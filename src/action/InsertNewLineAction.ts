@@ -1,6 +1,4 @@
-import {IEditor} from "../IEditor";
-import {VimStyle,Position} from "../VimStyle";
-import {IAction} from "./IAction"
+import {Position} from "../VimStyle";
 
 export class InsertNewLineAction implements IAction {
     
@@ -13,7 +11,7 @@ export class InsertNewLineAction implements IAction {
     public SetBackOption() {
         this.isBack = true;
     }
-    public Execute(editor: IEditor, vim: VimStyle) {
+    public Execute(editor: IEditor, vim: IVimStyle) {
         var cu = editor.GetCurrentPosition();
         var cp = new Position();
         cp.char = 0;

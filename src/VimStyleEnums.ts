@@ -130,3 +130,34 @@ export enum CharGroup {
     Katakana,
     Other
 }
+
+export enum CommandStatus {
+    None,
+    FirstNum,
+    RequireMotion,
+    RequireMotionNum,
+    RequireCharForMotion
+}
+
+export enum KeyClass {
+    // 1 2 3 4 5 6 7 8 9
+    NumWithoutZero,
+    // 0
+    Zero,
+    // w b h j k l $
+    Motion,
+    // x s I A p P C D S
+    SingleAction,
+    // i a 
+    TextObjectOrSingleAction,
+    // d y c
+    RequireMotionAction,
+    // f t F T
+    RequireCharMotion
+}
+
+//Hack that lets you print out enums
+export enum Mode {
+    Normal = <any>'Normal',
+    Insert = <any>'Insert'
+}
