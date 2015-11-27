@@ -1,6 +1,5 @@
 import * as vscode from 'vscode';
 import {VimStyle} from './VimStyle';
-import * as Enums from './VimStyleEnums'
 import {VSCodeEditor} from './VSCodeEditor'
 
 export function activate(context: vscode.ExtensionContext) {
@@ -12,260 +11,260 @@ export function activate(context: vscode.ExtensionContext) {
     isJisKeyboard = conf.get<boolean>("useJisKeyboard");
     
     var disposable = vscode.commands.registerCommand('vim.a', () => {
-        vim.PushKey(Enums.Key.a);
+        vim.PushKey(Key.a);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.b', () => {
-        vim.PushKey(Enums.Key.b);
+        vim.PushKey(Key.b);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.c', () => {
-        vim.PushKey(Enums.Key.c);
+        vim.PushKey(Key.c);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.d', () => {
-        vim.PushKey(Enums.Key.d);
+        vim.PushKey(Key.d);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.e', () => {
-        vim.PushKey(Enums.Key.e);
+        vim.PushKey(Key.e);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.f', () => {
-        vim.PushKey(Enums.Key.f);
+        vim.PushKey(Key.f);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.g', () => {
-        vim.PushKey(Enums.Key.g);
+        vim.PushKey(Key.g);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.h', () => {
-        vim.PushKey(Enums.Key.h);
+        vim.PushKey(Key.h);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.i', () => {
-        vim.PushKey(Enums.Key.i);
+        vim.PushKey(Key.i);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.j', () => {
-        vim.PushKey(Enums.Key.j);
+        vim.PushKey(Key.j);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.k', () => {
-        vim.PushKey(Enums.Key.k);
+        vim.PushKey(Key.k);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.l', () => {
-        vim.PushKey(Enums.Key.l);
+        vim.PushKey(Key.l);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.m', () => {
-        vim.PushKey(Enums.Key.m);
+        vim.PushKey(Key.m);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.n', () => {
-        vim.PushKey(Enums.Key.n);
+        vim.PushKey(Key.n);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.o', () => {
-        vim.PushKey(Enums.Key.o);
+        vim.PushKey(Key.o);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.p', () => {
-        vim.PushKey(Enums.Key.p);
+        vim.PushKey(Key.p);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.q', () => {
-        vim.PushKey(Enums.Key.q);
+        vim.PushKey(Key.q);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.r', () => {
-        vim.PushKey(Enums.Key.r);
+        vim.PushKey(Key.r);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.s', () => {
-        vim.PushKey(Enums.Key.s);
+        vim.PushKey(Key.s);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.t', () => {
-        vim.PushKey(Enums.Key.t);
+        vim.PushKey(Key.t);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.u', () => {
-        vim.PushKey(Enums.Key.u);
+        vim.PushKey(Key.u);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.v', () => {
-        vim.PushKey(Enums.Key.v);
+        vim.PushKey(Key.v);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.w', () => {
-        vim.PushKey(Enums.Key.w);
+        vim.PushKey(Key.w);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.x', () => {
-        vim.PushKey(Enums.Key.x);
+        vim.PushKey(Key.x);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.y', () => {
-        vim.PushKey(Enums.Key.y);
+        vim.PushKey(Key.y);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.z', () => {
-        vim.PushKey(Enums.Key.z);
+        vim.PushKey(Key.z);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.A', () => {
-        vim.PushKey(Enums.Key.A);
+        vim.PushKey(Key.A);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.B', () => {
-        vim.PushKey(Enums.Key.B);
+        vim.PushKey(Key.B);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.C', () => {
-        vim.PushKey(Enums.Key.C);
+        vim.PushKey(Key.C);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.D', () => {
-        vim.PushKey(Enums.Key.D);
+        vim.PushKey(Key.D);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.E', () => {
-        vim.PushKey(Enums.Key.E);
+        vim.PushKey(Key.E);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.F', () => {
-        vim.PushKey(Enums.Key.F);
+        vim.PushKey(Key.F);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.G', () => {
-        vim.PushKey(Enums.Key.G);
+        vim.PushKey(Key.G);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.H', () => {
-        vim.PushKey(Enums.Key.H);
+        vim.PushKey(Key.H);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.I', () => {
-        vim.PushKey(Enums.Key.I);
+        vim.PushKey(Key.I);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.J', () => {
-        vim.PushKey(Enums.Key.J);
+        vim.PushKey(Key.J);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.K', () => {
-        vim.PushKey(Enums.Key.K);
+        vim.PushKey(Key.K);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.L', () => {
-        vim.PushKey(Enums.Key.L);
+        vim.PushKey(Key.L);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.M', () => {
-        vim.PushKey(Enums.Key.M);
+        vim.PushKey(Key.M);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.N', () => {
-        vim.PushKey(Enums.Key.N);
+        vim.PushKey(Key.N);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.O', () => {
-        vim.PushKey(Enums.Key.O);
+        vim.PushKey(Key.O);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.P', () => {
-        vim.PushKey(Enums.Key.P);
+        vim.PushKey(Key.P);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.Q', () => {
-        vim.PushKey(Enums.Key.Q);
+        vim.PushKey(Key.Q);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.R', () => {
-        vim.PushKey(Enums.Key.R);
+        vim.PushKey(Key.R);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.S', () => {
-        vim.PushKey(Enums.Key.S);
+        vim.PushKey(Key.S);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.T', () => {
-        vim.PushKey(Enums.Key.T);
+        vim.PushKey(Key.T);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.U', () => {
-        vim.PushKey(Enums.Key.U);
+        vim.PushKey(Key.U);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.V', () => {
-        vim.PushKey(Enums.Key.V);
+        vim.PushKey(Key.V);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.W', () => {
-        vim.PushKey(Enums.Key.W);
+        vim.PushKey(Key.W);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.X', () => {
-        vim.PushKey(Enums.Key.X);
+        vim.PushKey(Key.X);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.Y', () => {
-        vim.PushKey(Enums.Key.Y);
+        vim.PushKey(Key.Y);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.Z', () => {
-        vim.PushKey(Enums.Key.Z);
+        vim.PushKey(Key.Z);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.n0', () => {
-        vim.PushKey(Enums.Key.n0);
+        vim.PushKey(Key.n0);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.n1', () => {
-        vim.PushKey(Enums.Key.n1);
+        vim.PushKey(Key.n1);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.n2', () => {
-        vim.PushKey(Enums.Key.n2);
+        vim.PushKey(Key.n2);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.n3', () => {
-        vim.PushKey(Enums.Key.n3);
+        vim.PushKey(Key.n3);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.n4', () => {
-        vim.PushKey(Enums.Key.n4);
+        vim.PushKey(Key.n4);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.n5', () => {
-        vim.PushKey(Enums.Key.n5);
+        vim.PushKey(Key.n5);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.n6', () => {
-        vim.PushKey(Enums.Key.n6);
+        vim.PushKey(Key.n6);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.n7', () => {
-        vim.PushKey(Enums.Key.n7);
+        vim.PushKey(Key.n7);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.n8', () => {
-        vim.PushKey(Enums.Key.n8);
+        vim.PushKey(Key.n8);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.n9', () => {
-        vim.PushKey(Enums.Key.n9);
+        vim.PushKey(Key.n9);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.GA', () => {
         if (isJisKeyboard) {
             // JIS: TODO
-            vim.PushKey(Enums.Key.GraveAccent);
+            vim.PushKey(Key.GraveAccent);
         } else {
             // US :
-            vim.PushKey(Enums.Key.GraveAccent);
+            vim.PushKey(Key.GraveAccent);
         }
     });
     context.subscriptions.push(disposable);
@@ -273,116 +272,116 @@ export function activate(context: vscode.ExtensionContext) {
         // JIS: Shift+^(~) Shift+@(`) BUG?
         //      Shift+^で到達（まぁ良い）
         // US :
-        vim.PushKey(Enums.Key.Tilde);
+        vim.PushKey(Key.Tilde);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.S1', () => {
         // JIS: Shift+1
         // US :
-        vim.PushKey(Enums.Key.Exclamation);
+        vim.PushKey(Key.Exclamation);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.S2', () => {
         if (isJisKeyboard) {
             // JIS: BUG? 到達できない
-            vim.PushKey(Enums.Key.Quotation);
+            vim.PushKey(Key.Quotation);
         } else {
             // US :
-            vim.PushKey(Enums.Key.AtMark);
+            vim.PushKey(Key.AtMark);
         }
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.S3', () => {
         // JIS: Shift+3
         // US :
-        vim.PushKey(Enums.Key.Sharp);
+        vim.PushKey(Key.Sharp);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.S4', () => {
         // JIS: Shift+4
         // US :
-        vim.PushKey(Enums.Key.Doller);
+        vim.PushKey(Key.Doller);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.S5', () => {
         // JIS: Shift+5
         // US :
-        vim.PushKey(Enums.Key.Percent);
+        vim.PushKey(Key.Percent);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.S6', () => {
         if (isJisKeyboard) {
             // JIS: Shift+6
-            vim.PushKey(Enums.Key.Ampersand);
+            vim.PushKey(Key.Ampersand);
         } else {
             // US :
-            vim.PushKey(Enums.Key.CircumflexAccent);
+            vim.PushKey(Key.CircumflexAccent);
         }
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.S7', () => {
         if (isJisKeyboard) {
             // JIS: BUG? ここに到達できない
-            vim.PushKey(Enums.Key.Apostrophe);
+            vim.PushKey(Key.Apostrophe);
         } else {
             // US :
-            vim.PushKey(Enums.Key.Ampersand);
+            vim.PushKey(Key.Ampersand);
         }
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.S8', () => {
         if (isJisKeyboard) {
             // JIS: Shift+8
-            vim.PushKey(Enums.Key.LeftParenthesis);
+            vim.PushKey(Key.LeftParenthesis);
         } else {
             // US :
-            vim.PushKey(Enums.Key.Asterisk);
+            vim.PushKey(Key.Asterisk);
         }
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.S9', () => {
         if (isJisKeyboard) {
             // JIS: Shift+9
-            vim.PushKey(Enums.Key.RightParenthesis);
+            vim.PushKey(Key.RightParenthesis);
         } else {
             // US :
-            vim.PushKey(Enums.Key.LeftParenthesis);
+            vim.PushKey(Key.LeftParenthesis);
         }
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.S0', () => {
         if (isJisKeyboard) {
             // JIS: Shift+0
-            vim.PushKey(Enums.Key.n0);
+            vim.PushKey(Key.n0);
         } else {
             // US :
-            vim.PushKey(Enums.Key.RightParenthesis);
+            vim.PushKey(Key.RightParenthesis);
         }
     });
     disposable = vscode.commands.registerCommand('vim.Hy', () => {
         // JIS: -
         //      _(BUG!)
         // US :
-        vim.PushKey(Enums.Key.Hyphen);
+        vim.PushKey(Key.Hyphen);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.SHp', () => {
         if (isJisKeyboard) {
             // JIS: Shift+_(BUG?)
-            vim.PushKey(Enums.Key.Equals);
+            vim.PushKey(Key.Equals);
         } else {
             // US :
-            vim.PushKey(Enums.Key.LowLine);
+            vim.PushKey(Key.LowLine);
         }
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.Eq', () => {
         if (isJisKeyboard) {
             // JIS: ^ BUG?
-            vim.PushKey(Enums.Key.CircumflexAccent);
+            vim.PushKey(Key.CircumflexAccent);
         } else {
             // US :
-            vim.PushKey(Enums.Key.Equals);
+            vim.PushKey(Key.Equals);
         }
     });
     context.subscriptions.push(disposable);
@@ -390,10 +389,10 @@ export function activate(context: vscode.ExtensionContext) {
         if (isJisKeyboard) {
             // JIS: Shift+-(=)
             //      Shift++(+) BUG?
-            vim.PushKey(Enums.Key.Equals);
+            vim.PushKey(Key.Equals);
         } else {
             // US :
-            vim.PushKey(Enums.Key.Plus);
+            vim.PushKey(Key.Plus);
         }
     });
     context.subscriptions.push(disposable);
@@ -401,84 +400,84 @@ export function activate(context: vscode.ExtensionContext) {
         if (isJisKeyboard) {
             // JIS: [
             //      @ BUG?
-            vim.PushKey(Enums.Key.LeftSquareBracket);
+            vim.PushKey(Key.LeftSquareBracket);
         } else {
             // US :
-            vim.PushKey(Enums.Key.LeftSquareBracket);
+            vim.PushKey(Key.LeftSquareBracket);
         }
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.SLB', () => {
         if (isJisKeyboard) {
             // JIS: 到達しない
-            vim.PushKey(Enums.Key.LeftCurlyBracket);
+            vim.PushKey(Key.LeftCurlyBracket);
         } else {
             // US :
-            vim.PushKey(Enums.Key.LeftCurlyBracket);
+            vim.PushKey(Key.LeftCurlyBracket);
         }
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.RB', () => {
         if (isJisKeyboard) {
             // JIS: ]
-            vim.PushKey(Enums.Key.RightSquareBracket);
+            vim.PushKey(Key.RightSquareBracket);
         } else {
             // US :
-            vim.PushKey(Enums.Key.RightSquareBracket);
+            vim.PushKey(Key.RightSquareBracket);
         }
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.SRB', () => {
         if (isJisKeyboard) {
             // JIS: Shift+](})
-            vim.PushKey(Enums.Key.RightCurlyBracket);
+            vim.PushKey(Key.RightCurlyBracket);
         } else {
             // US : 
-            vim.PushKey(Enums.Key.RightCurlyBracket);
+            vim.PushKey(Key.RightCurlyBracket);
         }
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.RS', () => {
         if (isJisKeyboard) {
             // JIS: 動作しない
-            vim.PushKey(Enums.Key.ReverseSolidus);
+            vim.PushKey(Key.ReverseSolidus);
         } else {
-            vim.PushKey(Enums.Key.ReverseSolidus);
+            vim.PushKey(Key.ReverseSolidus);
         }
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.SRS', () => {
         if(isJisKeyboard){
             // JIS: 動作しない
-            vim.PushKey(Enums.Key.VerticalLine);
+            vim.PushKey(Key.VerticalLine);
         }else{
-            vim.PushKey(Enums.Key.VerticalLine);
+            vim.PushKey(Key.VerticalLine);
         }
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.Sc', () => {
         // JIS: ;
         // US : 
-        vim.PushKey(Enums.Key.Semicolon);
+        vim.PushKey(Key.Semicolon);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.SSc', () => {
         if (isJisKeyboard) {
             // JIS: 到達しない
-            vim.PushKey(Enums.Key.Plus);
+            vim.PushKey(Key.Plus);
         } else {
             // US :
-            vim.PushKey(Enums.Key.Colon);
+            vim.PushKey(Key.Colon);
         }
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.Ap', () => {
         if (isJisKeyboard) {
             // JIS: 到達しない！
-            vim.PushKey(Enums.Key.Apostrophe);
+            vim.PushKey(Key.Apostrophe);
         } else {
             // US :
-            vim.PushKey(Enums.Key.Apostrophe);
+            vim.PushKey(Key.Apostrophe);
         }
     });
     context.subscriptions.push(disposable);
@@ -486,53 +485,53 @@ export function activate(context: vscode.ExtensionContext) {
         if (isJisKeyboard) {
             // JIS: Shift+2(")
             //      SHift+7(') BUG?
-            vim.PushKey(Enums.Key.Quotation);
+            vim.PushKey(Key.Quotation);
         } else {
             // US :
-            vim.PushKey(Enums.Key.Quotation);
+            vim.PushKey(Key.Quotation);
         }
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.Cm', () => {
         // JIS: ,
         // US :
-        vim.PushKey(Enums.Key.Comma);
+        vim.PushKey(Key.Comma);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.LT', () => {
         // JIS: Shift+.(<)
         // US :
-        vim.PushKey(Enums.Key.LessThan);
+        vim.PushKey(Key.LessThan);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.Pd', () => {
         // JIS: .
         // US :
-        vim.PushKey(Enums.Key.Period);
+        vim.PushKey(Key.Period);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.SPd', () => {
         // JIS: Shift+.(>)
         // US :
-        vim.PushKey(Enums.Key.GreaterThan);
+        vim.PushKey(Key.GreaterThan);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.Sl', () => {
         // JIS: /
         // US :
-        vim.PushKey(Enums.Key.Solidus);
+        vim.PushKey(Key.Solidus);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.SSl', () => {
         // JIS: Shift+/(?)
         // US :
-        vim.PushKey(Enums.Key.Question);
+        vim.PushKey(Key.Question);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.Sp', () => {
         // JIS: 到達しない BUG!
         // US : 
-        vim.PushKey(Enums.Key.Space);
+        vim.PushKey(Key.Space);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.Ec', () => {

@@ -1,8 +1,7 @@
-import * as Enums from "./VimStyleEnums";
 import * as Utils from "./Utils"
 
 export class RegisterItem {
-    public Type: Enums.RegisterType;
+    public Type: RegisterType;
     public Body: string;
 }
 
@@ -17,7 +16,7 @@ export class Register implements IRegister {
         this.yank = null;
         this.unName = null;
     }
-    public Set(key: Enums.Key, value: IRegisterItem) {
+    public Set(key: Key, value: IRegisterItem) {
         this.char[key] = value;
     }
     public SetYank(value: IRegisterItem) {
@@ -31,17 +30,17 @@ export class Register implements IRegister {
             this.roll.length = 10;
         }
     }
-    public Get(key: Enums.Key): IRegisterItem {
+    public Get(key: Key): IRegisterItem {
         switch (key) {
-            case Enums.Key.n0:
+            case Key.n0:
                 return this.yank;
-            case Enums.Key.Quotation:
+            case Key.Quotation:
                 return this.unName;
         }
         switch (Utils.GetKeyType(key)) {
-            case Enums.KeyType.Charactor:
+            case KeyType.Charactor:
                 return this.GetCharactorRegister(key);
-            case Enums.KeyType.Number:
+            case KeyType.Number:
                 return this.GetRollRegister(key);
         }
         return null;
@@ -55,14 +54,14 @@ export class Register implements IRegister {
         }
         return null;
     }
-    private GetRollRegister(key: Enums.Key) {
+    private GetRollRegister(key: Key) {
         var n = Utils.KeyToNum(key);
         if (this.roll.length > n+1) {
             return this.roll[n];
         }
         return null;
     }
-    private GetCharactorRegister(key: Enums.Key) {
+    private GetCharactorRegister(key: Key) {
         if (this.char[key] == undefined || this.char[key] == null) {
             return null;
         }

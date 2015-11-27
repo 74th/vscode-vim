@@ -1,10 +1,9 @@
 import {Position} from '../VimStyle';
-import * as Enums from "../VimStyleEnums";
 
 export class PasteAction implements IAction {
 
     private isBack: boolean;
-    private registerKey: Enums.Key;
+    private registerKey: Key;
     private count: number;
 
     constructor() {
@@ -20,7 +19,7 @@ export class PasteAction implements IAction {
         this.isBack = true;
     }
 
-    public SetRegisterKey(key: Enums.Key) {
+    public SetRegisterKey(key: Key) {
         this.registerKey = key;
     }
 
@@ -36,7 +35,7 @@ export class PasteAction implements IAction {
         }
         var content = item.Body;
         var cp = editor.GetCurrentPosition();
-        if (item.Type == Enums.RegisterType.Text) {
+        if (item.Type == RegisterType.Text) {
             if (this.isBack) {
                 // paste before posision character
                 editor.InsertTextAtCurrentPosition(item.Body);

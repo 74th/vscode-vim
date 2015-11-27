@@ -1,4 +1,3 @@
-import * as Enums from "./VimStyleEnums";
 import {CommandFactory} from "./CommandFactory";
 import {InsertModeExecute} from "./mode/InsertMode";
 import * as Utils from "./Utils"
@@ -6,39 +5,39 @@ import {Register} from "./Register"
 
 export class VimStyle implements IVimStyle {
 
-    private mode: Enums.Mode;
+    private mode: Mode;
     private editor: IEditor;
     private commandFactory: ICommandFactory;
     public Register: IRegister;
 
     constructor(editor: IEditor) {
         this.editor = editor;
-        this.setMode(Enums.Mode.Normal);
+        this.setMode(Mode.Normal);
         this.commandFactory = new CommandFactory();
         this.Register = new Register();
     }
 
-    public PushKey(key: Enums.Key) {
+    public PushKey(key: Key) {
         switch (this.mode) {
-            case Enums.Mode.Normal:
+            case Mode.Normal:
                 this.readCommand(key);
                 return;
-            case Enums.Mode.Insert:
+            case Mode.Insert:
                 InsertModeExecute(key, this.editor)
         }
     }
 
     public PushEscKey() {
-        this.setMode(Enums.Mode.Normal);
+        this.setMode(Mode.Normal);
         this.commandFactory.Clear()
         this.editor.CloseStatus();
     }
 
     public ApplyInsertMode() {
-        this.setMode(Enums.Mode.Insert);
+        this.setMode(Mode.Insert);
     }
 
-    private readCommand(key: Enums.Key) {
+    private readCommand(key: Key) {
         var action = this.commandFactory.PushKey(key);
         if (action == null) {
             this.showCommand();
@@ -53,7 +52,7 @@ export class VimStyle implements IVimStyle {
         this.editor.ShowStatus(this.commandFactory.GetCommandString());
     }
     
-    private setMode(mode : Enums.Mode) {
+    private setMode(mode : Mode) {
         this.mode = mode;
     }
 }
