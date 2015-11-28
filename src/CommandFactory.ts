@@ -480,7 +480,7 @@ function SelectKeyClass(key: Key): KeyClass {
                         return KeyClass.TextObjectOrSingleAction;
                     case 'requireMotionAction':
                         return KeyClass.RequireMotionAction;
-                    case 'requireCharAction':
+                    case 'requireCharMotion':
                         return KeyClass.RequireCharMotion;
                     case 'motion':
                         return KeyClass.Motion;
