@@ -1,6 +1,6 @@
 import {VimStyle} from './VimStyle';
 import * as Utils from "./Utils";
-import keybindings from './keybindings/keybindings';
+import {Command, State, IVimStyleCommand, KeyBindings} from './keybindings/keybindings';
 import {PanicAction} from './action/PanicAction';
 import {CombinationAction} from './action/CombinationAction';
 import {InsertAction} from './action/InsertAction';
@@ -10,39 +10,19 @@ import {DeleteAction} from './action/DeleteAction';
 import {FirstInsertAction} from './action/FirstInsertAction';
 import {MoveAction} from './action/MoveAction';
 import {RightMotion} from './motion/RightMotion';
-import {LeftMotion} from './motion/LeftMotion';
-import {UpMotion} from './motion/UpMotion';
 import {DownMotion} from './motion/DownMotion';
 import {FirstMotion} from './motion/FirstMotion';
 import {EndMotion} from './motion/EndMotion';
 import {ForwardCharMotion} from './motion/ForwardCharMotion';
 import {ForwardWordMotion} from './motion/ForwardWordMotion';
 
-var motions = {
-    RightMotion: RightMotion,
-    LeftMotion: LeftMotion,
-    UpMotion: UpMotion,
-    DownMotion: DownMotion,
-    FirstMotion: FirstMotion,
-    EndMotion: EndMotion,
-    ForwardCharMotion: ForwardCharMotion,
-    ForwardWordMotion: ForwardWordMotion
-};
+export class CommandFactory implements ICommandFactory {
 
-enum CommandStatus {
-    None,
-    FirstNum,
-    RequireMotion,
-    RequireMotionNum,
-    RequireCharForMotion
-}
-export class CommandFactory {
-
-    private status: CommandStatus;
-    private stack: IAction;
-    private stackMotion: ForwardCharMotion;
+    private state: State;
+    private action: IAction;
+    private motion: ForwardCharMotion;
     private stackedKey: Key;
-    private numStock: number;
+    private num: number;
     private commandString: string;
 
     constructor() {
@@ -50,26 +30,46 @@ export class CommandFactory {
     }
 
     public PushKey(key: Key): IAction {
-        switch (this.status) {
-            case CommandStatus.None:
-                return this.pushKeyAtStart(key);
-            case CommandStatus.FirstNum:
-                return this.pushKeyAtFirstNum(key);
-            case CommandStatus.RequireMotion:
-                return this.pushKeyAtRequireMotion(key);
-            case CommandStatus.RequireMotionNum:
-                return this.pushKeyAtRequireMotionNum(key);
-            case CommandStatus.RequireCharForMotion:
+        let keyChar = Utils.KeyToChar(key);
+        var command: IVimStyleCommand;
+        switch (this.state) {
+            case State.AtStart:
+                command = KeyBindings.AtStart[keyChar];
+                break;
+            case State.FirstNum:
+                command = KeyBindings.FirstNum[keyChar];
+                break;
+            case State.RequireMotion:
+                command = KeyBindings.RequireMotion[keyChar];
+                break
+            case State.RequireMotionNum:
+                command = KeyBindings.RequireMotionNum[keyChar];
+            case State.RequireCharForMotion:
                 return this.pushKeyAtRequireCharForMotion(key);
         }
-        return new PanicAction();
+        if (command == undefined) {
+            this.Clear();
+            return null;
+        }
+        this.createVimStyleCommand(key, command);
+        if (command.state == State.Panic) {
+            this.Clear();
+            return null;
+        }
+        if (command.state === undefined) {
+            return this.action;
+        }
+        this.stackedKey = key;
+        this.commandString += keyChar;
+        this.state = command.state;
+        return null;
     }
 
     public Clear() {
-        this.status = CommandStatus.None;
-        this.stack = null;
+        this.state = State.AtStart;
+        this.action = null;
         this.stackedKey = null;
-        this.numStock = 0;
+        this.num = 0;
         this.commandString = "";
     }
 
@@ -77,354 +77,360 @@ export class CommandFactory {
         return this.commandString;
     }
 
-    private pushKeyAtStart(key): IAction {
-        var keyClass = SelectKeyClass(key);
-        switch (keyClass) {
-            case KeyClass.TextObjectOrSingleAction:
-            case KeyClass.SingleAction:
-                this.numStock = 1;
-                return this.createSingleAction(key);
-            case KeyClass.Motion:
-            case KeyClass.Zero:
-                return this.createMoveAction(key, 1);
-            case KeyClass.NumWithoutZero:
-                this.status = CommandStatus.FirstNum;
-                this.numStock = 0;
-                return this.stackNumeric(key);
-            case KeyClass.RequireMotionAction:
-                this.status = CommandStatus.RequireMotion;
-                return this.stackRequireMotionAction(key, 1);
-            case KeyClass.RequireCharMotion:
-                this.status = CommandStatus.RequireCharForMotion;
-                return this.stackForwardCharMoveAction(key, 1);
-            default:
-                this.Clear();
-                return new PanicAction();
+    private createVimStyleCommand(key: Key, command: IVimStyleCommand) {
+
+        switch (command.cmd) {
+            case Command.insertCurrentPositionAction:
+                return this.insertCurrentPositionAction();
+            case Command.appendCurrentPositionAction:
+                return this.appendCurrentPositionAction();
+            case Command.insertHomeAction:
+                return this.insertHomeAction();
+            case Command.appendEndAction:
+                return this.appendEndAction();
+            case Command.insertLineBelowAction:
+                return this.insertLineBelowAction(command.isReverse);
+            case Command.deleteCharacterAction:
+                return this.deleteCharacterAction(command.isReverse);
+            case Command.changeCharacterAction:
+                return this.changeCharacterAction();
+            case Command.changeLineAction:
+                return this.changeLineAction();
+            case Command.pasteBelowAction:
+                return this.pasteBelowAction(command.isReverse);
+            case Command.moveRightAction:
+                return this.moveRightAction(command.isReverse);
+            case Command.moveLineAction:
+                return this.moveLineAction(command.isReverse);
+            case Command.moveWordAction:
+                return this.moveWordAction(command.isReverse);
+            case Command.moveHomeAction:
+                return this.moveHomeAction();
+            case Command.moveEndAction:
+                return this.moveEndAction();
+            case Command.moveFindCharacterAction:
+                return this.moveFindCharacterAction(command.isReverse);
+            case Command.moveTillCharacterAction:
+                return this.moveTillCharacterAction(command.isReverse);
+            case Command.rightMotion:
+                return this.rightMotion(command.isReverse);
+            case Command.lineMotion:
+                return this.lineMotion(command.isReverse);
+            case Command.wordMotion:
+                return this.wordMotion(command.isReverse);
+            case Command.homeMotion:
+                return this.homeMotion();
+            case Command.endMotion:
+                return this.endMotion();
+            case Command.findCharacterMotion:
+                return this.findCharacterMotion(command.isReverse);
+            case Command.tillCharacterMotion:
+                return this.tillCharacterMotion(command.isReverse);
+            case Command.changeAction:
+                return this.changeAction();
+            case Command.deleteAction:
+                return this.deleteAction();
+            case Command.yancAction:
+                return this.yancAction();
+            case Command.changeToEndAction:
+                return this.changeToEndAction();
+            case Command.deleteToEndAction:
+                return this.deleteToEndAction();
+            case Command.yancToEndAction:
+                return this.yancToEndAction();
+            case Command.doActionAtCurrentLine:
+                return this.doActionAtCurrentLine(key);
+            case Command.stackNumber:
+                return this.stackNumber(key);
         }
     }
 
-    private pushKeyAtFirstNum(key: Key): IAction {
-        var keyClass = SelectKeyClass(key);
-        switch (keyClass) {
-            case KeyClass.Motion:
-                return this.createMoveAction(key, this.numStock);
-            case KeyClass.NumWithoutZero:
-            case KeyClass.Zero:
-                this.stackNumeric(key);
-                return null;
-            case KeyClass.SingleAction:
-                return this.createSingleAction(key);
-            case KeyClass.RequireMotionAction:
-                this.status = CommandStatus.RequireMotion;
-                return this.stackRequireMotionAction(key, this.numStock);
-            case KeyClass.RequireCharMotion:
-                this.status = CommandStatus.RequireCharForMotion;
-                return this.stackForwardCharMoveAction(key, this.numStock);
-        }
-        return new PanicAction();
+    private pushKeyAtRequireCharForMotion(key: Key):IAction {
+        this.motion.SetChar(Utils.KeyToChar(key));
+        return this.action;
     }
 
-    private pushKeyAtRequireMotion(key: Key): IAction {
-        var keyClass = SelectKeyClass(key);
-        switch (keyClass) {
-            case KeyClass.Motion:
-            case KeyClass.Zero:
-                return this.setMotionToStackAction(key, 1);
-            case KeyClass.NumWithoutZero:
-                this.status = CommandStatus.RequireMotionNum;
-                this.numStock = 0;
-                return this.stackNumeric(key);
-            case KeyClass.RequireMotionAction:
-                return this.setLineToStackAction(key, 1);
-            case KeyClass.RequireCharMotion:
-                this.status = CommandStatus.RequireCharForMotion;
-                return this.stackForwardCharMotion(key, 1);
-        }
-        return new PanicAction();
+    private getNumStack() {
+        return this.num == 0 ? 1 : this.num;
     }
 
-    private pushKeyAtRequireMotionNum(key: Key): IAction {
-        var keyClass = SelectKeyClass(key);
-        switch (keyClass) {
-            case KeyClass.Motion:
-                return this.setMotionToStackAction(key, this.numStock);
-            case KeyClass.NumWithoutZero:
-            case KeyClass.Zero:
-                this.stackNumeric(key);
-                return null;
-            case KeyClass.SingleAction:
-                return this.setLineToStackAction(key, this.numStock);
-            case KeyClass.RequireCharMotion:
-                this.status = CommandStatus.RequireCharForMotion;
-                return this.stackForwardCharMotion(key, this.numStock);
-        }
-        return new PanicAction();
+    // i    
+    private insertCurrentPositionAction() {
+        this.action = new InsertAction();
     }
 
-    private pushKeyAtRequireCharForMotion(key: Key): IAction {
-        this.stackMotion.SetChar(Utils.KeyToChar(key));
-        return this.stack;
-    }
-
-    private createSingleAction(key: Key): IAction {
-        var a: IAction;
-        var list: IAction[];
-        var char = Utils.KeyToChar(key);
-
-        var method: string = this.findMethodInKeybinding(key, [
-            keybindings.normalMode.singleAction,
-            keybindings.normalMode.textObjectOrSingleAction
+    // a    
+    private appendCurrentPositionAction() {
+        var m = new RightMotion();
+        m.SetCount(1);
+        var ma = new MoveAction();
+        ma.SetMotion(m);
+        this.action = new CombinationAction([
+            ma,
+            new InsertAction()
         ]);
-
-        return this[method]();
-    }
-
-    private insertAction(): IAction {
-        return new InsertAction();
-    }
-
-    private firstInsertAction(): IAction {
-        return new FirstInsertAction();
-    }
-
-    private createMotion(key: Key, count: number): IMotion {
-        var m: IMotion;
-        var char = Utils.KeyToChar(key);
-        var motion = this.findMethodInKeybinding(key, [
-            keybindings.normalMode.motion,
-            keybindings.normalMode.zero
-        ]);
-        var hasChain = motion.indexOf('.') !== -1;
-
-        if (hasChain) {
-            var motionSplit = motion.split('.');
-            m = new motions[motionSplit[0]]();
-            m[motionSplit[1]]();
-        } else {
-            m = new motions[motion]();
-        }
-
-        m.SetCount(count);
-        return m;
-    }
-
-    private createMoveAction(key: Key, count: number): IAction {
-        var m = this.createMotion(key, count);
-        var a = new MoveAction();
-        a.SetMotion(m);
-        return a;
-    }
-
-    private stackNumeric(key: Key): IAction {
-        var n: number = Utils.KeyToNum(key);
-        this.numStock = this.numStock * 10 + n;
-        this.commandString += n.toString();
-        if (this.numStock > 10000) {
-            return new PanicAction();
-        }
-        this.stackedKey = key;
-        return null;
     }
     
-    // command: dm ym cm 
-    private stackRequireMotionAction(key: Key, c: number): IAction {
-        var a: IRequireMotionAction;
-        var char = Utils.KeyToChar(key);
-        a = this[keybindings.normalMode.requireMotionAction[char]]();
-
-        this.commandString += char;
-        this.stack = a;
-        this.stackedKey = key;
-        return null;
+    // I
+    private insertHomeAction() {
+        this.action = new FirstInsertAction();
     }
 
-    private setMotionToStackAction(key: Key, c: number): IAction {
-        var a = <IRequireMotionAction>this.stack;
-        a.SetMotion(this.createMotion(key, c));
-        return a;
+    // A    
+    private appendEndAction() {
+        var m = new EndMotion();
+        var ma = new MoveAction();
+        ma.SetMotion(m);
+        this.action = new CombinationAction([
+            ma,
+            new InsertAction()
+        ]);
     }
 
-    private setLineToStackAction(key: Key, c: number): IAction {
-        var a = <IRequireMotionAction>this.stack;
-        var m: IMotion;
-        a.SetLineOption();
-        if (this.stackedKey == key) {
-
-            if (c == 0) {
-                // dd yy cc
-                return a;
-            }
-
-            m = new DownMotion();
-            m.SetCount(c - 1);
-        } else {
-            m = this.createMotion(key, c);
-        }
-
-        a.SetMotion(m);
-        return a;
-    }
-
-    private stackForwardCharMoveAction(key: Key, c: number): IAction {
-        var a = new MoveAction();
-        var m = this.createForwardCharMotion(key, c);
-        a.SetMotion(m);
-        this.stack = a;
-        this.stackMotion = m;
-        this.commandString += Utils.KeyToChar(key);
-        return null;
-    }
-
-    private stackForwardCharMotion(key: Key, c: number): IAction {
-        var m = this.createForwardCharMotion(key, c);
-        var a = <IRequireMotionAction>this.stack;
-        a.SetMotion(m);
-        this.stackMotion = m;
-        this.commandString += Utils.KeyToChar(key);
-        return null;
-    }
-
-    private createForwardCharMotion(key: Key, c: number): ForwardCharMotion {
-        var m: ForwardCharMotion;
-        var char = Utils.KeyToChar(key);
-        var action = keybindings.normalMode.requireCharMotion[char];
-        
-        switch (action) {
-            case 'find':
-                m = new ForwardCharMotion(Direction.Right, Direction.Left);
-                break;
-            case 'findBack':
-                m = new ForwardCharMotion(Direction.Left, Direction.Left);
-                break;
-            case 'till':
-                m = new ForwardCharMotion(Direction.Right, Direction.Right);
-                break;
-            case 'tillBack':
-                m = new ForwardCharMotion(Direction.Left, Direction.Right);
-                break;
-        }
-        m.SetCount(c);
-        return m;
-    }
-
-    private insertLineBelowAction(): IAction {
-        return this.insertNewLineAction(false);
-    }
-
-    private insertLineAboveAction(): IAction {
-        return this.insertNewLineAction(true);
-    }
-    
-    // command: o O
-    public insertNewLineAction(isPre: boolean) {
+    // o O    
+    private insertLineBelowAction(isAbove: boolean) {
         var a = new InsertNewLineAction();
-        if (isPre) {
+        if (isAbove) {
             a.SetBackOption();
         }
-        return a;
+        this.action = a;
     }
     
-    private deleteAction(): IAction {
-        return new DeleteAction();
-    }
-
-    private yancAction(): IAction {
-        var ya = new DeleteAction();
-        ya.SetOnlyYancOption();
-        return ya;
-    }
-
-    private changeAction() {
-        var ca = new DeleteAction();
-        ca.SetInsertOption();
-        return ca;
-    }
-
-    // command: a    
-    private appendAction(): IAction {
+    // x Nx
+    private deleteCharacterAction(isLeft: boolean) {
         var m = new RightMotion();
-        m.SetCount(1);
-        var ma = new MoveAction();
-        ma.SetMotion(m);
-        return new CombinationAction([
-            ma,
-            new InsertAction()
-        ]);
-    }
-
-    // command: A    
-    private endAppendAction(): IAction {
-        var m = new EndMotion();
-        m.SetCount(1);
-        var ma = new MoveAction();
-        ma.SetMotion(m);
-        return new CombinationAction([
-            ma,
-            new InsertAction()
-        ]);
-    }
-    
-    // commnad: x Nx
-    private characterDeleteAction(): IAction {
-        var m = new RightMotion();
-        m.SetCount(this.numStock);
+        if (isLeft) {
+            m.SetLeftDirection();
+        }
+        m.SetCount(this.getNumStack());
         var a = new DeleteAction();
         a.SetSmallOption();
         a.SetMotion(m);
-        return a;
+        this.action = a;
     }
     
-    // commnad: X NX
-    private characterBeforeDeleteAction(): IAction {
-        var m = new LeftMotion();
-        m.SetCount(this.numStock);
-        var a = new DeleteAction();
-        a.SetSmallOption();
-        a.SetMotion(m);
-        return a;
-    }
-    
-    // commnad: s
-    private characterDeleteInsertAction(): IAction {
+    // s
+    private changeCharacterAction() {
         var m = new RightMotion();
         m.SetCount(1);
         var a = new DeleteAction();
         a.SetSmallOption();
         a.SetMotion(m);
         a.SetInsertOption()
-        return a;
+        this.action = a;
     }
     
-    // command: S
-    private lineDeleteInsertAction() {
+    // S
+    private changeLineAction() {
         var m = new DownMotion();
-        m.SetCount(this.numStock - 1);
+        m.SetCount(this.getNumStack() - 1);
         var a = new DeleteAction();
         a.SetLineOption();
         a.SetMotion(m);
         a.SetInsertOption()
-        return a;
+        this.action = a;
     }
     
-    // command: D
-    private deleteToEndAction() {
-        var m = new EndMotion();
-        m.SetCount(1);
-        var a = new DeleteAction();
-        a.SetSmallOption();
+    // p P Np NP
+    private pasteBelowAction(isBack: boolean) {
+        var a = new PasteAction();
+        if (isBack) {
+            a.SetBackOption()
+        }
+        a.SetCount(this.getNumStack())
+        this.action = a;
+    }
+
+    private createMoveAction(motion: IMotion) {
+        var a = new MoveAction();
+        a.SetMotion(motion);
+        return a;
+    }
+
+    // h l
+    private moveRightAction(isLeft: boolean) {
+        var m = new RightMotion();
+        if (isLeft) {
+            m.SetLeftDirection();
+        };
+        m.SetCount(this.getNumStack());
+        this.action = this.createMoveAction(m);
+    }
+    
+    // j k
+    private moveLineAction(isUp: boolean) {
+        var m = new DownMotion();
+        if (isUp) {
+            m.SetUpDirection();
+        }
+        m.SetCount(this.getNumStack());
+        this.action = this.createMoveAction(m);
+    }
+    
+    // w b
+    private moveWordAction(isReverse: boolean) {
+        var m = new ForwardWordMotion();
+        if (isReverse) {
+            m.SetBack();
+        }
+        m.SetCount(this.getNumStack());
+        this.action = this.createMoveAction(m);
+    }
+    
+    // 0
+    private moveHomeAction() {
+        this.action = this.createMoveAction(new FirstMotion());
+    }
+    
+    // $
+    private moveEndAction() {
+        this.action = this.createMoveAction(new EndMotion());
+    }
+    
+    // fx Fx
+    private moveFindCharacterAction(isReverse) {
+        var a = new MoveAction();
+        var m: ForwardCharMotion;
+        if (isReverse) {
+            m = new ForwardCharMotion(Direction.Left);
+        } else {
+            m = new ForwardCharMotion(Direction.Right);
+        }
+        m.SetCount(this.getNumStack());
         a.SetMotion(m);
-        return a;
+        this.action = a;
+        this.motion = m;
     }
     
-    // command: C
-    private deleteInsertToEndAction() {
+    // tx Tx
+    private moveTillCharacterAction(isReverse) {
+        var a = new MoveAction();
+        var m: ForwardCharMotion;
+        if (isReverse) {
+            m = new ForwardCharMotion(Direction.Left);
+        } else {
+            m = new ForwardCharMotion(Direction.Right);
+        }
+        m.SetCount(this.getNumStack());
+        m.SetTillOption();
+        a.SetMotion(m);
+        this.action = a;
+        this.motion = m;
+    }
+    
+    // ch cl
+    private rightMotion(isLeft: boolean) {
+        var m = new RightMotion();
+        if (isLeft) {
+            m.SetLeftDirection();
+        };
+        m.SetCount(this.getNumStack());
+        var a = <IRequireMotionAction>this.action;
+        a.SetMotion(m);
+    }
+    
+    // cj ck
+    private lineMotion(isUp: boolean) {
+        var m = new DownMotion();
+        if (isUp) {
+            m.SetUpDirection();
+        }
+        m.SetCount(this.getNumStack());
+        var a = <IRequireMotionAction>this.action;
+        a.SetMotion(m);
+        a.SetLineOption();
+    }
+    
+    // cw cb
+    private wordMotion(isReverse: boolean) {
+        var m = new ForwardWordMotion();
+        if (isReverse) {
+            m.SetBack();
+        }
+        m.SetCount(this.getNumStack());
+        var a = <IRequireMotionAction>this.action;
+        a.SetMotion(m);
+    }
+    
+    // c0
+    private homeMotion() {
+        var a = <IRequireMotionAction>this.action;
+        a.SetMotion(new FirstMotion());
+    }
+    
+    // c$
+    private endMotion() {
+        var a = <IRequireMotionAction>this.action;
+        a.SetMotion(new EndMotion());
+    }
+    
+    // fx Fx
+    private findCharacterMotion(isReverse) {
+        var m: ForwardCharMotion;
+        if (isReverse) {
+            m = new ForwardCharMotion(Direction.Right);
+        } else {
+            m = new ForwardCharMotion(Direction.Left);
+        }
+        m.SetCount(this.getNumStack());
+        var a = <IRequireMotionAction>this.action;
+        a.SetMotion(m);
+        this.motion = m;
+    }
+    
+    // tx Tx
+    private tillCharacterMotion(isReverse) {
+        var m: ForwardCharMotion;
+        if (isReverse) {
+            m = new ForwardCharMotion(Direction.Right);
+        } else {
+            m = new ForwardCharMotion(Direction.Left);
+        }
+        m.SetCount(this.getNumStack());
+        m.SetTillOption();
+        var a = <IRequireMotionAction>this.action;
+        a.SetMotion(m);
+        this.motion = m;
+    }
+    
+    // cm 
+    private changeAction() {
+        var a = new DeleteAction();
+        a.SetInsertOption();
+        this.action = a;
+    }
+    
+    // dm
+    private deleteAction() {
+        this.action = new DeleteAction();
+    }
+    
+    // ym
+    private yancAction() {
+        var a = new DeleteAction();
+        a.SetOnlyYancOption();
+        this.action = a;
+    }
+    
+    // C
+    private changeToEndAction() {
         var m = new EndMotion();
         m.SetCount(1);
         var a = new DeleteAction();
         a.SetSmallOption();
         a.SetMotion(m);
         a.SetInsertOption();
-        return a;
+        this.action = a;
+    }
+
+    // D
+    private deleteToEndAction() {
+        var m = new EndMotion();
+        m.SetCount(1);
+        var a = new DeleteAction();
+        a.SetSmallOption();
+        a.SetMotion(m);
+        this.action = a;
     }
     
     // command: Y
@@ -435,62 +441,31 @@ export class CommandFactory {
         a.SetSmallOption();
         a.SetMotion(m);
         a.SetOnlyYancOption()
-        return a;
+        this.action = a;
     }
 
-    private pasteBelowAction(): IAction {
-        return this.pasteAction(false);
-    }
-
-    private pasteAboveAction(): IAction {
-        return this.pasteAction(true);
-    }
-    
-    // command: p P np NP
-    private pasteAction(isBack: boolean) {
-        var a = new PasteAction();
-        if (isBack) {
-            a.SetBackOption()
-        }
-        return a;
-    }
-
-    private findMethodInKeybinding(key: Key, possibleClasses: Array<Object>): string {
-        var char = Utils.KeyToChar(key);
-        for (var i = 0; i < possibleClasses.length; i++) {
-            var bindings = possibleClasses[i];
-            for (var jsonKey in bindings) {
-                if (char === jsonKey) {
-                    return bindings[jsonKey];
-                }
-            }
+    private stackNumber(key: Key) {
+        var n: number = Utils.KeyToNum(key);
+        this.num = this.num * 10 + n;
+        this.commandString += n.toString();
+        if (this.num > 10000) {
+            this.Clear();
         }
     }
-}
 
-function SelectKeyClass(key: Key): KeyClass {
-    var char = Utils.KeyToChar(key);
-    for (var className in keybindings.normalMode) {
-        for (var jsonKey in keybindings.normalMode[className]) {
-            if (jsonKey === char) {
-                switch (className) {
-                    case 'singleAction':
-                        return KeyClass.SingleAction
-                    case 'textObjectOrSingleAction':
-                        return KeyClass.TextObjectOrSingleAction;
-                    case 'requireMotionAction':
-                        return KeyClass.RequireMotionAction;
-                    case 'requireCharMotion':
-                        return KeyClass.RequireCharMotion;
-                    case 'motion':
-                        return KeyClass.Motion;
-                    case 'zero':
-                        return KeyClass.Zero;
-                    case 'numWithoutZero':
-                        return KeyClass.NumWithoutZero;
-
-                }
-            }
+    private doActionAtCurrentLine(key: Key) {
+        if (this.stackedKey != key) {
+            this.Clear();
+            return;
         }
+        var a = <IRequireMotionAction>this.action;
+        a.SetLineOption();
+        var count = 0;
+        if (this.num !== 0) {
+            count = this.num - 1;
+        }
+        var m = new DownMotion();
+        m.SetCount(count);
+        a.SetMotion(m);
     }
 }

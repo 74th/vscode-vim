@@ -5,16 +5,20 @@ export class ForwardCharMotion extends AbstractMotion {
 
     private targetCharCode:number;
     private direction: Direction;
-    private sideOfCharactor: Direction;
+    private isTill: boolean;
     
-    constructor(direction: Direction, sideOfCharactor: Direction) {
+    constructor(direction: Direction) {
         super();
         this.direction = direction;
-        this.sideOfCharactor = sideOfCharactor;
+        this.isTill = false;
     }
     
     public SetChar(c: string) {
         this.targetCharCode = c.charCodeAt(0);
+    }
+    
+    public SetTillOption() {
+        this.isTill = true;
     }
     
     public CalculateEnd(editor: IEditor, start: IPosition): IPosition {
@@ -24,7 +28,7 @@ export class ForwardCharMotion extends AbstractMotion {
         var i;
         var count = this.GetCount();
         if (this.direction == Direction.Right) {
-            for (i = start.char; i < line.length; i++){
+            for (i = start.char + 1; i < line.length; i++){
                 if (this.targetCharCode == line.charCodeAt(i)) {
                     count--;
                     if (count == 0) {
@@ -34,7 +38,7 @@ export class ForwardCharMotion extends AbstractMotion {
                 }
             }
         } else {
-            for (i = start.char; i >= 0; i--){
+            for (i = start.char - 1; i >= 0; i--){
                 if (this.targetCharCode == line.charCodeAt(i)) {
                     count--;
                     if (count == 0) {
@@ -47,8 +51,12 @@ export class ForwardCharMotion extends AbstractMotion {
         if (count > 0) {
             return null;
         }
-        if (this.sideOfCharactor == Direction.Right) {
-            end.char += 1;
+        if (this.isTill) {
+            if (this.direction == Direction.Right) {
+                end.char -= 1;
+            } else {
+                end.char += 1;
+            }
         }
         return end;
     }
