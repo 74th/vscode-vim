@@ -1,10 +1,10 @@
 
 export function ModeToString(mode: Mode): string {
     switch(mode) {
-        case Mode.Normal:
-            return "NORMAL";
         case Mode.Insert:
             return "INSERT";
+        case Mode.Normal:
+            return "NORMAL";
         default:
             throw new Error("Panic!");
     }
@@ -37,6 +37,16 @@ export function KeyToNum(key: Key): number {
     }
 }
 
+/**
+ * isNumber: Check if value is a number, including
+ * the number 0.
+ */
+export function isNumber(val) {
+    console.log('testing val', val);
+    var res = parseInt(val, 10);
+    return isNaN ? null : res;
+} 
+
 export function KeyToChar(key: Key): string {
     switch (key) {
         case Key.a:
@@ -53,7 +63,7 @@ export function KeyToChar(key: Key): string {
             return "f";
         case Key.g:
             return "g";
-        case Key.a:
+        case Key.h:
             return "h";
         case Key.i:
             return "i";

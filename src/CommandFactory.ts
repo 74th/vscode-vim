@@ -1,4 +1,6 @@
+import {VimStyle} from './VimStyle';
 import * as Utils from "./Utils";
+import keybindings from './keybindings/keybindings';
 import {PanicAction} from './action/PanicAction';
 import {CombinationAction} from './action/CombinationAction';
 import {InsertAction} from './action/InsertAction';
@@ -16,8 +18,25 @@ import {EndMotion} from './motion/EndMotion';
 import {ForwardCharMotion} from './motion/ForwardCharMotion';
 import {ForwardWordMotion} from './motion/ForwardWordMotion';
 
+var motions = {
+    RightMotion: RightMotion,
+    LeftMotion: LeftMotion,
+    UpMotion: UpMotion,
+    DownMotion: DownMotion,
+    FirstMotion: FirstMotion,
+    EndMotion: EndMotion,
+    ForwardCharMotion: ForwardCharMotion,
+    ForwardWordMotion: ForwardWordMotion
+};
 
-export class CommandFactory implements ICommandFactory {
+enum CommandStatus {
+    None,
+    FirstNum,
+    RequireMotion,
+    RequireMotionNum,
+    RequireCharForMotion
+}
+export class CommandFactory {
 
     private status: CommandStatus;
     private stack: IAction;
@@ -58,12 +77,13 @@ export class CommandFactory implements ICommandFactory {
         return this.commandString;
     }
 
-    private pushKeyAtStart(key: Key): IAction {
+    private pushKeyAtStart(key): IAction {
         var keyClass = SelectKeyClass(key);
         switch (keyClass) {
             case KeyClass.TextObjectOrSingleAction:
             case KeyClass.SingleAction:
-                return this.createSingleAction(key, 1);
+                this.numStock = 1;
+                return this.createSingleAction(key);
             case KeyClass.Motion:
             case KeyClass.Zero:
                 return this.createMoveAction(key, 1);
@@ -93,7 +113,7 @@ export class CommandFactory implements ICommandFactory {
                 this.stackNumeric(key);
                 return null;
             case KeyClass.SingleAction:
-                return this.createSingleAction(key, this.numStock);
+                return this.createSingleAction(key);
             case KeyClass.RequireMotionAction:
                 this.status = CommandStatus.RequireMotion;
                 return this.stackRequireMotionAction(key, this.numStock);
@@ -140,84 +160,50 @@ export class CommandFactory implements ICommandFactory {
         }
         return new PanicAction();
     }
-    
+
     private pushKeyAtRequireCharForMotion(key: Key): IAction {
         this.stackMotion.SetChar(Utils.KeyToChar(key));
         return this.stack;
     }
 
-    private createSingleAction(key: Key, count: number): IAction {
+    private createSingleAction(key: Key): IAction {
         var a: IAction;
         var list: IAction[];
-        switch (key) {
-            case Key.i:
-                return new InsertAction();
-            case Key.a:
-                return this.createAppendAction();
-            case Key.I:
-                return new FirstInsertAction();
-            case Key.A:
-                return this.createEndAppendAction();
-            case Key.o:
-                return this.createInsertNewLineAction(false);
-            case Key.O:
-                return this.createInsertNewLineAction(true);
-            case Key.x:
-                return this.createCharactorDeleteAction(count);
-            case Key.X:
-                return this.createBeforeCharactorDeleteAction(count);
-            case Key.s:
-                return this.createCharactorDeleteInsertAction(count);
-            case Key.S:
-                return this.createLineDeleteInsertAction(count);
-            case Key.D:
-                return this.createDeleteToEndAction();
-            case Key.Y:
-                return this.createYancToEndAction();
-            case Key.C:
-                return this.createDeleteInsertToEndAction();
-            case Key.p:
-                return this.createPasteAction(false, count);
-            case Key.P:
-                return this.createPasteAction(true, count);    
-            // TODO
-            default:
-                return new PanicAction();
-        }
+        var char = Utils.KeyToChar(key);
+
+        var method: string = this.findMethodInKeybinding(key, [
+            keybindings.normalMode.singleAction,
+            keybindings.normalMode.textObjectOrSingleAction
+        ]);
+
+        return this[method]();
+    }
+
+    private insertAction(): IAction {
+        return new InsertAction();
+    }
+
+    private firstInsertAction(): IAction {
+        return new FirstInsertAction();
     }
 
     private createMotion(key: Key, count: number): IMotion {
         var m: IMotion;
-        switch (key) {
-            case Key.l:
-                m = new RightMotion();
-                break;
-            case Key.h:
-                m = new LeftMotion();
-                break;
-            case Key.j:
-                m = new DownMotion();
-                break;
-            case Key.k:
-                m = new UpMotion();
-                break;
-            case Key.n0:
-                m = new FirstMotion();
-                break;
-            case Key.Doller:
-                m = new EndMotion();
-                break;
-            case Key.w:
-                m = new ForwardWordMotion();
-                break;
-            case Key.b:
-                var bm = new ForwardWordMotion();
-                bm.SetBack();
-                m = bm;
-                break;
-            default:    
-                throw new Error("Panic!");
+        var char = Utils.KeyToChar(key);
+        var motion = this.findMethodInKeybinding(key, [
+            keybindings.normalMode.motion,
+            keybindings.normalMode.zero
+        ]);
+        var hasChain = motion.indexOf('.') !== -1;
+
+        if (hasChain) {
+            var motionSplit = motion.split('.');
+            m = new motions[motionSplit[0]]();
+            m[motionSplit[1]]();
+        } else {
+            m = new motions[motion]();
         }
+
         m.SetCount(count);
         return m;
     }
@@ -230,39 +216,7 @@ export class CommandFactory implements ICommandFactory {
     }
 
     private stackNumeric(key: Key): IAction {
-        var n: number;
-        switch (key) {
-            case Key.n0:
-                n = 0;
-                break;
-            case Key.n1:
-                n = 1;
-                break;
-            case Key.n2:
-                n = 2;
-                break;
-            case Key.n3:
-                n = 3;
-                break;
-            case Key.n4:
-                n = 4;
-                break;
-            case Key.n5:
-                n = 5;
-                break;
-            case Key.n6:
-                n = 6;
-                break;
-            case Key.n7:
-                n = 7;
-                break;
-            case Key.n8:
-                n = 8;
-                break;
-            case Key.n9:
-                n = 9;
-                break;
-        }
+        var n: number = Utils.KeyToNum(key);
         this.numStock = this.numStock * 10 + n;
         this.commandString += n.toString();
         if (this.numStock > 10000) {
@@ -275,24 +229,10 @@ export class CommandFactory implements ICommandFactory {
     // command: dm ym cm 
     private stackRequireMotionAction(key: Key, c: number): IAction {
         var a: IRequireMotionAction;
-        switch (key) {
-            case Key.d:
-                a = new DeleteAction();
-                break;
-            case Key.y:
-                var ya = new DeleteAction();
-                ya.SetOnlyYancOption();
-                a = ya;
-                break;
-            case Key.c:
-                var ca = new DeleteAction();
-                ca.SetInsertOption();
-                a = ca;
-                break;
-            default:
-                throw new Error("Panic!");
-        }
-        this.commandString += Utils.KeyToChar(key);
+        var char = Utils.KeyToChar(key);
+        a = this[keybindings.normalMode.requireMotionAction[char]]();
+
+        this.commandString += char;
         this.stack = a;
         this.stackedKey = key;
         return null;
@@ -334,8 +274,8 @@ export class CommandFactory implements ICommandFactory {
         this.commandString += Utils.KeyToChar(key);
         return null;
     }
-    
-    private stackForwardCharMotion(key: Key, c: number): IAction{
+
+    private stackForwardCharMotion(key: Key, c: number): IAction {
         var m = this.createForwardCharMotion(key, c);
         var a = <IRequireMotionAction>this.stack;
         a.SetMotion(m);
@@ -346,35 +286,62 @@ export class CommandFactory implements ICommandFactory {
 
     private createForwardCharMotion(key: Key, c: number): ForwardCharMotion {
         var m: ForwardCharMotion;
-        switch (key) {
-            case Key.f:
+        var char = Utils.KeyToChar(key);
+        var action = keybindings.normalMode.requireCharMotion[char];
+        
+        switch (action) {
+            case 'find':
                 m = new ForwardCharMotion(Direction.Right, Direction.Left);
                 break;
-            case Key.F:
+            case 'findBack':
                 m = new ForwardCharMotion(Direction.Left, Direction.Left);
                 break;
-            case Key.t:
+            case 'till':
                 m = new ForwardCharMotion(Direction.Right, Direction.Right);
                 break;
-            case Key.T:
+            case 'tillBack':
                 m = new ForwardCharMotion(Direction.Left, Direction.Right);
                 break;
         }
         m.SetCount(c);
         return m;
     }
+
+    private insertLineBelowAction(): IAction {
+        return this.insertNewLineAction(false);
+    }
+
+    private insertLineAboveAction(): IAction {
+        return this.insertNewLineAction(true);
+    }
     
     // command: o O
-    public createInsertNewLineAction(isPre: boolean) {
+    public insertNewLineAction(isPre: boolean) {
         var a = new InsertNewLineAction();
         if (isPre) {
             a.SetBackOption();
         }
         return a;
     }
+    
+    private deleteAction(): IAction {
+        return new DeleteAction();
+    }
+
+    private yancAction(): IAction {
+        var ya = new DeleteAction();
+        ya.SetOnlyYancOption();
+        return ya;
+    }
+
+    private changeAction() {
+        var ca = new DeleteAction();
+        ca.SetInsertOption();
+        return ca;
+    }
 
     // command: a    
-    private createAppendAction(): IAction {
+    private appendAction(): IAction {
         var m = new RightMotion();
         m.SetCount(1);
         var ma = new MoveAction();
@@ -386,7 +353,7 @@ export class CommandFactory implements ICommandFactory {
     }
 
     // command: A    
-    private createEndAppendAction(): IAction {
+    private endAppendAction(): IAction {
         var m = new EndMotion();
         m.SetCount(1);
         var ma = new MoveAction();
@@ -398,9 +365,9 @@ export class CommandFactory implements ICommandFactory {
     }
     
     // commnad: x Nx
-    private createCharactorDeleteAction(c: number): IAction {
+    private characterDeleteAction(): IAction {
         var m = new RightMotion();
-        m.SetCount(c);
+        m.SetCount(this.numStock);
         var a = new DeleteAction();
         a.SetSmallOption();
         a.SetMotion(m);
@@ -408,9 +375,9 @@ export class CommandFactory implements ICommandFactory {
     }
     
     // commnad: X NX
-    private createBeforeCharactorDeleteAction(c: number): IAction {
+    private characterBeforeDeleteAction(): IAction {
         var m = new LeftMotion();
-        m.SetCount(c);
+        m.SetCount(this.numStock);
         var a = new DeleteAction();
         a.SetSmallOption();
         a.SetMotion(m);
@@ -418,7 +385,7 @@ export class CommandFactory implements ICommandFactory {
     }
     
     // commnad: s
-    private createCharactorDeleteInsertAction(c: number): IAction {
+    private characterDeleteInsertAction(): IAction {
         var m = new RightMotion();
         m.SetCount(1);
         var a = new DeleteAction();
@@ -429,9 +396,9 @@ export class CommandFactory implements ICommandFactory {
     }
     
     // command: S
-    private createLineDeleteInsertAction(c: number) {
+    private lineDeleteInsertAction() {
         var m = new DownMotion();
-        m.SetCount(c - 1);
+        m.SetCount(this.numStock - 1);
         var a = new DeleteAction();
         a.SetLineOption();
         a.SetMotion(m);
@@ -440,7 +407,7 @@ export class CommandFactory implements ICommandFactory {
     }
     
     // command: D
-    private createDeleteToEndAction() {
+    private deleteToEndAction() {
         var m = new EndMotion();
         m.SetCount(1);
         var a = new DeleteAction();
@@ -450,7 +417,7 @@ export class CommandFactory implements ICommandFactory {
     }
     
     // command: C
-    private createDeleteInsertToEndAction() {
+    private deleteInsertToEndAction() {
         var m = new EndMotion();
         m.SetCount(1);
         var a = new DeleteAction();
@@ -461,7 +428,7 @@ export class CommandFactory implements ICommandFactory {
     }
     
     // command: Y
-    private createYancToEndAction() {
+    private yancToEndAction() {
         var m = new EndMotion();
         m.SetCount(1);
         var a = new DeleteAction();
@@ -470,9 +437,17 @@ export class CommandFactory implements ICommandFactory {
         a.SetOnlyYancOption()
         return a;
     }
+
+    private pasteBelowAction(): IAction {
+        return this.pasteAction(false);
+    }
+
+    private pasteAboveAction(): IAction {
+        return this.pasteAction(true);
+    }
     
     // command: p P np NP
-    private createPasteAction(isBack: boolean, c: number) {
+    private pasteAction(isBack: boolean) {
         var a = new PasteAction();
         if (isBack) {
             a.SetBackOption()
@@ -480,54 +455,42 @@ export class CommandFactory implements ICommandFactory {
         return a;
     }
 
+    private findMethodInKeybinding(key: Key, possibleClasses: Array<Object>): string {
+        var char = Utils.KeyToChar(key);
+        for (var i = 0; i < possibleClasses.length; i++) {
+            var bindings = possibleClasses[i];
+            for (var jsonKey in bindings) {
+                if (char === jsonKey) {
+                    return bindings[jsonKey];
+                }
+            }
+        }
+    }
 }
 
 function SelectKeyClass(key: Key): KeyClass {
-    switch (key) {
-        case Key.n0:
-            return KeyClass.Zero;
-        case Key.n1:
-        case Key.n2:
-        case Key.n3:
-        case Key.n4:
-        case Key.n5:
-        case Key.n6:
-        case Key.n7:
-        case Key.n8:
-        case Key.n9:
-            return KeyClass.NumWithoutZero;
-        case Key.w:
-        case Key.b:
-        case Key.h:
-        case Key.j:
-        case Key.k:
-        case Key.l:
-        case Key.Doller:
-            return KeyClass.Motion;
-        case Key.x:
-        case Key.x:
-        case Key.s:
-        case Key.S:
-        case Key.C:
-        case Key.D:
-        case Key.I:
-        case Key.A:
-        case Key.o:
-        case Key.O:
-        case Key.p:
-        case Key.P:
-            return KeyClass.SingleAction;
-        case Key.i:
-        case Key.a:
-            return KeyClass.TextObjectOrSingleAction;
-        case Key.d:
-        case Key.y:
-        case Key.c:
-            return KeyClass.RequireMotionAction;
-        case Key.f:
-        case Key.t:
-        case Key.F:
-        case Key.T:
-            return KeyClass.RequireCharMotion;
+    var char = Utils.KeyToChar(key);
+    for (var className in keybindings.normalMode) {
+        for (var jsonKey in keybindings.normalMode[className]) {
+            if (jsonKey === char) {
+                switch (className) {
+                    case 'singleAction':
+                        return KeyClass.SingleAction
+                    case 'textObjectOrSingleAction':
+                        return KeyClass.TextObjectOrSingleAction;
+                    case 'requireMotionAction':
+                        return KeyClass.RequireMotionAction;
+                    case 'requireCharAction':
+                        return KeyClass.RequireCharMotion;
+                    case 'motion':
+                        return KeyClass.Motion;
+                    case 'zero':
+                        return KeyClass.Zero;
+                    case 'numWithoutZero':
+                        return KeyClass.NumWithoutZero;
+
+                }
+            }
+        }
     }
 }
