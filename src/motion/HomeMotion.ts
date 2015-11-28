@@ -1,7 +1,7 @@
 import {AbstractMotion} from "./AbstractMotion"
 import {Position} from "../VimStyle";
 
-export class FirstMotion extends AbstractMotion{
+export class HomeMotion extends AbstractMotion{
 	
 	public CalculateEnd(editor: IEditor,start: IPosition): IPosition {
 		var end = new Position();

@@ -25,7 +25,7 @@ export class DeleteAction implements IRequireMotionAction {
         this.isLarge = true;
     }
 
-    public SetInsertOption() {
+    public SetChangeOption() {
         this.isInsert = true;
     }
 

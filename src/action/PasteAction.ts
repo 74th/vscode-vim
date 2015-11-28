@@ -2,12 +2,12 @@ import {Position} from '../VimStyle';
 
 export class PasteAction implements IAction {
 
-    private isBack: boolean;
+    private isPrev: boolean;
     private registerKey: Key;
     private count: number;
 
     constructor() {
-        this.isBack = false;
+        this.isPrev = false;
         this.registerKey = null;
     }
 
@@ -16,7 +16,7 @@ export class PasteAction implements IAction {
     }
 
     public SetBackOption() {
-        this.isBack = true;
+        this.isPrev = true;
     }
 
     public SetRegisterKey(key: Key) {
@@ -36,7 +36,7 @@ export class PasteAction implements IAction {
         var content = item.Body;
         var cp = editor.GetCurrentPosition();
         if (item.Type == RegisterType.Text) {
-            if (this.isBack) {
+            if (this.isPrev) {
                 // paste before posision character
                 editor.InsertTextAtCurrentPosition(item.Body);
                 editor.SetPosition(cp);
@@ -53,7 +53,7 @@ export class PasteAction implements IAction {
             // line Paste
             var np = new Position();
             np.char = 0;
-            if (this.isBack) {
+            if (this.isPrev) {
                 // paste at home of current position¥
                 np.line = cp.line;
             } else {

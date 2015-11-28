@@ -1,26 +1,25 @@
 import {VimStyle} from './VimStyle';
 import * as Utils from "./Utils";
 import {Command, State, IVimStyleCommand, KeyBindings} from './keybindings/keybindings';
-import {PanicAction} from './action/PanicAction';
 import {CombinationAction} from './action/CombinationAction';
-import {InsertAction} from './action/InsertAction';
-import {InsertNewLineAction} from './action/InsertNewLineAction';
+import {InsertCurrentPositionAction} from './action/InsertAction';
+import {InsertLineBelowAction} from './action/InsertLineBelowAction';
 import {PasteAction} from './action/PasteAction';
 import {DeleteAction} from './action/DeleteAction';
-import {FirstInsertAction} from './action/FirstInsertAction';
+import {InsertHomeAction} from './action/InsertHomeAction';
 import {MoveAction} from './action/MoveAction';
 import {RightMotion} from './motion/RightMotion';
 import {DownMotion} from './motion/DownMotion';
-import {FirstMotion} from './motion/FirstMotion';
+import {HomeMotion} from './motion/HomeMotion';
 import {EndMotion} from './motion/EndMotion';
-import {ForwardCharMotion} from './motion/ForwardCharMotion';
-import {ForwardWordMotion} from './motion/ForwardWordMotion';
+import {FindCharacterMotion} from './motion/FindCharacterMotion';
+import {WordMotion} from './motion/WordMotion';
 
 export class CommandFactory implements ICommandFactory {
 
     private state: State;
     private action: IAction;
-    private motion: ForwardCharMotion;
+    private motion: FindCharacterMotion;
     private stackedKey: Key;
     private num: number;
     private commandString: string;
@@ -145,7 +144,7 @@ export class CommandFactory implements ICommandFactory {
         }
     }
 
-    private pushKeyAtRequireCharForMotion(key: Key):IAction {
+    private pushKeyAtRequireCharForMotion(key: Key): IAction {
         this.motion.SetChar(Utils.KeyToChar(key));
         return this.action;
     }
@@ -156,7 +155,7 @@ export class CommandFactory implements ICommandFactory {
 
     // i    
     private insertCurrentPositionAction() {
-        this.action = new InsertAction();
+        this.action = new InsertCurrentPositionAction();
     }
 
     // a    
@@ -167,13 +166,13 @@ export class CommandFactory implements ICommandFactory {
         ma.SetMotion(m);
         this.action = new CombinationAction([
             ma,
-            new InsertAction()
+            new InsertCurrentPositionAction()
         ]);
     }
     
     // I
     private insertHomeAction() {
-        this.action = new FirstInsertAction();
+        this.action = new InsertHomeAction();
     }
 
     // A    
@@ -183,15 +182,15 @@ export class CommandFactory implements ICommandFactory {
         ma.SetMotion(m);
         this.action = new CombinationAction([
             ma,
-            new InsertAction()
+            new InsertCurrentPositionAction()
         ]);
     }
 
     // o O    
     private insertLineBelowAction(isAbove: boolean) {
-        var a = new InsertNewLineAction();
+        var a = new InsertLineBelowAction();
         if (isAbove) {
-            a.SetBackOption();
+            a.SetAboveOption();
         }
         this.action = a;
     }
@@ -216,7 +215,7 @@ export class CommandFactory implements ICommandFactory {
         var a = new DeleteAction();
         a.SetSmallOption();
         a.SetMotion(m);
-        a.SetInsertOption()
+        a.SetChangeOption()
         this.action = a;
     }
     
@@ -227,7 +226,7 @@ export class CommandFactory implements ICommandFactory {
         var a = new DeleteAction();
         a.SetLineOption();
         a.SetMotion(m);
-        a.SetInsertOption()
+        a.SetChangeOption()
         this.action = a;
     }
     
@@ -269,9 +268,11 @@ export class CommandFactory implements ICommandFactory {
     
     // w b
     private moveWordAction(isReverse: boolean) {
-        var m = new ForwardWordMotion();
+        var m: WordMotion;
         if (isReverse) {
-            m.SetBack();
+            m = new WordMotion(Direction.Left);
+        } else {
+            m = new WordMotion(Direction.Right);
         }
         m.SetCount(this.getNumStack());
         this.action = this.createMoveAction(m);
@@ -279,7 +280,7 @@ export class CommandFactory implements ICommandFactory {
     
     // 0
     private moveHomeAction() {
-        this.action = this.createMoveAction(new FirstMotion());
+        this.action = this.createMoveAction(new HomeMotion());
     }
     
     // $
@@ -290,11 +291,11 @@ export class CommandFactory implements ICommandFactory {
     // fx Fx
     private moveFindCharacterAction(isReverse) {
         var a = new MoveAction();
-        var m: ForwardCharMotion;
+        var m: FindCharacterMotion;
         if (isReverse) {
-            m = new ForwardCharMotion(Direction.Left);
+            m = new FindCharacterMotion(Direction.Left);
         } else {
-            m = new ForwardCharMotion(Direction.Right);
+            m = new FindCharacterMotion(Direction.Right);
         }
         m.SetCount(this.getNumStack());
         a.SetMotion(m);
@@ -305,11 +306,11 @@ export class CommandFactory implements ICommandFactory {
     // tx Tx
     private moveTillCharacterAction(isReverse) {
         var a = new MoveAction();
-        var m: ForwardCharMotion;
+        var m: FindCharacterMotion;
         if (isReverse) {
-            m = new ForwardCharMotion(Direction.Left);
+            m = new FindCharacterMotion(Direction.Left);
         } else {
-            m = new ForwardCharMotion(Direction.Right);
+            m = new FindCharacterMotion(Direction.Right);
         }
         m.SetCount(this.getNumStack());
         m.SetTillOption();
@@ -343,9 +344,11 @@ export class CommandFactory implements ICommandFactory {
     
     // cw cb
     private wordMotion(isReverse: boolean) {
-        var m = new ForwardWordMotion();
+        var m: WordMotion;
         if (isReverse) {
-            m.SetBack();
+            m = new WordMotion(Direction.Left);
+        } else {
+            m = new WordMotion(Direction.Right);
         }
         m.SetCount(this.getNumStack());
         var a = <IRequireMotionAction>this.action;
@@ -355,7 +358,7 @@ export class CommandFactory implements ICommandFactory {
     // c0
     private homeMotion() {
         var a = <IRequireMotionAction>this.action;
-        a.SetMotion(new FirstMotion());
+        a.SetMotion(new HomeMotion());
     }
     
     // c$
@@ -366,11 +369,11 @@ export class CommandFactory implements ICommandFactory {
     
     // fx Fx
     private findCharacterMotion(isReverse) {
-        var m: ForwardCharMotion;
+        var m: FindCharacterMotion;
         if (isReverse) {
-            m = new ForwardCharMotion(Direction.Right);
+            m = new FindCharacterMotion(Direction.Right);
         } else {
-            m = new ForwardCharMotion(Direction.Left);
+            m = new FindCharacterMotion(Direction.Left);
         }
         m.SetCount(this.getNumStack());
         var a = <IRequireMotionAction>this.action;
@@ -380,11 +383,11 @@ export class CommandFactory implements ICommandFactory {
     
     // tx Tx
     private tillCharacterMotion(isReverse) {
-        var m: ForwardCharMotion;
+        var m: FindCharacterMotion;
         if (isReverse) {
-            m = new ForwardCharMotion(Direction.Right);
+            m = new FindCharacterMotion(Direction.Right);
         } else {
-            m = new ForwardCharMotion(Direction.Left);
+            m = new FindCharacterMotion(Direction.Left);
         }
         m.SetCount(this.getNumStack());
         m.SetTillOption();
@@ -396,7 +399,7 @@ export class CommandFactory implements ICommandFactory {
     // cm 
     private changeAction() {
         var a = new DeleteAction();
-        a.SetInsertOption();
+        a.SetChangeOption();
         this.action = a;
     }
     
@@ -419,7 +422,7 @@ export class CommandFactory implements ICommandFactory {
         var a = new DeleteAction();
         a.SetSmallOption();
         a.SetMotion(m);
-        a.SetInsertOption();
+        a.SetChangeOption();
         this.action = a;
     }
 

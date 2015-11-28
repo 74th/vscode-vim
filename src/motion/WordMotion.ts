@@ -2,17 +2,13 @@ import {AbstractMotion} from "./AbstractMotion";
 import * as Utils from "../Utils";
 import {Position} from "../VimStyle";
 
-export class ForwardWordMotion extends AbstractMotion {
+export class WordMotion extends AbstractMotion {
     
-    private isBack: boolean;
+    private direction: Direction;
     
-    constructor() {
+    constructor(direction:Direction) {
         super();
-        this.isBack = false;  
-    };
-    
-    public SetBack() {
-        this.isBack = true;
+        this.direction = direction;  
     };
 
     public CalculateEnd(editor: IEditor, start: IPosition): IPosition {
@@ -33,7 +29,7 @@ export class ForwardWordMotion extends AbstractMotion {
         while (count > 0) {
             
             // get next charactor
-            if (this.isBack) {
+            if (this.direction == Direction.Right) {
                 charNum--;
                 if (charNum < 0) {
                     // First of line
@@ -85,7 +81,7 @@ export class ForwardWordMotion extends AbstractMotion {
         var end = new Position();
         if (isReachLast) {
             // reach last position
-            if (this.isBack) {
+            if (this.direction) {
                 // top position
                 end.char = 0;
                 end.line = 0;
@@ -97,7 +93,7 @@ export class ForwardWordMotion extends AbstractMotion {
         }
         
         end.line = lineNum;
-        if (this.isBack) {
+        if (this.direction) {
             // check front of a word
             var i = charNum - 1;
             while (i > 0) {

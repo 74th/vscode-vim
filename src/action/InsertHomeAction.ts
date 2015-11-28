@@ -1,6 +1,6 @@
 import {Position} from "../VimStyle";
 
-export class FirstInsertAction implements IAction {
+export class InsertHomeAction implements IAction {
     public Execute(editor: IEditor, vim: IVimStyle) {
         var line = editor.ReadLineAtCurrentPosition();
         var lineNum = editor.GetCurrentPosition().line;

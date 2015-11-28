@@ -1,22 +1,22 @@
 import {Position} from "../VimStyle";
 
-export class InsertNewLineAction implements IAction {
+export class InsertLineBelowAction implements IAction {
     
-    private isBack: boolean;
+    private isAbove: boolean;
     
     constructor() {
-        this.isBack = false;
+        this.isAbove = false;
     }
     
-    public SetBackOption() {
-        this.isBack = true;
+    public SetAboveOption() {
+        this.isAbove = true;
     }
     public Execute(editor: IEditor, vim: IVimStyle) {
         var cu = editor.GetCurrentPosition();
         var cp = new Position();
         cp.char = 0;
         var lnp = new Position();
-        if (this.isBack) {
+        if (this.isAbove) {
             cp.line = cu.line;
             lnp.line = cu.line;
             lnp.char = 0;
