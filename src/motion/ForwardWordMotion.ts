@@ -53,7 +53,7 @@ export class ForwardWordMotion extends AbstractMotion {
                 }
             } else {
                 charNum++;
-                if (lineLength == charNum) {
+                if (lineLength <= charNum) {
                     // End of line
                     charNum = 0;
                     lineNum++;

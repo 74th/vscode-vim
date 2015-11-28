@@ -186,7 +186,7 @@ export function KeyToChar(key: Enums.Key): string {
         case Enums.Key.Asterisk:
             return "*";
         case Enums.Key.Plus:
-            return "*";
+            return "+";
         case Enums.Key.Comma:
             return ",";
         case Enums.Key.Hyphen:
