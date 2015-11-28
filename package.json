@@ -29,12 +29,12 @@
             "type": "object",
             "title": "vim style configuration",
             "properties": {
-                "vimstyle.useJisKeyboard": {
+                "vimStyle.useJisKeyboard": {
                     "type": "boolean",
                     "default": false,
                     "description": "JIS keyboard keybinding"
                 },
-                "vimstyle.showMode": {
+                "vimStyle.showMode": {
                     "type": "boolean",
                     "default": false,
                     "description": "Show mode in status bar"

@@ -17,7 +17,8 @@ export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(editor);
     
     var disposable = vscode.workspace.onDidChangeConfiguration(() => {
-        var showMode = conf.get<boolean>('showMode', false);
+        conf = vscode.workspace.getConfiguration('vimStyle');
+        showMode = conf.get<boolean>('showMode', false);
         
         editor.SetModeStatusVisibility(showMode);
     });
