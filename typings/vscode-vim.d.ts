@@ -4,6 +4,7 @@ interface IEditor {
     CloseCommandStatus();
     ShowCommandStatus(text: string);
     ShowModeStatus(mode: Mode);
+    SetModeStatusVisibility(visible: boolean);
     
     // Edit
     InsertTextAtCurrentPosition(text: string);
@@ -27,6 +28,10 @@ interface IEditor {
     GetLastLineNum(): number;
     
     dispose(): void;
+}
+
+interface IVSCodeEditorOptions {
+    showMode?: boolean;
 }
 
 interface ICommandFactory {

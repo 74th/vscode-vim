@@ -6,10 +6,15 @@ export class VSCodeEditor implements IEditor {
     private modeStatusBarItem: vscode.StatusBarItem;
     private commandStatusBarItem: vscode.StatusBarItem;
    
-    public constructor() {
+    public constructor(options: IVSCodeEditorOptions) {
+        options = options || {
+           showMode: false   
+        };
+        
         this.modeStatusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
+        this.SetModeStatusVisibility(options.showMode);
+              
         this.commandStatusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
-        this.modeStatusBarItem.show();
         this.commandStatusBarItem.show();
     }
     
@@ -23,6 +28,10 @@ export class VSCodeEditor implements IEditor {
     
     public ShowModeStatus(mode: Mode) {
         this.modeStatusBarItem.text = Utils.ModeToString(mode);
+    }
+    
+    public SetModeStatusVisibility(visible: boolean) {
+        visible ? this.modeStatusBarItem.show() : this.modeStatusBarItem.hide();
     }
     
     // Edit

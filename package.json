@@ -33,6 +33,11 @@
                     "type": "boolean",
                     "default": false,
                     "description": "JIS keyboard keybinding"
+                },
+                "vimstyle.showMode": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Show mode in status bar"
                 }
             }
         },
