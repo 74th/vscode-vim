@@ -1,30 +1,23 @@
-import * as Enums from "./VimStyleEnums";
 import {CommandFactory} from "./CommandFactory";
 import {InsertModeExecute} from "./mode/InsertMode";
-import {IEditor} from "./IEditor"
 import * as Utils from "./Utils"
 import {Register} from "./Register"
 
-enum Mode {
-    Normal,
-    Insert
-}
-
-export class VimStyle {
+export class VimStyle implements IVimStyle {
 
     private mode: Mode;
     private editor: IEditor;
-    private commandFactory: CommandFactory;
-    public Register: Register;
+    private commandFactory: ICommandFactory;
+    public Register: IRegister;
 
     constructor(editor: IEditor) {
         this.editor = editor;
-        this.mode = Mode.Normal;
+        this.setMode(Mode.Normal);
         this.commandFactory = new CommandFactory();
         this.Register = new Register();
     }
 
-    public PushKey(key: Enums.Key) {
+    public PushKey(key: Key) {
         switch (this.mode) {
             case Mode.Normal:
                 this.readCommand(key);
@@ -35,39 +28,44 @@ export class VimStyle {
     }
 
     public PushEscKey() {
-        this.mode = Mode.Normal;
+        this.setMode(Mode.Normal);
         this.commandFactory.Clear()
-        this.editor.CloseStatus();
+        this.editor.CloseCommandStatus();
     }
 
     public ApplyInsertMode() {
-        this.mode = Mode.Insert;
+        this.setMode(Mode.Insert);
     }
 
-    private readCommand(key: Enums.Key) {
+    private readCommand(key: Key) {
         var action = this.commandFactory.PushKey(key);
         if (action == null) {
             this.showCommand();
             return;
         }
-        this.editor.CloseStatus();
+        this.editor.CloseCommandStatus();
         action.Execute(this.editor, this);
         this.commandFactory.Clear();
     }
 
     private showCommand() {
-        this.editor.ShowStatus(this.commandFactory.GetCommandString());
+        this.editor.ShowCommandStatus(this.commandFactory.GetCommandString());
+    }
+    
+    private setMode(mode : Mode) {
+        this.mode = mode;
+        this.editor.ShowModeStatus(this.mode);
     }
 }
 
-export class Position {
+export class Position implements IPosition {
     public line: number;
     public char: number;
 }
 
-export class Range {
-    public start: Position;
-    public end: Position;
+export class Range implements IRange {
+    public start: IPosition;
+    public end: IPosition;
     
     public Sort() {
         var isReverse = false;
@@ -79,8 +77,7 @@ export class Range {
             }
         }
         if (isReverse) {
-        var b: Position;
-            b = this.start;
+            var b = this.start;
             this.start = this.end;
             this.end = b;
         }

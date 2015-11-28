@@ -1,9 +1,5 @@
-import {IEditor} from "../IEditor";
 import {VimStyle, Range} from "../VimStyle";
 import {RegisterItem} from "../Register";
-import * as Enums from "../VimStyleEnums";
-import {IRequireMotionAction} from "./IAction";
-import {IMotion} from "../motion/IMotion";
 
 export class DeleteAction implements IRequireMotionAction {
 
@@ -41,7 +37,7 @@ export class DeleteAction implements IRequireMotionAction {
         this.motion = motion;
     }
 
-    public Execute(editor: IEditor, vim: VimStyle) {
+    public Execute(editor: IEditor, vim: IVimStyle) {
         var r = new Range();
         r.start = editor.GetCurrentPosition();
         var p = this.motion.CalculateEnd(editor, r.start);
@@ -74,10 +70,10 @@ export class DeleteAction implements IRequireMotionAction {
             } else {
                 item.Body = editor.ReadRange(r);
             }
-            item.Type = Enums.RegisterType.LineText;
+            item.Type = RegisterType.LineText;
         } else {
             item.Body = editor.ReadRange(r);
-            item.Type = Enums.RegisterType.Text;
+            item.Type = RegisterType.Text;
         }
 
         if (this.isLarge) {

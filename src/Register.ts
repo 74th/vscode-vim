@@ -1,68 +1,67 @@
-import * as Enums from "./VimStyleEnums";
 import * as Utils from "./Utils"
 
 export class RegisterItem {
-    public Type: Enums.RegisterType;
+    public Type: RegisterType;
     public Body: string;
 }
 
-export class Register {
-    private char: RegisterItem[];
-    private roll: RegisterItem[];
-    private yank: RegisterItem;
-    private unName: RegisterItem;
+export class Register implements IRegister {
+    private char: IRegisterItem[];
+    private roll: IRegisterItem[];
+    private yank: IRegisterItem;
+    private unName: IRegisterItem;
     constructor() {
         this.char = [];
         this.roll = [];
         this.yank = null;
         this.unName = null;
     }
-    public Set(key: Enums.Key, value: RegisterItem) {
+    public Set(key: Key, value: IRegisterItem) {
         this.char[key] = value;
     }
-    public SetYank(value: RegisterItem) {
+    public SetYank(value: IRegisterItem) {
         this.unName = value;
         this.yank = value;
     }
-    public SetRoll(value: RegisterItem) {
+    public SetRoll(value: IRegisterItem) {
         this.unName = value;
         this.roll.unshift(value);
         if (this.roll.length > 10) {
             this.roll.length = 10;
         }
     }
-    public Get(key: Enums.Key): RegisterItem {
+    public Get(key: Key): IRegisterItem {
         switch (key) {
-            case Enums.Key.n0:
+            case Key.n0:
                 return this.yank;
-            case Enums.Key.Quotation:
+            case Key.Quotation:
                 return this.unName;
         }
         switch (Utils.GetKeyType(key)) {
-            case Enums.KeyType.Charactor:
+            case KeyType.Charactor:
                 return this.GetCharactorRegister(key);
-            case Enums.KeyType.Number:
+            case KeyType.Number:
                 return this.GetRollRegister(key);
         }
         return null;
     }
-    public GetUnName(): RegisterItem{
+    public GetUnName(): IRegisterItem{
         return this.unName;
     }
-    public GetRollFirst(value: RegisterItem) {
+    public GetRollFirst(value: IRegisterItem) {
         if (this.roll.length > 0) {
             return this.roll[0];
         }
         return null;
     }
-    private GetRollRegister(key: Enums.Key) {
+    private GetRollRegister(key: Key) {
         var n = Utils.KeyToNum(key);
         if (this.roll.length > n+1) {
             return this.roll[n];
         }
         return null;
     }
-    private GetCharactorRegister(key: Enums.Key) {
+    private GetCharactorRegister(key: Key) {
         if (this.char[key] == undefined || this.char[key] == null) {
             return null;
         }

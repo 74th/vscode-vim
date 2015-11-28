@@ -1,15 +1,13 @@
 import {AbstractMotion} from "./AbstractMotion";
-import {IEditor} from "../IEditor";
-import * as Enums from "../VimStyleEnums";
 import {Position} from "../VimStyle";
 
 export class ForwardCharMotion extends AbstractMotion {
 
     private targetCharCode:number;
-    private direction: Enums.Direction;
-    private sideOfCharactor: Enums.Direction;
+    private direction: Direction;
+    private sideOfCharactor: Direction;
     
-    constructor(direction:Enums.Direction, sideOfCharactor:Enums.Direction) {
+    constructor(direction: Direction, sideOfCharactor: Direction) {
         super();
         this.direction = direction;
         this.sideOfCharactor = sideOfCharactor;
@@ -19,13 +17,13 @@ export class ForwardCharMotion extends AbstractMotion {
         this.targetCharCode = c.charCodeAt(0);
     }
     
-    public CalculateEnd(editor: IEditor, start: Position) {
+    public CalculateEnd(editor: IEditor, start: IPosition): IPosition {
         var line = editor.ReadLineAtCurrentPosition();
         var end = new Position();
         end.line = start.line;
         var i;
         var count = this.GetCount();
-        if (this.direction == Enums.Direction.Right) {
+        if (this.direction == Direction.Right) {
             for (i = start.char; i < line.length; i++){
                 if (this.targetCharCode == line.charCodeAt(i)) {
                     count--;
@@ -49,7 +47,7 @@ export class ForwardCharMotion extends AbstractMotion {
         if (count > 0) {
             return null;
         }
-        if (this.sideOfCharactor == Enums.Direction.Right) {
+        if (this.sideOfCharactor == Direction.Right) {
             end.char += 1;
         }
         return end;
