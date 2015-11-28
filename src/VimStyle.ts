@@ -30,7 +30,7 @@ export class VimStyle implements IVimStyle {
     public PushEscKey() {
         this.setMode(Mode.Normal);
         this.commandFactory.Clear()
-        this.editor.CloseStatus();
+        this.editor.CloseCommandStatus();
     }
 
     public ApplyInsertMode() {
@@ -43,17 +43,18 @@ export class VimStyle implements IVimStyle {
             this.showCommand();
             return;
         }
-        this.editor.CloseStatus();
+        this.editor.CloseCommandStatus();
         action.Execute(this.editor, this);
         this.commandFactory.Clear();
     }
 
     private showCommand() {
-        this.editor.ShowStatus(this.commandFactory.GetCommandString());
+        this.editor.ShowCommandStatus(this.commandFactory.GetCommandString());
     }
     
     private setMode(mode : Mode) {
         this.mode = mode;
+        this.editor.ShowModeStatus(this.mode);
     }
 }
 

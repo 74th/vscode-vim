@@ -1,8 +1,9 @@
 interface IEditor {
     
     // Status
-    CloseStatus();
-    ShowStatus(text: string);
+    CloseCommandStatus();
+    ShowCommandStatus(text: string);
+    ShowModeStatus(mode: Mode);
     
     // Edit
     InsertTextAtCurrentPosition(text: string);
@@ -24,6 +25,8 @@ interface IEditor {
     
     // Document Info
     GetLastLineNum(): number;
+    
+    dispose(): void;
 }
 
 interface ICommandFactory {

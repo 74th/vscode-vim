@@ -1,14 +1,28 @@
 import * as vscode from "vscode"
 import {Position} from "./VimStyle";
+import * as Utils from "./Utils";
 
 export class VSCodeEditor implements IEditor {
+    private modeStatusBarItem: vscode.StatusBarItem;
+    private commandStatusBarItem: vscode.StatusBarItem;
+   
+    public constructor() {
+        this.modeStatusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
+        this.commandStatusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
+        this.modeStatusBarItem.show();
+        this.commandStatusBarItem.show();
+    }
     
     // Status
-    public CloseStatus() {
-        vscode.window.setStatusBarMessage("")
+    public CloseCommandStatus() {
+        this.commandStatusBarItem.text = "";
     }
-    public ShowStatus(text: string) {
-        vscode.window.setStatusBarMessage(text);
+    public ShowCommandStatus(text: string) {
+        this.commandStatusBarItem.text = text;
+    }
+    
+    public ShowModeStatus(mode: Mode) {
+        this.modeStatusBarItem.text = Utils.ModeToString(mode);
     }
     
     // Edit
@@ -71,7 +85,11 @@ export class VSCodeEditor implements IEditor {
     public GetLastLineNum(): number {
         return vscode.window.activeTextEditor.document.lineCount -1;
     }
-
+    
+    public dispose() {
+        this.modeStatusBarItem.dispose();
+        this.commandStatusBarItem.dispose();
+    }
 }
 
 function tranceVimStylePosition(org: vscode.Position): IPosition {

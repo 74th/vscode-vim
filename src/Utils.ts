@@ -1,4 +1,15 @@
 
+export function ModeToString(mode: Mode): string {
+    switch(mode) {
+        case Mode.Normal:
+            return "NORMAL";
+        case Mode.Insert:
+            return "INSERT";
+        default:
+            throw new Error("Panic!");
+    }
+}
+
 export function KeyToNum(key: Key): number {
     switch (key) {
         case Key.n0:

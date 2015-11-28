@@ -5,10 +5,14 @@ import {VSCodeEditor} from './VSCodeEditor'
 export function activate(context: vscode.ExtensionContext) {
 
     var editor = new VSCodeEditor();
+    
+    context.subscriptions.push(editor);
+    
     var vim = new VimStyle(editor);
     var isJisKeyboard: boolean;
     var conf = vscode.workspace.getConfiguration('vimStyle');
     isJisKeyboard = conf.get<boolean>("useJisKeyboard");
+    
     
     var disposable = vscode.commands.registerCommand('vim.a', () => {
         vim.PushKey(Key.a);
