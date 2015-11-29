@@ -1,5 +1,5 @@
 import * as Utils from "../Utils";
-import {Command, State, IVimStyleCommand, KeyBindings} from './Keybindings';
+import {Command, State, IVimStyleCommand, KeyBindings} from './KeyBindings';
 import {CombinationAction} from '../action/CombinationAction';
 import {InsertCurrentPositionAction} from '../action/InsertCurrentPositionAction';
 import {InsertLineBelowAction} from '../action/InsertLineBelowAction';
