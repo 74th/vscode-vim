@@ -42,6 +42,7 @@ interface ICommandFactory {
 
 interface IMotion {
     SetCount(count: number);
+    CalculateSelectionRange(editor: IEditor, start: IPosition): IRange;
     CalculateEnd(editor: IEditor, start: IPosition): IPosition;
 }
 
@@ -62,6 +63,8 @@ interface IRegister {
 interface IPosition {
     line: number;
     char: number;
+    
+    IsEqual(position: IPosition): boolean;
 }
 
 interface IRange {

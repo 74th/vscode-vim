@@ -1,4 +1,4 @@
-export class AbstractMotion implements IMotion {
+export abstract class AbstractMotion implements IMotion {
 
     private count: number;
 
@@ -9,8 +9,8 @@ export class AbstractMotion implements IMotion {
     public SetCount(count: number) {
         this.count = count;
     }
+    
+    public abstract CalculateSelectionRange(editor: IEditor, start: IPosition): IRange;
 
-    public CalculateEnd(editor: IEditor, start: IPosition): IPosition {
-        throw new Error("UnImplemented");
-    }
+    public abstract CalculateEnd(editor: IEditor, start: IPosition): IPosition;
 }

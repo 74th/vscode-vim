@@ -38,41 +38,38 @@ export class DeleteAction implements IRequireMotionAction {
     }
 
     public Execute(editor: IEditor, vim: IVimStyle) {
-        var r = new Range();
-        r.start = editor.GetCurrentPosition();
-        var p = this.motion.CalculateEnd(editor, r.start);
-        if (p == null) {
-            // cancel
+        var start = editor.GetCurrentPosition();
+        var range = this.motion.CalculateSelectionRange(editor, start);
+        
+        if(!range) {
             return;
         }
-        r.end = p; 
-        r.Sort();
 
         var item = new RegisterItem();
         if (this.isLine) {
 
-            r.start.char = 0;
-            r.end.line = r.end.line + 1;
-            r.end.char = 0;
+            range.start.char = 0;
+            range.end.line = range.end.line + 1;
+            range.end.char = 0;
             var lastLineCount = editor.GetLastLineNum();
-            if (r.end.line > lastLineCount) {
+            if (range.end.line > lastLineCount) {
                 // over last line
                 var lastLine = editor.ReadLine(lastLineCount)
-                r.end.line = lastLineCount;
-                r.end.char = lastLine.length;
-                item.Body = editor.ReadRange(r) + "\n";
-                if (r.start.line > 0) {
+                range.end.line = lastLineCount;
+                range.end.char = lastLine.length;
+                item.Body = editor.ReadRange(range) + "\n";
+                if (range.start.line > 0) {
                     // delete previous \n
-                    var preLine = editor.ReadLine(r.start.line - 1);
-                    r.start.line = r.start.line - 1;
-                    r.start.char = preLine.length;
+                    var preLine = editor.ReadLine(range.start.line - 1);
+                    range.start.line = range.start.line - 1;
+                    range.start.char = preLine.length;
                 }
             } else {
-                item.Body = editor.ReadRange(r);
+                item.Body = editor.ReadRange(range);
             }
             item.Type = RegisterType.LineText;
         } else {
-            item.Body = editor.ReadRange(r);
+            item.Body = editor.ReadRange(range);
             item.Type = RegisterType.Text;
         }
 
@@ -81,9 +78,9 @@ export class DeleteAction implements IRequireMotionAction {
         }
         if (!this.isOnlyYanc) {
             if (this.isLine && this.isInsert) {
-                editor.ReplaceRange(r, "\n");
+                editor.ReplaceRange(range, "\n");
             } else {
-                editor.DeleteRange(r);
+                editor.DeleteRange(range);
             }
         }
 

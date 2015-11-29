@@ -1,6 +1,6 @@
 import {AbstractMotion} from "./AbstractMotion";
 import * as Utils from "../Utils";
-import {Position} from "../VimStyle";
+import {Position, Range} from "../VimStyle";
 
 enum Target {
     Current,
@@ -27,6 +27,13 @@ export class LineHeadMotion extends AbstractMotion {
     }
     public SetCurrentLineOption() {
         this.targetLine = Target.Current;
+    }
+    
+    public CalculateSelectionRange(editor: IEditor, start: IPosition): IRange {
+        var start = new Position(start.line, start.char);
+        var end = this.CalculateEnd(editor, start);
+        
+        return new Range(start, end);
     }
 
     public CalculateEnd(editor: IEditor, start: IPosition): IPosition {

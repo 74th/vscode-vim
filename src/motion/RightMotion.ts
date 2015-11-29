@@ -1,5 +1,5 @@
 import {AbstractMotion} from "./AbstractMotion"
-import {Position} from "../VimStyle";
+import {Position, Range} from "../VimStyle";
 
 export class RightMotion extends AbstractMotion {
 
@@ -12,6 +12,12 @@ export class RightMotion extends AbstractMotion {
 
     public SetLeftDirection() {
         this.isLeftDirection = true;
+    }
+    
+    public CalculateSelectionRange(editor: IEditor, start: IPosition): IRange {
+       var start = new Position(start.line, start.char);
+       var end = this.CalculateEnd(editor, start);
+       return new Range(start, end);
     }
 
     public CalculateEnd(editor: IEditor, start: IPosition): IPosition {
