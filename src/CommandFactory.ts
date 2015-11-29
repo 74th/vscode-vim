@@ -40,9 +40,10 @@ export class CommandFactory implements ICommandFactory {
                 break;
             case State.RequireMotion:
                 command = KeyBindings.RequireMotion[keyChar];
-                break
+                break;
             case State.RequireMotionNum:
                 command = KeyBindings.RequireMotionNum[keyChar];
+                break;
             case State.RequireCharForMotion:
                 return this.pushKeyAtRequireCharForMotion(key);
         }
