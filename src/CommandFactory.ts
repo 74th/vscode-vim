@@ -2,7 +2,7 @@ import {VimStyle} from './VimStyle';
 import * as Utils from "./Utils";
 import {Command, State, IVimStyleCommand, KeyBindings} from './keybindings/keybindings';
 import {CombinationAction} from './action/CombinationAction';
-import {InsertCurrentPositionAction} from './action/InsertAction';
+import {InsertCurrentPositionAction} from './action/InsertCurrentPositionAction';
 import {InsertLineBelowAction} from './action/InsertLineBelowAction';
 import {PasteAction} from './action/PasteAction';
 import {DeleteAction} from './action/DeleteAction';
@@ -79,6 +79,7 @@ export class CommandFactory implements ICommandFactory {
     private createVimStyleCommand(key: Key, command: IVimStyleCommand) {
 
         switch (command.cmd) {
+            // single action
             case Command.insertCurrentPositionAction:
                 return this.insertCurrentPositionAction();
             case Command.appendCurrentPositionAction:
@@ -95,6 +96,8 @@ export class CommandFactory implements ICommandFactory {
                 return this.changeCharacterAction();
             case Command.changeLineAction:
                 return this.changeLineAction();
+                
+            // move action
             case Command.pasteBelowAction:
                 return this.pasteBelowAction(command.isReverse);
             case Command.moveRightAction:
@@ -111,6 +114,8 @@ export class CommandFactory implements ICommandFactory {
                 return this.moveFindCharacterAction(command.isReverse);
             case Command.moveTillCharacterAction:
                 return this.moveTillCharacterAction(command.isReverse);
+                
+            // motion
             case Command.rightMotion:
                 return this.rightMotion(command.isReverse);
             case Command.lineMotion:
@@ -125,6 +130,8 @@ export class CommandFactory implements ICommandFactory {
                 return this.findCharacterMotion(command.isReverse);
             case Command.tillCharacterMotion:
                 return this.tillCharacterMotion(command.isReverse);
+                
+            // delete, yanc, change action
             case Command.changeAction:
                 return this.changeAction();
             case Command.deleteAction:
@@ -139,6 +146,8 @@ export class CommandFactory implements ICommandFactory {
                 return this.yancToEndAction();
             case Command.doActionAtCurrentLine:
                 return this.doActionAtCurrentLine(key);
+                
+            // other
             case Command.stackNumber:
                 return this.stackNumber(key);
         }
@@ -436,7 +445,7 @@ export class CommandFactory implements ICommandFactory {
         this.action = a;
     }
     
-    // command: Y
+    // Y
     private yancToEndAction() {
         var m = new EndMotion();
         m.SetCount(1);
@@ -450,12 +459,12 @@ export class CommandFactory implements ICommandFactory {
     private stackNumber(key: Key) {
         var n: number = Utils.KeyToNum(key);
         this.num = this.num * 10 + n;
-        this.commandString += n.toString();
         if (this.num > 10000) {
             this.Clear();
         }
     }
 
+    // dd, yy, cc    
     private doActionAtCurrentLine(key: Key) {
         if (this.stackedKey != key) {
             this.Clear();

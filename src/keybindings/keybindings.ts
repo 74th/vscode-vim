@@ -1,6 +1,7 @@
 
 export enum Command {
-    // single
+    
+    // single action
     insertCurrentPositionAction,
     appendCurrentPositionAction,
     insertHomeAction,
@@ -10,7 +11,8 @@ export enum Command {
     changeCharacterAction,
     changeLineAction,
     pasteBelowAction,
-    // move
+    
+    // move action
     moveRightAction,
     moveLineAction,
     moveWordAction,
@@ -18,6 +20,7 @@ export enum Command {
     moveEndAction,
     moveFindCharacterAction,
     moveTillCharacterAction,
+    
     // motion
     rightMotion,
     lineMotion,
@@ -26,7 +29,8 @@ export enum Command {
     endMotion,
     findCharacterMotion,
     tillCharacterMotion,
-    // d/y/c
+    
+    // delete, yanc, change action
     changeAction,
     deleteAction,
     yancAction,
@@ -34,6 +38,7 @@ export enum Command {
     deleteToEndAction,
     yancToEndAction,
     doActionAtCurrentLine,
+    
     // other
     stackNumber
 }
