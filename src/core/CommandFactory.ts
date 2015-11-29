@@ -81,87 +81,123 @@ export class CommandFactory implements ICommandFactory {
         switch (command.cmd) {
             // single action
             case Command.insertCurrentPositionAction:
-                return this.insertCurrentPositionAction();
+                this.insertCurrentPositionAction();
+                return;
             case Command.appendCurrentPositionAction:
-                return this.appendCurrentPositionAction();
+                this.appendCurrentPositionAction();
+                return;
             case Command.insertHomeAction:
-                return this.insertHomeAction();
+                this.insertHomeAction();
+                return;
             case Command.appendEndAction:
-                return this.appendEndAction();
+                this.appendEndAction();
+                return;
             case Command.insertLineBelowAction:
-                return this.insertLineBelowAction(command.isReverse);
+                this.insertLineBelowAction(command.isReverse);
+                return;
             case Command.deleteCharacterAction:
-                return this.deleteCharacterAction(command.isReverse);
+                this.deleteCharacterAction(command.isReverse);
+                return;
             case Command.changeCharacterAction:
-                return this.changeCharacterAction();
+                this.changeCharacterAction();
+                return;
             case Command.changeLineAction:
-                return this.changeLineAction();
+                this.changeLineAction();
+                return;
                 
             // move action
             case Command.pasteBelowAction:
-                return this.pasteBelowAction(command.isReverse);
+                this.pasteBelowAction(command.isReverse);
+                return;
             case Command.moveRightAction:
-                return this.moveRightAction(command.isReverse);
+                this.moveRightAction(command.isReverse);
+                return;
             case Command.moveLineAction:
-                return this.moveLineAction(command.isReverse);
+                this.moveLineAction(command.isReverse);
+                return;
             case Command.moveWordAction:
-                return this.moveWordAction(command.isReverse);
+                this.moveWordAction(command.isReverse);
+                return;
             case Command.moveHomeAction:
-                return this.moveHomeAction();
+                this.moveHomeAction();
+                return;
             case Command.moveEndAction:
-                return this.moveEndAction();
+                this.moveEndAction();
+                return;
             case Command.moveFindCharacterAction:
-                return this.moveFindCharacterAction(command.isReverse);
+                this.moveFindCharacterAction(command.isReverse);
+                return;
             case Command.moveTillCharacterAction:
-                return this.moveTillCharacterAction(command.isReverse);
+                this.moveTillCharacterAction(command.isReverse);
+                return;
             case Command.moveGotoLineAction:
-                return this.moveGotoLineAction();
+                this.moveGotoLineAction();
+                return;
             case Command.moveLastLineAction:
-                return this.moveLastLineAction();
+                this.moveLastLineAction();
+                return;
             case Command.moveFirstLineAction:
-                return this.moveFirstLineAction();    
+                this.moveFirstLineAction();
+                return;
                 
             // motion
             case Command.rightMotion:
-                return this.rightMotion(command.isReverse);
+                this.rightMotion(command.isReverse);
+                return;
             case Command.lineMotion:
-                return this.lineMotion(command.isReverse);
+                this.lineMotion(command.isReverse);
+                return;
             case Command.wordMotion:
-                return this.wordMotion(command.isReverse);
+                this.wordMotion(command.isReverse);
+                return;
             case Command.homeMotion:
-                return this.homeMotion();
+                this.homeMotion();
+                return;
             case Command.endMotion:
-                return this.endMotion();
+                this.endMotion();
+                return;
             case Command.findCharacterMotion:
-                return this.findCharacterMotion(command.isReverse);
+                this.findCharacterMotion(command.isReverse);
+                return;
             case Command.tillCharacterMotion:
-                return this.tillCharacterMotion(command.isReverse);
+                this.tillCharacterMotion(command.isReverse);
+                return;
             case Command.gotoLineMotion:
-                return this.gotoLineMotion();
+                this.gotoLineMotion();
+                return;
             case Command.lastLineMotion:
-                return this.lastLineMotion();
+                this.lastLineMotion();
+                return;
             case Command.firstLineMotion:
-                return this.firstLineMotion();
+                this.firstLineMotion();
+                return;
                 
             // delete, yanc, change action
             case Command.changeAction:
-                return this.changeAction();
+                this.changeAction();
+                return;
             case Command.deleteAction:
-                return this.deleteAction();
+                this.deleteAction();
+                return;
             case Command.yancAction:
-                return this.yancAction();
+                this.yancAction();
+                return;
             case Command.changeToEndAction:
-                return this.changeToEndAction();
+                this.changeToEndAction();
+                return;
             case Command.deleteToEndAction:
-                return this.deleteToEndAction();
+                this.deleteToEndAction();
+                return;
             case Command.yancToEndAction:
-                return this.yancToEndAction();
+                this.yancToEndAction();
+                return;
             case Command.doActionAtCurrentLine:
-                return this.doActionAtCurrentLine(key);
+                this.doActionAtCurrentLine(key);
+                return;
                 
             // other
             case Command.stackNumber:
-                return this.stackNumber(key);
+                this.stackNumber(key);
         }
     }
 
