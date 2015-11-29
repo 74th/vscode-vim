@@ -29,7 +29,7 @@ export class WordMotion extends AbstractMotion {
         while (count > 0) {
             
             // get next charactor
-            if (this.direction == Direction.Right) {
+            if (this.direction == Direction.Left) {
                 charNum--;
                 if (charNum < 0) {
                     // First of line
