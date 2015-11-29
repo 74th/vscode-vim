@@ -17,7 +17,7 @@ ext install vimStyle
 
 ## support
 
-* h j k l 0 $ w b tx fx Tx Fx
+* h j k l 0 $ w b tx fx Tx Fx G
 * i a s o x I A S O X
 * d y c dd yy cc Ndd Nyy Ncc D C p P
 
@@ -29,7 +29,7 @@ ext install vimStyle
 
 ## future suppprt
 
-* g G
+* g
 * ; ,
 * J
 * "xd "xy "xc "xp

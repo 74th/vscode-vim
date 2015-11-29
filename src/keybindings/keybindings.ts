@@ -20,6 +20,9 @@ export enum Command {
     moveEndAction,
     moveFindCharacterAction,
     moveTillCharacterAction,
+    moveGotoLineAction,
+    moveLastLineAction,
+    moveFirstLineAction,
     
     // motion
     rightMotion,
@@ -29,6 +32,9 @@ export enum Command {
     endMotion,
     findCharacterMotion,
     tillCharacterMotion,
+    gotoLineMotion,
+    lastLineMotion,
+    firstLineMotion,
     
     // delete, yanc, change action
     changeAction,
@@ -97,7 +103,9 @@ export namespace KeyBindings {
             state: State.RequireCharForMotion
         },
         // g
-        // G
+        "G": {
+            cmd: Command.moveLastLineAction,
+        },
         "h": {
             cmd: Command.moveRightAction,
             isReverse: true
@@ -251,7 +259,9 @@ export namespace KeyBindings {
             state: State.RequireCharForMotion
         },
         // Ng
-        // NG
+        "G": {
+            cmd: Command.moveGotoLineAction  
+        },
         "h": {
             cmd: Command.moveRightAction,
             isReverse: true
@@ -383,7 +393,9 @@ export namespace KeyBindings {
             state: State.RequireCharForMotion
         },
         // g
-        // G
+        "G": {
+            cmd: Command.lastLineMotion,  
+        },
         "h": {
             cmd: Command.rightMotion,
             isReverse: true
@@ -514,7 +526,9 @@ export namespace KeyBindings {
             state: State.RequireCharForMotion
         },
         // g
-        // G
+        "G": {
+            cmd: Command.gotoLineMotion
+        },
         "h": {
             cmd: Command.rightMotion,
             isReverse: true

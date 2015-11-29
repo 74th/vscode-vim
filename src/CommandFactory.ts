@@ -6,7 +6,6 @@ import {InsertCurrentPositionAction} from './action/InsertCurrentPositionAction'
 import {InsertLineBelowAction} from './action/InsertLineBelowAction';
 import {PasteAction} from './action/PasteAction';
 import {DeleteAction} from './action/DeleteAction';
-import {InsertHomeAction} from './action/InsertHomeAction';
 import {MoveAction} from './action/MoveAction';
 import {RightMotion} from './motion/RightMotion';
 import {DownMotion} from './motion/DownMotion';
@@ -14,6 +13,7 @@ import {HomeMotion} from './motion/HomeMotion';
 import {EndMotion} from './motion/EndMotion';
 import {FindCharacterMotion} from './motion/FindCharacterMotion';
 import {WordMotion} from './motion/WordMotion';
+import {LineHeadMotion} from './motion/LineHeadMotion';
 
 export class CommandFactory implements ICommandFactory {
 
@@ -115,6 +115,12 @@ export class CommandFactory implements ICommandFactory {
                 return this.moveFindCharacterAction(command.isReverse);
             case Command.moveTillCharacterAction:
                 return this.moveTillCharacterAction(command.isReverse);
+            case Command.moveGotoLineAction:
+                return this.moveGotoLineAction();
+            case Command.moveLastLineAction:
+                return this.moveLastLineAction();
+            case Command.moveFirstLineAction:
+                return this.moveFirstLineAction();    
                 
             // motion
             case Command.rightMotion:
@@ -131,6 +137,12 @@ export class CommandFactory implements ICommandFactory {
                 return this.findCharacterMotion(command.isReverse);
             case Command.tillCharacterMotion:
                 return this.tillCharacterMotion(command.isReverse);
+            case Command.gotoLineMotion:
+                return this.gotoLineMotion();
+            case Command.lastLineMotion:
+                return this.lastLineMotion();
+            case Command.firstLineMotion:
+                return this.firstLineMotion();
                 
             // delete, yanc, change action
             case Command.changeAction:
@@ -182,7 +194,14 @@ export class CommandFactory implements ICommandFactory {
     
     // I
     private insertHomeAction() {
-        this.action = new InsertHomeAction();
+        var m = new LineHeadMotion();
+        m.SetCurrentLineOption();
+        var ma = new MoveAction();
+        ma.SetMotion(m);
+        this.action = new CombinationAction([
+            ma,
+            new InsertCurrentPositionAction()
+        ]);
     }
 
     // A    
@@ -329,6 +348,33 @@ export class CommandFactory implements ICommandFactory {
         this.motion = m;
     }
     
+    // Ng
+    private moveGotoLineAction() {
+        var a = new MoveAction();
+        var m = new LineHeadMotion();
+        m.SetCount(this.getNumStack() - 1);
+        a.SetMotion(m);
+        this.action = a;
+    }
+    
+    // G
+    private moveLastLineAction() {
+        var a = new MoveAction();
+        var m = new LineHeadMotion();
+        m.SetLastLineOption();
+        a.SetMotion(m);
+        this.action = a;
+    }
+    
+    // gg
+    private moveFirstLineAction() {
+        var a = new MoveAction();
+        var m = new LineHeadMotion();
+        m.SetFirstLineOption();
+        a.SetMotion(m);
+        this.action = a;
+    }
+    
     // ch cl
     private rightMotion(isLeft: boolean) {
         var m = new RightMotion();
@@ -404,6 +450,33 @@ export class CommandFactory implements ICommandFactory {
         var a = <IRequireMotionAction>this.action;
         a.SetMotion(m);
         this.motion = m;
+    }
+       
+    // cNg
+    private gotoLineMotion() {
+        var m = new LineHeadMotion();
+        m.SetCount(this.getNumStack() - 1);
+        var a = <IRequireMotionAction>this.action;
+        a.SetMotion(m);
+        a.SetLineOption()
+    }
+    
+    // cG
+    private lastLineMotion() {
+        var m = new LineHeadMotion();
+        m.SetLastLineOption();
+        var a = <IRequireMotionAction>this.action;
+        a.SetMotion(m);
+        a.SetLineOption();
+    }
+    
+    // cgg
+    private firstLineMotion() {
+        var m = new LineHeadMotion();
+        m.SetFirstLineOption();
+        a.SetMotion(m);
+        var a = <IRequireMotionAction>this.action;
+        a.SetMotion(m);
     }
     
     // cm 
