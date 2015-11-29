@@ -1,5 +1,3 @@
-import {VimStyle} from "../VimStyle";
-
 export class CombinationAction implements IAction {
     private actionList: IAction[];
     constructor(list: IAction[]) {

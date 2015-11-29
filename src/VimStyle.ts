@@ -1,7 +1,7 @@
-import {CommandFactory} from "./CommandFactory";
+import {CommandFactory} from "./core/CommandFactory";
 import {InsertModeExecute} from "./mode/InsertMode";
 import * as Utils from "./Utils"
-import {Register} from "./Register"
+import {Register} from "./core/Register"
 
 export class VimStyle implements IVimStyle {
 

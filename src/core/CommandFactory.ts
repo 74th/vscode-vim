@@ -1,19 +1,18 @@
-import {VimStyle} from './VimStyle';
-import * as Utils from "./Utils";
-import {Command, State, IVimStyleCommand, KeyBindings} from './keybindings/keybindings';
-import {CombinationAction} from './action/CombinationAction';
-import {InsertCurrentPositionAction} from './action/InsertCurrentPositionAction';
-import {InsertLineBelowAction} from './action/InsertLineBelowAction';
-import {PasteAction} from './action/PasteAction';
-import {DeleteAction} from './action/DeleteAction';
-import {MoveAction} from './action/MoveAction';
-import {RightMotion} from './motion/RightMotion';
-import {DownMotion} from './motion/DownMotion';
-import {HomeMotion} from './motion/HomeMotion';
-import {EndMotion} from './motion/EndMotion';
-import {FindCharacterMotion} from './motion/FindCharacterMotion';
-import {WordMotion} from './motion/WordMotion';
-import {LineHeadMotion} from './motion/LineHeadMotion';
+import * as Utils from "../Utils";
+import {Command, State, IVimStyleCommand, KeyBindings} from './Keybindings';
+import {CombinationAction} from '../action/CombinationAction';
+import {InsertCurrentPositionAction} from '../action/InsertCurrentPositionAction';
+import {InsertLineBelowAction} from '../action/InsertLineBelowAction';
+import {PasteAction} from '../action/PasteAction';
+import {DeleteAction} from '../action/DeleteAction';
+import {MoveAction} from '../action/MoveAction';
+import {RightMotion} from '../motion/RightMotion';
+import {DownMotion} from '../motion/DownMotion';
+import {HomeMotion} from '../motion/HomeMotion';
+import {EndMotion} from '../motion/EndMotion';
+import {FindCharacterMotion} from '../motion/FindCharacterMotion';
+import {WordMotion} from '../motion/WordMotion';
+import {LineHeadMotion} from '../motion/LineHeadMotion';
 
 export class CommandFactory implements ICommandFactory {
 

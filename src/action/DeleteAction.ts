@@ -1,5 +1,5 @@
-import {VimStyle, Range} from "../VimStyle";
-import {RegisterItem} from "../Register";
+import {Range} from "../VimStyle";
+import {RegisterItem} from "../core/Register";
 
 export class DeleteAction implements IRequireMotionAction {
 
