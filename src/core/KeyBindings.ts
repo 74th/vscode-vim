@@ -46,7 +46,8 @@ export enum Command {
     doActionAtCurrentLine,
     
     // other
-    stackNumber
+    stackNumber,
+    nothing
 }
 
 export enum State {
@@ -55,6 +56,8 @@ export enum State {
     RequireMotion,
     RequireMotionNum,
     RequireCharForMotion,
+    SmallG,
+    SmallGForMotion,
     Panic
 }
 
@@ -102,7 +105,10 @@ export namespace KeyBindings {
             isReverse: true,
             state: State.RequireCharForMotion
         },
-        // g
+        "g": {
+            cmd: Command.nothing,
+            state: State.SmallG
+        },
         "G": {
             cmd: Command.moveLastLineAction,
         },
@@ -392,7 +398,10 @@ export namespace KeyBindings {
             isReverse: true,
             state: State.RequireCharForMotion
         },
-        // g
+        "g": {
+            cmd: Command.nothing,
+            state: State.SmallGForMotion
+        },
         "G": {
             cmd: Command.lastLineMotion,  
         },
@@ -625,5 +634,19 @@ export namespace KeyBindings {
             state: State.RequireMotionNum
         },
         // $?
+    };
+    
+    // g
+    export let SmallG: { [key: string]: IVimStyleCommand } = {
+        "g": {
+            cmd: Command.moveFirstLineAction
+        }
+    };
+    
+    // cg
+    export let SmallGForMotion: { [key: string]: IVimStyleCommand } = {
+        "g": {
+            cmd: Command.firstLineMotion
+        }
     };
 }

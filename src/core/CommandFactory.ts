@@ -45,6 +45,12 @@ export class CommandFactory implements ICommandFactory {
                 break;
             case State.RequireCharForMotion:
                 return this.pushKeyAtRequireCharForMotion(key);
+            case State.SmallG:
+                command = KeyBindings.SmallG[keyChar];
+                break;
+            case State.SmallGForMotion:
+                command = KeyBindings.SmallGForMotion[keyChar];
+                break;
         }
         if (command == undefined) {
             this.Clear();
@@ -198,6 +204,8 @@ export class CommandFactory implements ICommandFactory {
             // other
             case Command.stackNumber:
                 this.stackNumber(key);
+            case Command.nothing:
+                return;
         }
     }
 
@@ -509,9 +517,9 @@ export class CommandFactory implements ICommandFactory {
     private firstLineMotion() {
         var m = new LineHeadMotion();
         m.SetFirstLineOption();
-        a.SetMotion(m);
         var a = <IRequireMotionAction>this.action;
         a.SetMotion(m);
+        a.SetLineOption();
     }
     
     // cm 
