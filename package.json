@@ -606,6 +606,12 @@
                 "mac": "shift+/",
                 "when": "editorTextFocus && !suggestWidgetVisible"
             },
+             {
+                "command": "vim.Cr",
+                "key": "Ctrl+r",
+                "mac": "Ctrl+r",
+                "when": "editorTextFocus && !suggestWidgetVisible"
+            },
             {
                 "command": "vim.Sp",
                 "key": "space",
@@ -626,6 +632,7 @@
     },
     "devDependencies": {
         "typescript": "^1.6.2",
-        "vscode": "0.10.x"
+        "vscode": "0.10.x",
+        "lodash": "^3.10.1"
     }
 }

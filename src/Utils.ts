@@ -153,6 +153,8 @@ export function KeyToChar(key: Key): string {
             return "Y";
         case Key.Z:
             return "Z";
+        case Key.Cr:
+            return "Cr";
         case Key.n0:
             return "0";
         case Key.n1:
