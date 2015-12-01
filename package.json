@@ -29,7 +29,7 @@
             "type": "object",
             "title": "vim style configuration",
             "properties": {
-                "vimStyle.useJisKeyboard": {
+                "vimStyle.useWinJisKeyboard": {
                     "type": "boolean",
                     "default": false,
                     "description": "JIS keyboard keybinding"
