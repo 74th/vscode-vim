@@ -6,11 +6,13 @@ export class FindCharacterMotion extends AbstractMotion {
     private targetCharCode: number;
     private direction: Direction;
     private isTill: boolean;
+    private isContainTargetChar: boolean;
 
     constructor(direction: Direction) {
         super();
         this.direction = direction;
         this.isTill = false;
+        this.isContainTargetChar = false;
     }
 
     public SetChar(c: string) {
@@ -19,6 +21,10 @@ export class FindCharacterMotion extends AbstractMotion {
 
     public SetTillOption() {
         this.isTill = true;
+    }
+
+    public SetContainTargetCharOption() {
+        this.isContainTargetChar = true;
     }
 
     public CalculateEnd(editor: IEditor, start: IPosition): IPosition {
@@ -57,6 +63,10 @@ export class FindCharacterMotion extends AbstractMotion {
             } else {
                 end.char += 1;
             }
+        }
+        if (this.isContainTargetChar) {
+            // use dfx dtx
+            end.char += 1;
         }
         return end;
     }

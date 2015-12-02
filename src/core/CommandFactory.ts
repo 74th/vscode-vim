@@ -471,9 +471,10 @@ export class CommandFactory implements ICommandFactory {
     private findCharacterMotion(isReverse) {
         var m: FindCharacterMotion;
         if (isReverse) {
-            m = new FindCharacterMotion(Direction.Right);
-        } else {
             m = new FindCharacterMotion(Direction.Left);
+        } else {
+            m = new FindCharacterMotion(Direction.Right);
+            m.SetContainTargetCharOption();
         }
         m.SetCount(this.getNumStack());
         var a = <IRequireMotionAction>this.action;
@@ -485,9 +486,10 @@ export class CommandFactory implements ICommandFactory {
     private tillCharacterMotion(isReverse) {
         var m: FindCharacterMotion;
         if (isReverse) {
-            m = new FindCharacterMotion(Direction.Right);
-        } else {
             m = new FindCharacterMotion(Direction.Left);
+        } else {
+            m = new FindCharacterMotion(Direction.Right);
+            m.SetContainTargetCharOption();
         }
         m.SetCount(this.getNumStack());
         m.SetTillOption();

@@ -436,7 +436,7 @@ export namespace KeyBindings {
         // s ?
         // S ?
         "t": {
-            cmd: Command.findCharacterMotion,
+            cmd: Command.tillCharacterMotion,
             state: State.RequireCharForMotion
         },
         "T": {
