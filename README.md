@@ -15,6 +15,16 @@ VSCode key-binding system has some issue. This plugin does not work compltely.
 ext install vimStyle
 ```
 
+### latest version
+
+```
+npm install -g typescript
+cd ~/.vscode/extensions/
+git clone https://github.com/74th/vscode-vim.git
+cd vscode-vim
+tsc
+```
+
 ## support
 
 * h j k l 0 $ w b tx fx Tx Fx gg G
@@ -31,21 +41,23 @@ ext install vimStyle
 
 * ; ,
 * J
+* { }
 * "xd "xy "xc "xp
+* v
 * ~
 * > <
 * % [ ]
 * + -
+* additional key-binding from settings.config
 * ...
 
 ## low priority
 
-* .
-* =
+* . (can't do with IntelliSence)
+* = (`>Format Code`)
 * *
 * m `
-* q @
-* v
+* q @ (can't do with IntelliSence)
 * ...
 
 ## JISキーボードユーザへ
@@ -59,6 +71,11 @@ Macの場合は、`settings.json`に`vimStyle.useMacJisKeyboard:true`を設定�
 MIT License
 
 ## update
+
+### 0.1.9
+
+* bug fix : dfx dFx dtx dTx
+* append indents by o O
 
 ### 0.1.8
 
