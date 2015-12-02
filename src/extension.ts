@@ -19,6 +19,8 @@ export function activate(context: vscode.ExtensionContext) {
 
     var disposable = vscode.workspace.onDidChangeConfiguration(() => {
         conf = vscode.workspace.getConfiguration('vimStyle');
+        isWinJisKeyboard = conf.get<boolean>('useWinJisKeyboard', false);
+        isMacJisKeyboard = conf.get<boolean>('useMacJisKeyboard', false);
         showMode = conf.get<boolean>('showMode', false);
 
         editor.SetModeStatusVisibility(showMode);
