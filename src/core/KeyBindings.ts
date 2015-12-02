@@ -266,7 +266,7 @@ export namespace KeyBindings {
         },
         // Ng
         "G": {
-            cmd: Command.moveGotoLineAction  
+            cmd: Command.moveGotoLineAction
         },
         "h": {
             cmd: Command.moveRightAction,
@@ -403,7 +403,7 @@ export namespace KeyBindings {
             state: State.SmallGForMotion
         },
         "G": {
-            cmd: Command.lastLineMotion,  
+            cmd: Command.lastLineMotion,
         },
         "h": {
             cmd: Command.rightMotion,

@@ -3,24 +3,24 @@ import {Position} from "../VimStyle";
 
 export class FindCharacterMotion extends AbstractMotion {
 
-    private targetCharCode:number;
+    private targetCharCode: number;
     private direction: Direction;
     private isTill: boolean;
-    
+
     constructor(direction: Direction) {
         super();
         this.direction = direction;
         this.isTill = false;
     }
-    
+
     public SetChar(c: string) {
         this.targetCharCode = c.charCodeAt(0);
     }
-    
+
     public SetTillOption() {
         this.isTill = true;
     }
-    
+
     public CalculateEnd(editor: IEditor, start: IPosition): IPosition {
         var line = editor.ReadLineAtCurrentPosition();
         var end = new Position();
@@ -28,7 +28,7 @@ export class FindCharacterMotion extends AbstractMotion {
         var i;
         var count = this.GetCount();
         if (this.direction == Direction.Right) {
-            for (i = start.char + 1; i < line.length; i++){
+            for (i = start.char + 1; i < line.length; i++) {
                 if (this.targetCharCode == line.charCodeAt(i)) {
                     count--;
                     if (count == 0) {
@@ -38,13 +38,13 @@ export class FindCharacterMotion extends AbstractMotion {
                 }
             }
         } else {
-            for (i = start.char - 1; i >= 0; i--){
+            for (i = start.char - 1; i >= 0; i--) {
                 if (this.targetCharCode == line.charCodeAt(i)) {
                     count--;
                     if (count == 0) {
                         end.char = i;
                         break;
-                    }    
+                    }
                 }
             }
         }

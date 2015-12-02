@@ -51,8 +51,8 @@ export class VimStyle implements IVimStyle {
     private showCommand() {
         this.editor.ShowCommandStatus(this.commandFactory.GetCommandString());
     }
-    
-    private setMode(mode : Mode) {
+
+    private setMode(mode: Mode) {
         this.mode = mode;
         this.editor.ShowModeStatus(this.mode);
     }
@@ -66,7 +66,7 @@ export class Position implements IPosition {
 export class Range implements IRange {
     public start: IPosition;
     public end: IPosition;
-    
+
     public Sort() {
         var isReverse = false;
         if (this.end.line < this.start.line) {

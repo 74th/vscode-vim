@@ -27,7 +27,7 @@ interface IEditor {
     
     // Document Info
     GetLastLineNum(): number;
-    
+
     dispose(): void;
 }
 
@@ -68,7 +68,7 @@ interface IPosition {
 interface IRange {
     start: IPosition;
     end: IPosition;
-    
+
     Sort(): void;
 }
 

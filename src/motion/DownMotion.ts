@@ -2,14 +2,14 @@ import {AbstractMotion} from "./AbstractMotion"
 import {Position} from "../VimStyle";
 
 export class DownMotion extends AbstractMotion {
-    
+
     private isUpDirection: boolean;
-    
+
     constructor() {
         super();
         this.isUpDirection = false;
     }
-    
+
     public SetUpDirection() {
         this.isUpDirection = true;
     }

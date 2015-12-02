@@ -1,6 +1,6 @@
 
 export function ModeToString(mode: Mode): string {
-    switch(mode) {
+    switch (mode) {
         case Mode.Insert:
             return "INSERT";
         case Mode.Normal:
@@ -45,7 +45,7 @@ export function isNumber(val) {
     console.log('testing val', val);
     var res = parseInt(val, 10);
     return isNaN ? null : res;
-} 
+}
 
 export function KeyToChar(key: Key): string {
     switch (key) {

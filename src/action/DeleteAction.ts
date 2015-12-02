@@ -45,7 +45,7 @@ export class DeleteAction implements IRequireMotionAction {
             // cancel
             return;
         }
-        r.end = p; 
+        r.end = p;
         r.Sort();
 
         var item = new RegisterItem();

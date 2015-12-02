@@ -45,7 +45,7 @@ export class Register implements IRegister {
         }
         return null;
     }
-    public GetUnName(): IRegisterItem{
+    public GetUnName(): IRegisterItem {
         return this.unName;
     }
     public GetRollFirst(value: IRegisterItem) {
@@ -56,7 +56,7 @@ export class Register implements IRegister {
     }
     private GetRollRegister(key: Key) {
         var n = Utils.KeyToNum(key);
-        if (this.roll.length > n+1) {
+        if (this.roll.length > n + 1) {
             return this.roll[n];
         }
         return null;

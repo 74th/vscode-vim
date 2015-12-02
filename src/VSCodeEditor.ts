@@ -5,15 +5,15 @@ import * as Utils from "./Utils";
 export class VSCodeEditor implements IEditor {
     private modeStatusBarItem: vscode.StatusBarItem;
     private commandStatusBarItem: vscode.StatusBarItem;
-   
+
     public constructor(options: IVSCodeEditorOptions) {
         options = options || {
-           showMode: false   
+            showMode: false
         };
-        
+
         this.modeStatusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
         this.SetModeStatusVisibility(options.showMode);
-              
+
         this.commandStatusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
         this.commandStatusBarItem.show();
     }
@@ -25,11 +25,11 @@ export class VSCodeEditor implements IEditor {
     public ShowCommandStatus(text: string) {
         this.commandStatusBarItem.text = text;
     }
-    
+
     public ShowModeStatus(mode: Mode) {
         this.modeStatusBarItem.text = Utils.ModeToString(mode);
     }
-    
+
     public SetModeStatusVisibility(visible: boolean) {
         visible ? this.modeStatusBarItem.show() : this.modeStatusBarItem.hide();
     }
@@ -107,9 +107,9 @@ export class VSCodeEditor implements IEditor {
     
     // Document Info
     public GetLastLineNum(): number {
-        return vscode.window.activeTextEditor.document.lineCount -1;
+        return vscode.window.activeTextEditor.document.lineCount - 1;
     }
-    
+
     public dispose() {
         this.modeStatusBarItem.dispose();
         this.commandStatusBarItem.dispose();

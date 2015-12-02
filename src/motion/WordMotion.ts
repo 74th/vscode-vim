@@ -3,13 +3,13 @@ import * as Utils from "../Utils";
 import {Position} from "../VimStyle";
 
 export class WordMotion extends AbstractMotion {
-    
+
     private direction: Direction;
     private isStopFinalLn: boolean;
-    
-    constructor(direction:Direction) {
+
+    constructor(direction: Direction) {
         super();
-        this.direction = direction;  
+        this.direction = direction;
         this.isStopFinalLn = false;
     };
 
@@ -18,7 +18,7 @@ export class WordMotion extends AbstractMotion {
     }
 
     public CalculateEnd(editor: IEditor, start: IPosition): IPosition {
-        
+
         var count = this.GetCount();
         var beforeCharClass: CharGroup;
         var charClass: CharGroup;
@@ -29,7 +29,7 @@ export class WordMotion extends AbstractMotion {
         var lineLength = line.length;
         var documentLength = editor.GetLastLineNum() + 1;
         beforeCharClass = Utils.GetCharClass(line.charCodeAt(charNum));
-        
+
         var isReachLast = false;
         var charCode: number;
         while (count > 0) {
@@ -85,7 +85,7 @@ export class WordMotion extends AbstractMotion {
             // char code
             charCode = line.charCodeAt(charNum);
             charClass = Utils.GetCharClass(charCode);
-            
+
             if (charClass != beforeCharClass) {
                 // new char class
                 beforeCharClass = charClass;
@@ -95,7 +95,7 @@ export class WordMotion extends AbstractMotion {
                 }
             }
         }
-        
+
         var end = new Position();
         if (isReachLast) {
             // reach last position
@@ -109,7 +109,7 @@ export class WordMotion extends AbstractMotion {
             }
             return end;
         }
-        
+
         end.line = lineNum;
         if (this.direction == Direction.Left) {
             // check front of a word

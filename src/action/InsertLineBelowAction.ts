@@ -1,13 +1,13 @@
 import {Position} from "../VimStyle";
 
 export class InsertLineBelowAction implements IAction {
-    
+
     private isAbove: boolean;
-    
+
     constructor() {
         this.isAbove = false;
     }
-    
+
     public SetAboveOption() {
         this.isAbove = true;
     }
@@ -26,10 +26,10 @@ export class InsertLineBelowAction implements IAction {
             var cline = editor.ReadLine(cu.line);
             lnp.char = cline.length;
         }
-        
+
         editor.Insert(lnp, "\n");
         editor.SetPosition(cp);
-        
+
         vim.ApplyInsertMode();
     }
 }
