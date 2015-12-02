@@ -39,7 +39,22 @@ export class VSCodeEditor implements IEditor {
         vscode.window.activeTextEditor.edit((editBuilder) => {
             editBuilder.insert(vscode.window.activeTextEditor.selection.active, text);
         });
-        if (text.length == 1) {
+    }
+    public InsertCharactorAtCurrentPosition(char: string) {
+        vscode.window.activeTextEditor.edit((editBuilder) => {
+            editBuilder.insert(vscode.window.activeTextEditor.selection.active, char);
+        });
+        // if only alphabet, show suggestion
+        var charCode = char.charCodeAt(0);
+        var isShowSuggestion = false;
+        if (0x41 <= charCode && charCode <= 0x5A) { // A-Z
+            // A-Z
+            isShowSuggestion = true;
+        } else if (0x61 <= charCode && charCode <= 0x7A) {
+            // a-z
+            isShowSuggestion = true;
+        }
+        if (isShowSuggestion) {
             vscode.commands.executeCommand("editor.action.triggerSuggest");
         }
     }
