@@ -53,6 +53,9 @@ export class VSCodeEditor implements IEditor {
         } else if (0x61 <= charCode && charCode <= 0x7A) {
             // a-z
             isShowSuggestion = true;
+        } else if (0x2E == charCode) {
+            // .
+            isShowSuggestion = true;
         }
         if (isShowSuggestion) {
             vscode.commands.executeCommand("editor.action.triggerSuggest");
