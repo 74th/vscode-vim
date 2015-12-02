@@ -5,11 +5,17 @@ import {Position} from "../VimStyle";
 export class WordMotion extends AbstractMotion {
     
     private direction: Direction;
+    private isStopFinalLn: boolean;
     
     constructor(direction:Direction) {
         super();
         this.direction = direction;  
+        this.isStopFinalLn = false;
     };
+
+    public SetStopFinalLnOption() {
+        this.isStopFinalLn = true;
+    }
 
     public CalculateEnd(editor: IEditor, start: IPosition): IPosition {
         
@@ -33,6 +39,11 @@ export class WordMotion extends AbstractMotion {
                 charNum--;
                 if (charNum < 0) {
                     // First of line
+                    if (this.isStopFinalLn && count == 1) {
+                        // last word searching
+                        charNum = 0;
+                        break;
+                    }
                     lineNum--;
                     if (lineNum < 0) {
                         // Fist of document
@@ -43,12 +54,18 @@ export class WordMotion extends AbstractMotion {
                         line = editor.ReadLine(lineNum);
                         lineLength = line.length;
                         charNum = lineLength - 1;
+                        beforeCharClass = CharGroup.Spaces;
                     }
                 }
             } else {
                 charNum++;
                 if (lineLength <= charNum) {
                     // End of line
+                    if (this.isStopFinalLn && count == 1) {
+                        // last word searching
+                        charNum = lineLength;
+                        break;
+                    }
                     charNum = 0;
                     lineNum++;
                     if (lineNum == documentLength) {
@@ -60,6 +77,7 @@ export class WordMotion extends AbstractMotion {
                         line = editor.ReadLine(lineNum);
                         lineLength = line.length;
                         charNum = 0;
+                        beforeCharClass = CharGroup.Spaces;
                     }
                 }
             }
@@ -81,7 +99,7 @@ export class WordMotion extends AbstractMotion {
         var end = new Position();
         if (isReachLast) {
             // reach last position
-            if (this.direction) {
+            if (this.direction == Direction.Left) {
                 // top position
                 end.char = 0;
                 end.line = 0;
@@ -93,7 +111,7 @@ export class WordMotion extends AbstractMotion {
         }
         
         end.line = lineNum;
-        if (this.direction) {
+        if (this.direction == Direction.Left) {
             // check front of a word
             var i = charNum - 1;
             while (i > 0) {

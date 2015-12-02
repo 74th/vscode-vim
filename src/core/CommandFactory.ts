@@ -450,6 +450,7 @@ export class CommandFactory implements ICommandFactory {
             m = new WordMotion(Direction.Right);
         }
         m.SetCount(this.getNumStack());
+        m.SetStopFinalLnOption();
         var a = <IRequireMotionAction>this.action;
         a.SetMotion(m);
     }
