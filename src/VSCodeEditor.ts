@@ -47,7 +47,7 @@ export class VSCodeEditor implements IEditor {
         // if only alphabet, show suggestion
         var charCode = char.charCodeAt(0);
         var isShowSuggestion = false;
-        if (0x41 <= charCode && charCode <= 0x5A) { // A-Z
+        if (0x41 <= charCode && charCode <= 0x5A) {
             // A-Z
             isShowSuggestion = true;
         } else if (0x61 <= charCode && charCode <= 0x7A) {

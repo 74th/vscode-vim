@@ -63,7 +63,7 @@ MIT License
 ### 0.1.8
 
 * JISキーボード向けオプション(support Win and Mac Jis keyboard option)
-* show suggestion by only alpabet
+* show suggestion by only alpabet and .
 * fix some bugs
 
 ### 0.1.7
