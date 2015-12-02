@@ -51,8 +51,23 @@ ext install vimStyle
 ## JISキーボードユーザへ
 
 VSCodeのキーバインドの不具合が見つかっています。tX、fXのアクションや、Insertモード中に入力できない文字があります。
-その場合、Ctrl-Spaceのサジェスチョン表示し、その時に入力してください。サジェスチョン表示中はVimStyleでは制御しないようにしています。
+Windowsの場合は、`settings.json`に`vimStyle.useWinJisKeyboard:true`を設定してください。
+Macの場合は、`settings.json`に`vimStyle.useMacJisKeyboard:true`を設定してください。ただし、Macの場合完全には動作しません。
 
 ## License
 
 MIT License
+
+## update
+
+### 0.1.8
+
+* JISキーボード向けオプション(support Win and Mac Jis keyboard option)
+* show suggestion by only alpabet
+* fix some bugs
+
+### 0.1.8
+
+### 0.1.1
+
+release!
