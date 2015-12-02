@@ -61,25 +61,39 @@ export class VimStyle implements IVimStyle {
 export class Position implements IPosition {
     public line: number;
     public char: number;
+    
+    public constructor(line?: number, char?: number) {
+        this.line = line || 0;
+        this.char = char || 0;
+    }
+    
+    public IsEqual(position: IPosition) {
+        return this.line === position.line && this.char === position.char;
+    }
 }
 
 export class Range implements IRange {
     public start: IPosition;
     public end: IPosition;
     
+    public constructor(start?: IPosition, end?: IPosition) {
+        this.start = start || null;
+        this.end = end || null;
+        
+        if(this.start && this.end) {
+            this.Sort();
+        }
+    }
+    
     public Sort() {
-        var isReverse = false;
-        if (this.end.line < this.start.line) {
-            isReverse = true;
-        } else if (this.end.line == this.start.line) {
-            if (this.end.char < this.start.char) {
-                isReverse = true;
-            }
+        if(this.start.line < this.end.line || 
+            (this.start.line === this.end.line &&
+            this.start.char <= this.end.char)) {
+                return;
         }
-        if (isReverse) {
-            var b = this.start;
-            this.start = this.end;
-            this.end = b;
-        }
+        
+        var temp = this.start;
+        this.start = this.end;
+        this.end = temp;
     }
 }

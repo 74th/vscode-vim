@@ -1,13 +1,18 @@
 import {AbstractMotion} from "./AbstractMotion"
-import {Position} from "../VimStyle";
+import {Position, Range} from "../VimStyle";
 
 export class EndMotion extends AbstractMotion{
 	
+	public CalculateSelectionRange(editor: IEditor, start: IPosition): IRange {
+		var start = new Position(start.line, start.char);
+		var end = this.CalculateEnd(editor, start);
+		
+		return new Range(start, end);
+	}
+	
 	public CalculateEnd(editor: IEditor,start: IPosition): IPosition {
 		var line = editor.ReadLineAtCurrentPosition();
-		var end = new Position();
-		end.line = start.line;
-		end.char = line.length;
-		return end;
-	}
+		
+		return new Position(start.line, line.length);
+	}	
 }

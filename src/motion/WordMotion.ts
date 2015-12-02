@@ -1,6 +1,6 @@
 import {AbstractMotion} from "./AbstractMotion";
 import * as Utils from "../Utils";
-import {Position} from "../VimStyle";
+import {Position, Range} from "../VimStyle";
 
 export class WordMotion extends AbstractMotion {
     
@@ -10,36 +10,80 @@ export class WordMotion extends AbstractMotion {
         super();
         this.direction = direction;  
     };
-
+    
+    public CalculateSelectionRange(editor: IEditor, start: IPosition): IRange {
+        var start = new Position(start.line, start.char);
+        var endPos = this.CalculateEnd(editor, start);
+        
+        //Filter out new line characters from selection
+        if(this.direction === Direction.Right) {
+            if(endPos.char === 0) {
+                var prevLine = editor.ReadLine(endPos.line - 1);
+                endPos = new Position(endPos.line - 1, prevLine.length);
+            }
+        } else {
+            if(start.char === 0) {
+                var prevLine = editor.ReadLine(start.line - 1);
+                start = new Position(start.line - 1, prevLine.length);
+            }
+        }
+        
+        return new Range(start, endPos);
+    }
+    
     public CalculateEnd(editor: IEditor, start: IPosition): IPosition {
         
         var count = this.GetCount();
-        var beforeCharClass: CharGroup;
-        var charClass: CharGroup;
-        var p = editor.GetCurrentPosition();
-        var lineNum = p.line;
-        var charNum = p.char;
+        var currPosition = start;
+        var prevPosition: IPosition;
+       
+        while (count > 0) {
+            var prevPosition = currPosition;
+            var currPosition = this.calculateNextWordPosition(editor, currPosition);
+            
+            if(currPosition.IsEqual(prevPosition)) {
+                break;
+            }
+            
+            count--;
+        }
+        
+        return currPosition;
+    }
+
+    private calculateNextWordPosition(editor: IEditor, start: IPosition): IPosition {
+        
+        var lineNum = start.line;
+        var charNum = start.char;
+        
         var line = editor.ReadLine(lineNum);
         var lineLength = line.length;
         var documentLength = editor.GetLastLineNum() + 1;
-        beforeCharClass = Utils.GetCharClass(line.charCodeAt(charNum));
         
-        var isReachLast = false;
+        var charClass: CharGroup;
+        var beforeCharClass = Utils.GetCharClass(line.charCodeAt(charNum));
+        
         var charCode: number;
-        while (count > 0) {
-            
-            // get next charactor
+        var isEnd: boolean;
+        var isNewLine: boolean;
+        
+        while(true) {
+            isNewLine = false;
+            // get next character
             if (this.direction == Direction.Left) {
                 charNum--;
+                
                 if (charNum < 0) {
-                    // First of line
+                    // Hit beginning of line
+                    isNewLine = true;
                     lineNum--;
+                    
                     if (lineNum < 0) {
-                        // Fist of document
-                        isReachLast = true;
+                        // First line
+                        isEnd = true;
                         break;
                     } else {
-                        // before line
+                        // Previous line
                         line = editor.ReadLine(lineNum);
                         lineLength = line.length;
                         charNum = lineLength - 1;
@@ -47,13 +91,16 @@ export class WordMotion extends AbstractMotion {
                 }
             } else {
                 charNum++;
+                
                 if (lineLength <= charNum) {
-                    // End of line
+                    // Hit end of line
+                    isNewLine = true;
                     charNum = 0;
                     lineNum++;
+                    
                     if (lineNum == documentLength) {
                         // End of document
-                        isReachLast = true;
+                        isEnd = true;
                         break;
                     } else {
                         // next line
@@ -68,48 +115,39 @@ export class WordMotion extends AbstractMotion {
             charCode = line.charCodeAt(charNum);
             charClass = Utils.GetCharClass(charCode);
             
-            if (charClass != beforeCharClass) {
+            if (charClass != beforeCharClass || isNewLine) {
                 // new char class
                 beforeCharClass = charClass;
                 if (charClass != CharGroup.Spaces) {
-                    // count new char class withot spaces
-                    count--;
+                    break;
                 }
             }
         }
         
-        var end = new Position();
-        if (isReachLast) {
-            // reach last position
-            if (this.direction) {
-                // top position
-                end.char = 0;
-                end.line = 0;
-            } else {
-                // last position
-                end = editor.GetLastPosition();
-            }
-            return end;
+        if (isEnd) {
+            if (this.direction === Direction.Left) {
+                return new Position(0, 0);
+            } 
+            
+            return editor.GetLastPosition();
         }
         
-        end.line = lineNum;
-        if (this.direction) {
+        
+        if (this.direction === Direction.Left) {
             // check front of a word
             var i = charNum - 1;
+            
             while (i > 0) {
                 if (charClass != Utils.GetCharClass(line.charCodeAt(i))) {
-                    end.char = i + 1;
-                    return end;
+                    return new Position(lineNum, i + 1);
                 }
+                
                 i--;
             }
-            // home of line
-            end.char = 0;
-            return end;
+            
+            return new Position(lineNum, 0);
         }
         
-        // foward
-        end.char = charNum;
-        return end;
+        return new Position(lineNum, charNum);
     }
 }
