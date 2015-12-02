@@ -66,7 +66,9 @@ MIT License
 * show suggestion by only alpabet
 * fix some bugs
 
-### 0.1.8
+### 0.1.7
+
+* gg G
 
 ### 0.1.1
 
