@@ -1,4 +1,5 @@
 import {Position} from "../VimStyle";
+import * as Utils from "../Utils";
 
 export class InsertLineBelowAction implements IAction {
 
@@ -16,32 +17,19 @@ export class InsertLineBelowAction implements IAction {
         var selecterPosition = new Position();
         selecterPosition.char = 0;
         var insertPosition = new Position();
-        var prevLine: string;
+        var currentLine = editor.ReadLineAtCurrentPosition();
         if (this.isAbove) {
             selecterPosition.line = currentPosition.line;
             insertPosition.line = currentPosition.line;
             insertPosition.char = 0;
-            prevLine = editor.ReadLine(currentPosition.line - 1);
         } else {
             selecterPosition.line = currentPosition.line + 1;
             insertPosition.line = currentPosition.line;
-            prevLine = editor.ReadLine(currentPosition.line);
-            insertPosition.char = prevLine.length;
+            insertPosition.char = currentLine.length;
         }
 
-        var insertText = "";
-        // space
-        if (prevLine.length > 0) {
-            var firstChar = prevLine.charCodeAt(0);
-            var i = 0;
-            for (i = 0; i < prevLine.length; i++) {
-                if (prevLine.charCodeAt(i) != firstChar) {
-                    break;
-                }
-            }
-            insertText += prevLine.substr(0, i);
-            selecterPosition.char = i;
-        }
+        var insertText = appendWhiteSpace(currentLine);
+        selecterPosition.char = insertText.length;
 
         if (this.isAbove) {
             insertText = insertText + "\n";
@@ -53,4 +41,23 @@ export class InsertLineBelowAction implements IAction {
 
         vim.ApplyInsertMode();
     }
+}
+
+function appendWhiteSpace(prevLine: string) {
+    if (prevLine.length == 0) {
+        return "";
+    }
+
+    var firstChar = prevLine.charCodeAt(0);
+    if (Utils.GetCharClass(firstChar) != CharGroup.Spaces) {
+        return "";
+    }
+
+    var i = 0;
+    for (i = 0; i < prevLine.length; i++) {
+        if (prevLine.charCodeAt(i) != firstChar) {
+            break;
+        }
+    }
+    return prevLine.substr(0, i);
 }
