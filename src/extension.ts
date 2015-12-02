@@ -6,6 +6,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     var conf = vscode.workspace.getConfiguration('vimStyle');
     var isWinJisKeyboard = conf.get<boolean>('useWinJisKeyboard', false);
+    var isMacJisKeyboard = conf.get<boolean>('useMacJisKeyboard', false);
     var showMode = conf.get<boolean>('showMode', false);
 
     var editor = new VSCodeEditor({
@@ -324,7 +325,7 @@ export function activate(context: vscode.ExtensionContext) {
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.S6', () => {
-        if (isWinJisKeyboard) {
+        if (isWinJisKeyboard || isMacJisKeyboard) {
             // &
             vim.PushKey(Key.Ampersand);
         } else {
@@ -344,7 +345,7 @@ export function activate(context: vscode.ExtensionContext) {
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.S8', () => {
-        if (isWinJisKeyboard) {
+        if (isWinJisKeyboard || isMacJisKeyboard) {
             // (
             vim.PushKey(Key.LeftParenthesis);
         } else {
@@ -354,7 +355,7 @@ export function activate(context: vscode.ExtensionContext) {
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.S9', () => {
-        if (isWinJisKeyboard) {
+        if (isWinJisKeyboard || isMacJisKeyboard) {
             // )
             vim.PushKey(Key.RightParenthesis);
         } else {
@@ -391,6 +392,9 @@ export function activate(context: vscode.ExtensionContext) {
         if (isWinJisKeyboard) {
             // ;
             vim.PushKey(Key.Semicolon);
+        } else if (isMacJisKeyboard) {
+            // ^
+            vim.PushKey(Key.CircumflexAccent);
         } else {
             // =
             vim.PushKey(Key.Equals);
@@ -400,11 +404,13 @@ export function activate(context: vscode.ExtensionContext) {
     disposable = vscode.commands.registerCommand('vim.SEq', () => {
         // +
         vim.PushKey(Key.Plus);
+        // MacJisでは = でも到達
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.LB', () => {
         // [
         vim.PushKey(Key.LeftSquareBracket);
+        // MacJisでは @ でも到達
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.SLB', () => {
@@ -439,6 +445,7 @@ export function activate(context: vscode.ExtensionContext) {
         } else {
             // ;
             vim.PushKey(Key.Semicolon);
+            // MacJisでは : でも到達
         }
     });
     context.subscriptions.push(disposable);
@@ -469,6 +476,7 @@ export function activate(context: vscode.ExtensionContext) {
         } else {
             // "
             vim.PushKey(Key.Quotation);
+            // MacJisでは ' * でも到達
         }
     });
     context.subscriptions.push(disposable);

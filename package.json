@@ -32,7 +32,12 @@
                 "vimStyle.useWinJisKeyboard": {
                     "type": "boolean",
                     "default": false,
-                    "description": "JIS keyboard keybinding"
+                    "description": "Win JIS keyboard keybinding"
+                },
+                "vimStyle.useMacJisKeyboard": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Mac JIS keyboard keybinding (動作しないキーがあります→ = @ : ' * )"
                 },
                 "vimStyle.showMode": {
                     "type": "boolean",
