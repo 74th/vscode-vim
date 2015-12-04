@@ -38,6 +38,10 @@ tsc
 * Ctrl-x Cmd-x Alt-x Meta-x
 * `vimrc`(all settings available in `settings.json`)
 
+A goal of this extension is not to improve vim emulation.
+
+It is to be more friendly with vscode and vim-keybinding!
+
 ## future suppprt
 
 * ; ,
