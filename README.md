@@ -36,6 +36,7 @@ tsc
 * : (you should get use to command palette)
 * / ? (you shoud use default search function)
 * Ctrl-x Cmd-x Alt-x Meta-x
+* `vimrc`(all settings available in `settings.json`)
 
 ## future suppprt
 
