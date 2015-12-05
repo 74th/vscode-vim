@@ -40,7 +40,7 @@ tsc
 
 A goal of this extension is not to improve vim emulation.
 
-It is to be more friendly with vscode and vim-keybinding!
+This extension is to become more friendly with vscode and vim-keybinding!
 
 ## future suppprt
 
