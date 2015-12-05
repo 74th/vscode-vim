@@ -1,5 +1,6 @@
 export class InsertCurrentPositionAction implements IAction {
     public Execute(editor: IEditor, vim: IVimStyle) {
-        vim.ApplyInsertMode();
+        var p = editor.GetCurrentPosition();
+        vim.ApplyInsertMode(p);
     }
 }

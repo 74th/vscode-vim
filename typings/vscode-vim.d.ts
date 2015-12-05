@@ -27,6 +27,13 @@ interface IEditor {
     
     // Document Info
     GetLastLineNum(): number;
+    
+    // Set VimStyle
+    SetVimStyle(vim: IVimStyle);
+    
+    // set modes
+    ApplyNormalMode();
+    ApplyInsertMode(p: IPosition);
 
     dispose(): void;
 }
@@ -92,7 +99,7 @@ interface IVimStyle {
 
     PushKey(key: Key): void;
     PushEscKey(): void;
-    ApplyInsertMode(): void;
+    ApplyInsertMode(p: IPosition): void;
     GetMode(): VimMode;
 }
 

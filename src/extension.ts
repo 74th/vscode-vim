@@ -25,7 +25,14 @@ export function activate(context: vscode.ExtensionContext) {
 
         editor.SetModeStatusVisibility(showMode);
     });
-
+    context.subscriptions.push(disposable);
+    disposable = vscode.window.onDidChangeActiveTextEditor((textEditor) => {
+        editor.ChangePositionByUser();
+    });
+    context.subscriptions.push(disposable);
+    disposable = vscode.window.onDidChangeTextEditorSelection((textEditor) => {
+        editor.ChangePositionByUser();
+    });
     context.subscriptions.push(disposable);
 
     disposable = vscode.commands.registerCommand('vim.a', () => {
@@ -519,7 +526,6 @@ export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.Ec', () => {
         vim.PushEscKey();
-        vscode.commands.executeCommand("hideSuggestWidget");
     });
     context.subscriptions.push(disposable);
 }

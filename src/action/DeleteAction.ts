@@ -88,7 +88,7 @@ export class DeleteAction implements IRequireMotionAction {
         }
 
         if (this.isInsert) {
-            vim.ApplyInsertMode();
+            vim.ApplyInsertMode(r.start);
         }
     }
 }

@@ -37,9 +37,8 @@ export class InsertLineBelowAction implements IAction {
             insertText = "\n" + insertText;
         }
         editor.Insert(insertPosition, insertText);
-        editor.SetPosition(selecterPosition);
 
-        vim.ApplyInsertMode();
+        vim.ApplyInsertMode(selecterPosition);
     }
 }
 

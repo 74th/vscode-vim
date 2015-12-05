@@ -32,10 +32,12 @@ export class VimStyle implements IVimStyle {
         this.setMode(VimMode.Normal);
         this.commandFactory.Clear()
         this.editor.CloseCommandStatus();
+        this.editor.ApplyNormalMode();
     }
 
-    public ApplyInsertMode() {
-        this.setMode(Mode.Insert);
+    public ApplyInsertMode(p: Position) {
+        this.setMode(VimMode.Insert);
+        this.editor.ApplyInsertMode(p);
     }
 
     private readCommand(key: Key) {

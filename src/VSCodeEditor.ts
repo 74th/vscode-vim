@@ -5,6 +5,10 @@ import * as Utils from "./Utils";
 export class VSCodeEditor implements IEditor {
     private modeStatusBarItem: vscode.StatusBarItem;
     private commandStatusBarItem: vscode.StatusBarItem;
+    private vimStyle: IVimStyle;
+
+    private selectionSetTime: number;
+    private nonCharLinePosition: vscode.Position;
 
     public constructor(options: IVSCodeEditorOptions) {
         options = options || {
@@ -16,6 +20,12 @@ export class VSCodeEditor implements IEditor {
 
         this.commandStatusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
         this.commandStatusBarItem.show();
+        this.selectionSetTime = 0;
+        this.nonCharLinePosition = null;
+    }
+
+    public SetVimStyle(vim: IVimStyle) {
+        this.vimStyle = vim;
     }
     
     // Status
@@ -99,9 +109,8 @@ export class VSCodeEditor implements IEditor {
     }
     public SetPosition(p: IPosition) {
         var cp = tranceVSCodePosition(p);
-        var s = new vscode.Selection(cp, cp);
-        vscode.window.activeTextEditor.selection = s;
-        vscode.window.activeTextEditor.revealRange(s, vscode.TextEditorRevealType.Default);
+        this.showNormalMode(cp);
+        vscode.window.activeTextEditor.revealRange(vscode.window.activeTextEditor.selection, vscode.TextEditorRevealType.Default);
     }
     public GetLastPosition(): IPosition {
         var end = vscode.window.activeTextEditor.document.lineAt(vscode.window.activeTextEditor.document.lineCount - 1).range.end;
@@ -116,6 +125,74 @@ export class VSCodeEditor implements IEditor {
     public dispose() {
         this.modeStatusBarItem.dispose();
         this.commandStatusBarItem.dispose();
+    }
+    
+    // changed focused editor or changed position by user
+    public ChangePositionByUser() {
+        if (this.selectionSetTime + 200 >= new Date().getTime()) {
+            // resrict event loop
+            return;
+        }
+        if (this.vimStyle.GetMode() == VimMode.Insert) {
+            // if insert mode, do nothing
+            return;
+        }
+        var p = vscode.window.activeTextEditor.selection.active;
+        this.showNormalMode(p);
+    }
+
+    public ApplyNormalMode() {
+        var p = vscode.window.activeTextEditor.selection.active;
+        this.showNormalMode(p);
+    }
+
+    private showNormalMode(p: vscode.Position) {
+        this.deleteNonCharLine();
+
+        var line = vscode.window.activeTextEditor.document.lineAt(p.line).text;
+        var np: vscode.Position;
+        if (line.length == 0) {
+            // none charactor line
+            this.appendNonCharLine(p);
+            np = p;
+        } else if (p.character == line.length) {
+            // end of line
+            np = new vscode.Position(p.line, p.character - 1);
+        } else {
+            np = p;
+        }
+        var sp = new vscode.Position(np.line, np.character + 1);
+        var s = new vscode.Selection(sp, np);
+        this.selectionSetTime = new Date().getTime();
+        vscode.window.activeTextEditor.selection = s;
+    }
+
+    public ApplyInsertMode(p: Position) {
+        this.deleteNonCharLine();
+        var c = tranceVSCodePosition(p);
+        var s = new vscode.Selection(c, c);
+        vscode.window.activeTextEditor.selection = s;
+        this.selectionSetTime = new Date().getTime();
+    }
+
+    private appendNonCharLine(p: vscode.Position) {
+        vscode.window.activeTextEditor.edit((editBuilder) => {
+            editBuilder.insert(p, " ");
+        });
+        this.nonCharLinePosition = p;
+    }
+
+    private deleteNonCharLine() {
+        if (this.nonCharLinePosition == null) {
+            return;
+        }
+        var st = this.nonCharLinePosition;
+        var ed = new vscode.Position(st.line, st.character + 1);
+        var r = new vscode.Range(st, ed);
+        vscode.window.activeTextEditor.edit((editBuilder) => {
+            editBuilder.delete(r);
+        });
+        this.nonCharLinePosition = null;
     }
 }
 
