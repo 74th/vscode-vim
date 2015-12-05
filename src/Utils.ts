@@ -1,9 +1,9 @@
 
-export function ModeToString(mode: Mode): string {
+export function ModeToString(mode: VimMode): string {
     switch (mode) {
-        case Mode.Insert:
+        case VimMode.Insert:
             return "INSERT";
-        case Mode.Normal:
+        case VimMode.Normal:
             return "NORMAL";
         default:
             throw new Error("Panic!");

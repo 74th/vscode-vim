@@ -26,7 +26,7 @@ export class VSCodeEditor implements IEditor {
         this.commandStatusBarItem.text = text;
     }
 
-    public ShowModeStatus(mode: Mode) {
+    public ShowModeStatus(mode: VimMode) {
         this.modeStatusBarItem.text = Utils.ModeToString(mode);
     }
 

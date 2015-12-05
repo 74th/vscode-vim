@@ -3,7 +3,7 @@ interface IEditor {
     // Status
     CloseCommandStatus();
     ShowCommandStatus(text: string);
-    ShowModeStatus(mode: Mode);
+    ShowModeStatus(mode: VimMode);
     SetModeStatusVisibility(visible: boolean);
     
     // Edit
@@ -93,6 +93,7 @@ interface IVimStyle {
     PushKey(key: Key): void;
     PushEscKey(): void;
     ApplyInsertMode(): void;
+    GetMode(): VimMode;
 }
 
 declare const enum Key {
@@ -253,7 +254,7 @@ declare const enum KeyClass {
     RequireCharMotion
 }
 
-declare const enum Mode {
+declare const enum VimMode {
     Normal,
     Insert
 }

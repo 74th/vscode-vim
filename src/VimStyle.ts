@@ -5,30 +5,31 @@ import {Register} from "./core/Register"
 
 export class VimStyle implements IVimStyle {
 
-    private mode: Mode;
+    private mode: VimMode;
     private editor: IEditor;
     private commandFactory: ICommandFactory;
     public Register: IRegister;
 
     constructor(editor: IEditor) {
         this.editor = editor;
-        this.setMode(Mode.Normal);
+        editor.SetVimStyle(this);
+        this.setMode(VimMode.Normal);
         this.commandFactory = new CommandFactory();
         this.Register = new Register();
     }
 
     public PushKey(key: Key) {
         switch (this.mode) {
-            case Mode.Normal:
+            case VimMode.Normal:
                 this.readCommand(key);
                 return;
-            case Mode.Insert:
+            case VimMode.Insert:
                 InsertModeExecute(key, this.editor)
         }
     }
 
     public PushEscKey() {
-        this.setMode(Mode.Normal);
+        this.setMode(VimMode.Normal);
         this.commandFactory.Clear()
         this.editor.CloseCommandStatus();
     }
@@ -52,9 +53,13 @@ export class VimStyle implements IVimStyle {
         this.editor.ShowCommandStatus(this.commandFactory.GetCommandString());
     }
 
-    private setMode(mode: Mode) {
+    private setMode(mode: VimMode) {
         this.mode = mode;
         this.editor.ShowModeStatus(this.mode);
+    }
+
+    public GetMode(): VimMode {
+        return this.mode;
     }
 }
 
