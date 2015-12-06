@@ -73,6 +73,11 @@ export class Position implements IPosition {
 export class Range implements IRange {
     public start: IPosition;
     public end: IPosition;
+    
+    constructor() {
+        this.start = new Position();
+        this.end = new Position();
+    }
 
     public Sort() {
         var isReverse = false;

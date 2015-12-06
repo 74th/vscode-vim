@@ -16,6 +16,6 @@ export class MoveAction implements IAction {
             // cancel
             return;
         }
-        editor.SetPosition(to);
+        editor.SetPosition(editor.UpdateValidPosition(to, true));
     }
 }

@@ -7,6 +7,6 @@ export class HomeMotion extends AbstractMotion {
         var end = new Position();
         end.line = start.line;
         end.char = 0;
-        return end;
+        return editor.UpdateValidPosition(end);
     }
 }

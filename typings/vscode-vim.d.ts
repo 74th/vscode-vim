@@ -32,8 +32,11 @@ interface IEditor {
     SetVimStyle(vim: IVimStyle);
     
     // set modes
-    ApplyNormalMode();
+    ApplyNormalMode(cursor?: IPosition, isLineHasNoChar?: boolean);
     ApplyInsertMode(p: IPosition);
+    
+    // check invalid position
+    UpdateValidPosition(p: IPosition, isBlock?: boolean): IPosition;
 
     dispose(): void;
 }
