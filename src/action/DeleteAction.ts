@@ -133,7 +133,7 @@ export class DeleteAction implements IRequireMotionAction {
                 del.end.line = range.end.line;
                 del.end = editor.UpdateValidPosition(del.end);
                 nextPosition.line = range.start.line - 1;
-                nextLine = editor.ReadLine(del.start.line - 1);
+                nextLine = editor.ReadLine(range.start.line - 1);
             }
         } else {
             if (this.isInsert) {
@@ -178,7 +178,7 @@ export class DeleteAction implements IRequireMotionAction {
             vim.ApplyInsertMode(nextPosition);
         } else {
             if (!this.isOnlyYanc) {
-                editor.ApplyNormalMode(nextPosition, nextPositionLineHasNoChar);
+                editor.ApplyNormalMode(nextPosition, nextPositionLineHasNoChar, lineNum <= range.end.line);
             }
         }
     }

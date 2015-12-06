@@ -116,7 +116,9 @@ export class VSCodeEditor implements IEditor {
     }
     public SetPosition(p: IPosition) {
         var cp = tranceVSCodePosition(p);
-        this.showBlockCursor(cp);
+        var isNonCharLine = vscode.window.activeTextEditor.document.lineAt(p.line).text.length == 0;
+        var isLastLine = this.GetLastLineNum() == p.line;
+        this.showBlockCursor(cp, isNonCharLine, isLastLine);
         vscode.window.activeTextEditor.revealRange(vscode.window.activeTextEditor.selection, vscode.TextEditorRevealType.Default);
     }
     public GetLastPosition(): IPosition {
@@ -146,37 +148,45 @@ export class VSCodeEditor implements IEditor {
             return;
         }
         var p = vscode.window.activeTextEditor.selection.active;
-        this.showBlockCursor(p);
+        var isNonCharLine = vscode.window.activeTextEditor.document.lineAt(p.line).text.length == 0;
+        var isLastLine = this.GetLastLineNum() == p.line;
+        this.showBlockCursor(p, isNonCharLine, isLastLine);
     }
 
-    public ApplyNormalMode(p?: Position, isPositionLineHasNoChar?: boolean) {
+    public ApplyNormalMode(p?: Position, isNonCharLine?: boolean, isLastLine?:boolean) {
         var vp: vscode.Position;
         if (p) {
             vp = tranceVSCodePosition(p);
-        }else {
+        } else {
             vp = vscode.window.activeTextEditor.selection.active;
         }
         var needDummySpace = false;
-        if (isPositionLineHasNoChar == undefined) {
+        if (isNonCharLine == undefined) {
             // check line 
             var line = vscode.window.activeTextEditor.document.lineAt(vp.line).text;
-            if (line.length == 0) {
-                needDummySpace = true;
-            } else if (line.length <= vp.character) {
-                vp = new vscode.Position(vp.line, line.length - 1);
+            isNonCharLine = line.length == 0;
+            isLastLine = this.GetLastLineNum() == vp.line;
+            if (!isNonCharLine && vp.character >= line.length) {
+                // end of line
+                vp = new vscode.Position(vp.line, vp.character - 1);
             }
-        } else {
-            needDummySpace = isPositionLineHasNoChar;
         }
-        if (needDummySpace) {
-            this.appendDummySpace(vp);
-        }
-        this.showBlockCursor(vp);
+        this.showBlockCursor(vp, isNonCharLine, isLastLine);
     }
 
-    private showBlockCursor(end: vscode.Position) {
+    private showBlockCursor(end: vscode.Position, isNonCharLine: boolean, isLastLine: boolean) {
         this.deleteNonCharLine();
-        var start = new vscode.Position(end.line, end.character + 1);
+        var start: vscode.Position;
+        if (isNonCharLine && isLastLine) {
+            vscode.window.activeTextEditor.edit((edit) => {
+                edit.insert(end, " ");
+            });
+        }
+        if (isNonCharLine && !isLastLine) {
+            start = new vscode.Position(end.line + 1, 0);
+        } else {
+            start = new vscode.Position(end.line, end.character + 1);
+        }
         var select = new vscode.Selection(start, end);
         this.selectionSetTime = new Date().getTime();
         vscode.window.activeTextEditor.selection = select;

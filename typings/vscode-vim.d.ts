@@ -32,7 +32,7 @@ interface IEditor {
     SetVimStyle(vim: IVimStyle);
     
     // set modes
-    ApplyNormalMode(cursor?: IPosition, isLineHasNoChar?: boolean);
+    ApplyNormalMode(cursor?: IPosition, isLineHasNoChar?: boolean, isLastLine?: boolean);
     ApplyInsertMode(p: IPosition);
     
     // check invalid position
