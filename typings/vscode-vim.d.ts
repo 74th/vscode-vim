@@ -37,9 +37,6 @@ interface IEditor {
     
     // check invalid position
     UpdateValidPosition(p: IPosition, isBlock?: boolean): IPosition;
-    
-    // do
-    DoEdit()
 
     dispose(): void;
 }

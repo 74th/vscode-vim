@@ -48,7 +48,6 @@ export class VimStyle implements IVimStyle {
         }
         this.editor.CloseCommandStatus();
         action.Execute(this.editor, this);
-        this.editor.DoEdit();
         this.commandFactory.Clear();
     }
 

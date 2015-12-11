@@ -61,40 +61,14 @@ export class VSCodeEditor implements IEditor {
     
     // Edit
     public InsertTextAtCurrentPosition(text: string) {
-        // var e = new EditorAction();
-        // e.Type = EditorActionType.Insert;
-        // e.Position = tranceVimStylePosition(vscode.window.activeTextEditor.selection.active);
-        // e.Text = text;
-        // this.delayActions.push(e);
         vscode.window.activeTextEditor.edit((editBuilder) => {
             editBuilder.insert(vscode.window.activeTextEditor.selection.active, text);
         });
     }
     public InsertCharactorAtCurrentPosition(char: string) {
-        // var e = new EditorAction();
-        // e.Type = EditorActionType.Insert;
-        // e.Position = tranceVimStylePosition(vscode.window.activeTextEditor.selection.active);
-        // e.Text = char;
-        // this.delayActions.push(e);
         vscode.window.activeTextEditor.edit((editBuilder) => {
             editBuilder.insert(vscode.window.activeTextEditor.selection.active, char);
         });
-        // // if only alphabet, show suggestion
-        // var charCode = char.charCodeAt(0);
-        // var isShowSuggestion = false;
-        // if (0x41 <= charCode && charCode <= 0x5A) {
-        //     // A-Z
-        //     isShowSuggestion = true;
-        // } else if (0x61 <= charCode && charCode <= 0x7A) {
-        //     // a-z
-        //     isShowSuggestion = true;
-        // } else if (0x2E == charCode) {
-        //     // .
-        //     isShowSuggestion = true;
-        // }
-        // if (isShowSuggestion) {
-        //     vscode.commands.executeCommand("editor.action.triggerSuggest");
-        // }
     }
     public Insert(position: IPosition, text: string) {
         vscode.window.activeTextEditor.edit((editBuilder) => {
@@ -102,22 +76,6 @@ export class VSCodeEditor implements IEditor {
         });
     }
     public DeleteRange(range: IRange, position?: IPosition) {
-        // var e = new EditorAction();
-        // e.Type = EditorActionType.Delete;
-        // e.Range = range;
-        // this.delayActions.push(e);
-        // need delay exec
-        // this.delayExec = function() {
-        //     vscode.window.activeTextEditor.edit((editBuilder) => {
-        //         editBuilder.delete(tranceVSCodeRange(range));
-        //     });
-        // };
-                
-        // pre check
-        // この時点で、最後まで削除するか判定する必要がある
-        // this.compileCommands();
-        
-        // TODO
         var newBlockCursor: vscode.Selection;
         vscode.window.activeTextEditor.edit((editBuilder) => {
             var doc = vscode.window.activeTextEditor.document;
@@ -172,10 +130,6 @@ export class VSCodeEditor implements IEditor {
         });
     }
     public ReplaceRange(range: IRange, text: string) {
-        // var e = new EditorAction();
-        // e.Type = EditorActionType.Replace;
-        // e.Range = range;
-        // e.Text = text;
         vscode.window.activeTextEditor.edit((editBuilder) => {
             editBuilder.replace(tranceVSCodeRange(range), text);
         });
@@ -350,35 +304,6 @@ export class VSCodeEditor implements IEditor {
             editBuilder.delete(r);
         });
         this.dummySpacePosition = null;
-    }
-
-    public DoEdit() {
-
-        
-        // check delete＾￥ to end
-        // replace dummy text
-        
-        // set position
-    }
-
-
-    private compileCommands() {
-    }
-
-    private insertAction(action: EditorAction, editBuilder: vscode.TextEditorEdit) {
-    }
-    private deleteAction(action: EditorAction, editBuilder: vscode.TextEditorEdit) {
-
-    }
-    private replaceAction(action: EditorAction, editBuilder: vscode.TextEditorEdit) {
-
-    }
-    private setPositionAction(action: EditorAction) {
-        var cp = tranceVSCodePosition(action.Position);
-        // var isNonCharLine = vscode.window.activeTextEditor.document.lineAt(p.line).text.length == 0;
-        // var isLastLine = this.GetLastLineNum() == p.line;
-        this.showBlockCursor(cp);
-        vscode.window.activeTextEditor.revealRange(vscode.window.activeTextEditor.selection, vscode.TextEditorRevealType.Default);
     }
 }
 
