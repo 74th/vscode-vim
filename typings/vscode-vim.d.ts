@@ -159,6 +159,7 @@ declare const enum Key {
     X,
     Y,
     Z,
+    Cr,
     n0,
     n1,
     n2,

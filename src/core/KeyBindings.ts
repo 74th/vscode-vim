@@ -1,4 +1,3 @@
-
 export enum Command {
     
     // single action
@@ -11,6 +10,7 @@ export enum Command {
     changeCharacterAction,
     changeLineAction,
     pasteBelowAction,
+    openSearch,
     
     // move action
     moveRightAction,
@@ -44,6 +44,8 @@ export enum Command {
     deleteToEndAction,
     yancToEndAction,
     doActionAtCurrentLine,
+    undoAction,
+    redoAction,
     
     // other
     stackNumber,
@@ -152,7 +154,9 @@ export namespace KeyBindings {
         },
         // q low priority
         // Q never support
-        // r
+        "Cr": {
+          cmd: Command.redoAction,  
+        },
         // R low priority
         "s": {
             cmd: Command.changeCharacterAction
@@ -169,7 +173,9 @@ export namespace KeyBindings {
             isReverse: true,
             state: State.RequireCharForMotion
         },
-        // u low priority
+         "u" : {
+            cmd: Command.undoAction
+        },
         // U low priority
         // v low priority
         // V low priority
@@ -234,6 +240,9 @@ export namespace KeyBindings {
         },
         "$": {
             cmd: Command.moveEndAction
+        },
+        "/": {
+            cmd: Command.openSearch
         }
     };
 
@@ -298,6 +307,9 @@ export namespace KeyBindings {
         // NR low priority
         // Ns low priority
         // NS low priority
+        "Cr": {
+          cmd: Command.redoAction,  
+        },
         "t": {
             cmd: Command.moveTillCharacterAction,
             state: State.RequireCharForMotion
@@ -307,7 +319,9 @@ export namespace KeyBindings {
             isReverse: true,
             state: State.RequireCharForMotion
         },
-        // u low priority
+        "u" : {
+            cmd: Command.undoAction
+        },
         // U low priority
         // Nv?
         // NV?

@@ -519,6 +519,12 @@ export function activate(context: vscode.ExtensionContext) {
         vim.PushKey(Key.Question);
     });
     context.subscriptions.push(disposable);
+    disposable = vscode.commands.registerCommand('vim.Cr', () => {
+        // JIS: Shift+/(?)
+        // US :
+        vim.PushKey(Key.Cr);
+    });
+    context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand('vim.Sp', () => {
         // " "
         vim.PushKey(Key.Space);

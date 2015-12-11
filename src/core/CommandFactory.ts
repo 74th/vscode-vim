@@ -1,6 +1,7 @@
 import * as Utils from "../Utils";
 import {Command, State, IVimStyleCommand, KeyBindings} from './KeyBindings';
 import {CombinationAction} from '../action/CombinationAction';
+import {commands} from 'vscode';
 import {InsertCurrentPositionAction} from '../action/InsertCurrentPositionAction';
 import {InsertLineBelowAction} from '../action/InsertLineBelowAction';
 import {PasteAction} from '../action/PasteAction';
@@ -30,6 +31,7 @@ export class CommandFactory implements ICommandFactory {
     public PushKey(key: Key): IAction {
         let keyChar = Utils.KeyToChar(key);
         var command: IVimStyleCommand;
+        console.log('input', keyChar);
         switch (this.state) {
             case State.AtStart:
                 command = KeyBindings.AtStart[keyChar];
@@ -200,6 +202,15 @@ export class CommandFactory implements ICommandFactory {
             case Command.doActionAtCurrentLine:
                 this.doActionAtCurrentLine(key);
                 return;
+            case Command.undoAction:
+                this.undoAction();
+                return;
+            case Command.redoAction:
+                this.redoAction();
+                return;
+            case Command.openSearch:
+                this.openSearch();
+                return;
                 
             // other
             case Command.stackNumber:
@@ -216,6 +227,10 @@ export class CommandFactory implements ICommandFactory {
 
     private getNumStack() {
         return this.num == 0 ? 1 : this.num;
+    }
+    
+    private openSearch() {
+        commands.executeCommand('actions.find');
     }
 
     // i    
@@ -542,6 +557,20 @@ export class CommandFactory implements ICommandFactory {
         var a = new DeleteAction();
         a.SetOnlyYancOption();
         this.action = a;
+    }
+    
+    // u
+    private undoAction() {
+        for(var i = 0; i < this.getNumStack(); i++) {
+            commands.executeCommand('undo');
+        }
+    }
+    
+    //Ctrl+r
+    private redoAction() {
+        for(var i = 0; i < this.getNumStack(); i++) {
+            commands.executeCommand('redo');
+        }
     }
     
     // C
