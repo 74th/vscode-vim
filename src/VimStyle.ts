@@ -35,7 +35,7 @@ export class VimStyle implements IVimStyle {
         this.editor.ApplyNormalMode();
     }
 
-    public ApplyInsertMode(p: Position) {
+    public ApplyInsertMode(p?: Position) {
         this.setMode(VimMode.Insert);
         this.editor.ApplyInsertMode(p);
     }
@@ -48,6 +48,7 @@ export class VimStyle implements IVimStyle {
         }
         this.editor.CloseCommandStatus();
         action.Execute(this.editor, this);
+        this.editor.DoEdit();
         this.commandFactory.Clear();
     }
 

@@ -85,14 +85,11 @@ export class DeleteAction implements IRequireMotionAction {
             vim.Register.SetRoll(item);
         }
         if (!this.isOnlyYanc) {
-            editor.DeleteRange(range);
+            editor.DeleteRange(range,nextPosition);
         }
         if (this.isInsert) {
             vim.ApplyInsertMode(nextPosition);
-        } else if (!this.isOnlyYanc) {
-            editor.ApplyNormalMode(nextPosition, nextPositionLineHasNoChar);
         }
-
     }
 
     private deleteLine(range: Range, editor: IEditor, vim: IVimStyle) {
@@ -175,11 +172,7 @@ export class DeleteAction implements IRequireMotionAction {
             editor.DeleteRange(del);
         }
         if (this.isInsert) {
-            vim.ApplyInsertMode(nextPosition);
-        } else {
-            if (!this.isOnlyYanc) {
-                editor.ApplyNormalMode(nextPosition, nextPositionLineHasNoChar, lineNum <= range.end.line);
-            }
+            vim.ApplyInsertMode();
         }
     }
 }

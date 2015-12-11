@@ -1,6 +1,19 @@
 import * as vscode from "vscode"
-import {Position} from "./VimStyle";
+import {Position, Range} from "./VimStyle";
 import * as Utils from "./Utils";
+
+enum EditorActionType {
+    Insert,
+    Replace,
+    Delete,
+    SetPosition
+}
+class EditorAction {
+    public Type: EditorActionType;
+    public Position: IPosition;
+    public Range: IRange;
+    public Text: string;
+}
 
 export class VSCodeEditor implements IEditor {
     private modeStatusBarItem: vscode.StatusBarItem;
@@ -9,6 +22,7 @@ export class VSCodeEditor implements IEditor {
 
     private selectionSetTime: number;
     private dummySpacePosition: vscode.Position;
+    private delayActions: EditorAction[];
 
     public constructor(options: IVSCodeEditorOptions) {
         options = options || {
@@ -22,6 +36,7 @@ export class VSCodeEditor implements IEditor {
         this.commandStatusBarItem.show();
         this.selectionSetTime = 0;
         this.dummySpacePosition = null;
+        this.delayActions = [];
     }
 
     public SetVimStyle(vim: IVimStyle) {
@@ -46,45 +61,124 @@ export class VSCodeEditor implements IEditor {
     
     // Edit
     public InsertTextAtCurrentPosition(text: string) {
+        // var e = new EditorAction();
+        // e.Type = EditorActionType.Insert;
+        // e.Position = tranceVimStylePosition(vscode.window.activeTextEditor.selection.active);
+        // e.Text = text;
+        // this.delayActions.push(e);
         vscode.window.activeTextEditor.edit((editBuilder) => {
             editBuilder.insert(vscode.window.activeTextEditor.selection.active, text);
         });
     }
     public InsertCharactorAtCurrentPosition(char: string) {
+        // var e = new EditorAction();
+        // e.Type = EditorActionType.Insert;
+        // e.Position = tranceVimStylePosition(vscode.window.activeTextEditor.selection.active);
+        // e.Text = char;
+        // this.delayActions.push(e);
         vscode.window.activeTextEditor.edit((editBuilder) => {
             editBuilder.insert(vscode.window.activeTextEditor.selection.active, char);
         });
-        // if only alphabet, show suggestion
-        var charCode = char.charCodeAt(0);
-        var isShowSuggestion = false;
-        if (0x41 <= charCode && charCode <= 0x5A) {
-            // A-Z
-            isShowSuggestion = true;
-        } else if (0x61 <= charCode && charCode <= 0x7A) {
-            // a-z
-            isShowSuggestion = true;
-        } else if (0x2E == charCode) {
-            // .
-            isShowSuggestion = true;
-        }
-        if (isShowSuggestion) {
-            vscode.commands.executeCommand("editor.action.triggerSuggest");
-        }
+        // // if only alphabet, show suggestion
+        // var charCode = char.charCodeAt(0);
+        // var isShowSuggestion = false;
+        // if (0x41 <= charCode && charCode <= 0x5A) {
+        //     // A-Z
+        //     isShowSuggestion = true;
+        // } else if (0x61 <= charCode && charCode <= 0x7A) {
+        //     // a-z
+        //     isShowSuggestion = true;
+        // } else if (0x2E == charCode) {
+        //     // .
+        //     isShowSuggestion = true;
+        // }
+        // if (isShowSuggestion) {
+        //     vscode.commands.executeCommand("editor.action.triggerSuggest");
+        // }
     }
     public Insert(position: IPosition, text: string) {
         vscode.window.activeTextEditor.edit((editBuilder) => {
             editBuilder.insert(tranceVSCodePosition(position), text);
         });
     }
-    public DeleteRange(range: IRange) {
+    public DeleteRange(range: IRange, position?: IPosition) {
+        // var e = new EditorAction();
+        // e.Type = EditorActionType.Delete;
+        // e.Range = range;
+        // this.delayActions.push(e);
+        // need delay exec
+        // this.delayExec = function() {
+        //     vscode.window.activeTextEditor.edit((editBuilder) => {
+        //         editBuilder.delete(tranceVSCodeRange(range));
+        //     });
+        // };
+                
+        // pre check
+        // この時点で、最後まで削除するか判定する必要がある
+        // this.compileCommands();
+        
+        // TODO
+        var newBlockCursor: vscode.Selection;
         vscode.window.activeTextEditor.edit((editBuilder) => {
-            editBuilder.delete(tranceVSCodeRange(range));
-        })
+            var doc = vscode.window.activeTextEditor.document;
+
+            var vsPos: vscode.Position;
+            if (position) {
+                // 指定がある場合
+                vsPos = tranceVSCodePosition(position);
+            } else {
+                // 指定がない場合、削除開始位置
+                vsPos = tranceVSCodePosition(range.start);
+            }
+            var vsRange = tranceVSCodeRange(range);
+            
+            // 最後まで削除するかどうか
+            var deleteEnd = false;
+            var finalLine = doc.lineCount - 1;
+            var lastPos = doc.lineAt(finalLine).range.end;
+            if (vsRange.end.line == finalLine && lastPos.isEqual(vsRange.end)) {
+                deleteEnd = true;
+            }
+
+            var setFinalPoint = false;
+            var needDummy = false;
+            if (deleteEnd) {
+                // 最後にポイントするか判定
+                if (vsRange.contains(vsPos)) {
+                    setFinalPoint = true;
+                    // スタートが1文字目ならダミー文字必要
+                    if (vsRange.start.character == 0) {
+                        needDummy = true;
+                    }
+                }
+            }
+            if (needDummy) {
+                newBlockCursor = new vscode.Selection(vsRange.end, vsRange.start);
+                this.dummySpacePosition = vsRange.start;
+                vscode.window.activeTextEditor.selection = newBlockCursor;
+                editBuilder.replace(vsRange, " ");
+            } else {
+                var endoffset = doc.offsetAt(vsPos);
+                var nextPos = doc.positionAt(endoffset + 1);
+                if (vsRange.contains(nextPos)) {
+                    // 削除領域に繋がる場合その次まで
+                    endoffset = doc.offsetAt(vsRange.end);
+                    nextPos = doc.positionAt(endoffset + 1);
+                }
+                newBlockCursor = new vscode.Selection(nextPos, vsPos);
+                vscode.window.activeTextEditor.selection = newBlockCursor;
+                editBuilder.delete(vsRange);
+            }
+        });
     }
     public ReplaceRange(range: IRange, text: string) {
+        // var e = new EditorAction();
+        // e.Type = EditorActionType.Replace;
+        // e.Range = range;
+        // e.Text = text;
         vscode.window.activeTextEditor.edit((editBuilder) => {
             editBuilder.replace(tranceVSCodeRange(range), text);
-        })
+        });
     }
     
     // Read Line
@@ -115,6 +209,10 @@ export class VSCodeEditor implements IEditor {
         return tranceVimStylePosition(vscode.window.activeTextEditor.selection.active);
     }
     public SetPosition(p: IPosition) {
+        // var e = new EditorAction();
+        // e.Type = EditorActionType.SetPosition;
+        // e.Position = p;
+        // this.delayActions.push(e);
         var cp = tranceVSCodePosition(p);
         var isNonCharLine = vscode.window.activeTextEditor.document.lineAt(p.line).text.length == 0;
         var isLastLine = this.GetLastLineNum() == p.line;
@@ -153,7 +251,7 @@ export class VSCodeEditor implements IEditor {
         this.showBlockCursor(p, isNonCharLine, isLastLine);
     }
 
-    public ApplyNormalMode(p?: Position, isNonCharLine?: boolean, isLastLine?:boolean) {
+    public ApplyNormalMode(p?: Position, isNonCharLine?: boolean, isLastLine?: boolean) {
         var vp: vscode.Position;
         if (p) {
             vp = tranceVSCodePosition(p);
@@ -174,7 +272,7 @@ export class VSCodeEditor implements IEditor {
         this.showBlockCursor(vp, isNonCharLine, isLastLine);
     }
 
-    private showBlockCursor(end: vscode.Position, isNonCharLine: boolean, isLastLine: boolean) {
+    private showBlockCursor(end: vscode.Position, isNonCharLine?: boolean, isLastLine?: boolean) {
         this.deleteNonCharLine();
         var start: vscode.Position;
         if (isNonCharLine && isLastLine) {
@@ -192,9 +290,14 @@ export class VSCodeEditor implements IEditor {
         vscode.window.activeTextEditor.selection = select;
     }
 
-    public ApplyInsertMode(p: Position) {
+    public ApplyInsertMode(p?: Position) {
         this.deleteNonCharLine();
-        var c = tranceVSCodePosition(p);
+        var c: vscode.Position;
+        if (p == undefined) {
+            c = vscode.window.activeTextEditor.selection.active;
+        } else {
+            c = tranceVSCodePosition(p);
+        }
         var s = new vscode.Selection(c, c);
         vscode.window.activeTextEditor.selection = s;
         this.selectionSetTime = new Date().getTime();
@@ -247,6 +350,35 @@ export class VSCodeEditor implements IEditor {
             editBuilder.delete(r);
         });
         this.dummySpacePosition = null;
+    }
+
+    public DoEdit() {
+
+        
+        // check delete＾￥ to end
+        // replace dummy text
+        
+        // set position
+    }
+
+
+    private compileCommands() {
+    }
+
+    private insertAction(action: EditorAction, editBuilder: vscode.TextEditorEdit) {
+    }
+    private deleteAction(action: EditorAction, editBuilder: vscode.TextEditorEdit) {
+
+    }
+    private replaceAction(action: EditorAction, editBuilder: vscode.TextEditorEdit) {
+
+    }
+    private setPositionAction(action: EditorAction) {
+        var cp = tranceVSCodePosition(action.Position);
+        // var isNonCharLine = vscode.window.activeTextEditor.document.lineAt(p.line).text.length == 0;
+        // var isLastLine = this.GetLastLineNum() == p.line;
+        this.showBlockCursor(cp);
+        vscode.window.activeTextEditor.revealRange(vscode.window.activeTextEditor.selection, vscode.TextEditorRevealType.Default);
     }
 }
 

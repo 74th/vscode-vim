@@ -10,7 +10,7 @@ interface IEditor {
     InsertTextAtCurrentPosition(text: string);
     InsertCharactorAtCurrentPosition(char: string);
     Insert(position: IPosition, text: string);
-    DeleteRange(range: IRange);
+    DeleteRange(range: IRange,position?:IPosition);
     ReplaceRange(range: IRange, text: string);
     
     // Read Line
@@ -37,6 +37,9 @@ interface IEditor {
     
     // check invalid position
     UpdateValidPosition(p: IPosition, isBlock?: boolean): IPosition;
+    
+    // do
+    DoEdit()
 
     dispose(): void;
 }
@@ -102,7 +105,7 @@ interface IVimStyle {
 
     PushKey(key: Key): void;
     PushEscKey(): void;
-    ApplyInsertMode(p: IPosition): void;
+    ApplyInsertMode(p?: IPosition): void;
     GetMode(): VimMode;
 }
 
