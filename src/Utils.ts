@@ -42,7 +42,7 @@ export function KeyToNum(key: Key): number {
  * the number 0.
  */
 export function isNumber(val) {
-    console.log('testing val', val);
+    console.log("testing val", val);
     var res = parseInt(val, 10);
     return isNaN ? null : res;
 }
@@ -178,7 +178,7 @@ export function KeyToChar(key: Key): string {
         case Key.Exclamation:
             return "!";
         case Key.Quotation:
-            return '"';
+            return "\"";
         case Key.Doller:
             return "$";
         case Key.Sharp:

@@ -1,4 +1,4 @@
-import {AbstractMotion} from "./AbstractMotion"
+import {AbstractMotion} from "./AbstractMotion";
 import {Position} from "../VimStyle";
 
 export class RightMotion extends AbstractMotion {

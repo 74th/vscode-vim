@@ -1,7 +1,7 @@
 import {CommandFactory} from "./core/CommandFactory";
 import {InsertModeExecute} from "./mode/InsertMode";
-import * as Utils from "./Utils"
-import {Register} from "./core/Register"
+import * as Utils from "./Utils";
+import {Register} from "./core/Register";
 
 export class VimStyle implements IVimStyle {
 
@@ -24,13 +24,13 @@ export class VimStyle implements IVimStyle {
                 this.readCommand(key);
                 return;
             case VimMode.Insert:
-                InsertModeExecute(key, this.editor)
+                InsertModeExecute(key, this.editor);
         }
     }
 
     public PushEscKey() {
         this.setMode(VimMode.Normal);
-        this.commandFactory.Clear()
+        this.commandFactory.Clear();
         this.editor.CloseCommandStatus();
         this.editor.ApplyNormalMode();
     }
@@ -73,7 +73,7 @@ export class Position implements IPosition {
 export class Range implements IRange {
     public start: IPosition;
     public end: IPosition;
-    
+
     constructor() {
         this.start = new Position();
         this.end = new Position();

@@ -1,18 +1,18 @@
 import * as Utils from "../Utils";
-import {Command, State, IVimStyleCommand, KeyBindings} from './KeyBindings';
-import {CombinationAction} from '../action/CombinationAction';
-import {ApplyInsertModeAction} from '../action/ApplyInsertModeAction';
-import {InsertLineBelowAction} from '../action/InsertLineBelowAction';
-import {PasteAction} from '../action/PasteAction';
-import {DeleteAction} from '../action/DeleteAction';
-import {MoveAction} from '../action/MoveAction';
-import {RightMotion} from '../motion/RightMotion';
-import {DownMotion} from '../motion/DownMotion';
-import {HomeMotion} from '../motion/HomeMotion';
-import {EndMotion} from '../motion/EndMotion';
-import {FindCharacterMotion} from '../motion/FindCharacterMotion';
-import {WordMotion} from '../motion/WordMotion';
-import {LineHeadMotion} from '../motion/LineHeadMotion';
+import {Command, State, IVimStyleCommand, KeyBindings} from "./KeyBindings";
+import {CombinationAction} from "../action/CombinationAction";
+import {ApplyInsertModeAction} from "../action/ApplyInsertModeAction";
+import {InsertLineBelowAction} from "../action/InsertLineBelowAction";
+import {PasteAction} from "../action/PasteAction";
+import {DeleteAction} from "../action/DeleteAction";
+import {MoveAction} from "../action/MoveAction";
+import {RightMotion} from "../motion/RightMotion";
+import {DownMotion} from "../motion/DownMotion";
+import {HomeMotion} from "../motion/HomeMotion";
+import {EndMotion} from "../motion/EndMotion";
+import {FindCharacterMotion} from "../motion/FindCharacterMotion";
+import {WordMotion} from "../motion/WordMotion";
+import {LineHeadMotion} from "../motion/LineHeadMotion";
 
 export class CommandFactory implements ICommandFactory {
 
@@ -110,7 +110,7 @@ export class CommandFactory implements ICommandFactory {
             case Command.changeLineAction:
                 this.changeLineAction();
                 return;
-                
+
             // move action
             case Command.pasteBelowAction:
                 this.pasteBelowAction(command.isReverse);
@@ -145,7 +145,7 @@ export class CommandFactory implements ICommandFactory {
             case Command.moveFirstLineAction:
                 this.moveFirstLineAction();
                 return;
-                
+
             // motion
             case Command.rightMotion:
                 this.rightMotion(command.isReverse);
@@ -177,7 +177,7 @@ export class CommandFactory implements ICommandFactory {
             case Command.firstLineMotion:
                 this.firstLineMotion();
                 return;
-                
+
             // delete, yanc, change action
             case Command.changeAction:
                 this.changeAction();
@@ -200,7 +200,7 @@ export class CommandFactory implements ICommandFactory {
             case Command.doActionAtCurrentLine:
                 this.doActionAtCurrentLine(key);
                 return;
-                
+
             // other
             case Command.stackNumber:
                 this.stackNumber(key);
@@ -229,7 +229,7 @@ export class CommandFactory implements ICommandFactory {
         m.SetCount(1);
         this.action = new ApplyInsertModeAction(m);
     }
-    
+
     // I
     private insertHomeAction() {
         var m = new LineHeadMotion();
@@ -251,7 +251,7 @@ export class CommandFactory implements ICommandFactory {
         }
         this.action = a;
     }
-    
+
     // x Nx
     private deleteCharacterAction(isLeft: boolean) {
         var m = new RightMotion();
@@ -264,7 +264,7 @@ export class CommandFactory implements ICommandFactory {
         a.SetMotion(m);
         this.action = a;
     }
-    
+
     // s
     private changeCharacterAction() {
         var m = new RightMotion();
@@ -272,10 +272,10 @@ export class CommandFactory implements ICommandFactory {
         var a = new DeleteAction();
         a.SetSmallOption();
         a.SetMotion(m);
-        a.SetChangeOption()
+        a.SetChangeOption();
         this.action = a;
     }
-    
+
     // S
     private changeLineAction() {
         var m = new DownMotion();
@@ -283,17 +283,17 @@ export class CommandFactory implements ICommandFactory {
         var a = new DeleteAction();
         a.SetLineOption();
         a.SetMotion(m);
-        a.SetChangeOption()
+        a.SetChangeOption();
         this.action = a;
     }
-    
+
     // p P Np NP
     private pasteBelowAction(isBack: boolean) {
         var a = new PasteAction();
         if (isBack) {
-            a.SetBackOption()
+            a.SetBackOption();
         }
-        a.SetCount(this.getNumStack())
+        a.SetCount(this.getNumStack());
         this.action = a;
     }
 
@@ -312,7 +312,7 @@ export class CommandFactory implements ICommandFactory {
         m.SetCount(this.getNumStack());
         this.action = this.createMoveAction(m);
     }
-    
+
     // j k
     private moveLineAction(isUp: boolean) {
         var m = new DownMotion();
@@ -322,7 +322,7 @@ export class CommandFactory implements ICommandFactory {
         m.SetCount(this.getNumStack());
         this.action = this.createMoveAction(m);
     }
-    
+
     // w b
     private moveWordAction(isReverse: boolean) {
         var m: WordMotion;
@@ -334,17 +334,17 @@ export class CommandFactory implements ICommandFactory {
         m.SetCount(this.getNumStack());
         this.action = this.createMoveAction(m);
     }
-    
+
     // 0
     private moveHomeAction() {
         this.action = this.createMoveAction(new HomeMotion());
     }
-    
+
     // $
     private moveEndAction() {
         this.action = this.createMoveAction(new EndMotion());
     }
-    
+
     // fx Fx
     private moveFindCharacterAction(isReverse) {
         var a = new MoveAction();
@@ -359,7 +359,7 @@ export class CommandFactory implements ICommandFactory {
         this.action = a;
         this.motion = m;
     }
-    
+
     // tx Tx
     private moveTillCharacterAction(isReverse) {
         var a = new MoveAction();
@@ -375,7 +375,7 @@ export class CommandFactory implements ICommandFactory {
         this.action = a;
         this.motion = m;
     }
-    
+
     // Ng
     private moveGotoLineAction() {
         var a = new MoveAction();
@@ -384,7 +384,7 @@ export class CommandFactory implements ICommandFactory {
         a.SetMotion(m);
         this.action = a;
     }
-    
+
     // G
     private moveLastLineAction() {
         var a = new MoveAction();
@@ -393,7 +393,7 @@ export class CommandFactory implements ICommandFactory {
         a.SetMotion(m);
         this.action = a;
     }
-    
+
     // gg
     private moveFirstLineAction() {
         var a = new MoveAction();
@@ -402,7 +402,7 @@ export class CommandFactory implements ICommandFactory {
         a.SetMotion(m);
         this.action = a;
     }
-    
+
     // ch cl
     private rightMotion(isLeft: boolean) {
         var m = new RightMotion();
@@ -413,7 +413,7 @@ export class CommandFactory implements ICommandFactory {
         var a = <IRequireMotionAction>this.action;
         a.SetMotion(m);
     }
-    
+
     // cj ck
     private lineMotion(isUp: boolean) {
         var m = new DownMotion();
@@ -425,7 +425,7 @@ export class CommandFactory implements ICommandFactory {
         a.SetMotion(m);
         a.SetLineOption();
     }
-    
+
     // cw cb
     private wordMotion(isReverse: boolean) {
         var m: WordMotion;
@@ -439,19 +439,19 @@ export class CommandFactory implements ICommandFactory {
         var a = <IRequireMotionAction>this.action;
         a.SetMotion(m);
     }
-    
+
     // c0
     private homeMotion() {
         var a = <IRequireMotionAction>this.action;
         a.SetMotion(new HomeMotion());
     }
-    
+
     // c$
     private endMotion() {
         var a = <IRequireMotionAction>this.action;
         a.SetMotion(new EndMotion());
     }
-    
+
     // fx Fx
     private findCharacterMotion(isReverse) {
         var m: FindCharacterMotion;
@@ -466,7 +466,7 @@ export class CommandFactory implements ICommandFactory {
         a.SetMotion(m);
         this.motion = m;
     }
-    
+
     // tx Tx
     private tillCharacterMotion(isReverse) {
         var m: FindCharacterMotion;
@@ -482,16 +482,16 @@ export class CommandFactory implements ICommandFactory {
         a.SetMotion(m);
         this.motion = m;
     }
-       
+
     // cNg
     private gotoLineMotion() {
         var m = new LineHeadMotion();
         m.SetCount(this.getNumStack() - 1);
         var a = <IRequireMotionAction>this.action;
         a.SetMotion(m);
-        a.SetLineOption()
+        a.SetLineOption();
     }
-    
+
     // cG
     private lastLineMotion() {
         var m = new LineHeadMotion();
@@ -500,7 +500,7 @@ export class CommandFactory implements ICommandFactory {
         a.SetMotion(m);
         a.SetLineOption();
     }
-    
+
     // cgg
     private firstLineMotion() {
         var m = new LineHeadMotion();
@@ -509,26 +509,26 @@ export class CommandFactory implements ICommandFactory {
         a.SetMotion(m);
         a.SetLineOption();
     }
-    
+
     // cm 
     private changeAction() {
         var a = new DeleteAction();
         a.SetChangeOption();
         this.action = a;
     }
-    
+
     // dm
     private deleteAction() {
         this.action = new DeleteAction();
     }
-    
+
     // ym
     private yancAction() {
         var a = new DeleteAction();
         a.SetOnlyYancOption();
         this.action = a;
     }
-    
+
     // C
     private changeToEndAction() {
         var m = new EndMotion();
@@ -549,7 +549,7 @@ export class CommandFactory implements ICommandFactory {
         a.SetMotion(m);
         this.action = a;
     }
-    
+
     // Y
     private yancToEndAction() {
         var m = new EndMotion();
@@ -557,7 +557,7 @@ export class CommandFactory implements ICommandFactory {
         var a = new DeleteAction();
         a.SetSmallOption();
         a.SetMotion(m);
-        a.SetOnlyYancOption()
+        a.SetOnlyYancOption();
         this.action = a;
     }
 

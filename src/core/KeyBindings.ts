@@ -1,6 +1,6 @@
 
 export enum Command {
-    
+
     // single action
     insertCurrentPositionAction,
     appendCurrentPositionAction,
@@ -11,7 +11,7 @@ export enum Command {
     changeCharacterAction,
     changeLineAction,
     pasteBelowAction,
-    
+
     // move action
     moveRightAction,
     moveLineAction,
@@ -23,7 +23,7 @@ export enum Command {
     moveGotoLineAction,
     moveLastLineAction,
     moveFirstLineAction,
-    
+
     // motion
     rightMotion,
     lineMotion,
@@ -35,7 +35,7 @@ export enum Command {
     gotoLineMotion,
     lastLineMotion,
     firstLineMotion,
-    
+
     // delete, yanc, change action
     changeAction,
     deleteAction,
@@ -44,7 +44,7 @@ export enum Command {
     deleteToEndAction,
     yancToEndAction,
     doActionAtCurrentLine,
-    
+
     // other
     stackNumber,
     nothing
@@ -62,9 +62,9 @@ export enum State {
 }
 
 export interface IVimStyleCommand {
-    state?: State,
-    isReverse?: boolean,
-    cmd: Command
+    state?: State;
+    isReverse?: boolean;
+    cmd: Command;
 }
 
 export namespace KeyBindings {
@@ -635,14 +635,14 @@ export namespace KeyBindings {
         },
         // $?
     };
-    
+
     // g
     export let SmallG: { [key: string]: IVimStyleCommand } = {
         "g": {
             cmd: Command.moveFirstLineAction
         }
     };
-    
+
     // cg
     export let SmallGForMotion: { [key: string]: IVimStyleCommand } = {
         "g": {

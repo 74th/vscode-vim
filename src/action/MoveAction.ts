@@ -3,6 +3,7 @@ export class MoveAction implements IAction {
     private motion: IMotion;
 
     constructor() {
+        this.motion = null;
     }
 
     public SetMotion(motion: IMotion) {

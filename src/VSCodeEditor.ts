@@ -1,4 +1,4 @@
-import * as vscode from "vscode"
+import * as vscode from "vscode";
 import {Position, Range} from "./VimStyle";
 import * as Utils from "./Utils";
 
@@ -40,7 +40,7 @@ export class VSCodeEditor implements IEditor {
     public SetVimStyle(vim: IVimStyle) {
         this.vimStyle = vim;
     }
-    
+
     // Status
     public CloseCommandStatus() {
         this.commandStatusBarItem.text = "";
@@ -56,7 +56,7 @@ export class VSCodeEditor implements IEditor {
     public SetModeStatusVisibility(visible: boolean) {
         visible ? this.modeStatusBarItem.show() : this.modeStatusBarItem.hide();
     }
-    
+
     // Edit
     public InsertTextAtCurrentPosition(text: string) {
         vscode.window.activeTextEditor.edit((editBuilder) => {
@@ -100,7 +100,7 @@ export class VSCodeEditor implements IEditor {
                 // * delete from home of line
                 needDummy = true;
             }
-            
+
             var cursor: vscode.Selection;
             this.selectionSetTime = Date.now();
             if (needDummy) {
@@ -127,7 +127,7 @@ export class VSCodeEditor implements IEditor {
             editBuilder.replace(tranceVSCodeRange(range), text);
         });
     }
-    
+
     // Read Line
     public ReadLine(line: number): string {
         if (this.dummySpacePosition != null && line == this.dummySpacePosition.line) {
@@ -145,12 +145,12 @@ export class VSCodeEditor implements IEditor {
         }
         return vscode.window.activeTextEditor.document.lineAt(vscode.window.activeTextEditor.selection.active.line).text;
     }
-    
+
     // Read Range
     public ReadRange(range: IRange): string {
         return vscode.window.activeTextEditor.document.getText(tranceVSCodeRange(range));
     }
-    
+
     // Position
     public GetCurrentPosition(): IPosition {
         return tranceVimStylePosition(vscode.window.activeTextEditor.selection.active);
@@ -166,7 +166,7 @@ export class VSCodeEditor implements IEditor {
         var end = vscode.window.activeTextEditor.document.lineAt(vscode.window.activeTextEditor.document.lineCount - 1).range.end;
         return tranceVimStylePosition(end);
     }
-    
+
     // Document Info
     public GetLastLineNum(): number {
         return vscode.window.activeTextEditor.document.lineCount - 1;
@@ -176,7 +176,7 @@ export class VSCodeEditor implements IEditor {
         this.modeStatusBarItem.dispose();
         this.commandStatusBarItem.dispose();
     }
-    
+
     // changed focused editor or changed position by user
     public ChangePositionByUser() {
         if (this.selectionSetTime + 200 >= new Date().getTime()) {
@@ -227,7 +227,7 @@ export class VSCodeEditor implements IEditor {
         vscode.window.activeTextEditor.selection = select;
         this.deleteNonCharLine();
         if (isNonCharLine) {
-            this.dummySpacePosition = end;    
+            this.dummySpacePosition = end;
         }
     }
 
@@ -251,7 +251,7 @@ export class VSCodeEditor implements IEditor {
         if (p.line <= 0) {
             cp.line = 0;
         } else {
-            var lastLineNum = this.GetLastLineNum()
+            var lastLineNum = this.GetLastLineNum();
             if (lastLineNum < p.line) {
                 cp.line = lastLineNum;
             }

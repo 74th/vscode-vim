@@ -33,7 +33,7 @@ export class WordMotion extends AbstractMotion {
         var isReachLast = false;
         var charCode: number;
         while (count > 0) {
-            
+
             // get next charactor
             if (this.direction == Direction.Left) {
                 charNum--;
@@ -81,7 +81,7 @@ export class WordMotion extends AbstractMotion {
                     }
                 }
             }
-            
+
             // char code
             charCode = line.charCodeAt(charNum);
             charClass = Utils.GetCharClass(charCode);
@@ -125,7 +125,7 @@ export class WordMotion extends AbstractMotion {
             end.char = 0;
             return end;
         }
-        
+
         // foward
         end.char = charNum;
         return end;

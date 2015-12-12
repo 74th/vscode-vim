@@ -14,6 +14,6 @@ export class ApplyInsertModeAction implements IAction {
         if (this.motion != null) {
             p = this.motion.CalculateEnd(editor, p);
         }
-        vim.ApplyInsertMode(p)
+        vim.ApplyInsertMode(p);
     }
 }
