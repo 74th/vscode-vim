@@ -22,7 +22,6 @@ export class VSCodeEditor implements IEditor {
 
     private selectionSetTime: number;
     private dummySpacePosition: vscode.Position;
-    private delayActions: EditorAction[];
 
     public constructor(options: IVSCodeEditorOptions) {
         options = options || {
@@ -36,7 +35,6 @@ export class VSCodeEditor implements IEditor {
         this.commandStatusBarItem.show();
         this.selectionSetTime = 0;
         this.dummySpacePosition = null;
-        this.delayActions = [];
     }
 
     public SetVimStyle(vim: IVimStyle) {
@@ -76,55 +74,51 @@ export class VSCodeEditor implements IEditor {
         });
     }
     public DeleteRange(range: IRange, position?: IPosition) {
-        var newBlockCursor: vscode.Selection;
         vscode.window.activeTextEditor.edit((editBuilder) => {
             var doc = vscode.window.activeTextEditor.document;
 
             var vsPos: vscode.Position;
             if (position) {
-                // 指定がある場合
                 vsPos = tranceVSCodePosition(position);
             } else {
-                // 指定がない場合、削除開始位置
                 vsPos = tranceVSCodePosition(range.start);
             }
             var vsRange = tranceVSCodeRange(range);
-            
-            // 最後まで削除するかどうか
+
             var deleteEnd = false;
+            var needDummy = false;
             var finalLine = doc.lineCount - 1;
             var lastPos = doc.lineAt(finalLine).range.end;
-            if (vsRange.end.line == finalLine && lastPos.isEqual(vsRange.end)) {
-                deleteEnd = true;
+            if (this.vimStyle.GetMode() == VimMode.Normal &&
+                vsRange.end.line == finalLine &&
+                lastPos.isEqual(vsRange.end) &&
+                vsRange.contains(vsPos) &&
+                vsRange.start.character == 0) {
+                // Conditions that require a dummy
+                // 1: Normal mode
+                // 2: delete to end
+                // 3: delete range contains next position
+                // 4: delete from home of line
+                needDummy = true;
             }
-
-            var setFinalPoint = false;
-            var needDummy = false;
-            if (deleteEnd) {
-                // 最後にポイントするか判定
-                if (vsRange.contains(vsPos)) {
-                    setFinalPoint = true;
-                    // スタートが1文字目ならダミー文字必要
-                    if (vsRange.start.character == 0) {
-                        needDummy = true;
-                    }
-                }
-            }
+            
+            var cursor: vscode.Selection;
+            this.selectionSetTime = Date.now();
             if (needDummy) {
-                newBlockCursor = new vscode.Selection(vsRange.end, vsRange.start);
+                cursor = new vscode.Selection(vsRange.end, vsRange.start);
                 this.dummySpacePosition = vsRange.start;
-                vscode.window.activeTextEditor.selection = newBlockCursor;
+                vscode.window.activeTextEditor.selection = cursor;
                 editBuilder.replace(vsRange, " ");
             } else {
                 var endoffset = doc.offsetAt(vsPos);
                 var nextPos = doc.positionAt(endoffset + 1);
                 if (vsRange.contains(nextPos)) {
-                    // 削除領域に繋がる場合その次まで
+                    // if position contained delete range
                     endoffset = doc.offsetAt(vsRange.end);
                     nextPos = doc.positionAt(endoffset + 1);
                 }
-                newBlockCursor = new vscode.Selection(nextPos, vsPos);
-                vscode.window.activeTextEditor.selection = newBlockCursor;
+                cursor = new vscode.Selection(nextPos, vsPos);
+                vscode.window.activeTextEditor.selection = cursor;
                 editBuilder.delete(vsRange);
             }
         });
@@ -163,10 +157,6 @@ export class VSCodeEditor implements IEditor {
         return tranceVimStylePosition(vscode.window.activeTextEditor.selection.active);
     }
     public SetPosition(p: IPosition) {
-        // var e = new EditorAction();
-        // e.Type = EditorActionType.SetPosition;
-        // e.Position = p;
-        // this.delayActions.push(e);
         var cp = tranceVSCodePosition(p);
         var isNonCharLine = vscode.window.activeTextEditor.document.lineAt(p.line).text.length == 0;
         var isLastLine = this.GetLastLineNum() == p.line;

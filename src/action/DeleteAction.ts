@@ -84,11 +84,11 @@ export class DeleteAction implements IRequireMotionAction {
         if (this.isLarge) {
             vim.Register.SetRoll(item);
         }
-        if (!this.isOnlyYanc) {
-            editor.DeleteRange(range,nextPosition);
-        }
         if (this.isInsert) {
             vim.ApplyInsertMode(nextPosition);
+        }
+        if (!this.isOnlyYanc) {
+            editor.DeleteRange(range,nextPosition);
         }
     }
 
@@ -98,10 +98,8 @@ export class DeleteAction implements IRequireMotionAction {
         var nextPositionLineHasNoChar = false;
         nextPosition.char = 0;
 
-        var lineNum = editor.GetLastLineNum();
-        var nextLine = "";
-        var lastLine: string;
-        if (lineNum <= range.end.line) {
+        var lastLine = editor.GetLastLineNum();
+        if (lastLine <= range.end.line) {
             // delete to end line
             if (range.start.line == 0) {
                 // delete all
@@ -111,7 +109,6 @@ export class DeleteAction implements IRequireMotionAction {
                 del.end.line = range.end.line;
                 del.end = editor.UpdateValidPosition(del.end);
                 nextPosition.line = 0;
-                nextLine = "";
             } else if (this.isInsert) {
                 // delete from home of start line
                 del.start.char = 0;
@@ -130,7 +127,6 @@ export class DeleteAction implements IRequireMotionAction {
                 del.end.line = range.end.line;
                 del.end = editor.UpdateValidPosition(del.end);
                 nextPosition.line = range.start.line - 1;
-                nextLine = editor.ReadLine(range.start.line - 1);
             }
         } else {
             if (this.isInsert) {
@@ -148,11 +144,9 @@ export class DeleteAction implements IRequireMotionAction {
                 del.end.char = 0;
                 del.end.line = range.end.line + 1;
                 nextPosition.line = range.start.line;
-                nextLine = editor.ReadLine(range.end.line + 1);
             }
         }
 
-        var nextPositionLineHasNoChar = nextLine.length == 0;
         var yanc = new Range();
         yanc.start.line = range.start.line;
         yanc.start.char = 0;
@@ -168,11 +162,11 @@ export class DeleteAction implements IRequireMotionAction {
         item.Type = RegisterType.LineText;
         vim.Register.SetRoll(item);
 
-        if (!this.isOnlyYanc) {
-            editor.DeleteRange(del);
-        }
         if (this.isInsert) {
             vim.ApplyInsertMode();
+        }
+        if (!this.isOnlyYanc) {
+            editor.DeleteRange(del, nextPosition);
         }
     }
 }
