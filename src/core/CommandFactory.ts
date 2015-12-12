@@ -1,7 +1,7 @@
 import * as Utils from "../Utils";
 import {Command, State, IVimStyleCommand, KeyBindings} from './KeyBindings';
 import {CombinationAction} from '../action/CombinationAction';
-import {InsertCurrentPositionAction} from '../action/InsertCurrentPositionAction';
+import {ApplyInsertModeAction} from '../action/ApplyInsertModeAction';
 import {InsertLineBelowAction} from '../action/InsertLineBelowAction';
 import {PasteAction} from '../action/PasteAction';
 import {DeleteAction} from '../action/DeleteAction';
@@ -220,42 +220,26 @@ export class CommandFactory implements ICommandFactory {
 
     // i    
     private insertCurrentPositionAction() {
-        this.action = new InsertCurrentPositionAction();
+        this.action = new ApplyInsertModeAction();
     }
 
     // a    
     private appendCurrentPositionAction() {
         var m = new RightMotion();
         m.SetCount(1);
-        var ma = new MoveAction();
-        ma.SetMotion(m);
-        this.action = new CombinationAction([
-            ma,
-            new InsertCurrentPositionAction()
-        ]);
+        this.action = new ApplyInsertModeAction(m);
     }
     
     // I
     private insertHomeAction() {
         var m = new LineHeadMotion();
-        m.SetCurrentLineOption();
-        var ma = new MoveAction();
-        ma.SetMotion(m);
-        this.action = new CombinationAction([
-            ma,
-            new InsertCurrentPositionAction()
-        ]);
+        this.action = new ApplyInsertModeAction(m);
     }
 
     // A    
     private appendEndAction() {
         var m = new EndMotion();
-        var ma = new MoveAction();
-        ma.SetMotion(m);
-        this.action = new CombinationAction([
-            ma,
-            new InsertCurrentPositionAction()
-        ]);
+        this.action = new ApplyInsertModeAction(m);
     }
 
     // o O    
