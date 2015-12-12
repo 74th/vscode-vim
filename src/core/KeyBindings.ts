@@ -285,7 +285,7 @@ export namespace KeyBindings {
         },
         // K no function
         "l": {
-            cmd: Command.moveLineAction
+            cmd: Command.moveRightAction
         },
         // L no function
         // No low priority

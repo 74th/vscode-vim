@@ -26,7 +26,7 @@ export let VimStyleTests = {
             "in": [
                 "aaaaaaa",
                 "bbbb|bbb",
-                "cccccccc"
+                "ccccccc"
             ],
             "key": "j",
             "out": [
@@ -41,7 +41,7 @@ export let VimStyleTests = {
         "insert char": {
             "in": ["aa|aa"],
             "key": "ibc_",
-            "out": ["aabca|a"]
+            "out": ["aabc|aa"]
         }
     }
 };
