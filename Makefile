@@ -2,8 +2,10 @@
 test: build tslint
 	tslint src/**/**.ts
 	cd out;mocha -g VimStyle
-realVimTest: build
-	cd out;mocha -g RealVim
+OriginalVimTest: build
+	cd out;mocha -g OriginalVim
+NeoVimTest: build
+	cd out;mocha -g NeoVim
 build:
 	tsc
 package: build
