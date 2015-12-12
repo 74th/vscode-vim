@@ -223,6 +223,7 @@ export class VSCodeEditor implements IEditor {
             vscode.window.activeTextEditor.edit((edit) => {
                 edit.insert(end, " ");
             });
+            this.dummySpacePosition = end;
         }
         if (isNonCharLine && !isLastLine) {
             start = new vscode.Position(end.line + 1, 0);
