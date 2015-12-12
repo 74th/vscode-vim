@@ -233,6 +233,7 @@ export class CommandFactory implements ICommandFactory {
     // I
     private insertHomeAction() {
         var m = new LineHeadMotion();
+        m.SetCurrentLineOption();
         this.action = new ApplyInsertModeAction(m);
     }
 
