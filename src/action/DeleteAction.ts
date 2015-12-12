@@ -60,21 +60,21 @@ export class DeleteAction implements IRequireMotionAction {
         var nextPosition = new Position();
         var nextPositionLineHasNoChar = false;
 
-        nextPosition.line = range.start.line;
+        nextPosition.Line = range.start.Line;
 
-        var endLine = editor.ReadLine(range.end.line);
-        if (range.start.char == 0) {
-            nextPosition.char = 0;
-            if (endLine.length <= range.end.char) {
+        var endLine = editor.ReadLine(range.end.Line);
+        if (range.start.Char == 0) {
+            nextPosition.Char = 0;
+            if (endLine.length <= range.end.Char) {
                 // delete to end
                 nextPositionLineHasNoChar = true;
             }
         } else {
-            if (endLine.length <= range.end.char) {
+            if (endLine.length <= range.end.Char) {
                 // delete to end 
-                nextPosition.char = range.start.char - 1;
+                nextPosition.Char = range.start.Char - 1;
             } else {
-                nextPosition.char = range.start.char;
+                nextPosition.Char = range.start.Char;
             }
         }
 
@@ -96,62 +96,62 @@ export class DeleteAction implements IRequireMotionAction {
         var del = new Range();
         var nextPosition = new Position();
         var nextPositionLineHasNoChar = false;
-        nextPosition.char = 0;
+        nextPosition.Char = 0;
 
         var lastLine = editor.GetLastLineNum();
-        if (lastLine <= range.end.line) {
+        if (lastLine <= range.end.Line) {
             // delete to end line
-            if (range.start.line == 0) {
+            if (range.start.Line == 0) {
                 // delete all
-                del.start.char = 0;
-                del.start.line = 0;
-                del.end.char = Number.MAX_VALUE;
-                del.end.line = range.end.line;
+                del.start.Char = 0;
+                del.start.Line = 0;
+                del.end.Char = Number.MAX_VALUE;
+                del.end.Line = range.end.Line;
                 del.end = editor.UpdateValidPosition(del.end);
-                nextPosition.line = 0;
+                nextPosition.Line = 0;
             } else if (this.isInsert) {
                 // delete from home of start line
-                del.start.char = 0;
-                del.start.line = range.start.line;
+                del.start.Char = 0;
+                del.start.Line = range.start.Line;
                 del.start = editor.UpdateValidPosition(del.start);
-                del.end.char = Number.MAX_VALUE;
-                del.end.line = range.end.line;
+                del.end.Char = Number.MAX_VALUE;
+                del.end.Line = range.end.Line;
                 del.end = editor.UpdateValidPosition(del.end);
-                nextPosition.line = del.start.line;
+                nextPosition.Line = del.start.Line;
             } else {
                 // delete from end of previous line
-                del.start.char = Number.MAX_VALUE;
-                del.start.line = range.start.line - 1;
+                del.start.Char = Number.MAX_VALUE;
+                del.start.Line = range.start.Line - 1;
                 del.start = editor.UpdateValidPosition(del.start);
-                del.end.char = Number.MAX_VALUE;
-                del.end.line = range.end.line;
+                del.end.Char = Number.MAX_VALUE;
+                del.end.Line = range.end.Line;
                 del.end = editor.UpdateValidPosition(del.end);
-                nextPosition.line = range.start.line - 1;
+                nextPosition.Line = range.start.Line - 1;
             }
         } else {
             if (this.isInsert) {
                 // delete from top of start line to end of end line
-                del.start.char = 0;
-                del.start.line = range.start.line;
-                del.end.char = Number.MAX_VALUE;
-                del.end.line = range.end.line;
+                del.start.Char = 0;
+                del.start.Line = range.start.Line;
+                del.end.Char = Number.MAX_VALUE;
+                del.end.Line = range.end.Line;
                 del.end = editor.UpdateValidPosition(del.end);
-                nextPosition.line = del.start.line;
+                nextPosition.Line = del.start.Line;
             } else {
                 // delete to top of next line
-                del.start.char = 0;
-                del.start.line = range.start.line;
-                del.end.char = 0;
-                del.end.line = range.end.line + 1;
-                nextPosition.line = range.start.line;
+                del.start.Char = 0;
+                del.start.Line = range.start.Line;
+                del.end.Char = 0;
+                del.end.Line = range.end.Line + 1;
+                nextPosition.Line = range.start.Line;
             }
         }
 
         var yanc = new Range();
-        yanc.start.line = range.start.line;
-        yanc.start.char = 0;
-        yanc.end.line = range.end.line;
-        yanc.end.char = Number.MAX_VALUE;
+        yanc.start.Line = range.start.Line;
+        yanc.start.Char = 0;
+        yanc.end.Line = range.end.Line;
+        yanc.end.Char = Number.MAX_VALUE;
         yanc.end = editor.UpdateValidPosition(yanc.end);
 
         var item = new RegisterItem();

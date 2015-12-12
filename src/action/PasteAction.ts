@@ -44,22 +44,22 @@ export class PasteAction implements IAction {
             }
             // paste after position charactor
             var np = new Position();
-            np.char = cp.char + 1;
-            np.line = cp.line;
+            np.Char = cp.Char + 1;
+            np.Line = cp.Line;
             editor.Insert(np, content);
             editor.SetPosition(np);
             return;
         } else {
             // line Paste
             var np = new Position();
-            np.char = 0;
+            np.Char = 0;
             if (this.isPrev) {
                 // paste at home of current position¥
-                np.line = cp.line;
+                np.Line = cp.Line;
             } else {
                 // paste at next line
-                np.line = cp.line + 1;
-                if (cp.line == editor.GetLastLineNum()) {
+                np.Line = cp.Line + 1;
+                if (cp.Line == editor.GetLastLineNum()) {
                     // next line is last
                     content = "\n" + content.substring(0, content.length - 1);
                     var lp = editor.GetLastPosition();

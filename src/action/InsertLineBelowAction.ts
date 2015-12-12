@@ -15,21 +15,21 @@ export class InsertLineBelowAction implements IAction {
     public Execute(editor: IEditor, vim: IVimStyle) {
         var currentPosition = editor.GetCurrentPosition();
         var selecterPosition = new Position();
-        selecterPosition.char = 0;
+        selecterPosition.Char = 0;
         var insertPosition = new Position();
         var currentLine = editor.ReadLineAtCurrentPosition();
         if (this.isAbove) {
-            selecterPosition.line = currentPosition.line;
-            insertPosition.line = currentPosition.line;
-            insertPosition.char = 0;
+            selecterPosition.Line = currentPosition.Line;
+            insertPosition.Line = currentPosition.Line;
+            insertPosition.Char = 0;
         } else {
-            selecterPosition.line = currentPosition.line + 1;
-            insertPosition.line = currentPosition.line;
-            insertPosition.char = currentLine.length;
+            selecterPosition.Line = currentPosition.Line + 1;
+            insertPosition.Line = currentPosition.Line;
+            insertPosition.Char = currentLine.length;
         }
 
         var insertText = appendWhiteSpace(currentLine);
-        selecterPosition.char = insertText.length;
+        selecterPosition.Char = insertText.length;
 
         if (this.isAbove) {
             insertText = insertText + "\n";

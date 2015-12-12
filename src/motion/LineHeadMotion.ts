@@ -36,7 +36,7 @@ export class LineHeadMotion extends AbstractMotion {
         switch (this.targetLine) {
             case Target.Current:
                 lineDocument = editor.ReadLineAtCurrentPosition();
-                lineNumber = start.line;
+                lineNumber = start.Line;
                 break;
             case Target.First:
                 lineNumber = 0;
@@ -65,8 +65,8 @@ export class LineHeadMotion extends AbstractMotion {
             }
         }
         var p = new Position();
-        p.line = lineNumber;
-        p.char = charNumber;
+        p.Line = lineNumber;
+        p.Char = charNumber;
         return p;
     }
 }

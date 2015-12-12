@@ -17,7 +17,7 @@ export class MoveAction implements IAction {
             // cancel
             return;
         }
-        if (from.char == to.char && from.line == to.line) {
+        if (from.Char == to.Char && from.Line == to.Line) {
             // not move
             return;
         }

@@ -1,40 +1,39 @@
 interface IEditor {
-    
+
     // Status
     CloseCommandStatus();
     ShowCommandStatus(text: string);
     ShowModeStatus(mode: VimMode);
-    SetModeStatusVisibility(visible: boolean);
-    
+
     // Edit
     InsertTextAtCurrentPosition(text: string);
     InsertCharactorAtCurrentPosition(char: string);
     Insert(position: IPosition, text: string);
     DeleteRange(range: IRange,position?:IPosition);
     ReplaceRange(range: IRange, text: string);
-    
+
     // Read Line
     ReadLineAtCurrentPosition(): string;
     ReadLine(line: number): string;
-    
+
     // Read Range
     ReadRange(range: IRange): string;
-    
+
     // Position
     GetCurrentPosition(): IPosition;
     SetPosition(position: IPosition);
     GetLastPosition(): IPosition;
-    
+
     // Document Info
     GetLastLineNum(): number;
-    
+
     // Set VimStyle
     SetVimStyle(vim: IVimStyle);
-    
+
     // set modes
     ApplyNormalMode(cursor?: IPosition, isLineHasNoChar?: boolean, isLastLine?: boolean);
     ApplyInsertMode(p: IPosition);
-    
+
     // check invalid position
     UpdateValidPosition(p: IPosition, isBlock?: boolean): IPosition;
 
@@ -71,8 +70,8 @@ interface IRegister {
 }
 
 interface IPosition {
-    line: number;
-    char: number;
+    Line: number;
+    Char: number;
 }
 
 interface IRange {

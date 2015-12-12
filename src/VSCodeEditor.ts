@@ -157,8 +157,8 @@ export class VSCodeEditor implements IEditor {
     }
     public SetPosition(p: IPosition) {
         var cp = tranceVSCodePosition(p);
-        var isNonCharLine = vscode.window.activeTextEditor.document.lineAt(p.line).text.length == 0;
-        var isLastLine = this.GetLastLineNum() == p.line;
+        var isNonCharLine = vscode.window.activeTextEditor.document.lineAt(p.Line).text.length == 0;
+        var isLastLine = this.GetLastLineNum() == p.Line;
         this.showBlockCursor(cp, isNonCharLine, isLastLine);
         vscode.window.activeTextEditor.revealRange(vscode.window.activeTextEditor.selection, vscode.TextEditorRevealType.Default);
     }
@@ -246,27 +246,27 @@ export class VSCodeEditor implements IEditor {
 
     public UpdateValidPosition(p: IPosition, isBlock?: boolean): IPosition {
         var cp = new Position();
-        cp.line = p.line;
-        cp.char = p.char;
-        if (p.line <= 0) {
-            cp.line = 0;
+        cp.Line = p.Line;
+        cp.Char = p.Char;
+        if (p.Line <= 0) {
+            cp.Line = 0;
         } else {
             var lastLineNum = this.GetLastLineNum();
-            if (lastLineNum < p.line) {
-                cp.line = lastLineNum;
+            if (lastLineNum < p.Line) {
+                cp.Line = lastLineNum;
             }
         }
-        if (cp.char <= 0) {
-            cp.char = 0;
+        if (cp.Char <= 0) {
+            cp.Char = 0;
         } else {
-            var line = this.ReadLine(cp.line);
+            var line = this.ReadLine(cp.Line);
             if (isBlock) {
-                if (cp.char >= line.length) {
-                    cp.char = line.length - 1;
+                if (cp.Char >= line.length) {
+                    cp.Char = line.length - 1;
                 }
             } else {
-                if (cp.char > line.length) {
-                    cp.char = line.length;
+                if (cp.Char > line.length) {
+                    cp.Char = line.length;
                 }
             }
         }
@@ -296,12 +296,12 @@ export class VSCodeEditor implements IEditor {
 
 function tranceVimStylePosition(org: vscode.Position): IPosition {
     var p = new Position();
-    p.line = org.line;
-    p.char = org.character;
+    p.Line = org.line;
+    p.Char = org.character;
     return p;
 }
 function tranceVSCodePosition(org: IPosition): vscode.Position {
-    return new vscode.Position(org.line, org.char);
+    return new vscode.Position(org.Line, org.Char);
 }
 function tranceVSCodeRange(org: IRange): vscode.Range {
     var start = tranceVSCodePosition(org.start);

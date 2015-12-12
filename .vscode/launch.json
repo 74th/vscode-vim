@@ -11,8 +11,8 @@
 			"stopOnEntry": false,
 			"sourceMaps": true,
 			"outDir": "out/src",
-			"preLaunchTask": "npm"
-		},
+		"preLaunchTask": "npm"
+	},
 		{
 			"name": "Launch Tests",
 			"type": "extensionHost",

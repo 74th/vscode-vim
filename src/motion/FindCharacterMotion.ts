@@ -30,25 +30,25 @@ export class FindCharacterMotion extends AbstractMotion {
     public CalculateEnd(editor: IEditor, start: IPosition): IPosition {
         var line = editor.ReadLineAtCurrentPosition();
         var end = new Position();
-        end.line = start.line;
+        end.Line = start.Line;
         var i;
         var count = this.GetCount();
         if (this.direction == Direction.Right) {
-            for (i = start.char + 1; i < line.length; i++) {
+            for (i = start.Char + 1; i < line.length; i++) {
                 if (this.targetCharCode == line.charCodeAt(i)) {
                     count--;
                     if (count == 0) {
-                        end.char = i;
+                        end.Char = i;
                         break;
                     }
                 }
             }
         } else {
-            for (i = start.char - 1; i >= 0; i--) {
+            for (i = start.Char - 1; i >= 0; i--) {
                 if (this.targetCharCode == line.charCodeAt(i)) {
                     count--;
                     if (count == 0) {
-                        end.char = i;
+                        end.Char = i;
                         break;
                     }
                 }
@@ -59,14 +59,14 @@ export class FindCharacterMotion extends AbstractMotion {
         }
         if (this.isTill) {
             if (this.direction == Direction.Right) {
-                end.char -= 1;
+                end.Char -= 1;
             } else {
-                end.char += 1;
+                end.Char += 1;
             }
         }
         if (this.isContainTargetChar) {
             // use dfx dtx
-            end.char += 1;
+            end.Char += 1;
         }
         return end;
     }

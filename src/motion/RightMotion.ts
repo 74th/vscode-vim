@@ -17,11 +17,11 @@ export class RightMotion extends AbstractMotion {
     public CalculateEnd(editor: IEditor, start: IPosition): IPosition {
         var line = editor.ReadLineAtCurrentPosition();
         var end = new Position();
-        end.line = start.line;
+        end.Line = start.Line;
         if (this.isLeftDirection) {
-            end.char = start.char - this.GetCount();
+            end.Char = start.Char - this.GetCount();
         } else {
-            end.char = start.char + this.GetCount();
+            end.Char = start.Char + this.GetCount();
         }
         return editor.UpdateValidPosition(end);
     }

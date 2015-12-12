@@ -23,8 +23,8 @@ export class WordMotion extends AbstractMotion {
         var beforeCharClass: CharGroup;
         var charClass: CharGroup;
         var p = editor.GetCurrentPosition();
-        var lineNum = p.line;
-        var charNum = p.char;
+        var lineNum = p.Line;
+        var charNum = p.Char;
         var line = editor.ReadLine(lineNum);
         var lineLength = line.length;
         var documentLength = editor.GetLastLineNum() + 1;
@@ -101,8 +101,8 @@ export class WordMotion extends AbstractMotion {
             // reach last position
             if (this.direction == Direction.Left) {
                 // top position
-                end.char = 0;
-                end.line = 0;
+                end.Char = 0;
+                end.Line = 0;
             } else {
                 // last position
                 end = editor.GetLastPosition();
@@ -110,24 +110,24 @@ export class WordMotion extends AbstractMotion {
             return end;
         }
 
-        end.line = lineNum;
+        end.Line = lineNum;
         if (this.direction == Direction.Left) {
             // check front of a word
             var i = charNum - 1;
             while (i > 0) {
                 if (charClass != Utils.GetCharClass(line.charCodeAt(i))) {
-                    end.char = i + 1;
+                    end.Char = i + 1;
                     return end;
                 }
                 i--;
             }
             // home of line
-            end.char = 0;
+            end.Char = 0;
             return end;
         }
 
         // foward
-        end.char = charNum;
+        end.Char = charNum;
         return end;
     }
 }
