@@ -1,4 +1,11 @@
 export let VimStyleTests = {
+    "Spec": {
+        "Basic": {
+            "in": ["abc|def"],
+            "key": "",
+            "out":["abc|def"]
+        }
+    },
     "Right Motion": {
         "move to right 1": {
             "in": ["abc| def"],

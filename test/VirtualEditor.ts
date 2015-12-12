@@ -155,7 +155,7 @@ export class VirtualEditor implements IEditor {
     public GetLastLineNum(): number{
         return this.contents.length - 1;
     }
-
+ 
     // Set VimStyle
     public SetVimStyle(vim: IVimStyle) {
         this.VimStyle = vim;

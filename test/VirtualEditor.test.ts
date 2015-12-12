@@ -7,7 +7,7 @@ var ed = new VirtualEditor();
 var vim = new VimStyle(ed);
 
 for (var target in VimStyleTests) {
-	describe(target, () => {
+	describe("VimStyle " + target, () => {
 		var test = VimStyleTests[target];
 		for (var specName in test) {
 			(function(specName) {
@@ -16,12 +16,12 @@ for (var target in VimStyleTests) {
 					ed.SetContent(spec["in"]);
 					ed.Type(spec.key);
 					var out = ed.GetContent();
-					assert.equal(spec.out.length, out.length);
+					assert.equal(out.length,spec.out.length);
 					for (var i = 0; i < spec.out.length; i++) {
-						assert.equal(spec.out[i], out[i]);
+						assert.equal(out[i], spec.out[i]);
 					}
 				});
 			})(specName);
 		}
 	});
-}
+} 

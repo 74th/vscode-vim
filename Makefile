@@ -1,7 +1,9 @@
 .PHONY:clean test build tslint
 test: build tslint
 	tslint src/**/**.ts
-	cd out;mocha
+	cd out;mocha -g VimStyle
+realVimTest: build
+	cd out;mocha -g RealVim
 build:
 	tsc
 package: build
