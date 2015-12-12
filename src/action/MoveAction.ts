@@ -16,6 +16,10 @@ export class MoveAction implements IAction {
             // cancel
             return;
         }
+        if (from.char == to.char && from.line == to.line) {
+            // not move
+            return;
+        }
         editor.SetPosition(editor.UpdateValidPosition(to, true));
     }
 }
