@@ -85,20 +85,19 @@ export class VSCodeEditor implements IEditor {
             }
             var vsRange = tranceVSCodeRange(range);
 
-            var deleteEnd = false;
             var needDummy = false;
-            var finalLine = doc.lineCount - 1;
-            var lastPos = doc.lineAt(finalLine).range.end;
+            var lineEndPos = doc.lineAt(vsRange.end.line).range.end;
             if (this.vimStyle.GetMode() == VimMode.Normal &&
-                vsRange.end.line == finalLine &&
-                lastPos.isEqual(vsRange.end) &&
+                lineEndPos.isEqual(vsRange.end) &&
+                vsRange.start.character == 0 &&
                 vsRange.contains(vsPos) &&
                 vsRange.start.character == 0) {
                 // Conditions that require a dummy
-                // 1: Normal mode
-                // 2: delete to end
-                // 3: delete range contains next position
-                // 4: delete from home of line
+                // * Normal mode
+                // * delete to line end
+                // * delete from line home
+                // * delete range contains next position
+                // * delete from home of line
                 needDummy = true;
             }
             
@@ -217,22 +216,19 @@ export class VSCodeEditor implements IEditor {
     }
 
     private showBlockCursor(end: vscode.Position, isNonCharLine?: boolean, isLastLine?: boolean) {
-        this.deleteNonCharLine();
-        var start: vscode.Position;
-        if (isNonCharLine && isLastLine) {
+        if (isNonCharLine) {
             vscode.window.activeTextEditor.edit((edit) => {
                 edit.insert(end, " ");
             });
-            this.dummySpacePosition = end;
         }
-        if (isNonCharLine && !isLastLine) {
-            start = new vscode.Position(end.line + 1, 0);
-        } else {
-            start = new vscode.Position(end.line, end.character + 1);
-        }
+        var start = new vscode.Position(end.line, end.character + 1);
         var select = new vscode.Selection(start, end);
         this.selectionSetTime = new Date().getTime();
         vscode.window.activeTextEditor.selection = select;
+        this.deleteNonCharLine();
+        if (isNonCharLine) {
+            this.dummySpacePosition = end;    
+        }
     }
 
     public ApplyInsertMode(p?: Position) {
