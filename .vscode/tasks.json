@@ -27,6 +27,19 @@
 			"args": [
 				"test"
 			]
+		},
+		{
+			"taskName": "clean",
+			"args": [
+				"clean"
+			]
+		},
+		{
+			"taskName": "release",
+			"args":[
+				"release"
+			],
+			"isWatching": true
 		}
 	]
 }

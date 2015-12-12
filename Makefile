@@ -8,9 +8,9 @@ NeoVimTest: build
 	cd out;mocha -g NeoVim
 build:
 	tsc
-package: build
+release: build
 	vsce package
-release: package
 	vsce publish
 clean:
 	rm -rf out
+	rm -f *.vsix
