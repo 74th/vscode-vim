@@ -29,10 +29,14 @@ export class VimStyle implements IVimStyle {
     }
 
     public PushEscKey() {
+        var p = this.editor.GetCurrentPosition();
+        if (this.mode == VimMode.Insert && p.Char > 0) {
+            p.Char -= 1;
+        }
         this.setMode(VimMode.Normal);
         this.commandFactory.Clear();
         this.editor.CloseCommandStatus();
-        this.editor.ApplyNormalMode();
+        this.editor.ApplyNormalMode(p);
     }
 
     public ApplyInsertMode(p?: Position) {

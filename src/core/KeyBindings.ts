@@ -68,7 +68,7 @@ export interface IVimStyleCommand {
 }
 
 export namespace KeyBindings {
-    export let AtStart: { [key: string]: IVimStyleCommand } = {
+    export var AtStart: { [key: string]: IVimStyleCommand } = {
         "a": {
             cmd: Command.appendCurrentPositionAction
         },
@@ -238,7 +238,7 @@ export namespace KeyBindings {
     };
 
     // Nx
-    export let FirstNum: { [key: string]: IVimStyleCommand } = {
+    export var FirstNum: { [key: string]: IVimStyleCommand } = {
         // Na low priority
         // NA low priority
         "b": {
@@ -371,7 +371,7 @@ export namespace KeyBindings {
     };
 
     // cm
-    export let RequireMotion: { [key: string]: IVimStyleCommand } = {
+    export var RequireMotion: { [key: string]: IVimStyleCommand } = {
         // da
         // dA
         "b": {
@@ -507,7 +507,7 @@ export namespace KeyBindings {
     };
 
     // cNm
-    export let RequireMotionNum: { [key: string]: IVimStyleCommand } = {
+    export var RequireMotionNum: { [key: string]: IVimStyleCommand } = {
         // da
         // dA
         "b": {
@@ -637,14 +637,14 @@ export namespace KeyBindings {
     };
 
     // g
-    export let SmallG: { [key: string]: IVimStyleCommand } = {
+    export var SmallG: { [key: string]: IVimStyleCommand } = {
         "g": {
             cmd: Command.moveFirstLineAction
         }
     };
 
     // cg
-    export let SmallGForMotion: { [key: string]: IVimStyleCommand } = {
+    export var SmallGForMotion: { [key: string]: IVimStyleCommand } = {
         "g": {
             cmd: Command.firstLineMotion
         }

@@ -214,9 +214,6 @@ export class VSCodeEditor implements IEditor {
             vp = tranceVSCodePosition(p);
         } else {
             vp = vscode.window.activeTextEditor.selection.active;
-            if (vp.character > 0) {
-                vp = vp.translate(0, -1);
-            }
         }
         this.showBlockCursor(vp);
     }
