@@ -77,8 +77,14 @@ MIT License
 
 ## update
 
-### 0.1.9
+### 0.2.1
 
+* update README
+
+### 0.2.0
+
+* more friendly with VSCode functions
+* show block sursor
 * bug fix : dfx dFx dtx dTx
 * append indents by o O
 

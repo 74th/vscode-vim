@@ -13,7 +13,7 @@ NeoVimTest: build
 build: node_modules
 	tsc
 
-release: build
+release: test
 	vsce package
 	vsce publish
 	
