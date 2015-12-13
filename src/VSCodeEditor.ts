@@ -129,7 +129,7 @@ export class VSCodeEditor implements IEditor {
             } else {
                 var endoffset = doc.offsetAt(vsPos);
                 var nextPos = doc.positionAt(endoffset + 1);
-                if (vsRange.contains(nextPos)) {
+                if (vsRange.contains(nextPos) && !nextPos.isEqual(vsRange.start)) {
                     // if position contained delete range
                     endoffset = doc.offsetAt(vsRange.end);
                     nextPos = doc.positionAt(endoffset + 1);

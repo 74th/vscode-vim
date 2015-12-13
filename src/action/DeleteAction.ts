@@ -58,22 +58,23 @@ export class DeleteAction implements IRequireMotionAction {
 
     private deleteRange(range: Range, editor: IEditor, vim: IVimStyle) {
         var nextPosition = new Position();
-        var nextPositionLineHasNoChar = false;
 
         nextPosition.Line = range.start.Line;
 
         var endLine = editor.ReadLine(range.end.Line);
         if (range.start.Char == 0) {
+            // delete from home of line
             nextPosition.Char = 0;
-            if (endLine.length <= range.end.Char) {
-                // delete to end
-                nextPositionLineHasNoChar = true;
-            }
         } else {
             if (endLine.length <= range.end.Char) {
-                // delete to end 
-                nextPosition.Char = range.start.Char - 1;
+                // delete to end of line 
+                if (this.isInsert) {
+                    nextPosition.Char = range.start.Char;
+                } else {
+                    nextPosition.Char = range.start.Char - 1;
+                }
             } else {
+                // delete immidiate
                 nextPosition.Char = range.start.Char;
             }
         }
