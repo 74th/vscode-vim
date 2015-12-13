@@ -528,4 +528,6 @@ export function activate(context: vscode.ExtensionContext) {
         vim.PushEscKey();
     });
     context.subscriptions.push(disposable);
+
+    vim.PushEscKey();
 }
