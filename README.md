@@ -21,13 +21,15 @@ ext install vimStyle
 
 ## settings
 
+If you needs optional settings, please copy belong json and paste to your `settings.json`.
+
 ```
 // Show mode in status bar (default: false)
 "vimStyle.showMode": true,
 // Windows JIS Keyboard(default: false)
 "vimStyle.useWinJisKeyboard": true,
 // Mac JIS Keyboard(default: false)
-"vimStyle.useMacJisKeyboard": false,
+"vimStyle.useMacJisKeyboard": true,
 ```
 
 ## never support
@@ -43,16 +45,17 @@ This extension is to become more friendly with vscode and vim-keybinding!
 
 ## future suppprt
 
+* r
+* v
 * ; ,
 * J
 * { }
 * "xd "xy "xc "xp
-* v
 * ~
 * > <
 * % [ ]
 * + -
-* additional key-binding from settings.config
+* additional key-binding from settings.json
 * ...
 
 ## low priority
@@ -75,6 +78,10 @@ Macの場合は、`settings.json`に`vimStyle.useMacJisKeyboard:true`を設定�
 MIT License
 
 ## update
+
+### 0.2.2
+
+* fix #21 CR+LF bug
 
 ### 0.2.1
 
