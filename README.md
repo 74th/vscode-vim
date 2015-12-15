@@ -3,8 +3,6 @@ vim style key-binding for VSCode
 * https://github.com/74th/vscode-vim
 * https://marketplace.visualstudio.com/items/74th.vimStyle
 
-VSCode key-binding system has some issue. This plugin does not work compltely.
-
 ## Require
 
 * VSCode 0.10.1
@@ -15,21 +13,22 @@ VSCode key-binding system has some issue. This plugin does not work compltely.
 ext install vimStyle
 ```
 
-### latest version
-
-```
-npm install -g typescript
-cd ~/.vscode/extensions/
-git clone https://github.com/74th/vscode-vim.git
-cd vscode-vim
-tsc
-```
-
 ## support
 
 * h j k l 0 $ w b tx fx Tx Fx gg G
 * i a s o x I A S O X
 * d y c dd yy cc Ndd Nyy Ncc D C p P
+
+## settings
+
+```
+// Show mode in status bar (default: false)
+"vimStyle.showMode": true,
+// Windows JIS Keyboard(default: false)
+"vimStyle.useWinJisKeyboard": true,
+// Mac JIS Keyboard(default: false)
+"vimStyle.useMacJisKeyboard": false,
+```
 
 ## never support
 
@@ -62,7 +61,7 @@ This extension is to become more friendly with vscode and vim-keybinding!
 * = (`>Format Code`)
 * *
 * m `
-* q @ (can't do with IntelliSence)
+* q @ (can't use with IntelliSence)
 * ...
 
 ## JISキーボードユーザへ
