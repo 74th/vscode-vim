@@ -7,29 +7,29 @@ export let VimStyleTests = {
         }
     },
     "Right Motion": {
-        "move to right 1": {
+        "l:move to right 1": {
             "in": ["abc| def"],
             "key": "l",
             "out": ["abc |def"]
         },
-        "move to right 3": {
+        "3l:move to right 3": {
             "in": ["a|bcdefg"],
             "key": "3l",
             "out": ["abcd|efg"]
         },
-        "move to left 1": {
+        "h:move to left 1": {
             "in": ["abc| def"],
             "key": "h",
             "out": ["ab|c def"]
         },
-        "move to left 3": {
+        "3h:move to left 3": {
             "in": ["abcdef|g"],
             "key": "3h",
             "out": ["abc|defg"]
         }
     },
     "Down Motion": {
-        "move to down 1": {
+        "j:move to down 1": {
             "in": [
                 "aaaaaaa",
                 "bbbb|bbb",
@@ -53,7 +53,7 @@ export let VimStyleTests = {
         "a:append charctors":{
             "in":["aa|aa"],
             "key": "abc_",
-            "out":["aaab|c"]
+            "out":["aaab|ca"]
         },
         "I:insert charactors to home of a line":{
             "in":["aa|aa"],

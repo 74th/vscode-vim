@@ -3,11 +3,10 @@
 	"command": "make",
 	"isShellCommand": true,
 	"showOutput": "silent",
-	"args": [],
 	"tasks": [
 		{
 			"taskName": "build",
-			"isBuildCommand": true,
+			"isBuildCoommand": true,
 			"args": [
 				"build"
 			]
