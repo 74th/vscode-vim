@@ -92,7 +92,7 @@ export class VSCodeEditor implements IEditor {
             if (!isInsertMode &&
                 vsRange.contains(vsPos) &&
                 documentEndPos.isEqual(vsRange.end) &&
-                vsRange.start.character == 0 ){
+                vsRange.start.character == 0) {
                 if (vsRange.start.line == 0) {
                     // Conditions that require a dummy
                     // * Normal mode
@@ -121,18 +121,15 @@ export class VSCodeEditor implements IEditor {
                 vscode.window.activeTextEditor.selection = cursor;
                 editBuilder.replace(vsRange, " ");
             } else if (endCursor) {
-                var endoffset = doc.offsetAt(vsPos);
-                var nextPos = doc.positionAt(endoffset - 1);
+                var nextPos = selectNeiborPosition(doc, vsPos, false);
                 cursor = new vscode.Selection(nextPos, vsPos);
                 vscode.window.activeTextEditor.selection = cursor;
                 editBuilder.delete(vsRange);
             } else {
-                var endoffset = doc.offsetAt(vsPos);
-                var nextPos = doc.positionAt(endoffset + 1);
+                var nextPos = selectNeiborPosition(doc, vsPos, true);
                 if (vsRange.contains(nextPos) && !nextPos.isEqual(vsRange.start)) {
                     // if position contained delete range
-                    endoffset = doc.offsetAt(vsRange.end);
-                    nextPos = doc.positionAt(endoffset + 1);
+                    nextPos = selectNeiborPosition(doc, vsRange.end, true);
                 }
                 cursor = new vscode.Selection(nextPos, vsPos);
                 vscode.window.activeTextEditor.selection = cursor;
@@ -205,6 +202,11 @@ export class VSCodeEditor implements IEditor {
             return;
         }
         var p = vscode.window.activeTextEditor.selection.active;
+        if (p.character != 0 &&
+            p.isEqual(vscode.window.activeTextEditor.document.lineAt(p.line).range.end)) {
+            // if end of line, move prev position
+            p = p.translate(0, -1);
+        }
         this.showBlockCursor(p);
     }
 
@@ -239,9 +241,9 @@ export class VSCodeEditor implements IEditor {
                 editBuilder.insert(end, " ");
             });
         } else if (isEmptyLastLine) {
-            start = doc.positionAt(doc.offsetAt(end) - 1);
+            start = selectNeiborPosition(doc, end, false);
         } else {
-            start = doc.positionAt(doc.offsetAt(end) + 1);
+            start = selectNeiborPosition(doc, end, true);
         }
         var select = new vscode.Selection(start, end);
         this.selectionSetTime = new Date().getTime();
@@ -320,4 +322,15 @@ function tranceVSCodeRange(org: IRange): vscode.Range {
     var start = tranceVSCodePosition(org.start);
     var end = tranceVSCodePosition(org.end);
     return new vscode.Range(start, end);
+}
+function selectNeiborPosition(doc: vscode.TextDocument, p: vscode.Position, toRight: boolean): vscode.Position {
+    var np: vscode.Position;
+    var offset = doc.offsetAt(p);
+    var v = toRight ? 1 : -1;
+    for (var i = 1; i < 4; i++) {
+        np = doc.positionAt(offset + i * v);
+        if (np.line != p.line || np.character != p.character) {
+            return np;
+        }
+    }
 }
