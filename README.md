@@ -3,6 +3,8 @@ vim style key-binding for VSCode
 * https://github.com/74th/vscode-vim
 * https://marketplace.visualstudio.com/items/74th.vimStyle
 
+[![Build Status](https://travis-ci.org/74th/vscode-vim.svg?branch=master)](https://travis-ci.org/74th/vscode-vim)
+
 ## Require
 
 * VSCode 0.10.1
