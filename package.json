@@ -627,9 +627,11 @@
     },
     "scripts": {
         "vscode:prepublish": "node ./node_modules/vscode/bin/compile",
-        "compile": "node ./node_modules/vscode/bin/compile -watch -p ./"
+        "compile": "node ./node_modules/vscode/bin/compile -watch -p ./",
+        "test": "mocha -g VimStyle out/test/"
     },
     "devDependencies": {
+        "mocha": "^2.3.4",
         "typescript": "^1.6.2",
         "vscode": "0.10.x"
     }

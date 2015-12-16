@@ -1,4 +1,4 @@
-.PHONY:clean test build tslint
+PHONY:clean test build tslint
 
 test: build tslint
 	tslint src/**/**.ts
@@ -24,4 +24,9 @@ node_modules:
 	
 clean:
 	rm -rf out
-	rm -f *.vsix 
+	rm -f *.vsix
+buildcontainer:
+	cd testcontainer;docker build -t vscode-vim .
+testincontainer:
+	docker run -it -v `pwd`:/root/ vscode-vim tsc
+	docker run -it -v `pwd`:/root/ -w /root/out/test/ vscode-vim mocha -g VimStyle .
