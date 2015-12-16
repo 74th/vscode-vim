@@ -41,8 +41,59 @@ export let VimStyleTests = {
                 "bbbbbbb",
                 "cccc|ccc"
             ]
+        },
+        "k:move to prev line":{
+            "in" :[
+                "aaaa",
+                "bb|bb",
+                "cccc"
+            ],
+            "key":"k",
+            "out":[
+                "aa|aa",
+                "bbbb",
+                "cccc"
+            ]
         }
         // TODO UP
+    },
+    "Forward char motion" {
+        "fx:move to the charactor":{
+            "in":[
+                "ab|cdefghi"
+            ],
+            "key": "ff",
+            "out":[
+                "abcde|fghi"
+            ]
+        },
+        "tx:move to before the charactor":{
+            "in":[
+                "ab|cdefghi"
+            ],
+            "key": "ff",
+            "out":[
+                "abcd|efghi"
+            ]
+        },
+        "Fx:move to the charactor":{
+            "in":[
+                "abcdefg|hi"
+            ],
+            "key": "Fc",
+            "out":[
+                "ab|cdefghi"
+            ]
+        },
+        "Tx:move to before the charactor":{
+            "in":[
+                "abcdefg|hi"
+            ],
+            "key": "Tc",
+            "out":[
+                "abc|defghi"
+            ]
+        }
     },
     "Insert Mode": {
         "i:insert charactors": {
