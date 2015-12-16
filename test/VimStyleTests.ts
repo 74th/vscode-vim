@@ -57,7 +57,7 @@ export let VimStyleTests = {
         }
         // TODO UP
     },
-    "Forward char motion" {
+    "Forward char motion": {
         "fx:move to the charactor":{
             "in":[
                 "ab|cdefghi"
