@@ -71,7 +71,7 @@ export let VimStyleTests = {
             "in":[
                 "ab|cdefghi"
             ],
-            "key": "ff",
+            "key": "tf",
             "out":[
                 "abcd|efghi"
             ]
