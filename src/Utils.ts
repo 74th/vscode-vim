@@ -5,6 +5,8 @@ export function ModeToString(mode: VimMode): string {
             return "INSERT";
         case VimMode.Normal:
             return "NORMAL";
+        case VimMode.Visual:
+            return "VISUAL";
         default:
             throw new Error("Panic!");
     }

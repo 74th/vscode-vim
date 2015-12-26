@@ -33,6 +33,7 @@ interface IEditor {
     // set modes
     ApplyNormalMode(cursor?: IPosition, isLineHasNoChar?: boolean, isLastLine?: boolean);
     ApplyInsertMode(p: IPosition);
+    ApplyVisualMode();
 
     // check invalid position
     UpdateValidPosition(p: IPosition, isBlock?: boolean): IPosition;
@@ -102,6 +103,7 @@ interface IVimStyle {
     PushKey(key: Key): void;
     PushEscKey(): void;
     ApplyInsertMode(p?: IPosition): void;
+    ApplyVisualMode(): void;
     GetMode(): VimMode;
 }
 
@@ -265,5 +267,6 @@ declare const enum KeyClass {
 
 declare const enum VimMode {
     Normal,
-    Insert
+    Insert,
+    Visual
 }

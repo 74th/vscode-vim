@@ -196,12 +196,17 @@ export class VSCodeEditor implements IEditor {
             // resrict event loop
             return;
         }
-        if (this.vimStyle.GetMode() == VimMode.Insert) {
+        if (this.vimStyle.GetMode() != VimMode.Normal) {
             // if insert mode, do nothing
             this.deleteNonCharLine();
             return;
         }
+        var s = vscode.window.activeTextEditor.selection;
         var p = vscode.window.activeTextEditor.selection.active;
+        if (!s.start.isEqual(s.end)) {
+            this.vimStyle.ApplyVisualMode();
+            return;
+        }
         if (p.character != 0 &&
             p.isEqual(vscode.window.activeTextEditor.document.lineAt(p.line).range.end)) {
             // if end of line, move prev position
@@ -264,6 +269,9 @@ export class VSCodeEditor implements IEditor {
         var s = new vscode.Selection(c, c);
         vscode.window.activeTextEditor.selection = s;
         this.selectionSetTime = new Date().getTime();
+    }
+    
+    public ApplyVisualMode() {
     }
 
     public UpdateValidPosition(p: IPosition, isBlock?: boolean): IPosition {
