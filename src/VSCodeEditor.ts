@@ -182,6 +182,15 @@ export class VSCodeEditor implements IEditor {
         var end = vscode.window.activeTextEditor.document.lineAt(vscode.window.activeTextEditor.document.lineCount - 1).range.end;
         return tranceVimStylePosition(end);
     }
+    
+    // Selection
+    public GetCurrentSelection(): IRange {
+        return tranceVimStyleRange(vscode.window.activeTextEditor.selection);
+    }
+    public SetSelection(range: IRange) {
+        var r = tranceVSCodeRange(range);
+        vscode.window.activeTextEditor.selection = r;
+    }
 
     // Document Info
     public GetLastLineNum(): number {
@@ -329,6 +338,12 @@ function tranceVimStylePosition(org: vscode.Position): IPosition {
     p.Line = org.line;
     p.Char = org.character;
     return p;
+}
+function tranceVimStyleRange(org: vscode.Range): IRange {
+    var r = new Range();
+    r.start = tranceVimStylePosition(org.start);
+    r.end = tranceVimStylePosition(org.end);
+    return r;
 }
 function tranceVSCodePosition(org: IPosition): vscode.Position {
     return new vscode.Position(org.Line, org.Char);

@@ -23,6 +23,10 @@ interface IEditor {
     GetCurrentPosition(): IPosition;
     SetPosition(position: IPosition);
     GetLastPosition(): IPosition;
+    
+    // Selection
+    GetCurrentSelection(): IRange;
+    SetSelection(range:IRange);
 
     // Document Info
     GetLastLineNum(): number;
@@ -42,7 +46,7 @@ interface IEditor {
 }
 
 interface ICommandFactory {
-    PushKey(key: Key): IAction;
+    PushKey(key: Key, mode: VimMode): IAction;
     Clear(): void;
     GetCommandString(): string;
     SetKeyBindings(IKeyBindings);
@@ -118,6 +122,7 @@ interface IKeyBindings {
     RequireMotionNum: { [key: string]: IVimStyleCommand };
     SmallG: { [key: string]: IVimStyleCommand };
     SmallGForMotion: { [key: string]: IVimStyleCommand };
+    VisualMode: { [key: string]: IVimStyleCommand };
 }
 
 interface IVimStyleOptions {
@@ -333,6 +338,11 @@ declare const enum CommandName {
     deleteToEndAction,
     yancToEndAction,
     doActionAtCurrentLine,
+    
+    // visual mode
+    enterVisualModeAction,
+    expandSelectionAction,
+    deleteSelectionAction,
 
     // other
     stackNumber,
@@ -347,5 +357,6 @@ declare const enum StateName {
     RequireCharForMotion,
     SmallG,
     SmallGForMotion,
+    VisualMode,
     Panic
 }

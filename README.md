@@ -86,6 +86,7 @@ MIT License
 ### 0.2.3
 
 * support `useErgonomicKeyForMotion` option : move a cursur by `jkl;`
+* support mouse visual mode
 
 ### 0.2.2
 

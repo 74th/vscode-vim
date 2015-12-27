@@ -41,7 +41,7 @@
                 },
                 "vimStyle.showMode": {
                     "type": "boolean",
-                    "default": false,
+                    "default": true,
                     "description": "Show mode in status bar"
                 },
                 "vimStyle.useErgonomicKeyForMotion": {

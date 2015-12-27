@@ -11,7 +11,8 @@ export function activate(context: vscode.ExtensionContext) {
         editorOpt = {
             isWinJisKeyboard: conf.get<boolean>("useWinJisKeyboard", false),
             isMacJisKeyboard: conf.get<boolean>("useMacJisKeyboard", false),
-            showMode: conf.get<boolean>("showMode", false)
+            //showMode: conf.get<boolean>("showMode", false)
+            showMode: true
         };
         vimOpt = {
             useErgonomicKeyForMotion: conf.get<boolean>("useErgonomicKeyForMotion", false)

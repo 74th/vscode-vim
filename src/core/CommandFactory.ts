@@ -4,6 +4,9 @@ import {InsertLineBelowAction} from "../action/InsertLineBelowAction";
 import {PasteAction} from "../action/PasteAction";
 import {DeleteAction} from "../action/DeleteAction";
 import {MoveAction} from "../action/MoveAction";
+import {ApplyVisualModeAction} from "../action/ApplyVisualModeAction";
+import {ExpandSelectionAction} from "../action/ExpandSelectionAction"
+import {DeleteSelectionAction} from "../action/DeleteSelectionAction"
 import {RightMotion} from "../motion/RightMotion";
 import {DownMotion} from "../motion/DownMotion";
 import {HomeMotion} from "../motion/HomeMotion";
@@ -26,30 +29,40 @@ export class CommandFactory implements ICommandFactory {
         this.Clear();
     }
 
-    public PushKey(key: Key): IAction {
+    public PushKey(key: Key, mode: VimMode): IAction {
         let keyChar = Utils.KeyToChar(key);
         var command: IVimStyleCommand;
-        switch (this.state) {
-            case StateName.AtStart:
-                command = this.keyBindings.AtStart[keyChar];
-                break;
-            case StateName.FirstNum:
-                command = this.keyBindings.FirstNum[keyChar];
-                break;
-            case StateName.RequireMotion:
-                command = this.keyBindings.RequireMotion[keyChar];
-                break;
-            case StateName.RequireMotionNum:
-                command = this.keyBindings.RequireMotionNum[keyChar];
-                break;
-            case StateName.RequireCharForMotion:
-                return this.pushKeyAtRequireCharForMotion(key);
-            case StateName.SmallG:
-                command = this.keyBindings.SmallG[keyChar];
-                break;
-            case StateName.SmallGForMotion:
-                command = this.keyBindings.SmallGForMotion[keyChar];
-                break;
+        if (mode == VimMode.Normal) {
+            switch (this.state) {
+                case StateName.AtStart:
+                    command = this.keyBindings.AtStart[keyChar];
+                    break;
+                case StateName.FirstNum:
+                    command = this.keyBindings.FirstNum[keyChar];
+                    break;
+                case StateName.RequireMotion:
+                    command = this.keyBindings.RequireMotion[keyChar];
+                    break;
+                case StateName.RequireMotionNum:
+                    command = this.keyBindings.RequireMotionNum[keyChar];
+                    break;
+                case StateName.RequireCharForMotion:
+                    return this.pushKeyAtRequireCharForMotion(key);
+                case StateName.SmallG:
+                    command = this.keyBindings.SmallG[keyChar];
+                    break;
+                case StateName.SmallGForMotion:
+                    command = this.keyBindings.SmallGForMotion[keyChar];
+                    break;
+            }
+        } else if (mode == VimMode.Visual) {
+            this.action = new ExpandSelectionAction();
+            switch(this.state) {
+                case StateName.AtStart:
+                    command = this.keyBindings.VisualMode[keyChar];
+                    break;
+                // TODO
+            }
         }
         if (command == undefined) {
             this.Clear();
@@ -68,7 +81,7 @@ export class CommandFactory implements ICommandFactory {
         this.state = command.state;
         return null;
     }
-
+    
     public Clear() {
         this.state = StateName.AtStart;
         this.action = null;
@@ -203,6 +216,13 @@ export class CommandFactory implements ICommandFactory {
             case CommandName.doActionAtCurrentLine:
                 this.doActionAtCurrentLine(key);
                 return;
+                
+            // visual mode
+            case CommandName.enterVisualModeAction:
+                this.enterVisualModeAction();
+                return;
+            case CommandName.deleteSelectionAction:
+                this.deleteSelectionAction();
 
             // other
             case CommandName.stackNumber:
@@ -587,5 +607,15 @@ export class CommandFactory implements ICommandFactory {
         var m = new DownMotion();
         m.SetCount(count);
         a.SetMotion(m);
+    }
+    
+    // v
+    private enterVisualModeAction() {
+        this.action = new ApplyVisualModeAction();
+    }
+    
+    // v...d
+    private deleteSelectionAction() {
+        this.action = new DeleteSelectionAction();
     }
 }

@@ -5,6 +5,7 @@ class KeyBindings implements IKeyBindings {
     RequireMotionNum: { [key: string]: IVimStyleCommand };
     SmallG: { [key: string]: IVimStyleCommand };
     SmallGForMotion: { [key: string]: IVimStyleCommand };
+    VisualMode: { [key: string]: IVimStyleCommand };
 }
 
 function applyKeyBindingsByEachState(dest: { [key: string]: IVimStyleCommand }, src: { [key: string]: IVimStyleCommand }) {
@@ -31,6 +32,9 @@ function applyKeyBindings(dest: IKeyBindings, src: IKeyBindings) {
     }
     if (dest.SmallGForMotion) {
         applyKeyBindingsByEachState(dest.SmallGForMotion, src.SmallGForMotion);
+    }
+    if (dest.VisualMode) {
+        applyKeyBindingsByEachState(dest.VisualMode, src.VisualMode);
     }
 }
 
@@ -138,7 +142,9 @@ const DefaultKeyBindings: IKeyBindings = {
         },
         // u low priority
         // U low priority
-        // v low priority
+        "v": {
+            cmd: CommandName.enterVisualModeAction
+        },
         // V low priority
         "w": {
             cmd: CommandName.moveWordAction
@@ -615,6 +621,34 @@ const DefaultKeyBindings: IKeyBindings = {
         "g": {
             cmd: CommandName.firstLineMotion
         }
+    },
+    
+    // v
+    VisualMode: {
+        "c": {
+            cmd: CommandName.changeAction
+        },
+        "d": {
+            cmd: CommandName.deleteAction
+        },
+        "h": {
+            cmd: CommandName.moveRightAction,
+            isReverse: true
+        },
+        "j": {
+            cmd: CommandName.moveLineAction
+        },
+        "k": {
+            cmd: CommandName.moveLineAction,
+            isReverse: true
+        },
+        // K no function
+        "l": {
+            cmd: CommandName.moveRightAction
+        },
+        "y": {
+            cmd: CommandName.yancAction
+        }
     }
 }
 
@@ -635,7 +669,8 @@ const ErgonomicKeyBindings: IKeyBindings = {
     },
     RequireMotionNum: null,
     SmallG: null,
-    SmallGForMotion: null
+    SmallGForMotion: null,
+    VisualMode: null
 }
 
 export function LoadKeyBindings(opts: IVimStyleOptions): IKeyBindings {
@@ -645,7 +680,8 @@ export function LoadKeyBindings(opts: IVimStyleOptions): IKeyBindings {
         RequireMotion: {},
         RequireMotionNum: {},
         SmallG: {},
-        SmallGForMotion: {}
+        SmallGForMotion: {},
+        VisualMode: {}
     }
     var key: string;
     applyKeyBindings(bindings, DefaultKeyBindings);
