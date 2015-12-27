@@ -625,19 +625,50 @@ const DefaultKeyBindings: IKeyBindings = {
     
     // v
     VisualMode: {
+        // v..a
+        // v..A
+        "b": {
+            cmd: CommandName.wordMotion,
+            isReverse: true
+        },
+        // v..B
         "c": {
             cmd: CommandName.changeSelectionAction
         },
+        // C no command
         "d": {
             cmd: CommandName.deleteSelectionAction
+        },
+        // D no command
+        // v..e
+        // V..E
+        "f": {
+            cmd: CommandName.findCharacterMotion,
+            state: StateName.RequireCharForMotion
+        },
+        "F": {
+            cmd: CommandName.findCharacterMotion,
+            isReverse: true,
+            state: StateName.RequireCharForMotion
+        },
+        "g": {
+            cmd: CommandName.nothing,
+            state: StateName.SmallGForMotion
+        },
+        "G": {
+            cmd: CommandName.lastLineMotion,
         },
         "h": {
             cmd: CommandName.rightMotion,
             isReverse: true
         },
+        // H no function
+        // v..i
+        // v..I
         "j": {
             cmd: CommandName.lineMotion
         },
+        // J?
         "k": {
             cmd: CommandName.lineMotion,
             isReverse: true
@@ -646,8 +677,80 @@ const DefaultKeyBindings: IKeyBindings = {
         "l": {
             cmd: CommandName.rightMotion
         },
+        // l no function
+        // o never support
+        // O no function
+        // p never support
+        // P no function
+        // q no function
+        // Q no function
+        // r no function
+        // R low priority
+        // s ?
+        // S ?
+        "t": {
+            cmd: CommandName.tillCharacterMotion,
+            state: StateName.RequireCharForMotion
+        },
+        "T": {
+            cmd: CommandName.tillCharacterMotion,
+            isReverse: true,
+            state: StateName.RequireCharForMotion
+        },
+        // u low priority
+        // U low priority
+        // v low priority
+        // V low priority
+        "w": {
+            cmd: CommandName.wordMotion
+        },
+        // W
+        // x no function
+        // X no function
         "y": {
             cmd: CommandName.yancSelectionAction
+        },
+        "0": {
+            cmd: CommandName.homeMotion
+        },
+        "1": {
+            cmd: CommandName.stackNumber,
+            state: StateName.RequireMotionNum
+        },
+        "2": {
+            cmd: CommandName.stackNumber,
+            state: StateName.RequireMotionNum
+        },
+        "3": {
+            cmd: CommandName.stackNumber,
+            state: StateName.RequireMotionNum
+        },
+        "4": {
+            cmd: CommandName.stackNumber,
+            state: StateName.RequireMotionNum
+        },
+        "5": {
+            cmd: CommandName.stackNumber,
+            state: StateName.RequireMotionNum
+        },
+        "6": {
+            cmd: CommandName.stackNumber,
+            state: StateName.RequireMotionNum
+        },
+        "7": {
+            cmd: CommandName.stackNumber,
+            state: StateName.RequireMotionNum
+        },
+        "8": {
+            cmd: CommandName.stackNumber,
+            state: StateName.RequireMotionNum
+        },
+        "9": {
+            cmd: CommandName.stackNumber,
+            state: StateName.RequireMotionNum
+        },
+        "$": {
+            cmd: CommandName.endMotion
         }
     }
 }
@@ -670,7 +773,12 @@ const ErgonomicKeyBindings: IKeyBindings = {
     RequireMotionNum: null,
     SmallG: null,
     SmallGForMotion: null,
-    VisualMode: null
+    VisualMode: {
+        'j': DefaultKeyBindings.VisualMode['h'],
+        'k': DefaultKeyBindings.VisualMode['j'],
+        'l': DefaultKeyBindings.VisualMode['k'],
+        ';': DefaultKeyBindings.VisualMode['l']
+    }
 }
 
 export function LoadKeyBindings(opts: IVimStyleOptions): IKeyBindings {

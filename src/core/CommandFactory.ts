@@ -56,12 +56,19 @@ export class CommandFactory implements ICommandFactory {
                     break;
             }
         } else if (mode == VimMode.Visual) {
-            this.action = new ExpandSelectionAction();
             switch(this.state) {
                 case StateName.AtStart:
+                    this.action = new ExpandSelectionAction();
                     command = this.keyBindings.VisualMode[keyChar];
                     break;
-                // TODO
+                case StateName.RequireMotionNum:
+                    command = this.keyBindings.RequireMotionNum[keyChar];
+                    break;
+                case StateName.RequireCharForMotion:
+                    return this.pushKeyAtRequireCharForMotion(key);
+                case StateName.SmallGForMotion:
+                    command = this.keyBindings.SmallGForMotion[keyChar];
+                    break;
             }
         }
         if (command == undefined) {
