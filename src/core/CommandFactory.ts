@@ -1,5 +1,5 @@
 import * as Utils from "../Utils";
-import {Command, State, IVimStyleCommand, KeyBindings} from "./KeyBindings";
+import {KeyBindings} from "./KeyBindings";
 import {ApplyInsertModeAction} from "../action/ApplyInsertModeAction";
 import {InsertLineBelowAction} from "../action/InsertLineBelowAction";
 import {PasteAction} from "../action/PasteAction";
@@ -15,7 +15,7 @@ import {LineHeadMotion} from "../motion/LineHeadMotion";
 
 export class CommandFactory implements ICommandFactory {
 
-    private state: State;
+    private state: StateName;
     private action: IAction;
     private motion: FindCharacterMotion;
     private stackedKey: Key;
@@ -30,24 +30,24 @@ export class CommandFactory implements ICommandFactory {
         let keyChar = Utils.KeyToChar(key);
         var command: IVimStyleCommand;
         switch (this.state) {
-            case State.AtStart:
+            case StateName.AtStart:
                 command = KeyBindings.AtStart[keyChar];
                 break;
-            case State.FirstNum:
+            case StateName.FirstNum:
                 command = KeyBindings.FirstNum[keyChar];
                 break;
-            case State.RequireMotion:
+            case StateName.RequireMotion:
                 command = KeyBindings.RequireMotion[keyChar];
                 break;
-            case State.RequireMotionNum:
+            case StateName.RequireMotionNum:
                 command = KeyBindings.RequireMotionNum[keyChar];
                 break;
-            case State.RequireCharForMotion:
+            case StateName.RequireCharForMotion:
                 return this.pushKeyAtRequireCharForMotion(key);
-            case State.SmallG:
+            case StateName.SmallG:
                 command = KeyBindings.SmallG[keyChar];
                 break;
-            case State.SmallGForMotion:
+            case StateName.SmallGForMotion:
                 command = KeyBindings.SmallGForMotion[keyChar];
                 break;
         }
@@ -56,7 +56,7 @@ export class CommandFactory implements ICommandFactory {
             return null;
         }
         this.createVimStyleCommand(key, command);
-        if (command.state == State.Panic) {
+        if (command.state == StateName.Panic) {
             this.Clear();
             return null;
         }
@@ -70,7 +70,7 @@ export class CommandFactory implements ICommandFactory {
     }
 
     public Clear() {
-        this.state = State.AtStart;
+        this.state = StateName.AtStart;
         this.action = null;
         this.stackedKey = null;
         this.num = 0;
@@ -85,125 +85,125 @@ export class CommandFactory implements ICommandFactory {
 
         switch (command.cmd) {
             // single action
-            case Command.insertCurrentPositionAction:
+            case CommandName.insertCurrentPositionAction:
                 this.insertCurrentPositionAction();
                 return;
-            case Command.appendCurrentPositionAction:
+            case CommandName.appendCurrentPositionAction:
                 this.appendCurrentPositionAction();
                 return;
-            case Command.insertHomeAction:
+            case CommandName.insertHomeAction:
                 this.insertHomeAction();
                 return;
-            case Command.appendEndAction:
+            case CommandName.appendEndAction:
                 this.appendEndAction();
                 return;
-            case Command.insertLineBelowAction:
+            case CommandName.insertLineBelowAction:
                 this.insertLineBelowAction(command.isReverse);
                 return;
-            case Command.deleteCharacterAction:
+            case CommandName.deleteCharacterAction:
                 this.deleteCharacterAction(command.isReverse);
                 return;
-            case Command.changeCharacterAction:
+            case CommandName.changeCharacterAction:
                 this.changeCharacterAction();
                 return;
-            case Command.changeLineAction:
+            case CommandName.changeLineAction:
                 this.changeLineAction();
                 return;
 
             // move action
-            case Command.pasteBelowAction:
+            case CommandName.pasteBelowAction:
                 this.pasteBelowAction(command.isReverse);
                 return;
-            case Command.moveRightAction:
+            case CommandName.moveRightAction:
                 this.moveRightAction(command.isReverse);
                 return;
-            case Command.moveLineAction:
+            case CommandName.moveLineAction:
                 this.moveLineAction(command.isReverse);
                 return;
-            case Command.moveWordAction:
+            case CommandName.moveWordAction:
                 this.moveWordAction(command.isReverse);
                 return;
-            case Command.moveHomeAction:
+            case CommandName.moveHomeAction:
                 this.moveHomeAction();
                 return;
-            case Command.moveEndAction:
+            case CommandName.moveEndAction:
                 this.moveEndAction();
                 return;
-            case Command.moveFindCharacterAction:
+            case CommandName.moveFindCharacterAction:
                 this.moveFindCharacterAction(command.isReverse);
                 return;
-            case Command.moveTillCharacterAction:
+            case CommandName.moveTillCharacterAction:
                 this.moveTillCharacterAction(command.isReverse);
                 return;
-            case Command.moveGotoLineAction:
+            case CommandName.moveGotoLineAction:
                 this.moveGotoLineAction();
                 return;
-            case Command.moveLastLineAction:
+            case CommandName.moveLastLineAction:
                 this.moveLastLineAction();
                 return;
-            case Command.moveFirstLineAction:
+            case CommandName.moveFirstLineAction:
                 this.moveFirstLineAction();
                 return;
 
             // motion
-            case Command.rightMotion:
+            case CommandName.rightMotion:
                 this.rightMotion(command.isReverse);
                 return;
-            case Command.lineMotion:
+            case CommandName.lineMotion:
                 this.lineMotion(command.isReverse);
                 return;
-            case Command.wordMotion:
+            case CommandName.wordMotion:
                 this.wordMotion(command.isReverse);
                 return;
-            case Command.homeMotion:
+            case CommandName.homeMotion:
                 this.homeMotion();
                 return;
-            case Command.endMotion:
+            case CommandName.endMotion:
                 this.endMotion();
                 return;
-            case Command.findCharacterMotion:
+            case CommandName.findCharacterMotion:
                 this.findCharacterMotion(command.isReverse);
                 return;
-            case Command.tillCharacterMotion:
+            case CommandName.tillCharacterMotion:
                 this.tillCharacterMotion(command.isReverse);
                 return;
-            case Command.gotoLineMotion:
+            case CommandName.gotoLineMotion:
                 this.gotoLineMotion();
                 return;
-            case Command.lastLineMotion:
+            case CommandName.lastLineMotion:
                 this.lastLineMotion();
                 return;
-            case Command.firstLineMotion:
+            case CommandName.firstLineMotion:
                 this.firstLineMotion();
                 return;
 
             // delete, yanc, change action
-            case Command.changeAction:
+            case CommandName.changeAction:
                 this.changeAction();
                 return;
-            case Command.deleteAction:
+            case CommandName.deleteAction:
                 this.deleteAction();
                 return;
-            case Command.yancAction:
+            case CommandName.yancAction:
                 this.yancAction();
                 return;
-            case Command.changeToEndAction:
+            case CommandName.changeToEndAction:
                 this.changeToEndAction();
                 return;
-            case Command.deleteToEndAction:
+            case CommandName.deleteToEndAction:
                 this.deleteToEndAction();
                 return;
-            case Command.yancToEndAction:
+            case CommandName.yancToEndAction:
                 this.yancToEndAction();
                 return;
-            case Command.doActionAtCurrentLine:
+            case CommandName.doActionAtCurrentLine:
                 this.doActionAtCurrentLine(key);
                 return;
 
             // other
-            case Command.stackNumber:
+            case CommandName.stackNumber:
                 this.stackNumber(key);
-            case Command.nothing:
+            case CommandName.nothing:
                 return;
         }
     }

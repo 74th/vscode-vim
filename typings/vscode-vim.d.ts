@@ -270,3 +270,65 @@ declare const enum VimMode {
     Insert,
     Visual
 }
+
+declare const enum CommandName {
+
+    // single action
+    insertCurrentPositionAction,
+    appendCurrentPositionAction,
+    insertHomeAction,
+    appendEndAction,
+    insertLineBelowAction,
+    deleteCharacterAction,
+    changeCharacterAction,
+    changeLineAction,
+    pasteBelowAction,
+
+    // move action
+    moveRightAction,
+    moveLineAction,
+    moveWordAction,
+    moveHomeAction,
+    moveEndAction,
+    moveFindCharacterAction,
+    moveTillCharacterAction,
+    moveGotoLineAction,
+    moveLastLineAction,
+    moveFirstLineAction,
+
+    // motion
+    rightMotion,
+    lineMotion,
+    wordMotion,
+    homeMotion,
+    endMotion,
+    findCharacterMotion,
+    tillCharacterMotion,
+    gotoLineMotion,
+    lastLineMotion,
+    firstLineMotion,
+
+    // delete, yanc, change action
+    changeAction,
+    deleteAction,
+    yancAction,
+    changeToEndAction,
+    deleteToEndAction,
+    yancToEndAction,
+    doActionAtCurrentLine,
+
+    // other
+    stackNumber,
+    nothing
+}
+
+declare const enum StateName {
+    AtStart,
+    FirstNum,
+    RequireMotion,
+    RequireMotionNum,
+    RequireCharForMotion,
+    SmallG,
+    SmallGForMotion,
+    Panic
+}
