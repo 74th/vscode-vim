@@ -33,11 +33,11 @@ export class VimStyle implements IVimStyle {
     }
 
     public PushEscKey() {
-        var p = this.editor.GetCurrentPosition();
-        if (this.mode == VimMode.Insert && p.Char > 0) {
+        let p = this.editor.GetCurrentPosition();
+        if (this.mode === VimMode.Insert && p.Char > 0) {
             p.Char -= 1;
         }
-        if (this.mode == VimMode.Visual && p.Char > 0) {
+        if (this.mode === VimMode.Visual && p.Char > 0) {
             p.Char -= 1;
         }
         this.setMode(VimMode.Normal);
@@ -69,7 +69,7 @@ export class VimStyle implements IVimStyle {
     }
 
     private readCommand(key: Key) {
-        var action = this.commandFactory.PushKey(key, this.mode);
+        let action = this.commandFactory.PushKey(key, this.mode);
         if (action == null) {
             this.showCommand();
             return;
@@ -97,40 +97,40 @@ export class Position implements IPosition {
     public Line: number;
     public Char: number;
     constructor(line?: number, char?: number) {
-        this.Line = line == undefined ? 0 : line;
-        this.Char = char == undefined ? 0 : char;
+        this.Line = line === undefined ? 0 : line;
+        this.Char = char === undefined ? 0 : char;
     }
-    public Copy(): IPosition{
+    public Copy(): IPosition {
         return new Position(this.Line, this.Char);
     }
-    
+
     public IsEqual(other: IPosition) {
-        return other.Line == this.Line && other.Char == this.Char;
+        return other.Line === this.Line && other.Char === this.Char;
     }
-    
+
     public IsBefore(other: IPosition) {
-        if (this.Line == other.Line) {
+        if (this.Line === other.Line) {
             return this.Char < other.Char;
         }
         return this.Line < other.Line;
     }
-    
+
     public IsBeforeOrEqual(other: IPosition) {
-        if (this.Line == other.Line) {
+        if (this.Line === other.Line) {
             return this.Char <= other.Char;
         }
         return this.Line < other.Line;
     }
-    
+
     public IsAfter(other: IPosition) {
-        if (this.Line == other.Line) {
+        if (this.Line === other.Line) {
             return this.Char > other.Char;
         }
         return this.Line > other.Line;
     }
-    
+
     public IsAfterOrEqual(other: IPosition) {
-        if (this.Line == other.Line) {
+        if (this.Line === other.Line) {
             return this.Char >= other.Char;
         }
         return this.Line > other.Line;
@@ -147,33 +147,33 @@ export class Range implements IRange {
     }
 
     public Sort() {
-        var isReverse = false;
+        let isReverse = false;
         if (this.end.Line < this.start.Line) {
             isReverse = true;
-        } else if (this.end.Line == this.start.Line) {
+        } else if (this.end.Line === this.start.Line) {
             if (this.end.Char < this.start.Char) {
                 isReverse = true;
             }
         }
         if (isReverse) {
-            var b = this.start;
+            let b = this.start;
             this.start = this.end;
             this.end = b;
         }
     }
-    
-    public IsContain(p: IPosition): boolean{
-        var r = this.Copy();
+
+    public IsContain(p: IPosition): boolean {
+        let r = this.Copy();
         r.Sort();
         if (p.Line < r.start.Line) return false;
         if (r.end.Line < p.Line) return false;
-        if (p.Line == r.start.Line && p.Char < r.start.Char) return false;
-        if (p.Line == r.end.Line && r.end.Char < p.Char) return false;
+        if (p.Line === r.start.Line && p.Char < r.start.Char) return false;
+        if (p.Line === r.end.Line && r.end.Char < p.Char) return false;
         return true;
     }
-    
-    public Copy() :IRange {
-        var r = new Range();
+
+    public Copy(): IRange {
+        let r = new Range();
         r.start.Char = this.start.Char;
         r.start.Line = this.start.Line;
         r.end.Char = this.end.Char;

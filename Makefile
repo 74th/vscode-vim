@@ -1,7 +1,6 @@
 PHONY:clean test build tslint
 
 test: build tslint
-	tslint src/**/**.ts
 	cd out;mocha -g VimStyle
 	
 OriginalVimTest: build
@@ -12,6 +11,9 @@ NeoVimTest: build
 	
 build: node_modules
 	tsc
+
+tslint: build
+	tslint src/**/**.ts
 
 release: test
 	vsce package

@@ -1,4 +1,4 @@
-import {Range} from "../VimStyle"
+import {Range} from "../VimStyle";
 export class ExpandSelectionAction implements IAction {
 
     private motion: IMotion;
@@ -10,39 +10,38 @@ export class ExpandSelectionAction implements IAction {
     public SetMotion(motion: IMotion) {
         this.motion = motion;
     }
-    
+
     public SetLineOption() {
     }
 
     public Execute(editor: IEditor, vim: IVimStyle) {
-        var before = editor.GetCurrentSelection();
+        let before = editor.GetCurrentSelection();
         before.Sort();
-        var p = editor.GetCurrentPosition();
-        
+        let p = editor.GetCurrentPosition();
 
-        var np = this.motion.CalculateEnd(editor, p);
-        var after = new Range();
+        let np = this.motion.CalculateEnd(editor, p);
+        let after = new Range();
 
-        if (before.start.Line == before.end.Line && 
-            (before.start.Char - before.end.Char == 1 ||
-                before.end.Char - before.start.Char == 1)) {
+        if (before.start.Line === before.end.Line &&
+            (before.start.Char - before.end.Char === 1 ||
+                before.end.Char - before.start.Char === 1)) {
             // selected 1 char
             before.Sort();
             if (np.IsBefore(before.start)) {
                 np = this.motion.CalculateEnd(editor, before.start);
                 after.start = before.end;
                 after.end = np;
-            } else if(np.IsEqual(before.start)){
+            } else if (np.IsEqual(before.start)) {
                 after.start = before.end;
-                after.end = np
+                after.end = np;
             }else {
                 np = this.motion.CalculateEnd(editor, before.end);
                 after.start = before.start;
-                after.end = np
+                after.end = np;
             }
         } else {
-            var startBlock = new Range();
-            var cursor: IPosition;
+            let startBlock = new Range();
+            let cursor: IPosition;
             if (before.start.IsEqual(p)) {
                 // cursor is start of the selection
                 startBlock.end = before.end.Copy();
@@ -68,7 +67,7 @@ export class ExpandSelectionAction implements IAction {
                 // move start
                 after.start = startBlock.end.Copy();
                 after.end = np;
-            }else if(np.IsAfter(startBlock.end)){
+            } else if (np.IsAfter(startBlock.end)) {
                 // move end
                 after.start = startBlock.start.Copy();
                 after.end = np;

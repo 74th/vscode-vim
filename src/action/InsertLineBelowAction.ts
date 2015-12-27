@@ -13,11 +13,11 @@ export class InsertLineBelowAction implements IAction {
         this.isAbove = true;
     }
     public Execute(editor: IEditor, vim: IVimStyle) {
-        var currentPosition = editor.GetCurrentPosition();
-        var selecterPosition = new Position();
+        let currentPosition = editor.GetCurrentPosition();
+        let selecterPosition = new Position();
         selecterPosition.Char = 0;
-        var insertPosition = new Position();
-        var currentLine = editor.ReadLineAtCurrentPosition();
+        let insertPosition = new Position();
+        let currentLine = editor.ReadLineAtCurrentPosition();
         if (this.isAbove) {
             selecterPosition.Line = currentPosition.Line;
             insertPosition.Line = currentPosition.Line;
@@ -28,7 +28,7 @@ export class InsertLineBelowAction implements IAction {
             insertPosition.Char = currentLine.length;
         }
 
-        var insertText = appendWhiteSpace(currentLine);
+        let insertText = appendWhiteSpace(currentLine);
         selecterPosition.Char = insertText.length;
 
         if (this.isAbove) {
@@ -43,18 +43,18 @@ export class InsertLineBelowAction implements IAction {
 }
 
 function appendWhiteSpace(prevLine: string) {
-    if (prevLine.length == 0) {
+    if (prevLine.length === 0) {
         return "";
     }
 
-    var firstChar = prevLine.charCodeAt(0);
-    if (Utils.GetCharClass(firstChar) != CharGroup.Spaces) {
+    let firstChar = prevLine.charCodeAt(0);
+    if (Utils.GetCharClass(firstChar) !== CharGroup.Spaces) {
         return "";
     }
 
-    var i = 0;
+    let i = 0;
     for (i = 0; i < prevLine.length; i++) {
-        if (prevLine.charCodeAt(i) != firstChar) {
+        if (prevLine.charCodeAt(i) !== firstChar) {
             break;
         }
     }

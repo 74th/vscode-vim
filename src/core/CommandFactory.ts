@@ -5,8 +5,8 @@ import {PasteAction} from "../action/PasteAction";
 import {DeleteAction} from "../action/DeleteAction";
 import {MoveAction} from "../action/MoveAction";
 import {ApplyVisualModeAction} from "../action/ApplyVisualModeAction";
-import {ExpandSelectionAction} from "../action/ExpandSelectionAction"
-import {DeleteSelectionAction} from "../action/DeleteSelectionAction"
+import {ExpandSelectionAction} from "../action/ExpandSelectionAction";
+import {DeleteSelectionAction} from "../action/DeleteSelectionAction";
 import {RightMotion} from "../motion/RightMotion";
 import {DownMotion} from "../motion/DownMotion";
 import {HomeMotion} from "../motion/HomeMotion";
@@ -31,8 +31,8 @@ export class CommandFactory implements ICommandFactory {
 
     public PushKey(key: Key, mode: VimMode): IAction {
         let keyChar = Utils.KeyToChar(key);
-        var command: IVimStyleCommand;
-        if (mode == VimMode.Normal) {
+        let command: IVimStyleCommand;
+        if (mode === VimMode.Normal) {
             switch (this.state) {
                 case StateName.AtStart:
                     command = this.keyBindings.AtStart[keyChar];
@@ -55,8 +55,8 @@ export class CommandFactory implements ICommandFactory {
                     command = this.keyBindings.SmallGForMotion[keyChar];
                     break;
             }
-        } else if (mode == VimMode.Visual) {
-            switch(this.state) {
+        } else if (mode === VimMode.Visual) {
+            switch (this.state) {
                 case StateName.AtStart:
                     this.action = new ExpandSelectionAction();
                     command = this.keyBindings.VisualMode[keyChar];
@@ -71,12 +71,12 @@ export class CommandFactory implements ICommandFactory {
                     break;
             }
         }
-        if (command == undefined) {
+        if (command === undefined) {
             this.Clear();
             return null;
         }
         this.createVimStyleCommand(key, command);
-        if (command.state == StateName.Panic) {
+        if (command.state === StateName.Panic) {
             this.Clear();
             return null;
         }
@@ -88,7 +88,7 @@ export class CommandFactory implements ICommandFactory {
         this.state = command.state;
         return null;
     }
-    
+
     public Clear() {
         this.state = StateName.AtStart;
         this.action = null;
@@ -223,7 +223,7 @@ export class CommandFactory implements ICommandFactory {
             case CommandName.doActionAtCurrentLine:
                 this.doActionAtCurrentLine(key);
                 return;
-                
+
             // visual mode
             case CommandName.enterVisualModeAction:
                 this.enterVisualModeAction();
@@ -255,7 +255,7 @@ export class CommandFactory implements ICommandFactory {
     }
 
     private getNumStack() {
-        return this.num == 0 ? 1 : this.num;
+        return this.num === 0 ? 1 : this.num;
     }
 
     // i    
@@ -265,27 +265,27 @@ export class CommandFactory implements ICommandFactory {
 
     // a    
     private appendCurrentPositionAction() {
-        var m = new RightMotion();
+        let m = new RightMotion();
         m.SetCount(1);
         this.action = new ApplyInsertModeAction(m);
     }
 
     // I
     private insertHomeAction() {
-        var m = new LineHeadMotion();
+        let m = new LineHeadMotion();
         m.SetCurrentLineOption();
         this.action = new ApplyInsertModeAction(m);
     }
 
     // A    
     private appendEndAction() {
-        var m = new EndMotion();
+        let m = new EndMotion();
         this.action = new ApplyInsertModeAction(m);
     }
 
     // o O    
     private insertLineBelowAction(isAbove: boolean) {
-        var a = new InsertLineBelowAction();
+        let a = new InsertLineBelowAction();
         if (isAbove) {
             a.SetAboveOption();
         }
@@ -294,12 +294,12 @@ export class CommandFactory implements ICommandFactory {
 
     // x Nx
     private deleteCharacterAction(isLeft: boolean) {
-        var m = new RightMotion();
+        let m = new RightMotion();
         if (isLeft) {
             m.SetLeftDirection();
         }
         m.SetCount(this.getNumStack());
-        var a = new DeleteAction();
+        let a = new DeleteAction();
         a.SetSmallOption();
         a.SetMotion(m);
         this.action = a;
@@ -307,9 +307,9 @@ export class CommandFactory implements ICommandFactory {
 
     // s
     private changeCharacterAction() {
-        var m = new RightMotion();
+        let m = new RightMotion();
         m.SetCount(1);
-        var a = new DeleteAction();
+        let a = new DeleteAction();
         a.SetSmallOption();
         a.SetMotion(m);
         a.SetChangeOption();
@@ -318,9 +318,9 @@ export class CommandFactory implements ICommandFactory {
 
     // S
     private changeLineAction() {
-        var m = new DownMotion();
+        let m = new DownMotion();
         m.SetCount(this.getNumStack() - 1);
-        var a = new DeleteAction();
+        let a = new DeleteAction();
         a.SetLineOption();
         a.SetMotion(m);
         a.SetChangeOption();
@@ -329,7 +329,7 @@ export class CommandFactory implements ICommandFactory {
 
     // p P Np NP
     private pasteBelowAction(isBack: boolean) {
-        var a = new PasteAction();
+        let a = new PasteAction();
         if (isBack) {
             a.SetBackOption();
         }
@@ -338,14 +338,14 @@ export class CommandFactory implements ICommandFactory {
     }
 
     private createMoveAction(motion: IMotion) {
-        var a = new MoveAction();
+        let a = new MoveAction();
         a.SetMotion(motion);
         return a;
     }
 
     // h l
     private moveRightAction(isLeft: boolean) {
-        var m = new RightMotion();
+        let m = new RightMotion();
         if (isLeft) {
             m.SetLeftDirection();
         };
@@ -355,7 +355,7 @@ export class CommandFactory implements ICommandFactory {
 
     // j k
     private moveLineAction(isUp: boolean) {
-        var m = new DownMotion();
+        let m = new DownMotion();
         if (isUp) {
             m.SetUpDirection();
         }
@@ -365,7 +365,7 @@ export class CommandFactory implements ICommandFactory {
 
     // w b
     private moveWordAction(isReverse: boolean) {
-        var m: WordMotion;
+        let m: WordMotion;
         if (isReverse) {
             m = new WordMotion(Direction.Left);
         } else {
@@ -387,8 +387,8 @@ export class CommandFactory implements ICommandFactory {
 
     // fx Fx
     private moveFindCharacterAction(isReverse) {
-        var a = new MoveAction();
-        var m: FindCharacterMotion;
+        let a = new MoveAction();
+        let m: FindCharacterMotion;
         if (isReverse) {
             m = new FindCharacterMotion(Direction.Left);
         } else {
@@ -402,8 +402,8 @@ export class CommandFactory implements ICommandFactory {
 
     // tx Tx
     private moveTillCharacterAction(isReverse) {
-        var a = new MoveAction();
-        var m: FindCharacterMotion;
+        let a = new MoveAction();
+        let m: FindCharacterMotion;
         if (isReverse) {
             m = new FindCharacterMotion(Direction.Left);
         } else {
@@ -418,8 +418,8 @@ export class CommandFactory implements ICommandFactory {
 
     // Ng
     private moveGotoLineAction() {
-        var a = new MoveAction();
-        var m = new LineHeadMotion();
+        let a = new MoveAction();
+        let m = new LineHeadMotion();
         m.SetCount(this.getNumStack() - 1);
         a.SetMotion(m);
         this.action = a;
@@ -427,8 +427,8 @@ export class CommandFactory implements ICommandFactory {
 
     // G
     private moveLastLineAction() {
-        var a = new MoveAction();
-        var m = new LineHeadMotion();
+        let a = new MoveAction();
+        let m = new LineHeadMotion();
         m.SetLastLineOption();
         a.SetMotion(m);
         this.action = a;
@@ -436,8 +436,8 @@ export class CommandFactory implements ICommandFactory {
 
     // gg
     private moveFirstLineAction() {
-        var a = new MoveAction();
-        var m = new LineHeadMotion();
+        let a = new MoveAction();
+        let m = new LineHeadMotion();
         m.SetFirstLineOption();
         a.SetMotion(m);
         this.action = a;
@@ -445,30 +445,30 @@ export class CommandFactory implements ICommandFactory {
 
     // ch cl
     private rightMotion(isLeft: boolean) {
-        var m = new RightMotion();
+        let m = new RightMotion();
         if (isLeft) {
             m.SetLeftDirection();
         };
         m.SetCount(this.getNumStack());
-        var a = <IRequireMotionAction>this.action;
+        let a = <IRequireMotionAction>this.action;
         a.SetMotion(m);
     }
 
     // cj ck
     private lineMotion(isUp: boolean) {
-        var m = new DownMotion();
+        let m = new DownMotion();
         if (isUp) {
             m.SetUpDirection();
         }
         m.SetCount(this.getNumStack());
-        var a = <IRequireMotionAction>this.action;
+        let a = <IRequireMotionAction>this.action;
         a.SetMotion(m);
         a.SetLineOption();
     }
 
     // cw cb
     private wordMotion(isReverse: boolean) {
-        var m: WordMotion;
+        let m: WordMotion;
         if (isReverse) {
             m = new WordMotion(Direction.Left);
         } else {
@@ -476,25 +476,25 @@ export class CommandFactory implements ICommandFactory {
         }
         m.SetCount(this.getNumStack());
         m.SetStopFinalLnOption();
-        var a = <IRequireMotionAction>this.action;
+        let a = <IRequireMotionAction>this.action;
         a.SetMotion(m);
     }
 
     // c0
     private homeMotion() {
-        var a = <IRequireMotionAction>this.action;
+        let a = <IRequireMotionAction>this.action;
         a.SetMotion(new HomeMotion());
     }
 
     // c$
     private endMotion() {
-        var a = <IRequireMotionAction>this.action;
+        let a = <IRequireMotionAction>this.action;
         a.SetMotion(new EndMotion());
     }
 
     // fx Fx
     private findCharacterMotion(isReverse) {
-        var m: FindCharacterMotion;
+        let m: FindCharacterMotion;
         if (isReverse) {
             m = new FindCharacterMotion(Direction.Left);
         } else {
@@ -502,14 +502,14 @@ export class CommandFactory implements ICommandFactory {
             m.SetContainTargetCharOption();
         }
         m.SetCount(this.getNumStack());
-        var a = <IRequireMotionAction>this.action;
+        let a = <IRequireMotionAction>this.action;
         a.SetMotion(m);
         this.motion = m;
     }
 
     // tx Tx
     private tillCharacterMotion(isReverse) {
-        var m: FindCharacterMotion;
+        let m: FindCharacterMotion;
         if (isReverse) {
             m = new FindCharacterMotion(Direction.Left);
         } else {
@@ -518,41 +518,41 @@ export class CommandFactory implements ICommandFactory {
         }
         m.SetCount(this.getNumStack());
         m.SetTillOption();
-        var a = <IRequireMotionAction>this.action;
+        let a = <IRequireMotionAction>this.action;
         a.SetMotion(m);
         this.motion = m;
     }
 
     // cNg
     private gotoLineMotion() {
-        var m = new LineHeadMotion();
+        let m = new LineHeadMotion();
         m.SetCount(this.getNumStack() - 1);
-        var a = <IRequireMotionAction>this.action;
+        let a = <IRequireMotionAction>this.action;
         a.SetMotion(m);
         a.SetLineOption();
     }
 
     // cG
     private lastLineMotion() {
-        var m = new LineHeadMotion();
+        let m = new LineHeadMotion();
         m.SetLastLineOption();
-        var a = <IRequireMotionAction>this.action;
+        let a = <IRequireMotionAction>this.action;
         a.SetMotion(m);
         a.SetLineOption();
     }
 
     // cgg
     private firstLineMotion() {
-        var m = new LineHeadMotion();
+        let m = new LineHeadMotion();
         m.SetFirstLineOption();
-        var a = <IRequireMotionAction>this.action;
+        let a = <IRequireMotionAction>this.action;
         a.SetMotion(m);
         a.SetLineOption();
     }
 
     // cm 
     private changeAction() {
-        var a = new DeleteAction();
+        let a = new DeleteAction();
         a.SetChangeOption();
         this.action = a;
     }
@@ -564,16 +564,16 @@ export class CommandFactory implements ICommandFactory {
 
     // ym
     private yancAction() {
-        var a = new DeleteAction();
+        let a = new DeleteAction();
         a.SetOnlyYancOption();
         this.action = a;
     }
 
     // C
     private changeToEndAction() {
-        var m = new EndMotion();
+        let m = new EndMotion();
         m.SetCount(1);
-        var a = new DeleteAction();
+        let a = new DeleteAction();
         a.SetSmallOption();
         a.SetMotion(m);
         a.SetChangeOption();
@@ -582,9 +582,9 @@ export class CommandFactory implements ICommandFactory {
 
     // D
     private deleteToEndAction() {
-        var m = new EndMotion();
+        let m = new EndMotion();
         m.SetCount(1);
-        var a = new DeleteAction();
+        let a = new DeleteAction();
         a.SetSmallOption();
         a.SetMotion(m);
         this.action = a;
@@ -592,9 +592,9 @@ export class CommandFactory implements ICommandFactory {
 
     // Y
     private yancToEndAction() {
-        var m = new EndMotion();
+        let m = new EndMotion();
         m.SetCount(1);
-        var a = new DeleteAction();
+        let a = new DeleteAction();
         a.SetSmallOption();
         a.SetMotion(m);
         a.SetOnlyYancOption();
@@ -602,7 +602,7 @@ export class CommandFactory implements ICommandFactory {
     }
 
     private stackNumber(key: Key) {
-        var n: number = Utils.KeyToNum(key);
+        let n: number = Utils.KeyToNum(key);
         this.num = this.num * 10 + n;
         if (this.num > 10000) {
             this.Clear();
@@ -611,41 +611,41 @@ export class CommandFactory implements ICommandFactory {
 
     // dd, yy, cc    
     private doActionAtCurrentLine(key: Key) {
-        if (this.stackedKey != key) {
+        if (this.stackedKey !== key) {
             this.Clear();
             return;
         }
-        var a = <IRequireMotionAction>this.action;
+        let a = <IRequireMotionAction>this.action;
         a.SetLineOption();
-        var count = 0;
+        let count = 0;
         if (this.num !== 0) {
             count = this.num - 1;
         }
-        var m = new DownMotion();
+        let m = new DownMotion();
         m.SetCount(count);
         a.SetMotion(m);
     }
-    
+
     // v
     private enterVisualModeAction() {
         this.action = new ApplyVisualModeAction();
     }
-    
+
     // v...c
     private changeSelectionAction() {
-        var a = new DeleteSelectionAction();
+        let a = new DeleteSelectionAction();
         a.SetChangeOption();
         this.action = a;
     }
-    
+
     // v...d
     private deleteSelectionAction() {
         this.action = new DeleteSelectionAction();
     }
-    
+
     // v...y
     private yancSelectionAction() {
-        var a = new DeleteSelectionAction();
+        let a = new DeleteSelectionAction();
         a.SetOnlyYancOption();
         this.action = a;
     }

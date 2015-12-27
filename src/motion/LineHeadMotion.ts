@@ -31,8 +31,8 @@ export class LineHeadMotion extends AbstractMotion {
 
     public CalculateEnd(editor: IEditor, start: IPosition): IPosition {
 
-        var lineDocument: string;
-        var lineNumber: number;
+        let lineDocument: string;
+        let lineNumber: number;
         switch (this.targetLine) {
             case Target.Current:
                 lineDocument = editor.ReadLineAtCurrentPosition();
@@ -56,15 +56,15 @@ export class LineHeadMotion extends AbstractMotion {
                 break;
         }
 
-        var l = lineDocument.length;
-        var charNumber: number;
+        let l = lineDocument.length;
+        let charNumber: number;
         for (charNumber = 0; charNumber < l; charNumber++) {
-            var c = Utils.GetCharClass(lineDocument.charCodeAt(charNumber));
-            if (c != CharGroup.Spaces) {
+            let c = Utils.GetCharClass(lineDocument.charCodeAt(charNumber));
+            if (c !== CharGroup.Spaces) {
                 break;
             }
         }
-        var p = new Position();
+        let p = new Position();
         p.Line = lineNumber;
         p.Char = charNumber;
         return p;

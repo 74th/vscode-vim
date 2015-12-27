@@ -55,14 +55,14 @@ export class Register implements IRegister {
         return null;
     }
     private GetRollRegister(key: Key) {
-        var n = Utils.KeyToNum(key);
+        let n = Utils.KeyToNum(key);
         if (this.roll.length > n + 1) {
             return this.roll[n];
         }
         return null;
     }
     private GetCharactorRegister(key: Key) {
-        if (this.char[key] == undefined || this.char[key] == null) {
+        if (this.char[key] === undefined || this.char[key] == null) {
             return null;
         }
         return this.char[key];

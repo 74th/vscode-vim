@@ -4,15 +4,14 @@ import {VSCodeEditor, IVSCodeEditorOptions} from "./VSCodeEditor";
 
 export function activate(context: vscode.ExtensionContext) {
 
-    var editorOpt: IVSCodeEditorOptions;
-    var vimOpt: IVimStyleOptions;
+    let editorOpt: IVSCodeEditorOptions;
+    let vimOpt: IVimStyleOptions;
     function loadConfiguration() {
-        var conf = vscode.workspace.getConfiguration("vimStyle");
+        let conf = vscode.workspace.getConfiguration("vimStyle");
         editorOpt = {
             isWinJisKeyboard: conf.get<boolean>("useWinJisKeyboard", false),
             isMacJisKeyboard: conf.get<boolean>("useMacJisKeyboard", false),
-            //showMode: conf.get<boolean>("showMode", false)
-            showMode: true
+            showMode: conf.get<boolean>("showMode", false)
         };
         vimOpt = {
             useErgonomicKeyForMotion: conf.get<boolean>("useErgonomicKeyForMotion", false)
@@ -20,11 +19,11 @@ export function activate(context: vscode.ExtensionContext) {
     }
     loadConfiguration();
 
-    var editor = new VSCodeEditor(editorOpt);
+    let editor = new VSCodeEditor(editorOpt);
     context.subscriptions.push(editor);
-    var vim = new VimStyle(editor, vimOpt);
+    let vim = new VimStyle(editor, vimOpt);
 
-    var disposable = vscode.workspace.onDidChangeConfiguration(() => {
+    let disposable = vscode.workspace.onDidChangeConfiguration(() => {
         loadConfiguration();
         vim.ApplyOptions(vimOpt);
         editor.ApplyOptions(editorOpt);

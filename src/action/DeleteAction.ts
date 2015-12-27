@@ -39,9 +39,9 @@ export class DeleteAction implements IRequireMotionAction {
 
     public Execute(editor: IEditor, vim: IVimStyle) {
 
-        var range = new Range();
+        let range = new Range();
         range.start = editor.GetCurrentPosition();
-        var p = this.motion.CalculateEnd(editor, range.start);
+        let p = this.motion.CalculateEnd(editor, range.start);
         if (p == null) {
             // cancel
             return;
@@ -57,12 +57,12 @@ export class DeleteAction implements IRequireMotionAction {
     }
 
     private deleteRange(range: Range, editor: IEditor, vim: IVimStyle) {
-        var nextPosition = new Position();
+        let nextPosition = new Position();
 
         nextPosition.Line = range.start.Line;
 
-        var endLine = editor.ReadLine(range.end.Line);
-        if (range.start.Char == 0) {
+        let endLine = editor.ReadLine(range.end.Line);
+        if (range.start.Char === 0) {
             // delete from home of line
             nextPosition.Char = 0;
         } else {
@@ -79,7 +79,7 @@ export class DeleteAction implements IRequireMotionAction {
             }
         }
 
-        var item = new RegisterItem();
+        let item = new RegisterItem();
         item.Body = editor.ReadRange(range);
         item.Type = RegisterType.Text;
         if (this.isLarge) {
@@ -89,20 +89,20 @@ export class DeleteAction implements IRequireMotionAction {
             vim.ApplyInsertMode(nextPosition);
         }
         if (!this.isOnlyYanc) {
-            editor.DeleteRange(range,nextPosition);
+            editor.DeleteRange(range, nextPosition);
         }
     }
 
     private deleteLine(range: Range, editor: IEditor, vim: IVimStyle) {
-        var del = new Range();
-        var nextPosition = new Position();
-        var nextPositionLineHasNoChar = false;
+        let del = new Range();
+        let nextPosition = new Position();
+        let nextPositionLineHasNoChar = false;
         nextPosition.Char = 0;
 
-        var lastLine = editor.GetLastLineNum();
+        let lastLine = editor.GetLastLineNum();
         if (lastLine <= range.end.Line) {
             // delete to end line
-            if (range.start.Line == 0) {
+            if (range.start.Line === 0) {
                 // delete all
                 del.start.Char = 0;
                 del.start.Line = 0;
@@ -148,14 +148,14 @@ export class DeleteAction implements IRequireMotionAction {
             }
         }
 
-        var yanc = new Range();
+        let yanc = new Range();
         yanc.start.Line = range.start.Line;
         yanc.start.Char = 0;
         yanc.end.Line = range.end.Line;
         yanc.end.Char = Number.MAX_VALUE;
         yanc.end = editor.UpdateValidPosition(yanc.end);
 
-        var item = new RegisterItem();
+        let item = new RegisterItem();
         item.Body = editor.ReadRange(yanc);
         if (this.isLine) {
             item.Body += "\n";

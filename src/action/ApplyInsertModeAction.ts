@@ -2,7 +2,7 @@ export class ApplyInsertModeAction implements IAction {
     private motion: IMotion;
 
     constructor(m?: IMotion) {
-        if (m == undefined) {
+        if (m === undefined) {
             this.motion = null;
         } else {
             this.motion = m;
@@ -10,7 +10,7 @@ export class ApplyInsertModeAction implements IAction {
     }
 
     public Execute(editor: IEditor, vim: IVimStyle) {
-        var p = editor.GetCurrentPosition();
+        let p = editor.GetCurrentPosition();
         if (this.motion != null) {
             p = this.motion.CalculateEnd(editor, p);
         }

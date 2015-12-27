@@ -18,11 +18,11 @@ export class VirtualEditor implements IEditor {
 
     public SetContent(textList: string[]) {
         this.contents = textList;
-        var len = textList.length;
-        for (var i = 0; i < len;i++){
-            var line = textList[i];
-            var c = line.indexOf("|");
-            if(c != -1){
+        let len = textList.length;
+        for (let i = 0; i < len; i++) {
+            let line = textList[i];
+            let c = line.indexOf("|");
+            if (c !== -1) {
                 this.Position.Line = i;
                 this.Position.Char = c;
                 this.contents[i] = this.contents[i].replace("|", "");
@@ -32,12 +32,12 @@ export class VirtualEditor implements IEditor {
     }
 
     public GetContent(): string[] {
-        var output = [];
-        var len = this.contents.length;
-        for (var i = 0; i < len; i++){
+        let output = [];
+        let len = this.contents.length;
+        for (let i = 0; i < len; i++) {
             output.push(this.contents[i]);
         }
-        var line = output[this.Position.Line];
+        let line = output[this.Position.Line];
         output[this.Position.Line] = line.substr(0, this.Position.Char) + "|" + line.substr(this.Position.Char, line.length);
         return output;
     }
@@ -52,19 +52,19 @@ export class VirtualEditor implements IEditor {
         this.ModeStatus = Utils.ModeToString(mode);
     }
     public InsertTextAtCurrentPosition(text: string) {
-        var cLine = this.contents[this.Position.Line];
-        var pre = cLine.substr(0, this.Position.Char);
-        var su = cLine.substr(this.Position.Char, cLine.length - this.Position.Char);
-        var lineList = text.split("\n");
-        if (lineList.length == 0) {
+        let cLine = this.contents[this.Position.Line];
+        let pre = cLine.substr(0, this.Position.Char);
+        let su = cLine.substr(this.Position.Char, cLine.length - this.Position.Char);
+        let lineList = text.split("\n");
+        if (lineList.length === 0) {
             this.contents[this.Position.Line] = pre + text + su;
             return;
         }
         this.contents[this.Position.Line] = pre + lineList[0];
-        for (var i = 1; i < lineList.length - 1; i++){
+        for (let i = 1; i < lineList.length - 1; i++) {
             this.contents.splice(this.Position.Line + i, 0, lineList[i]);
         }
-        this.contents.splice(this.Position.Line + lineList.length -1, 0, lineList[lineList.length-1] + su);
+        this.contents.splice(this.Position.Line + lineList.length - 1, 0, lineList[lineList.length - 1] + su);
         this.Position.Line = this.Position.Line + lineList.length - 1;
         this.Position.Char = lineList[lineList.length].length;
     }
@@ -73,39 +73,39 @@ export class VirtualEditor implements IEditor {
     }
 
     public InsertCharactorAtCurrentPosition(char: string) {
-        var cLine = this.contents[this.Position.Line];
-        var pre = cLine.substr(0, this.Position.Char);
-        var su = cLine.substr(this.Position.Char, cLine.length - this.Position.Char);
+        let cLine = this.contents[this.Position.Line];
+        let pre = cLine.substr(0, this.Position.Char);
+        let su = cLine.substr(this.Position.Char, cLine.length - this.Position.Char);
         this.contents[this.Position.Line] = pre + char + su;
         this.Position.Char += 1;
     }
     public Insert(position: IPosition, text: string) {
-        var cLine = this.contents[position.Line];
-        var pre = cLine.substr(0, position.Char);
-        var su = cLine.substr(position.Char, cLine.length - position.Char);
-        var lineList = text.split("\n");
-        if (lineList.length == 0) {
+        let cLine = this.contents[position.Line];
+        let pre = cLine.substr(0, position.Char);
+        let su = cLine.substr(position.Char, cLine.length - position.Char);
+        let lineList = text.split("\n");
+        if (lineList.length === 0) {
             this.contents[position.Line] = pre + text + su;
             return;
         }
         this.contents[position.Line] = pre + lineList[0];
-        for (var i = 1; i < lineList.length - 1; i++){
+        for (let i = 1; i < lineList.length - 1; i++) {
             this.contents.splice(position.Line + i, 0, lineList[i]);
         }
-        this.contents.splice(position.Line + lineList.length -1, 0, lineList[lineList.length-1] + su);
+        this.contents.splice(position.Line + lineList.length - 1, 0, lineList[lineList.length - 1] + su);
     }
     public DeleteRange(range: IRange, position?: IPosition) {
-        if (range.start.Line == range.end.Line) {
-            var line = this.contents[range.start.Line];
-            var pre = line.substr(0, range.start.Char);
-            var su = line.substr(range.end.Char, line.length - range.end.Char);
+        if (range.start.Line === range.end.Line) {
+            let line = this.contents[range.start.Line];
+            let pre = line.substr(0, range.start.Char);
+            let su = line.substr(range.end.Char, line.length - range.end.Char);
             this.contents[range.start.Line] = pre + su;
             return;
         }
-        var line = this.contents[range.start.Line].substr(0, range.start.Char);
+        let line = this.contents[range.start.Line].substr(0, range.start.Char);
         line += this.contents[range.end.Line].substr(range.end.Char, this.contents[range.end.Line].length - range.end.Char);
         this.contents.splice(range.start.Line, range.end.Line - range.start.Line + 1, line);
-        if (position != undefined) {
+        if (position !== undefined) {
             this.Position = position;
         }
     }
@@ -115,21 +115,21 @@ export class VirtualEditor implements IEditor {
     }
 
     // Read Line
-    public ReadLineAtCurrentPosition(): string{
+    public ReadLineAtCurrentPosition(): string {
         return this.ReadLine(this.Position.Line);
     }
-    public ReadLine(line: number): string{
+    public ReadLine(line: number): string {
         return this.contents[line];
     }
 
     // Read Range
-    public ReadRange(range: IRange): string{
-        if (range.start.Line == range.end.Line) {
+    public ReadRange(range: IRange): string {
+        if (range.start.Line === range.end.Line) {
             return this.contents[range.start.Line].substr(range.start.Char, range.end.Char - range.start.Char);
         }
-        var line = this.contents[range.start.Line];
-        var result = line.substr(range.start.Char, line.length - range.start.Char);
-        for (var i = range.start.Line; i < range.end.Line - 1; i++){
+        let line = this.contents[range.start.Line];
+        let result = line.substr(range.start.Char, line.length - range.start.Char);
+        for (let i = range.start.Line; i < range.end.Line - 1; i++) {
             result += "\n" + this.contents[i];
         }
         line = this.contents[range.end.Line];
@@ -138,21 +138,29 @@ export class VirtualEditor implements IEditor {
     }
 
     // Position
-    public GetCurrentPosition(): IPosition{
+    public GetCurrentPosition(): IPosition {
         return this.Position;
     }
     public SetPosition(position: IPosition) {
         this.Position = position;
     }
-    public GetLastPosition(): IPosition{
-        var p = new Position();
+    public GetLastPosition(): IPosition {
+        let p = new Position();
         p.Line = this.GetLastLineNum();
         p.Char = this.contents[this.GetLastLineNum()].length;
         return p;
     }
 
+    // Selection
+    public GetCurrentSelection(): IRange {
+        return null; // TODO
+    }
+    public SetSelection(range: IRange) {
+        // TODO
+    }
+
     // Document Info
-    public GetLastLineNum(): number{
+    public GetLastLineNum(): number {
         return this.contents.length - 1;
     }
 
@@ -168,13 +176,16 @@ export class VirtualEditor implements IEditor {
     public ApplyInsertMode(p: IPosition) {
         this.Position = p;
     }
+    public ApplyVisualMode() {
+        // TODO
+    }
     // check invalid position
-    public UpdateValidPosition(p: IPosition, isBlock?: boolean): IPosition{
+    public UpdateValidPosition(p: IPosition, isBlock?: boolean): IPosition {
         if (p.Line > this.GetLastLineNum()) {
             return this.GetLastPosition();
         }
-        if(p.Char > this.contents[p.Line].length){
-            var np = new Position();
+        if (p.Char > this.contents[p.Line].length) {
+            let np = new Position();
             np.Line = p.Line;
             np.Char = this.contents[p.Line].length;
             return np;
@@ -183,9 +194,9 @@ export class VirtualEditor implements IEditor {
     }
 
     public Type(keystroke: string) {
-        var len = keystroke.length;
-        for (var i = 0; i < len; i++){
-            var k = keystroke.charAt(i);
+        let len = keystroke.length;
+        for (let i = 0; i < len; i++) {
+            let k = keystroke.charAt(i);
             switch (k) {
                 case "a":
                     this.VimStyle.PushKey(Key.a);

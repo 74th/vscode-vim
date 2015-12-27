@@ -23,10 +23,10 @@ interface IEditor {
     GetCurrentPosition(): IPosition;
     SetPosition(position: IPosition);
     GetLastPosition(): IPosition;
-    
+
     // Selection
     GetCurrentSelection(): IRange;
-    SetSelection(range:IRange);
+    SetSelection(range: IRange);
 
     // Document Info
     GetLastLineNum(): number;
@@ -74,7 +74,7 @@ interface IRegister {
 interface IPosition {
     Line: number;
     Char: number;
-    
+
     IsEqual(p: IPosition): boolean;
     IsBefore(p: IPosition): boolean;
     IsBeforeOrEqual(p: IPosition): boolean;
@@ -136,7 +136,7 @@ interface IKeyBindings {
 }
 
 interface IVimStyleOptions {
-    useErgonomicKeyForMotion: boolean
+    useErgonomicKeyForMotion: boolean;
 }
 
 declare const enum Key {
@@ -348,7 +348,7 @@ declare const enum CommandName {
     deleteToEndAction,
     yancToEndAction,
     doActionAtCurrentLine,
-    
+
     // visual mode
     enterVisualModeAction,
     expandSelectionAction,
