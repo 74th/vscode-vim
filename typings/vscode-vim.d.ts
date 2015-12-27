@@ -74,6 +74,13 @@ interface IRegister {
 interface IPosition {
     Line: number;
     Char: number;
+    
+    IsEqual(p: IPosition): boolean;
+    IsBefore(p: IPosition): boolean;
+    IsBeforeOrEqual(p: IPosition): boolean;
+    IsAfter(p: IPosition): boolean;
+    IsAfterOrEqual(p: IPosition): boolean;
+    Copy(): IPosition;
 }
 
 interface IRange {
@@ -81,6 +88,8 @@ interface IRange {
     end: IPosition;
 
     Sort(): void;
+    IsContain(p: IPosition): boolean;
+    Copy(): IRange;
 }
 
 interface IAction {

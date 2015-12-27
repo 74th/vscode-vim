@@ -24,6 +24,7 @@ export class VimStyle implements IVimStyle {
     public PushKey(key: Key) {
         switch (this.mode) {
             case VimMode.Normal:
+            case VimMode.Visual:
                 this.readCommand(key);
                 return;
             case VimMode.Insert:
@@ -96,6 +97,41 @@ export class Position implements IPosition {
         this.Line = line == undefined ? 0 : line;
         this.Char = char == undefined ? 0 : char;
     }
+    public Copy(): IPosition{
+        return new Position(this.Line, this.Char);
+    }
+    
+    public IsEqual(other: IPosition) {
+        return other.Line == this.Line && other.Char == this.Char;
+    }
+    
+    public IsBefore(other: IPosition) {
+        if (this.Line == other.Line) {
+            return this.Char < other.Char;
+        }
+        return this.Line < other.Line;
+    }
+    
+    public IsBeforeOrEqual(other: IPosition) {
+        if (this.Line == other.Line) {
+            return this.Char <= other.Char;
+        }
+        return this.Line < other.Line;
+    }
+    
+    public IsAfter(other: IPosition) {
+        if (this.Line == other.Line) {
+            return this.Char > other.Char;
+        }
+        return this.Line > other.Line;
+    }
+    
+    public IsAfterOrEqual(other: IPosition) {
+        if (this.Line == other.Line) {
+            return this.Char >= other.Char;
+        }
+        return this.Line > other.Line;
+    }
 }
 
 export class Range implements IRange {
@@ -121,5 +157,24 @@ export class Range implements IRange {
             this.start = this.end;
             this.end = b;
         }
+    }
+    
+    public IsContain(p: IPosition): boolean{
+        var r = this.Copy();
+        r.Sort();
+        if (p.Line < r.start.Line) return false;
+        if (r.end.Line < p.Line) return false;
+        if (p.Line == r.start.Line && p.Char < r.start.Char) return false;
+        if (p.Line == r.end.Line && r.end.Char < p.Char) return false;
+        return true;
+    }
+    
+    public Copy() :IRange {
+        var r = new Range();
+        r.start.Char = this.start.Char;
+        r.start.Line = this.start.Line;
+        r.end.Char = this.end.Char;
+        r.end.Line = this.end.Line;
+        return r;
     }
 }

@@ -632,19 +632,19 @@ const DefaultKeyBindings: IKeyBindings = {
             cmd: CommandName.deleteAction
         },
         "h": {
-            cmd: CommandName.moveRightAction,
+            cmd: CommandName.rightMotion,
             isReverse: true
         },
         "j": {
-            cmd: CommandName.moveLineAction
+            cmd: CommandName.lineMotion
         },
         "k": {
-            cmd: CommandName.moveLineAction,
+            cmd: CommandName.lineMotion,
             isReverse: true
         },
         // K no function
         "l": {
-            cmd: CommandName.moveRightAction
+            cmd: CommandName.rightMotion
         },
         "y": {
             cmd: CommandName.yancAction
