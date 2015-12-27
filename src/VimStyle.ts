@@ -49,16 +49,16 @@ export class VimStyle implements IVimStyle {
         this.setMode(VimMode.Insert);
         this.editor.ApplyInsertMode(p);
     }
-    
+
     public ApplyVisualMode() {
         this.setMode(VimMode.Visual);
         this.editor.ApplyVisualMode();
     }
-    
+
     public GetMode(): VimMode {
         return this.mode;
-    }    
-    
+    }
+
     public ApplyOptions(conf: IVimStyleOptions) {
         this.Options = conf;
         this.LoadKeyBinding();
@@ -83,7 +83,7 @@ export class VimStyle implements IVimStyle {
         this.mode = mode;
         this.editor.ShowModeStatus(this.mode);
     }
-    
+
     private LoadKeyBinding() {
         this.commandFactory.SetKeyBindings(LoadKeyBindings(this.Options));
     }

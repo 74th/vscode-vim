@@ -9,7 +9,7 @@ interface IEditor {
     InsertTextAtCurrentPosition(text: string);
     InsertCharactorAtCurrentPosition(char: string);
     Insert(position: IPosition, text: string);
-    DeleteRange(range: IRange,position?:IPosition);
+    DeleteRange(range: IRange, position?: IPosition);
     ReplaceRange(range: IRange, text: string);
 
     // Read Line

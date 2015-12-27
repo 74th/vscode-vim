@@ -15,7 +15,7 @@ class EditorAction {
     public Text: string;
 }
 
-export interface IVSCodeEditorOptions{
+export interface IVSCodeEditorOptions {
     showMode: boolean,
     isWinJisKeyboard: boolean,
     isMacJisKeyboard: boolean
@@ -55,7 +55,7 @@ export class VSCodeEditor implements IEditor {
         this.modeStatusBarItem.text = Utils.ModeToString(mode);
     }
 
-    public ApplyOptions(option:IVSCodeEditorOptions) {
+    public ApplyOptions(option: IVSCodeEditorOptions) {
         this.Options = option;
         this.Options.showMode ? this.modeStatusBarItem.show() : this.modeStatusBarItem.hide();
     }
@@ -277,7 +277,7 @@ export class VSCodeEditor implements IEditor {
         vscode.window.activeTextEditor.selection = s;
         this.selectionSetTime = new Date().getTime();
     }
-    
+
     public ApplyVisualMode() {
     }
 

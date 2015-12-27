@@ -73,7 +73,7 @@ This extension is to become more friendly with vscode and vim-keybinding!
 
 ## JISキーボードユーザへ
 
-VSCodeのキーバインドの不具合が見つかっています。tX、fXのアクションや、Insertモード中に入力できない文字があります。
+VSCodeのキーバインドの不具合が見つかっています。tX、fXのアクションできない文字があります。
 Windowsの場合は、`settings.json`に`vimStyle.useWinJisKeyboard:true`を設定してください。
 Macの場合は、`settings.json`に`vimStyle.useMacJisKeyboard:true`を設定してください。ただし、Macの場合完全には動作しません。
 

@@ -18,7 +18,7 @@ export function activate(context: vscode.ExtensionContext) {
         };
     }
     loadConfiguration();
-    
+
     var editor = new VSCodeEditor(editorOpt);
     context.subscriptions.push(editor);
     var vim = new VimStyle(editor, vimOpt);

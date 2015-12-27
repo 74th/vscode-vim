@@ -80,7 +80,7 @@ export class CommandFactory implements ICommandFactory {
     public GetCommandString(): string {
         return this.commandString;
     }
-    
+
     public SetKeyBindings(keyBindings: IKeyBindings) {
         this.keyBindings = keyBindings;
     }
