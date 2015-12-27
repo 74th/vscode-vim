@@ -1,4 +1,3 @@
-
 class KeyBindings implements IKeyBindings {
     AtStart: { [key: string]: IVimStyleCommand };
     FirstNum: { [key: string]: IVimStyleCommand };
@@ -7,7 +6,7 @@ class KeyBindings implements IKeyBindings {
     SmallG: { [key: string]: IVimStyleCommand };
     SmallGForMotion: { [key: string]: IVimStyleCommand };
 }
-export function LoadKeyBindings(vimStyle: IVimStyle): IKeyBindings{
+export function LoadKeyBindings(opts: IVimStyleOptions): IKeyBindings{
     var bindings: IKeyBindings = {
         AtStart: {},
         FirstNum: {},
@@ -17,25 +16,20 @@ export function LoadKeyBindings(vimStyle: IVimStyle): IKeyBindings{
         SmallGForMotion: {}
     }
     var key: string;
-    for (key in DefaultKeyBindings.AtStart) {
-        bindings.AtStart[key] = DefaultKeyBindings.AtStart[key];
-    }
-    for (key in DefaultKeyBindings.FirstNum) {
-        bindings.FirstNum[key] = DefaultKeyBindings.FirstNum[key];
-    }
-    for (key in DefaultKeyBindings.RequireMotion) {
-        bindings.RequireMotion[key] = DefaultKeyBindings.RequireMotion[key];
-    }
-    for (key in DefaultKeyBindings.RequireMotionNum) {
-        bindings.RequireMotionNum[key] = DefaultKeyBindings.RequireMotionNum[key];
-    }
-    for (key in DefaultKeyBindings.SmallG) {
-        bindings.SmallG[key] = DefaultKeyBindings.SmallG[key];
-    }
-    for (key in DefaultKeyBindings.SmallGForMotion) {
-        bindings.SmallGForMotion[key] = DefaultKeyBindings.SmallGForMotion[key];
-    }
+    applyKeyBindings(bindings.AtStart, DefaultKeyBindings.AtStart);
+    applyKeyBindings(bindings.FirstNum, DefaultKeyBindings.FirstNum);
+    applyKeyBindings(bindings.RequireMotion, DefaultKeyBindings.RequireMotion);
+    applyKeyBindings(bindings.RequireMotionNum, DefaultKeyBindings.RequireMotionNum);
+    applyKeyBindings(bindings.SmallG, DefaultKeyBindings.SmallG);
+    applyKeyBindings(bindings.SmallGForMotion, DefaultKeyBindings.SmallGForMotion);
     return bindings;
+}
+
+function applyKeyBindings(dest: { [key: string]: IVimStyleCommand }, src: { [key: string]: IVimStyleCommand }) {
+    var key: string;
+    for (key in src) {
+        dest[key] = src[key];
+    }
 }
 
 namespace DefaultKeyBindings {
