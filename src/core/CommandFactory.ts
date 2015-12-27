@@ -1,5 +1,4 @@
 import * as Utils from "../Utils";
-import {KeyBindings} from "./KeyBindings";
 import {ApplyInsertModeAction} from "../action/ApplyInsertModeAction";
 import {InsertLineBelowAction} from "../action/InsertLineBelowAction";
 import {PasteAction} from "../action/PasteAction";
@@ -18,6 +17,7 @@ export class CommandFactory implements ICommandFactory {
     private state: StateName;
     private action: IAction;
     private motion: FindCharacterMotion;
+    private keyBindings: IKeyBindings;
     private stackedKey: Key;
     private num: number;
     private commandString: string;
@@ -31,24 +31,24 @@ export class CommandFactory implements ICommandFactory {
         var command: IVimStyleCommand;
         switch (this.state) {
             case StateName.AtStart:
-                command = KeyBindings.AtStart[keyChar];
+                command = this.keyBindings.AtStart[keyChar];
                 break;
             case StateName.FirstNum:
-                command = KeyBindings.FirstNum[keyChar];
+                command = this.keyBindings.FirstNum[keyChar];
                 break;
             case StateName.RequireMotion:
-                command = KeyBindings.RequireMotion[keyChar];
+                command = this.keyBindings.RequireMotion[keyChar];
                 break;
             case StateName.RequireMotionNum:
-                command = KeyBindings.RequireMotionNum[keyChar];
+                command = this.keyBindings.RequireMotionNum[keyChar];
                 break;
             case StateName.RequireCharForMotion:
                 return this.pushKeyAtRequireCharForMotion(key);
             case StateName.SmallG:
-                command = KeyBindings.SmallG[keyChar];
+                command = this.keyBindings.SmallG[keyChar];
                 break;
             case StateName.SmallGForMotion:
-                command = KeyBindings.SmallGForMotion[keyChar];
+                command = this.keyBindings.SmallGForMotion[keyChar];
                 break;
         }
         if (command == undefined) {
@@ -79,6 +79,10 @@ export class CommandFactory implements ICommandFactory {
 
     public GetCommandString(): string {
         return this.commandString;
+    }
+    
+    public SetKeyBindings(keyBindings: IKeyBindings) {
+        this.keyBindings = keyBindings;
     }
 
     private createVimStyleCommand(key: Key, command: IVimStyleCommand) {

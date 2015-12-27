@@ -15,6 +15,12 @@ class EditorAction {
     public Text: string;
 }
 
+export interface IVSCodeEditorOptions{
+    showMode: boolean,
+    isWinJisKeyboard: boolean,
+    isMacJisKeyboard: boolean
+}
+
 export class VSCodeEditor implements IEditor {
     private modeStatusBarItem: vscode.StatusBarItem;
     private commandStatusBarItem: vscode.StatusBarItem;
@@ -22,19 +28,15 @@ export class VSCodeEditor implements IEditor {
 
     private selectionSetTime: number;
     private dummySpacePosition: vscode.Position;
+    public Options: IVSCodeEditorOptions;
 
     public constructor(options: IVSCodeEditorOptions) {
-        options = options || {
-            showMode: false
-        };
-
         this.modeStatusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
-        this.SetModeStatusVisibility(options.showMode);
-
         this.commandStatusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
-        this.commandStatusBarItem.show();
         this.selectionSetTime = 0;
         this.dummySpacePosition = null;
+        this.commandStatusBarItem.show();
+        this.ApplyOptions(options);
     }
 
     public SetVimStyle(vim: IVimStyle) {
@@ -53,8 +55,9 @@ export class VSCodeEditor implements IEditor {
         this.modeStatusBarItem.text = Utils.ModeToString(mode);
     }
 
-    public SetModeStatusVisibility(visible: boolean) {
-        visible ? this.modeStatusBarItem.show() : this.modeStatusBarItem.hide();
+    public ApplyOptions(option:IVSCodeEditorOptions) {
+        this.Options = option;
+        this.Options.showMode ? this.modeStatusBarItem.show() : this.modeStatusBarItem.hide();
     }
 
     // Edit
@@ -199,6 +202,10 @@ export class VSCodeEditor implements IEditor {
         if (this.vimStyle.GetMode() != VimMode.Normal) {
             // if insert mode, do nothing
             this.deleteNonCharLine();
+            return;
+        }
+        if (vscode.window.activeTextEditor == undefined) {
+            // do nothing
             return;
         }
         var s = vscode.window.activeTextEditor.selection;

@@ -41,14 +41,11 @@ interface IEditor {
     dispose(): void;
 }
 
-interface IVSCodeEditorOptions {
-    showMode?: boolean;
-}
-
 interface ICommandFactory {
     PushKey(key: Key): IAction;
     Clear(): void;
     GetCommandString(): string;
+    SetKeyBindings(IKeyBindings);
 }
 
 interface IMotion {
@@ -99,6 +96,7 @@ interface IMotion {
 
 interface IVimStyle {
     Register: IRegister;
+    Conf: IVimStyleOptions;
 
     PushKey(key: Key): void;
     PushEscKey(): void;
@@ -111,6 +109,19 @@ interface IVimStyleCommand {
     state?: StateName;
     isReverse?: boolean;
     cmd: CommandName;
+}
+
+interface IKeyBindings {
+    AtStart: { [key: string]: IVimStyleCommand };
+    FirstNum: { [key: string]: IVimStyleCommand };
+    RequireMotion: { [key: string]: IVimStyleCommand };
+    RequireMotionNum: { [key: string]: IVimStyleCommand };
+    SmallG: { [key: string]: IVimStyleCommand };
+    SmallGForMotion: { [key: string]: IVimStyleCommand };
+}
+
+interface IVimStyleOptions {
+    useErgonomicKeyForMotion: boolean
 }
 
 declare const enum Key {

@@ -1,4 +1,5 @@
 import {CommandFactory} from "./core/CommandFactory";
+import {LoadKeyBindings} from "./core/KeyBindings";
 import {InsertModeExecute} from "./mode/InsertMode";
 import * as Utils from "./Utils";
 import {Register} from "./core/Register";
@@ -8,14 +9,16 @@ export class VimStyle implements IVimStyle {
     private mode: VimMode;
     private editor: IEditor;
     private commandFactory: ICommandFactory;
+    public Conf: IVimStyleOptions;
     public Register: IRegister;
 
-    constructor(editor: IEditor) {
+    constructor(editor: IEditor, conf: IVimStyleOptions) {
         this.editor = editor;
         editor.SetVimStyle(this);
         this.setMode(VimMode.Normal);
         this.commandFactory = new CommandFactory();
         this.Register = new Register();
+        this.ApplyOptions(conf);
     }
 
     public PushKey(key: Key) {
@@ -48,6 +51,15 @@ export class VimStyle implements IVimStyle {
         this.setMode(VimMode.Visual);
         this.editor.ApplyVisualMode();
     }
+    
+    public GetMode(): VimMode {
+        return this.mode;
+    }    
+    
+    public ApplyOptions(conf: IVimStyleOptions) {
+        this.Conf = conf;
+        this.LoadKeyBinding();
+    }
 
     private readCommand(key: Key) {
         var action = this.commandFactory.PushKey(key);
@@ -68,9 +80,9 @@ export class VimStyle implements IVimStyle {
         this.mode = mode;
         this.editor.ShowModeStatus(this.mode);
     }
-
-    public GetMode(): VimMode {
-        return this.mode;
+    
+    private LoadKeyBinding() {
+        this.commandFactory.SetKeyBindings(LoadKeyBindings(this));
     }
 }
 

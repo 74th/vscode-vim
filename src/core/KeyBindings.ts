@@ -1,5 +1,44 @@
 
-export namespace KeyBindings {
+class KeyBindings implements IKeyBindings {
+    AtStart: { [key: string]: IVimStyleCommand };
+    FirstNum: { [key: string]: IVimStyleCommand };
+    RequireMotion: { [key: string]: IVimStyleCommand };
+    RequireMotionNum: { [key: string]: IVimStyleCommand };
+    SmallG: { [key: string]: IVimStyleCommand };
+    SmallGForMotion: { [key: string]: IVimStyleCommand };
+}
+export function LoadKeyBindings(vimStyle: IVimStyle): IKeyBindings{
+    var bindings: IKeyBindings = {
+        AtStart: {},
+        FirstNum: {},
+        RequireMotion: {},
+        RequireMotionNum: {},
+        SmallG: {},
+        SmallGForMotion: {}
+    }
+    var key: string;
+    for (key in DefaultKeyBindings.AtStart) {
+        bindings.AtStart[key] = DefaultKeyBindings.AtStart[key];
+    }
+    for (key in DefaultKeyBindings.FirstNum) {
+        bindings.FirstNum[key] = DefaultKeyBindings.FirstNum[key];
+    }
+    for (key in DefaultKeyBindings.RequireMotion) {
+        bindings.RequireMotion[key] = DefaultKeyBindings.RequireMotion[key];
+    }
+    for (key in DefaultKeyBindings.RequireMotionNum) {
+        bindings.RequireMotionNum[key] = DefaultKeyBindings.RequireMotionNum[key];
+    }
+    for (key in DefaultKeyBindings.SmallG) {
+        bindings.SmallG[key] = DefaultKeyBindings.SmallG[key];
+    }
+    for (key in DefaultKeyBindings.SmallGForMotion) {
+        bindings.SmallGForMotion[key] = DefaultKeyBindings.SmallGForMotion[key];
+    }
+    return bindings;
+}
+
+namespace DefaultKeyBindings {
     export var AtStart: { [key: string]: IVimStyleCommand } = {
         "a": {
             cmd: CommandName.appendCurrentPositionAction
