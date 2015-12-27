@@ -36,6 +36,9 @@ export class VimStyle implements IVimStyle {
         if (this.mode == VimMode.Insert && p.Char > 0) {
             p.Char -= 1;
         }
+        if (this.mode == VimMode.Visual && p.Char > 0) {
+            p.Char -= 1;
+        }
         this.setMode(VimMode.Normal);
         this.commandFactory.Clear();
         this.editor.CloseCommandStatus();
