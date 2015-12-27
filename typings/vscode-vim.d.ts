@@ -96,7 +96,7 @@ interface IMotion {
 
 interface IVimStyle {
     Register: IRegister;
-    Conf: IVimStyleOptions;
+    Options: IVimStyleOptions;
 
     PushKey(key: Key): void;
     PushEscKey(): void;

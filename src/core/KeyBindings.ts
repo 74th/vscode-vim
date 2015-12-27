@@ -6,34 +6,36 @@ class KeyBindings implements IKeyBindings {
     SmallG: { [key: string]: IVimStyleCommand };
     SmallGForMotion: { [key: string]: IVimStyleCommand };
 }
-export function LoadKeyBindings(opts: IVimStyleOptions): IKeyBindings{
-    var bindings: IKeyBindings = {
-        AtStart: {},
-        FirstNum: {},
-        RequireMotion: {},
-        RequireMotionNum: {},
-        SmallG: {},
-        SmallGForMotion: {}
-    }
-    var key: string;
-    applyKeyBindings(bindings.AtStart, DefaultKeyBindings.AtStart);
-    applyKeyBindings(bindings.FirstNum, DefaultKeyBindings.FirstNum);
-    applyKeyBindings(bindings.RequireMotion, DefaultKeyBindings.RequireMotion);
-    applyKeyBindings(bindings.RequireMotionNum, DefaultKeyBindings.RequireMotionNum);
-    applyKeyBindings(bindings.SmallG, DefaultKeyBindings.SmallG);
-    applyKeyBindings(bindings.SmallGForMotion, DefaultKeyBindings.SmallGForMotion);
-    return bindings;
-}
 
-function applyKeyBindings(dest: { [key: string]: IVimStyleCommand }, src: { [key: string]: IVimStyleCommand }) {
+function applyKeyBindingsByEachState(dest: { [key: string]: IVimStyleCommand }, src: { [key: string]: IVimStyleCommand }) {
     var key: string;
     for (key in src) {
         dest[key] = src[key];
     }
 }
+function applyKeyBindings(dest: IKeyBindings, src: IKeyBindings) {
+    if (dest.AtStart) {
+        applyKeyBindingsByEachState(dest.AtStart, src.AtStart);
+    }
+    if (dest.FirstNum) {
+        applyKeyBindingsByEachState(dest.FirstNum, src.FirstNum);
+    }
+    if (dest.RequireMotion) {
+        applyKeyBindingsByEachState(dest.RequireMotion, src.RequireMotion);
+    }
+    if (dest.RequireMotionNum) {
+        applyKeyBindingsByEachState(dest.RequireMotionNum, src.RequireMotionNum);
+    }
+    if (dest.SmallG) {
+        applyKeyBindingsByEachState(dest.SmallG, src.SmallG);
+    }
+    if (dest.SmallGForMotion) {
+        applyKeyBindingsByEachState(dest.SmallGForMotion, src.SmallGForMotion);
+    }
+}
 
-namespace DefaultKeyBindings {
-    export var AtStart: { [key: string]: IVimStyleCommand } = {
+const DefaultKeyBindings: IKeyBindings = {
+    AtStart: {
         "a": {
             cmd: CommandName.appendCurrentPositionAction
         },
@@ -200,10 +202,10 @@ namespace DefaultKeyBindings {
         "$": {
             cmd: CommandName.moveEndAction
         }
-    };
+    },
 
     // Nx
-    export var FirstNum: { [key: string]: IVimStyleCommand } = {
+    FirstNum: {
         // Na low priority
         // NA low priority
         "b": {
@@ -333,10 +335,10 @@ namespace DefaultKeyBindings {
             state: StateName.FirstNum
         },
         // $ ?
-    };
+    },
 
     // cm
-    export var RequireMotion: { [key: string]: IVimStyleCommand } = {
+    RequireMotion: {
         // da
         // dA
         "b": {
@@ -469,10 +471,10 @@ namespace DefaultKeyBindings {
         "$": {
             cmd: CommandName.endMotion
         }
-    };
+    },
 
     // cNm
-    export var RequireMotionNum: { [key: string]: IVimStyleCommand } = {
+    RequireMotionNum: {
         // da
         // dA
         "b": {
@@ -599,19 +601,56 @@ namespace DefaultKeyBindings {
             state: StateName.RequireMotionNum
         },
         // $?
-    };
+    },
 
     // g
-    export var SmallG: { [key: string]: IVimStyleCommand } = {
+    SmallG: {
         "g": {
             cmd: CommandName.moveFirstLineAction
         }
-    };
+    },
 
     // cg
-    export var SmallGForMotion: { [key: string]: IVimStyleCommand } = {
+    SmallGForMotion: {
         "g": {
             cmd: CommandName.firstLineMotion
         }
-    };
+    }
+}
+
+// move a cursur by jkl; keys
+const ErgonomicKeyBindings: IKeyBindings = {
+    AtStart: {
+        'j': DefaultKeyBindings.AtStart['h'],
+        'k': DefaultKeyBindings.AtStart['j'],
+        'l': DefaultKeyBindings.AtStart['k'],
+        ';': DefaultKeyBindings.AtStart['l']
+    },
+    FirstNum: null,
+    RequireMotion: {
+        'j': DefaultKeyBindings.RequireMotion['h'],
+        'k': DefaultKeyBindings.RequireMotion['j'],
+        'l': DefaultKeyBindings.RequireMotion['k'],
+        ';': DefaultKeyBindings.RequireMotion['l']
+    },
+    RequireMotionNum: null,
+    SmallG: null,
+    SmallGForMotion: null
+}
+
+export function LoadKeyBindings(opts: IVimStyleOptions): IKeyBindings {
+    var bindings: IKeyBindings = {
+        AtStart: {},
+        FirstNum: {},
+        RequireMotion: {},
+        RequireMotionNum: {},
+        SmallG: {},
+        SmallGForMotion: {}
+    }
+    var key: string;
+    applyKeyBindings(bindings, DefaultKeyBindings);
+    if (opts.useErgonomicKeyForMotion) {
+        applyKeyBindings(bindings, ErgonomicKeyBindings);
+    }
+    return bindings;
 }

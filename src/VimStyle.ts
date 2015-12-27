@@ -9,7 +9,7 @@ export class VimStyle implements IVimStyle {
     private mode: VimMode;
     private editor: IEditor;
     private commandFactory: ICommandFactory;
-    public Conf: IVimStyleOptions;
+    public Options: IVimStyleOptions;
     public Register: IRegister;
 
     constructor(editor: IEditor, conf: IVimStyleOptions) {
@@ -60,7 +60,7 @@ export class VimStyle implements IVimStyle {
     }    
     
     public ApplyOptions(conf: IVimStyleOptions) {
-        this.Conf = conf;
+        this.Options = conf;
         this.LoadKeyBinding();
     }
 
@@ -85,7 +85,7 @@ export class VimStyle implements IVimStyle {
     }
     
     private LoadKeyBinding() {
-        this.commandFactory.SetKeyBindings(LoadKeyBindings(this));
+        this.commandFactory.SetKeyBindings(LoadKeyBindings(this.Options));
     }
 }
 

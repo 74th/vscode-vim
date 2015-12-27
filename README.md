@@ -32,6 +32,8 @@ If you needs optional settings, please copy belong json and paste to your `setti
 "vimStyle.useWinJisKeyboard": true,
 // Mac JIS Keyboard(default: false)
 "vimStyle.useMacJisKeyboard": true,
+// motion with jkl;(default: false)
+"vimStyle.useErgonomicKeyForMotion": true,
 ```
 
 ## never support
@@ -80,6 +82,10 @@ Macの場合は、`settings.json`に`vimStyle.useMacJisKeyboard:true`を設定�
 MIT License
 
 ## update
+
+### 0.2.3
+
+* support `useErgonomicKeyForMotion` option : move a cursur by `jkl;`
 
 ### 0.2.2
 
