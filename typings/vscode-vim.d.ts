@@ -107,6 +107,12 @@ interface IVimStyle {
     GetMode(): VimMode;
 }
 
+interface IVimStyleCommand {
+    state?: StateName;
+    isReverse?: boolean;
+    cmd: CommandName;
+}
+
 declare const enum Key {
     a,
     b,
