@@ -59,6 +59,9 @@ export class VimStyle implements IVimStyle {
     public GetMode(): VimMode {
         return this.mode;
     }
+    public ApplyNormalMode() {
+        this.setMode(VimMode.Normal);
+    }
 
     public ApplyOptions(conf: IVimStyleOptions) {
         this.Options = conf;

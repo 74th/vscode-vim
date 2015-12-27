@@ -223,6 +223,16 @@ export class CommandFactory implements ICommandFactory {
                 return;
             case CommandName.deleteSelectionAction:
                 this.deleteSelectionAction();
+                return;
+            case CommandName.changeSelectionAction:
+                this.changeSelectionAction();
+                return;
+            case CommandName.deleteSelectionAction:
+                this.deleteSelectionAction();
+                return;
+            case CommandName.yancSelectionAction:
+                this.yancSelectionAction();
+                return;
 
             // other
             case CommandName.stackNumber:
@@ -614,8 +624,22 @@ export class CommandFactory implements ICommandFactory {
         this.action = new ApplyVisualModeAction();
     }
     
+    // v...c
+    private changeSelectionAction() {
+        var a = new DeleteSelectionAction();
+        a.SetChangeOption();
+        this.action = a;
+    }
+    
     // v...d
     private deleteSelectionAction() {
         this.action = new DeleteSelectionAction();
+    }
+    
+    // v...y
+    private yancSelectionAction() {
+        var a = new DeleteSelectionAction();
+        a.SetOnlyYancOption();
+        this.action = a;
     }
 }

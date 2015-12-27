@@ -363,4 +363,5 @@ function selectNeiborPosition(doc: vscode.TextDocument, p: vscode.Position, toRi
             return np;
         }
     }
+    return new vscode.Position(p.line, p.character + 1);
 }

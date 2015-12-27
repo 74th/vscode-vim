@@ -113,6 +113,7 @@ interface IVimStyle {
 
     PushKey(key: Key): void;
     PushEscKey(): void;
+    ApplyNormalMode();
     ApplyInsertMode(p?: IPosition): void;
     ApplyVisualMode(): void;
     GetMode(): VimMode;
@@ -351,7 +352,9 @@ declare const enum CommandName {
     // visual mode
     enterVisualModeAction,
     expandSelectionAction,
+    changeSelectionAction,
     deleteSelectionAction,
+    yancSelectionAction,
 
     // other
     stackNumber,

@@ -626,10 +626,10 @@ const DefaultKeyBindings: IKeyBindings = {
     // v
     VisualMode: {
         "c": {
-            cmd: CommandName.changeAction
+            cmd: CommandName.changeSelectionAction
         },
         "d": {
-            cmd: CommandName.deleteAction
+            cmd: CommandName.deleteSelectionAction
         },
         "h": {
             cmd: CommandName.rightMotion,
@@ -647,7 +647,7 @@ const DefaultKeyBindings: IKeyBindings = {
             cmd: CommandName.rightMotion
         },
         "y": {
-            cmd: CommandName.yancAction
+            cmd: CommandName.yancSelectionAction
         }
     }
 }
