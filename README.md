@@ -20,6 +20,7 @@ ext install vimStyle
 * h j k l 0 $ w b tx fx Tx Fx gg G
 * i a s o x I A S O X
 * d y c dd yy cc Ndd Nyy Ncc D C p P
+* v
 
 ## settings
 
@@ -50,13 +51,12 @@ This extension is to become more friendly with vscode and vim-keybinding!
 ## future suppprt
 
 * r
-* v
 * ; ,
 * J
+* V
 * { }
 * "xd "xy "xc "xp
 * ~
-* > <
 * % [ ]
 * + -
 * additional key-binding from settings.json
@@ -66,6 +66,7 @@ This extension is to become more friendly with vscode and vim-keybinding!
 
 * . (can't do with IntelliSence)
 * = (`>Format Code`)
+* > <(can use `Tab` and  `Shift-Tab`)
 * *
 * m `
 * q @ (can't use with IntelliSence)
@@ -86,7 +87,7 @@ MIT License
 ### 0.2.3
 
 * support `useErgonomicKeyForMotion` option : move a cursur by `jkl;`
-* support mouse visual mode
+* support visual mode
 
 ### 0.2.2
 
