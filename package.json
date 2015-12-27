@@ -43,6 +43,11 @@
                     "type": "boolean",
                     "default": false,
                     "description": "Show mode in status bar"
+                },
+                "vimStyle.useErgonomicKeyForMotion": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "move a cursor by `jkl;` keys"
                 }
             }
         },
