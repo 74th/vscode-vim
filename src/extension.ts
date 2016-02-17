@@ -1,29 +1,32 @@
 import * as vscode from "vscode";
 import {VimStyle} from "./VimStyle";
-import {VSCodeEditor} from "./VSCodeEditor";
+import {VSCodeEditor, IVSCodeEditorOptions} from "./VSCodeEditor";
 
 export function activate(context: vscode.ExtensionContext) {
 
-    var conf = vscode.workspace.getConfiguration("vimStyle");
-    var isWinJisKeyboard = conf.get<boolean>("useWinJisKeyboard", false);
-    var isMacJisKeyboard = conf.get<boolean>("useMacJisKeyboard", false);
-    var showMode = conf.get<boolean>("showMode", false);
+    let editorOpt: IVSCodeEditorOptions;
+    let vimOpt: IVimStyleOptions;
+    function loadConfiguration() {
+        let conf = vscode.workspace.getConfiguration("vimStyle");
+        editorOpt = {
+            isWinJisKeyboard: conf.get<boolean>("useWinJisKeyboard", false),
+            isMacJisKeyboard: conf.get<boolean>("useMacJisKeyboard", false),
+            showMode: conf.get<boolean>("showMode", false)
+        };
+        vimOpt = {
+            useErgonomicKeyForMotion: conf.get<boolean>("useErgonomicKeyForMotion", false)
+        };
+    }
+    loadConfiguration();
 
-    var editor = new VSCodeEditor({
-        showMode: showMode
-    });
-
-    var vim = new VimStyle(editor);
-
+    let editor = new VSCodeEditor(editorOpt);
     context.subscriptions.push(editor);
+    let vim = new VimStyle(editor, vimOpt);
 
-    var disposable = vscode.workspace.onDidChangeConfiguration(() => {
-        conf = vscode.workspace.getConfiguration("vimStyle");
-        isWinJisKeyboard = conf.get<boolean>("useWinJisKeyboard", false);
-        isMacJisKeyboard = conf.get<boolean>("useMacJisKeyboard", false);
-        showMode = conf.get<boolean>("showMode", false);
-
-        editor.SetModeStatusVisibility(showMode);
+    let disposable = vscode.workspace.onDidChangeConfiguration(() => {
+        loadConfiguration();
+        vim.ApplyOptions(vimOpt);
+        editor.ApplyOptions(editorOpt);
     });
     context.subscriptions.push(disposable);
     disposable = vscode.window.onDidChangeActiveTextEditor((textEditor) => {
@@ -284,7 +287,7 @@ export function activate(context: vscode.ExtensionContext) {
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand("vim.GA", () => {
-        if (isWinJisKeyboard) {
+        if (editor.Options.isWinJisKeyboard) {
             // @
             vim.PushKey(Key.AtMark);
         } else {
@@ -294,7 +297,7 @@ export function activate(context: vscode.ExtensionContext) {
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand("vim.SGA", () => {
-        if (isWinJisKeyboard) {
+        if (editor.Options.isWinJisKeyboard) {
             // `
             vim.PushKey(Key.GraveAccent);
         } else {
@@ -309,7 +312,7 @@ export function activate(context: vscode.ExtensionContext) {
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand("vim.S2", () => {
-        if (isWinJisKeyboard) {
+        if (editor.Options.isWinJisKeyboard) {
             // "
             vim.PushKey(Key.Quotation);
         } else {
@@ -334,7 +337,7 @@ export function activate(context: vscode.ExtensionContext) {
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand("vim.S6", () => {
-        if (isWinJisKeyboard || isMacJisKeyboard) {
+        if (editor.Options.isWinJisKeyboard || editor.Options.isMacJisKeyboard) {
             // &
             vim.PushKey(Key.Ampersand);
         } else {
@@ -344,7 +347,7 @@ export function activate(context: vscode.ExtensionContext) {
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand("vim.S7", () => {
-        if (isWinJisKeyboard) {
+        if (editor.Options.isWinJisKeyboard) {
             // "
             vim.PushKey(Key.Apostrophe);
         } else {
@@ -354,7 +357,7 @@ export function activate(context: vscode.ExtensionContext) {
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand("vim.S8", () => {
-        if (isWinJisKeyboard || isMacJisKeyboard) {
+        if (editor.Options.isWinJisKeyboard || editor.Options.isMacJisKeyboard) {
             // (
             vim.PushKey(Key.LeftParenthesis);
         } else {
@@ -364,7 +367,7 @@ export function activate(context: vscode.ExtensionContext) {
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand("vim.S9", () => {
-        if (isWinJisKeyboard || isMacJisKeyboard) {
+        if (editor.Options.isWinJisKeyboard || editor.Options.isMacJisKeyboard) {
             // )
             vim.PushKey(Key.RightParenthesis);
         } else {
@@ -374,7 +377,7 @@ export function activate(context: vscode.ExtensionContext) {
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand("vim.S0", () => {
-        if (isWinJisKeyboard) {
+        if (editor.Options.isWinJisKeyboard) {
             // _
             vim.PushKey(Key.LowLine);
         } else {
@@ -388,7 +391,7 @@ export function activate(context: vscode.ExtensionContext) {
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand("vim.SHp", () => {
-        if (isWinJisKeyboard) {
+        if (editor.Options.isWinJisKeyboard) {
             // =
             vim.PushKey(Key.Equals);
         } else {
@@ -398,10 +401,10 @@ export function activate(context: vscode.ExtensionContext) {
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand("vim.Eq", () => {
-        if (isWinJisKeyboard) {
+        if (editor.Options.isWinJisKeyboard) {
             // ;
             vim.PushKey(Key.Semicolon);
-        } else if (isMacJisKeyboard) {
+        } else if (editor.Options.isMacJisKeyboard) {
             // ^
             vim.PushKey(Key.CircumflexAccent);
         } else {
@@ -448,7 +451,7 @@ export function activate(context: vscode.ExtensionContext) {
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand("vim.Sc", () => {
-        if (isWinJisKeyboard) {
+        if (editor.Options.isWinJisKeyboard) {
             // :
             vim.PushKey(Key.Colon);
         } else {
@@ -459,7 +462,7 @@ export function activate(context: vscode.ExtensionContext) {
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand("vim.SSc", () => {
-        if (isWinJisKeyboard) {
+        if (editor.Options.isWinJisKeyboard) {
             // *
             vim.PushKey(Key.Asterisk);
         } else {
@@ -469,7 +472,7 @@ export function activate(context: vscode.ExtensionContext) {
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand("vim.Ap", () => {
-        if (isWinJisKeyboard) {
+        if (editor.Options.isWinJisKeyboard) {
             // ^
             vim.PushKey(Key.CircumflexAccent);
         } else {
@@ -479,7 +482,7 @@ export function activate(context: vscode.ExtensionContext) {
     });
     context.subscriptions.push(disposable);
     disposable = vscode.commands.registerCommand("vim.SAp", () => {
-        if (isWinJisKeyboard) {
+        if (editor.Options.isWinJisKeyboard) {
             // ~
             vim.PushKey(Key.Tilde);
         } else {

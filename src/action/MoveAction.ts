@@ -11,13 +11,13 @@ export class MoveAction implements IAction {
     }
 
     public Execute(editor: IEditor, vim: IVimStyle) {
-        var from = editor.GetCurrentPosition();
-        var to = this.motion.CalculateEnd(editor, from);
+        let from = editor.GetCurrentPosition();
+        let to = this.motion.CalculateEnd(editor, from);
         if (to == null) {
             // cancel
             return;
         }
-        if (from.Char == to.Char && from.Line == to.Line) {
+        if (from.Char === to.Char && from.Line === to.Line) {
             // not move
             return;
         }

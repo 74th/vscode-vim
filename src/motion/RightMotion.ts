@@ -15,8 +15,8 @@ export class RightMotion extends AbstractMotion {
     }
 
     public CalculateEnd(editor: IEditor, start: IPosition): IPosition {
-        var line = editor.ReadLineAtCurrentPosition();
-        var end = new Position();
+        let line = editor.ReadLineAtCurrentPosition();
+        let end = new Position();
         end.Line = start.Line;
         if (this.isLeftDirection) {
             end.Char = start.Char - this.GetCount();

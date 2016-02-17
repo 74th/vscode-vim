@@ -9,7 +9,7 @@ interface IEditor {
     InsertTextAtCurrentPosition(text: string);
     InsertCharactorAtCurrentPosition(char: string);
     Insert(position: IPosition, text: string);
-    DeleteRange(range: IRange,position?:IPosition);
+    DeleteRange(range: IRange, position?: IPosition);
     ReplaceRange(range: IRange, text: string);
 
     // Read Line
@@ -24,6 +24,10 @@ interface IEditor {
     SetPosition(position: IPosition);
     GetLastPosition(): IPosition;
 
+    // Selection
+    GetCurrentSelection(): IRange;
+    SetSelection(range: IRange);
+
     // Document Info
     GetLastLineNum(): number;
 
@@ -33,6 +37,7 @@ interface IEditor {
     // set modes
     ApplyNormalMode(cursor?: IPosition, isLineHasNoChar?: boolean, isLastLine?: boolean);
     ApplyInsertMode(p: IPosition);
+    ApplyVisualMode();
 
     // check invalid position
     UpdateValidPosition(p: IPosition, isBlock?: boolean): IPosition;
@@ -40,14 +45,11 @@ interface IEditor {
     dispose(): void;
 }
 
-interface IVSCodeEditorOptions {
-    showMode?: boolean;
-}
-
 interface ICommandFactory {
-    PushKey(key: Key): IAction;
+    PushKey(key: Key, mode: VimMode): IAction;
     Clear(): void;
     GetCommandString(): string;
+    SetKeyBindings(IKeyBindings);
 }
 
 interface IMotion {
@@ -72,6 +74,13 @@ interface IRegister {
 interface IPosition {
     Line: number;
     Char: number;
+
+    IsEqual(p: IPosition): boolean;
+    IsBefore(p: IPosition): boolean;
+    IsBeforeOrEqual(p: IPosition): boolean;
+    IsAfter(p: IPosition): boolean;
+    IsAfterOrEqual(p: IPosition): boolean;
+    Copy(): IPosition;
 }
 
 interface IRange {
@@ -79,6 +88,8 @@ interface IRange {
     end: IPosition;
 
     Sort(): void;
+    IsContain(p: IPosition): boolean;
+    Copy(): IRange;
 }
 
 interface IAction {
@@ -98,11 +109,34 @@ interface IMotion {
 
 interface IVimStyle {
     Register: IRegister;
+    Options: IVimStyleOptions;
 
     PushKey(key: Key): void;
     PushEscKey(): void;
+    ApplyNormalMode();
     ApplyInsertMode(p?: IPosition): void;
+    ApplyVisualMode(): void;
     GetMode(): VimMode;
+}
+
+interface IVimStyleCommand {
+    state?: StateName;
+    isReverse?: boolean;
+    cmd: CommandName;
+}
+
+interface IKeyBindings {
+    AtStart: { [key: string]: IVimStyleCommand };
+    FirstNum: { [key: string]: IVimStyleCommand };
+    RequireMotion: { [key: string]: IVimStyleCommand };
+    RequireMotionNum: { [key: string]: IVimStyleCommand };
+    SmallG: { [key: string]: IVimStyleCommand };
+    SmallGForMotion: { [key: string]: IVimStyleCommand };
+    VisualMode: { [key: string]: IVimStyleCommand };
+}
+
+interface IVimStyleOptions {
+    useErgonomicKeyForMotion: boolean;
 }
 
 declare const enum Key {
@@ -265,5 +299,76 @@ declare const enum KeyClass {
 
 declare const enum VimMode {
     Normal,
-    Insert
+    Insert,
+    Visual
+}
+
+declare const enum CommandName {
+
+    // single action
+    insertCurrentPositionAction,
+    appendCurrentPositionAction,
+    insertHomeAction,
+    appendEndAction,
+    insertLineBelowAction,
+    deleteCharacterAction,
+    changeCharacterAction,
+    changeLineAction,
+    pasteBelowAction,
+
+    // move action
+    moveRightAction,
+    moveLineAction,
+    moveWordAction,
+    moveHomeAction,
+    moveEndAction,
+    moveFindCharacterAction,
+    moveTillCharacterAction,
+    moveGotoLineAction,
+    moveLastLineAction,
+    moveFirstLineAction,
+
+    // motion
+    rightMotion,
+    lineMotion,
+    wordMotion,
+    homeMotion,
+    endMotion,
+    findCharacterMotion,
+    tillCharacterMotion,
+    gotoLineMotion,
+    lastLineMotion,
+    firstLineMotion,
+
+    // delete, yanc, change action
+    changeAction,
+    deleteAction,
+    yancAction,
+    changeToEndAction,
+    deleteToEndAction,
+    yancToEndAction,
+    doActionAtCurrentLine,
+
+    // visual mode
+    enterVisualModeAction,
+    expandSelectionAction,
+    changeSelectionAction,
+    deleteSelectionAction,
+    yancSelectionAction,
+
+    // other
+    stackNumber,
+    nothing
+}
+
+declare const enum StateName {
+    AtStart,
+    FirstNum,
+    RequireMotion,
+    RequireMotionNum,
+    RequireCharForMotion,
+    SmallG,
+    SmallGForMotion,
+    VisualMode,
+    Panic
 }

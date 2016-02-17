@@ -15,7 +15,7 @@ export class DownMotion extends AbstractMotion {
     }
 
     public CalculateEnd(editor: IEditor, start: IPosition): IPosition {
-        var end = new Position();
+        let end = new Position();
         end.Char = start.Char;
         if (this.isUpDirection) {
             end.Line = start.Line - this.GetCount();

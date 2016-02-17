@@ -20,6 +20,7 @@ ext install vimStyle
 * h j k l 0 $ w b tx fx Tx Fx gg G
 * i a s o x I A S O X
 * d y c dd yy cc Ndd Nyy Ncc D C p P
+* v
 
 ## settings
 
@@ -32,6 +33,8 @@ If you needs optional settings, please copy belong json and paste to your `setti
 "vimStyle.useWinJisKeyboard": true,
 // Mac JIS Keyboard(default: false)
 "vimStyle.useMacJisKeyboard": true,
+// motion with jkl;(default: false)
+"vimStyle.useErgonomicKeyForMotion": true,
 ```
 
 ## never support
@@ -49,13 +52,12 @@ This extension is to become more friendly with vscode and vim-keybinding!
 ## future suppprt
 
 * r
-* v
 * ; ,
 * J
+* V
 * { }
 * "xd "xy "xc "xp
 * ~
-* > <
 * % [ ]
 * + -
 * additional key-binding from settings.json
@@ -65,13 +67,14 @@ This extension is to become more friendly with vscode and vim-keybinding!
 
 * . (can't do with IntelliSence)
 * = (`>Format Code`)
+* > <(can use `Tab` and  `Shift-Tab`)
 * *
 * m `
 * ...
 
 ## JISキーボードユーザへ
 
-VSCodeのキーバインドの不具合が見つかっています。tX、fXのアクションや、Insertモード中に入力できない文字があります。
+VSCodeのキーバインドの不具合が見つかっています。tX、fXのアクションできない文字があります。
 Windowsの場合は、`settings.json`に`vimStyle.useWinJisKeyboard:true`を設定してください。
 Macの場合は、`settings.json`に`vimStyle.useMacJisKeyboard:true`を設定してください。ただし、Macの場合完全には動作しません。
 
@@ -80,6 +83,11 @@ Macの場合は、`settings.json`に`vimStyle.useMacJisKeyboard:true`を設定�
 MIT License
 
 ## update
+
+### 0.2.3
+
+* support `useErgonomicKeyForMotion` option : move a cursur by `jkl;`
+* support visual mode
 
 ### 0.2.2
 

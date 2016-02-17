@@ -12,7 +12,7 @@
         "type": "git",
         "url": "https://github.com/74th/vscode-vim.git"
     },
-    "version": "0.2.2",
+    "version": "0.2.3",
     "publisher": "74th",
     "engines": {
         "vscode": "^0.10.1"
@@ -41,8 +41,13 @@
                 },
                 "vimStyle.showMode": {
                     "type": "boolean",
-                    "default": false,
+                    "default": true,
                     "description": "Show mode in status bar"
+                },
+                "vimStyle.useErgonomicKeyForMotion": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "move a cursor by `jkl;` keys"
                 }
             }
         },

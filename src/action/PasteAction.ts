@@ -24,7 +24,7 @@ export class PasteAction implements IAction {
     }
 
     public Execute(editor: IEditor, vim: IVimStyle) {
-        var item: IRegisterItem;
+        let item: IRegisterItem;
         if (this.registerKey == null) {
             item = vim.Register.GetUnName();
         } else {
@@ -33,9 +33,9 @@ export class PasteAction implements IAction {
         if (item == null) {
             return;
         }
-        var content = item.Body;
-        var cp = editor.GetCurrentPosition();
-        if (item.Type == RegisterType.Text) {
+        let content = item.Body;
+        let cp = editor.GetCurrentPosition();
+        if (item.Type === RegisterType.Text) {
             if (this.isPrev) {
                 // paste before posision character
                 editor.InsertTextAtCurrentPosition(item.Body);
@@ -43,7 +43,7 @@ export class PasteAction implements IAction {
                 return;
             }
             // paste after position charactor
-            var np = new Position();
+            let np = new Position();
             np.Char = cp.Char + 1;
             np.Line = cp.Line;
             editor.Insert(np, content);
@@ -51,7 +51,7 @@ export class PasteAction implements IAction {
             return;
         } else {
             // line Paste
-            var np = new Position();
+            let np = new Position();
             np.Char = 0;
             if (this.isPrev) {
                 // paste at home of current position¥
@@ -59,10 +59,10 @@ export class PasteAction implements IAction {
             } else {
                 // paste at next line
                 np.Line = cp.Line + 1;
-                if (cp.Line == editor.GetLastLineNum()) {
+                if (cp.Line === editor.GetLastLineNum()) {
                     // next line is last
                     content = "\n" + content.substring(0, content.length - 1);
-                    var lp = editor.GetLastPosition();
+                    let lp = editor.GetLastPosition();
                     editor.Insert(lp, content);
                     editor.SetPosition(np);
                     return;

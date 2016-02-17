@@ -15,6 +15,12 @@ class EditorAction {
     public Text: string;
 }
 
+export interface IVSCodeEditorOptions {
+    showMode: boolean;
+    isWinJisKeyboard: boolean;
+    isMacJisKeyboard: boolean;
+}
+
 export class VSCodeEditor implements IEditor {
     private modeStatusBarItem: vscode.StatusBarItem;
     private commandStatusBarItem: vscode.StatusBarItem;
@@ -22,19 +28,15 @@ export class VSCodeEditor implements IEditor {
 
     private selectionSetTime: number;
     private dummySpacePosition: vscode.Position;
+    public Options: IVSCodeEditorOptions;
 
     public constructor(options: IVSCodeEditorOptions) {
-        options = options || {
-            showMode: false
-        };
-
         this.modeStatusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
-        this.SetModeStatusVisibility(options.showMode);
-
         this.commandStatusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
-        this.commandStatusBarItem.show();
         this.selectionSetTime = 0;
         this.dummySpacePosition = null;
+        this.commandStatusBarItem.show();
+        this.ApplyOptions(options);
     }
 
     public SetVimStyle(vim: IVimStyle) {
@@ -53,8 +55,9 @@ export class VSCodeEditor implements IEditor {
         this.modeStatusBarItem.text = Utils.ModeToString(mode);
     }
 
-    public SetModeStatusVisibility(visible: boolean) {
-        visible ? this.modeStatusBarItem.show() : this.modeStatusBarItem.hide();
+    public ApplyOptions(option: IVSCodeEditorOptions) {
+        this.Options = option;
+        this.Options.showMode ? this.modeStatusBarItem.show() : this.modeStatusBarItem.hide();
     }
 
     // Edit
@@ -75,25 +78,25 @@ export class VSCodeEditor implements IEditor {
     }
     public DeleteRange(range: IRange, position?: IPosition) {
         vscode.window.activeTextEditor.edit((editBuilder) => {
-            var doc = vscode.window.activeTextEditor.document;
+            let doc = vscode.window.activeTextEditor.document;
 
-            var vsPos: vscode.Position;
+            let vsPos: vscode.Position;
             if (position) {
                 vsPos = tranceVSCodePosition(position);
             } else {
                 vsPos = tranceVSCodePosition(range.start);
             }
-            var vsRange = tranceVSCodeRange(range);
+            let vsRange = tranceVSCodeRange(range);
 
-            var needDummy = false;
-            var endCursor = false;
-            var documentEndPos = doc.lineAt(doc.lineCount - 1).range.end;
-            var isInsertMode = this.vimStyle.GetMode() != VimMode.Normal;
+            let needDummy = false;
+            let endCursor = false;
+            let documentEndPos = doc.lineAt(doc.lineCount - 1).range.end;
+            let isInsertMode = this.vimStyle.GetMode() !== VimMode.Normal;
             if (!isInsertMode &&
                 vsRange.contains(vsPos) &&
                 documentEndPos.isEqual(vsRange.end) &&
-                vsRange.start.character == 0) {
-                if (vsRange.start.line == 0) {
+                vsRange.start.character === 0) {
+                if (vsRange.start.line === 0) {
                     // Conditions that require a dummy
                     // * Normal mode
                     // * delete from document home
@@ -107,7 +110,7 @@ export class VSCodeEditor implements IEditor {
                     endCursor = true;
                 }
             }
-            var cursor: vscode.Selection;
+            let cursor: vscode.Selection;
             if (isInsertMode) {
                 cursor = new vscode.Selection(vsPos, vsPos);
                 vscode.window.activeTextEditor.selection = cursor;
@@ -121,12 +124,12 @@ export class VSCodeEditor implements IEditor {
                 vscode.window.activeTextEditor.selection = cursor;
                 editBuilder.replace(vsRange, " ");
             } else if (endCursor) {
-                var nextPos = selectNeiborPosition(doc, vsPos, false);
+                let nextPos = selectNeiborPosition(doc, vsPos, false);
                 cursor = new vscode.Selection(nextPos, vsPos);
                 vscode.window.activeTextEditor.selection = cursor;
                 editBuilder.delete(vsRange);
             } else {
-                var nextPos = selectNeiborPosition(doc, vsPos, true);
+                let nextPos = selectNeiborPosition(doc, vsPos, true);
                 if (vsRange.contains(nextPos) && !nextPos.isEqual(vsRange.start)) {
                     // if position contained delete range
                     nextPos = selectNeiborPosition(doc, vsRange.end, true);
@@ -145,7 +148,7 @@ export class VSCodeEditor implements IEditor {
 
     // Read Line
     public ReadLine(line: number): string {
-        if (this.dummySpacePosition != null && line == this.dummySpacePosition.line) {
+        if (this.dummySpacePosition != null && line === this.dummySpacePosition.line) {
             return "";
         }
         if (vscode.window.activeTextEditor.document.lineCount > line) {
@@ -154,8 +157,8 @@ export class VSCodeEditor implements IEditor {
         return null;
     }
     public ReadLineAtCurrentPosition(): string {
-        var p = vscode.window.activeTextEditor.selection.active;
-        if (this.dummySpacePosition != null && p.line == this.dummySpacePosition.line) {
+        let p = vscode.window.activeTextEditor.selection.active;
+        if (this.dummySpacePosition != null && p.line === this.dummySpacePosition.line) {
             return "";
         }
         return vscode.window.activeTextEditor.document.lineAt(vscode.window.activeTextEditor.selection.active.line).text;
@@ -171,13 +174,22 @@ export class VSCodeEditor implements IEditor {
         return tranceVimStylePosition(vscode.window.activeTextEditor.selection.active);
     }
     public SetPosition(p: IPosition) {
-        var cp = tranceVSCodePosition(p);
+        let cp = tranceVSCodePosition(p);
         this.showBlockCursor(cp);
         vscode.window.activeTextEditor.revealRange(vscode.window.activeTextEditor.selection, vscode.TextEditorRevealType.Default);
     }
     public GetLastPosition(): IPosition {
-        var end = vscode.window.activeTextEditor.document.lineAt(vscode.window.activeTextEditor.document.lineCount - 1).range.end;
+        let end = vscode.window.activeTextEditor.document.lineAt(vscode.window.activeTextEditor.document.lineCount - 1).range.end;
         return tranceVimStylePosition(end);
+    }
+
+    // Selection
+    public GetCurrentSelection(): IRange {
+        return tranceVimStyleRange(vscode.window.activeTextEditor.selection);
+    }
+    public SetSelection(range: IRange) {
+        let s = new vscode.Selection(tranceVSCodePosition(range.start), tranceVSCodePosition(range.end));
+        vscode.window.activeTextEditor.selection = s;
     }
 
     // Document Info
@@ -196,13 +208,22 @@ export class VSCodeEditor implements IEditor {
             // resrict event loop
             return;
         }
-        if (this.vimStyle.GetMode() == VimMode.Insert) {
+        if (this.vimStyle.GetMode() !== VimMode.Normal) {
             // if insert mode, do nothing
             this.deleteNonCharLine();
             return;
         }
-        var p = vscode.window.activeTextEditor.selection.active;
-        if (p.character != 0 &&
+        if (vscode.window.activeTextEditor === undefined) {
+            // do nothing
+            return;
+        }
+        let s = vscode.window.activeTextEditor.selection;
+        let p = vscode.window.activeTextEditor.selection.active;
+        if (!s.start.isEqual(s.end)) {
+            this.vimStyle.ApplyVisualMode();
+            return;
+        }
+        if (p.character !== 0 &&
             p.isEqual(vscode.window.activeTextEditor.document.lineAt(p.line).range.end)) {
             // if end of line, move prev position
             p = p.translate(0, -1);
@@ -211,7 +232,7 @@ export class VSCodeEditor implements IEditor {
     }
 
     public ApplyNormalMode(p?: Position) {
-        var vp: vscode.Position;
+        let vp: vscode.Position;
         if (p) {
             vp = tranceVSCodePosition(p);
         } else {
@@ -221,18 +242,18 @@ export class VSCodeEditor implements IEditor {
     }
 
     private showBlockCursor(end: vscode.Position, isEmptyLastLine?: boolean, isEmptyDocument?: boolean) {
-        var doc = vscode.window.activeTextEditor.document;
-        var start: vscode.Position;
-        if (isEmptyDocument == undefined) {
+        let doc = vscode.window.activeTextEditor.document;
+        let start: vscode.Position;
+        if (isEmptyDocument === undefined) {
             isEmptyDocument = (
-                doc.lineCount == 1 &&
-                doc.lineAt(end.line).range.end.character == 0
+                doc.lineCount === 1 &&
+                doc.lineAt(end.line).range.end.character === 0
             );
         }
-        if (isEmptyLastLine == undefined) {
+        if (isEmptyLastLine === undefined) {
             isEmptyLastLine = (
-                doc.lineCount - 1 == end.line &&
-                doc.lineAt(end.line).range.end.character == 0
+                doc.lineCount - 1 === end.line &&
+                doc.lineAt(end.line).range.end.character === 0
             );
         }
         if (isEmptyDocument) {
@@ -245,7 +266,7 @@ export class VSCodeEditor implements IEditor {
         } else {
             start = selectNeiborPosition(doc, end, true);
         }
-        var select = new vscode.Selection(start, end);
+        let select = new vscode.Selection(start, end);
         this.selectionSetTime = new Date().getTime();
         vscode.window.activeTextEditor.selection = select;
         if (isEmptyDocument) {
@@ -255,25 +276,29 @@ export class VSCodeEditor implements IEditor {
 
     public ApplyInsertMode(p?: Position) {
         this.deleteNonCharLine();
-        var c: vscode.Position;
-        if (p == undefined) {
+        let c: vscode.Position;
+        if (p === undefined) {
             c = vscode.window.activeTextEditor.selection.active;
         } else {
             c = tranceVSCodePosition(p);
         }
-        var s = new vscode.Selection(c, c);
+        let s = new vscode.Selection(c, c);
         vscode.window.activeTextEditor.selection = s;
         this.selectionSetTime = new Date().getTime();
     }
 
+    public ApplyVisualMode() {
+        // TODO?
+    }
+
     public UpdateValidPosition(p: IPosition, isBlock?: boolean): IPosition {
-        var cp = new Position();
+        let cp = new Position();
         cp.Line = p.Line;
         cp.Char = p.Char;
         if (p.Line <= 0) {
             cp.Line = 0;
         } else {
-            var lastLineNum = this.GetLastLineNum();
+            let lastLineNum = this.GetLastLineNum();
             if (lastLineNum < p.Line) {
                 cp.Line = lastLineNum;
             }
@@ -281,7 +306,7 @@ export class VSCodeEditor implements IEditor {
         if (cp.Char <= 0) {
             cp.Char = 0;
         } else {
-            var line = this.ReadLine(cp.Line);
+            let line = this.ReadLine(cp.Line);
             if (isBlock) {
                 if (cp.Char >= line.length) {
                     cp.Char = line.length - 1;
@@ -299,9 +324,9 @@ export class VSCodeEditor implements IEditor {
         if (this.dummySpacePosition == null) {
             return;
         }
-        var st = this.dummySpacePosition;
-        var ed = new vscode.Position(st.line, st.character + 1);
-        var r = new vscode.Range(st, ed);
+        let st = this.dummySpacePosition;
+        let ed = new vscode.Position(st.line, st.character + 1);
+        let r = new vscode.Range(st, ed);
         vscode.window.activeTextEditor.edit((editBuilder) => {
             editBuilder.delete(r);
         });
@@ -310,27 +335,34 @@ export class VSCodeEditor implements IEditor {
 }
 
 function tranceVimStylePosition(org: vscode.Position): IPosition {
-    var p = new Position();
+    let p = new Position();
     p.Line = org.line;
     p.Char = org.character;
     return p;
+}
+function tranceVimStyleRange(org: vscode.Range): IRange {
+    let r = new Range();
+    r.start = tranceVimStylePosition(org.start);
+    r.end = tranceVimStylePosition(org.end);
+    return r;
 }
 function tranceVSCodePosition(org: IPosition): vscode.Position {
     return new vscode.Position(org.Line, org.Char);
 }
 function tranceVSCodeRange(org: IRange): vscode.Range {
-    var start = tranceVSCodePosition(org.start);
-    var end = tranceVSCodePosition(org.end);
+    let start = tranceVSCodePosition(org.start);
+    let end = tranceVSCodePosition(org.end);
     return new vscode.Range(start, end);
 }
 function selectNeiborPosition(doc: vscode.TextDocument, p: vscode.Position, toRight: boolean): vscode.Position {
-    var np: vscode.Position;
-    var offset = doc.offsetAt(p);
-    var v = toRight ? 1 : -1;
-    for (var i = 1; i < 4; i++) {
+    let np: vscode.Position;
+    let offset = doc.offsetAt(p);
+    let v = toRight ? 1 : -1;
+    for (let i = 1; i < 4; i++) {
         np = doc.positionAt(offset + i * v);
-        if (np.line != p.line || np.character != p.character) {
+        if (np.line !== p.line || np.character !== p.character) {
             return np;
         }
     }
+    return new vscode.Position(p.line, p.character + 1);
 }

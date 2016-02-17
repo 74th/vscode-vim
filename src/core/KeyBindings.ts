@@ -1,153 +1,124 @@
-
-export enum Command {
-
-    // single action
-    insertCurrentPositionAction,
-    appendCurrentPositionAction,
-    insertHomeAction,
-    appendEndAction,
-    insertLineBelowAction,
-    deleteCharacterAction,
-    changeCharacterAction,
-    changeLineAction,
-    pasteBelowAction,
-
-    // move action
-    moveRightAction,
-    moveLineAction,
-    moveWordAction,
-    moveHomeAction,
-    moveEndAction,
-    moveFindCharacterAction,
-    moveTillCharacterAction,
-    moveGotoLineAction,
-    moveLastLineAction,
-    moveFirstLineAction,
-
-    // motion
-    rightMotion,
-    lineMotion,
-    wordMotion,
-    homeMotion,
-    endMotion,
-    findCharacterMotion,
-    tillCharacterMotion,
-    gotoLineMotion,
-    lastLineMotion,
-    firstLineMotion,
-
-    // delete, yanc, change action
-    changeAction,
-    deleteAction,
-    yancAction,
-    changeToEndAction,
-    deleteToEndAction,
-    yancToEndAction,
-    doActionAtCurrentLine,
-
-    // other
-    stackNumber,
-    nothing
+class KeyBindings implements IKeyBindings {
+    AtStart: { [key: string]: IVimStyleCommand };
+    FirstNum: { [key: string]: IVimStyleCommand };
+    RequireMotion: { [key: string]: IVimStyleCommand };
+    RequireMotionNum: { [key: string]: IVimStyleCommand };
+    SmallG: { [key: string]: IVimStyleCommand };
+    SmallGForMotion: { [key: string]: IVimStyleCommand };
+    VisualMode: { [key: string]: IVimStyleCommand };
 }
 
-export enum State {
-    AtStart,
-    FirstNum,
-    RequireMotion,
-    RequireMotionNum,
-    RequireCharForMotion,
-    SmallG,
-    SmallGForMotion,
-    Panic
+function applyKeyBindingsByEachState(dest: { [key: string]: IVimStyleCommand }, src: { [key: string]: IVimStyleCommand }) {
+    let key: string;
+    for (key in src) {
+        dest[key] = src[key];
+    }
+}
+function applyKeyBindings(dest: IKeyBindings, src: IKeyBindings) {
+    if (dest.AtStart) {
+        applyKeyBindingsByEachState(dest.AtStart, src.AtStart);
+    }
+    if (dest.FirstNum) {
+        applyKeyBindingsByEachState(dest.FirstNum, src.FirstNum);
+    }
+    if (dest.RequireMotion) {
+        applyKeyBindingsByEachState(dest.RequireMotion, src.RequireMotion);
+    }
+    if (dest.RequireMotionNum) {
+        applyKeyBindingsByEachState(dest.RequireMotionNum, src.RequireMotionNum);
+    }
+    if (dest.SmallG) {
+        applyKeyBindingsByEachState(dest.SmallG, src.SmallG);
+    }
+    if (dest.SmallGForMotion) {
+        applyKeyBindingsByEachState(dest.SmallGForMotion, src.SmallGForMotion);
+    }
+    if (dest.VisualMode) {
+        applyKeyBindingsByEachState(dest.VisualMode, src.VisualMode);
+    }
 }
 
-export interface IVimStyleCommand {
-    state?: State;
-    isReverse?: boolean;
-    cmd: Command;
-}
-
-export namespace KeyBindings {
-    export var AtStart: { [key: string]: IVimStyleCommand } = {
+const DefaultKeyBindings: IKeyBindings = {
+    AtStart: {
         "a": {
-            cmd: Command.appendCurrentPositionAction
+            cmd: CommandName.appendCurrentPositionAction
         },
         "A": {
-            cmd: Command.appendEndAction
+            cmd: CommandName.appendEndAction
         },
         "b": {
-            cmd: Command.moveWordAction,
+            cmd: CommandName.moveWordAction,
             isReverse: true
         },
         // B
         "c": {
-            state: State.RequireMotion,
-            cmd: Command.changeAction
+            state: StateName.RequireMotion,
+            cmd: CommandName.changeAction
         },
         "C": {
-            cmd: Command.changeToEndAction
+            cmd: CommandName.changeToEndAction
         },
         "d": {
-            cmd: Command.deleteAction,
-            state: State.RequireMotion
+            cmd: CommandName.deleteAction,
+            state: StateName.RequireMotion
         },
         "D": {
-            cmd: Command.deleteToEndAction
+            cmd: CommandName.deleteToEndAction
         },
         // e
         // E
         "f": {
-            cmd: Command.moveFindCharacterAction,
-            state: State.RequireCharForMotion
+            cmd: CommandName.moveFindCharacterAction,
+            state: StateName.RequireCharForMotion
         },
         "F": {
-            cmd: Command.moveFindCharacterAction,
+            cmd: CommandName.moveFindCharacterAction,
             isReverse: true,
-            state: State.RequireCharForMotion
+            state: StateName.RequireCharForMotion
         },
         "g": {
-            cmd: Command.nothing,
-            state: State.SmallG
+            cmd: CommandName.nothing,
+            state: StateName.SmallG
         },
         "G": {
-            cmd: Command.moveLastLineAction,
+            cmd: CommandName.moveLastLineAction,
         },
         "h": {
-            cmd: Command.moveRightAction,
+            cmd: CommandName.moveRightAction,
             isReverse: true
         },
         // H no function
         "i": {
-            cmd: Command.insertCurrentPositionAction
+            cmd: CommandName.insertCurrentPositionAction
         },
         "I": {
-            cmd: Command.insertHomeAction
+            cmd: CommandName.insertHomeAction
         },
         "j": {
-            cmd: Command.moveLineAction
+            cmd: CommandName.moveLineAction
         },
         // J
         "k": {
-            cmd: Command.moveLineAction,
+            cmd: CommandName.moveLineAction,
             isReverse: true
         },
         // K no function
         "l": {
-            cmd: Command.moveRightAction
+            cmd: CommandName.moveRightAction
         },
         // L no function
         "o": {
-            cmd: Command.insertLineBelowAction
+            cmd: CommandName.insertLineBelowAction
         },
         "O": {
-            cmd: Command.insertLineBelowAction,
+            cmd: CommandName.insertLineBelowAction,
             isReverse: true
         },
         "p": {
-            cmd: Command.pasteBelowAction
+            cmd: CommandName.pasteBelowAction
         },
         "P": {
-            cmd: Command.pasteBelowAction,
+            cmd: CommandName.pasteBelowAction,
             isReverse: true
         },
         // q low priority
@@ -155,137 +126,139 @@ export namespace KeyBindings {
         // r
         // R low priority
         "s": {
-            cmd: Command.changeCharacterAction
+            cmd: CommandName.changeCharacterAction
         },
         "S": {
-            cmd: Command.changeLineAction
+            cmd: CommandName.changeLineAction
         },
         "t": {
-            cmd: Command.moveTillCharacterAction,
-            state: State.RequireCharForMotion
+            cmd: CommandName.moveTillCharacterAction,
+            state: StateName.RequireCharForMotion
         },
         "T": {
-            cmd: Command.moveTillCharacterAction,
+            cmd: CommandName.moveTillCharacterAction,
             isReverse: true,
-            state: State.RequireCharForMotion
+            state: StateName.RequireCharForMotion
         },
         // u low priority
         // U low priority
-        // v low priority
+        "v": {
+            cmd: CommandName.enterVisualModeAction
+        },
         // V low priority
         "w": {
-            cmd: Command.moveWordAction
+            cmd: CommandName.moveWordAction
         },
         // W
         "x": {
-            cmd: Command.deleteCharacterAction
+            cmd: CommandName.deleteCharacterAction
         },
         "X": {
-            cmd: Command.deleteCharacterAction,
+            cmd: CommandName.deleteCharacterAction,
             isReverse: true
         },
         "y": {
-            cmd: Command.yancAction,
-            state: State.RequireMotion
+            cmd: CommandName.yancAction,
+            state: StateName.RequireMotion
         },
         "Y": {
-            cmd: Command.yancToEndAction
+            cmd: CommandName.yancToEndAction
         },
         // z never suppoer
         // Z no function
         "0": {
-            cmd: Command.moveHomeAction
+            cmd: CommandName.moveHomeAction
         },
         "1": {
-            cmd: Command.stackNumber,
-            state: State.FirstNum
+            cmd: CommandName.stackNumber,
+            state: StateName.FirstNum
         },
         "2": {
-            cmd: Command.stackNumber,
-            state: State.FirstNum
+            cmd: CommandName.stackNumber,
+            state: StateName.FirstNum
         },
         "3": {
-            cmd: Command.stackNumber,
-            state: State.FirstNum
+            cmd: CommandName.stackNumber,
+            state: StateName.FirstNum
         },
         "4": {
-            cmd: Command.stackNumber,
-            state: State.FirstNum
+            cmd: CommandName.stackNumber,
+            state: StateName.FirstNum
         },
         "5": {
-            cmd: Command.stackNumber,
-            state: State.FirstNum
+            cmd: CommandName.stackNumber,
+            state: StateName.FirstNum
         },
         "6": {
-            cmd: Command.stackNumber,
-            state: State.FirstNum
+            cmd: CommandName.stackNumber,
+            state: StateName.FirstNum
         },
         "7": {
-            cmd: Command.stackNumber,
-            state: State.FirstNum
+            cmd: CommandName.stackNumber,
+            state: StateName.FirstNum
         },
         "8": {
-            cmd: Command.stackNumber,
-            state: State.FirstNum
+            cmd: CommandName.stackNumber,
+            state: StateName.FirstNum
         },
         "9": {
-            cmd: Command.stackNumber,
-            state: State.FirstNum
+            cmd: CommandName.stackNumber,
+            state: StateName.FirstNum
         },
         "$": {
-            cmd: Command.moveEndAction
+            cmd: CommandName.moveEndAction
         }
-    };
+    },
 
     // Nx
-    export var FirstNum: { [key: string]: IVimStyleCommand } = {
+    FirstNum: {
         // Na low priority
         // NA low priority
         "b": {
-            cmd: Command.moveWordAction,
+            cmd: CommandName.moveWordAction,
             isReverse: true
         },
         // B
         // Nc low priority
         // NC low priority
         "d": {
-            cmd: Command.deleteAction,
-            state: State.RequireMotion
+            cmd: CommandName.deleteAction,
+            state: StateName.RequireMotion
         },
         // ND low priority
         // Ne
         // NE
         "f": {
-            cmd: Command.moveFindCharacterAction,
-            state: State.RequireCharForMotion
+            cmd: CommandName.moveFindCharacterAction,
+            state: StateName.RequireCharForMotion
         },
         "F": {
-            cmd: Command.moveFindCharacterAction,
+            cmd: CommandName.moveFindCharacterAction,
             isReverse: true,
-            state: State.RequireCharForMotion
+            state: StateName.RequireCharForMotion
         },
         // Ng
         "G": {
-            cmd: Command.moveGotoLineAction
+            cmd: CommandName.moveGotoLineAction
         },
         "h": {
-            cmd: Command.moveRightAction,
+            cmd: CommandName.moveRightAction,
             isReverse: true
         },
         // NH no function
         // Ni low priority
         // NI low priority
         "j": {
-            cmd: Command.moveLineAction
+            cmd: CommandName.moveLineAction
         },
         // NJ
         "k": {
-            cmd: Command.moveLineAction,
+            cmd: CommandName.moveLineAction,
             isReverse: true
         },
         // K no function
         "l": {
-            cmd: Command.moveRightAction
+            cmd: CommandName.moveRightAction
         },
         // L no function
         // No low priority
@@ -299,130 +272,130 @@ export namespace KeyBindings {
         // Ns low priority
         // NS low priority
         "t": {
-            cmd: Command.moveTillCharacterAction,
-            state: State.RequireCharForMotion
+            cmd: CommandName.moveTillCharacterAction,
+            state: StateName.RequireCharForMotion
         },
         "T": {
-            cmd: Command.moveTillCharacterAction,
+            cmd: CommandName.moveTillCharacterAction,
             isReverse: true,
-            state: State.RequireCharForMotion
+            state: StateName.RequireCharForMotion
         },
         // u low priority
         // U low priority
         // Nv?
         // NV?
         "w": {
-            cmd: Command.moveWordAction
+            cmd: CommandName.moveWordAction
         },
         "x": {
-            cmd: Command.deleteCharacterAction
+            cmd: CommandName.deleteCharacterAction
         },
         // NX
         "y": {
-            cmd: Command.yancAction,
-            state: State.RequireMotion
+            cmd: CommandName.yancAction,
+            state: StateName.RequireMotion
         },
         "Y": {
-            cmd: Command.yancToEndAction
+            cmd: CommandName.yancToEndAction
         },
         // Nz never support
         // NZ no function
         "0": {
-            cmd: Command.stackNumber,
-            state: State.FirstNum
+            cmd: CommandName.stackNumber,
+            state: StateName.FirstNum
         },
         "1": {
-            cmd: Command.stackNumber,
-            state: State.FirstNum
+            cmd: CommandName.stackNumber,
+            state: StateName.FirstNum
         },
         "2": {
-            cmd: Command.stackNumber,
-            state: State.FirstNum
+            cmd: CommandName.stackNumber,
+            state: StateName.FirstNum
         },
         "3": {
-            cmd: Command.stackNumber,
-            state: State.FirstNum
+            cmd: CommandName.stackNumber,
+            state: StateName.FirstNum
         },
         "4": {
-            cmd: Command.stackNumber,
-            state: State.FirstNum
+            cmd: CommandName.stackNumber,
+            state: StateName.FirstNum
         },
         "5": {
-            cmd: Command.stackNumber,
-            state: State.FirstNum
+            cmd: CommandName.stackNumber,
+            state: StateName.FirstNum
         },
         "6": {
-            cmd: Command.stackNumber,
-            state: State.FirstNum
+            cmd: CommandName.stackNumber,
+            state: StateName.FirstNum
         },
         "7": {
-            cmd: Command.stackNumber,
-            state: State.FirstNum
+            cmd: CommandName.stackNumber,
+            state: StateName.FirstNum
         },
         "8": {
-            cmd: Command.stackNumber,
-            state: State.FirstNum
+            cmd: CommandName.stackNumber,
+            state: StateName.FirstNum
         },
         "9": {
-            cmd: Command.stackNumber,
-            state: State.FirstNum
+            cmd: CommandName.stackNumber,
+            state: StateName.FirstNum
         },
         // $ ?
-    };
+    },
 
     // cm
-    export var RequireMotion: { [key: string]: IVimStyleCommand } = {
+    RequireMotion: {
         // da
         // dA
         "b": {
-            cmd: Command.wordMotion,
+            cmd: CommandName.wordMotion,
             isReverse: true
         },
         // B
         "c": {
-            cmd: Command.doActionAtCurrentLine
+            cmd: CommandName.doActionAtCurrentLine
         },
         // C no command
         "d": {
-            cmd: Command.doActionAtCurrentLine
+            cmd: CommandName.doActionAtCurrentLine
         },
         // D no command
         // e
         // E
         "f": {
-            cmd: Command.findCharacterMotion,
-            state: State.RequireCharForMotion
+            cmd: CommandName.findCharacterMotion,
+            state: StateName.RequireCharForMotion
         },
         "F": {
-            cmd: Command.findCharacterMotion,
+            cmd: CommandName.findCharacterMotion,
             isReverse: true,
-            state: State.RequireCharForMotion
+            state: StateName.RequireCharForMotion
         },
         "g": {
-            cmd: Command.nothing,
-            state: State.SmallGForMotion
+            cmd: CommandName.nothing,
+            state: StateName.SmallGForMotion
         },
         "G": {
-            cmd: Command.lastLineMotion,
+            cmd: CommandName.lastLineMotion,
         },
         "h": {
-            cmd: Command.rightMotion,
+            cmd: CommandName.rightMotion,
             isReverse: true
         },
         // H no function
         // i
         // I
         "j": {
-            cmd: Command.lineMotion
+            cmd: CommandName.lineMotion
         },
         // J
         "k": {
-            cmd: Command.lineMotion,
+            cmd: CommandName.lineMotion,
             isReverse: true
         },
         // K no function
         "l": {
-            cmd: Command.rightMotion
+            cmd: CommandName.rightMotion
         },
         // L no function
         // o never support
@@ -436,126 +409,126 @@ export namespace KeyBindings {
         // s ?
         // S ?
         "t": {
-            cmd: Command.tillCharacterMotion,
-            state: State.RequireCharForMotion
+            cmd: CommandName.tillCharacterMotion,
+            state: StateName.RequireCharForMotion
         },
         "T": {
-            cmd: Command.tillCharacterMotion,
+            cmd: CommandName.tillCharacterMotion,
             isReverse: true,
-            state: State.RequireCharForMotion
+            state: StateName.RequireCharForMotion
         },
         // u low priority
         // U low priority
         // v low priority
         // V low priority
         "w": {
-            cmd: Command.wordMotion
+            cmd: CommandName.wordMotion
         },
         // W
         // x no function
         // X no function
         "y": {
-            cmd: Command.doActionAtCurrentLine
+            cmd: CommandName.doActionAtCurrentLine
         },
         "Y": {
-            cmd: Command.yancToEndAction
+            cmd: CommandName.yancToEndAction
         },
         // z never suppoer
         // Z no function
         "0": {
-            cmd: Command.homeMotion
+            cmd: CommandName.homeMotion
         },
         "1": {
-            cmd: Command.stackNumber,
-            state: State.RequireMotionNum
+            cmd: CommandName.stackNumber,
+            state: StateName.RequireMotionNum
         },
         "2": {
-            cmd: Command.stackNumber,
-            state: State.RequireMotionNum
+            cmd: CommandName.stackNumber,
+            state: StateName.RequireMotionNum
         },
         "3": {
-            cmd: Command.stackNumber,
-            state: State.RequireMotionNum
+            cmd: CommandName.stackNumber,
+            state: StateName.RequireMotionNum
         },
         "4": {
-            cmd: Command.stackNumber,
-            state: State.RequireMotionNum
+            cmd: CommandName.stackNumber,
+            state: StateName.RequireMotionNum
         },
         "5": {
-            cmd: Command.stackNumber,
-            state: State.RequireMotionNum
+            cmd: CommandName.stackNumber,
+            state: StateName.RequireMotionNum
         },
         "6": {
-            cmd: Command.stackNumber,
-            state: State.RequireMotionNum
+            cmd: CommandName.stackNumber,
+            state: StateName.RequireMotionNum
         },
         "7": {
-            cmd: Command.stackNumber,
-            state: State.RequireMotionNum
+            cmd: CommandName.stackNumber,
+            state: StateName.RequireMotionNum
         },
         "8": {
-            cmd: Command.stackNumber,
-            state: State.RequireMotionNum
+            cmd: CommandName.stackNumber,
+            state: StateName.RequireMotionNum
         },
         "9": {
-            cmd: Command.stackNumber,
-            state: State.RequireMotionNum
+            cmd: CommandName.stackNumber,
+            state: StateName.RequireMotionNum
         },
         "$": {
-            cmd: Command.endMotion
+            cmd: CommandName.endMotion
         }
-    };
+    },
 
     // cNm
-    export var RequireMotionNum: { [key: string]: IVimStyleCommand } = {
+    RequireMotionNum: {
         // da
         // dA
         "b": {
-            cmd: Command.wordMotion,
+            cmd: CommandName.wordMotion,
             isReverse: true
         },
         // B
         "c": {
-            cmd: Command.doActionAtCurrentLine
+            cmd: CommandName.doActionAtCurrentLine
         },
         // C no command
         "d": {
-            cmd: Command.doActionAtCurrentLine
+            cmd: CommandName.doActionAtCurrentLine
         },
         // D no command
         // e
         // E
         "f": {
-            cmd: Command.findCharacterMotion,
-            state: State.RequireCharForMotion
+            cmd: CommandName.findCharacterMotion,
+            state: StateName.RequireCharForMotion
         },
         "F": {
-            cmd: Command.findCharacterMotion,
+            cmd: CommandName.findCharacterMotion,
             isReverse: true,
-            state: State.RequireCharForMotion
+            state: StateName.RequireCharForMotion
         },
         // g
         "G": {
-            cmd: Command.gotoLineMotion
+            cmd: CommandName.gotoLineMotion
         },
         "h": {
-            cmd: Command.rightMotion,
+            cmd: CommandName.rightMotion,
             isReverse: true
         },
         // H no function
         // i
         // I
         "j": {
-            cmd: Command.lineMotion
+            cmd: CommandName.lineMotion
         },
         // J
         "k": {
-            cmd: Command.lineMotion,
+            cmd: CommandName.lineMotion,
             isReverse: true
         },
         // K no function
         "l": {
-            cmd: Command.rightMotion
+            cmd: CommandName.rightMotion
         },
         // L no function
         // o never support
@@ -569,84 +542,259 @@ export namespace KeyBindings {
         // s ?
         // S ?
         "t": {
-            cmd: Command.findCharacterMotion,
-            state: State.RequireCharForMotion
+            cmd: CommandName.findCharacterMotion,
+            state: StateName.RequireCharForMotion
         },
         "T": {
-            cmd: Command.tillCharacterMotion,
+            cmd: CommandName.tillCharacterMotion,
             isReverse: true,
-            state: State.RequireCharForMotion
+            state: StateName.RequireCharForMotion
         },
         // u low priority
         // U low priority
         // v low priority
         // V low priority
         "w": {
-            cmd: Command.wordMotion
+            cmd: CommandName.wordMotion
         },
         // W
         // x no function
         // X no function
         "y": {
-            cmd: Command.doActionAtCurrentLine
+            cmd: CommandName.doActionAtCurrentLine
         },
         // Y ?
         // z never suppoer
         // Z no function
         "0": {
-            cmd: Command.stackNumber,
-            state: State.RequireMotionNum
+            cmd: CommandName.stackNumber,
+            state: StateName.RequireMotionNum
         },
         "1": {
-            cmd: Command.stackNumber,
-            state: State.RequireMotionNum
+            cmd: CommandName.stackNumber,
+            state: StateName.RequireMotionNum
         },
         "2": {
-            cmd: Command.stackNumber,
-            state: State.RequireMotionNum
+            cmd: CommandName.stackNumber,
+            state: StateName.RequireMotionNum
         },
         "3": {
-            cmd: Command.stackNumber,
-            state: State.RequireMotionNum
+            cmd: CommandName.stackNumber,
+            state: StateName.RequireMotionNum
         },
         "4": {
-            cmd: Command.stackNumber,
-            state: State.RequireMotionNum
+            cmd: CommandName.stackNumber,
+            state: StateName.RequireMotionNum
         },
         "5": {
-            cmd: Command.stackNumber,
-            state: State.RequireMotionNum
+            cmd: CommandName.stackNumber,
+            state: StateName.RequireMotionNum
         },
         "6": {
-            cmd: Command.stackNumber,
-            state: State.RequireMotionNum
+            cmd: CommandName.stackNumber,
+            state: StateName.RequireMotionNum
         },
         "7": {
-            cmd: Command.stackNumber,
-            state: State.RequireMotionNum
+            cmd: CommandName.stackNumber,
+            state: StateName.RequireMotionNum
         },
         "8": {
-            cmd: Command.stackNumber,
-            state: State.RequireMotionNum
+            cmd: CommandName.stackNumber,
+            state: StateName.RequireMotionNum
         },
         "9": {
-            cmd: Command.stackNumber,
-            state: State.RequireMotionNum
+            cmd: CommandName.stackNumber,
+            state: StateName.RequireMotionNum
         },
         // $?
-    };
+    },
 
     // g
-    export var SmallG: { [key: string]: IVimStyleCommand } = {
+    SmallG: {
         "g": {
-            cmd: Command.moveFirstLineAction
+            cmd: CommandName.moveFirstLineAction
         }
-    };
+    },
 
     // cg
-    export var SmallGForMotion: { [key: string]: IVimStyleCommand } = {
+    SmallGForMotion: {
         "g": {
-            cmd: Command.firstLineMotion
+            cmd: CommandName.firstLineMotion
         }
+    },
+
+    // v
+    VisualMode: {
+        // v..a
+        // v..A
+        "b": {
+            cmd: CommandName.wordMotion,
+            isReverse: true
+        },
+        // v..B
+        "c": {
+            cmd: CommandName.changeSelectionAction
+        },
+        // C no command
+        "d": {
+            cmd: CommandName.deleteSelectionAction
+        },
+        // D no command
+        // v..e
+        // V..E
+        "f": {
+            cmd: CommandName.findCharacterMotion,
+            state: StateName.RequireCharForMotion
+        },
+        "F": {
+            cmd: CommandName.findCharacterMotion,
+            isReverse: true,
+            state: StateName.RequireCharForMotion
+        },
+        "g": {
+            cmd: CommandName.nothing,
+            state: StateName.SmallGForMotion
+        },
+        "G": {
+            cmd: CommandName.lastLineMotion,
+        },
+        "h": {
+            cmd: CommandName.rightMotion,
+            isReverse: true
+        },
+        // H no function
+        // v..i
+        // v..I
+        "j": {
+            cmd: CommandName.lineMotion
+        },
+        // J?
+        "k": {
+            cmd: CommandName.lineMotion,
+            isReverse: true
+        },
+        // K no function
+        "l": {
+            cmd: CommandName.rightMotion
+        },
+        // l no function
+        // o never support
+        // O no function
+        // p never support
+        // P no function
+        // q no function
+        // Q no function
+        // r no function
+        // R low priority
+        // s ?
+        // S ?
+        "t": {
+            cmd: CommandName.tillCharacterMotion,
+            state: StateName.RequireCharForMotion
+        },
+        "T": {
+            cmd: CommandName.tillCharacterMotion,
+            isReverse: true,
+            state: StateName.RequireCharForMotion
+        },
+        // u low priority
+        // U low priority
+        // v low priority
+        // V low priority
+        "w": {
+            cmd: CommandName.wordMotion
+        },
+        // W
+        // x no function
+        // X no function
+        "y": {
+            cmd: CommandName.yancSelectionAction
+        },
+        "0": {
+            cmd: CommandName.homeMotion
+        },
+        "1": {
+            cmd: CommandName.stackNumber,
+            state: StateName.RequireMotionNum
+        },
+        "2": {
+            cmd: CommandName.stackNumber,
+            state: StateName.RequireMotionNum
+        },
+        "3": {
+            cmd: CommandName.stackNumber,
+            state: StateName.RequireMotionNum
+        },
+        "4": {
+            cmd: CommandName.stackNumber,
+            state: StateName.RequireMotionNum
+        },
+        "5": {
+            cmd: CommandName.stackNumber,
+            state: StateName.RequireMotionNum
+        },
+        "6": {
+            cmd: CommandName.stackNumber,
+            state: StateName.RequireMotionNum
+        },
+        "7": {
+            cmd: CommandName.stackNumber,
+            state: StateName.RequireMotionNum
+        },
+        "8": {
+            cmd: CommandName.stackNumber,
+            state: StateName.RequireMotionNum
+        },
+        "9": {
+            cmd: CommandName.stackNumber,
+            state: StateName.RequireMotionNum
+        },
+        "$": {
+            cmd: CommandName.endMotion
+        }
+    }
+};
+
+// move a cursur by jkl; keys
+const ErgonomicKeyBindings: IKeyBindings = {
+    AtStart: {
+        "j": DefaultKeyBindings.AtStart["h"],
+        "k": DefaultKeyBindings.AtStart["j"],
+        "l": DefaultKeyBindings.AtStart["k"],
+        ";": DefaultKeyBindings.AtStart["l"]
+    },
+    FirstNum: null,
+    RequireMotion: {
+        "j": DefaultKeyBindings.RequireMotion["h"],
+        "k": DefaultKeyBindings.RequireMotion["j"],
+        "l": DefaultKeyBindings.RequireMotion["k"],
+        ";": DefaultKeyBindings.RequireMotion["l"]
+    },
+    RequireMotionNum: null,
+    SmallG: null,
+    SmallGForMotion: null,
+    VisualMode: {
+        "j": DefaultKeyBindings.VisualMode["h"],
+        "k": DefaultKeyBindings.VisualMode["j"],
+        "l": DefaultKeyBindings.VisualMode["k"],
+        ";": DefaultKeyBindings.VisualMode["l"]
+    }
+};
+
+export function LoadKeyBindings(opts: IVimStyleOptions): IKeyBindings {
+    let bindings: IKeyBindings = {
+        AtStart: {},
+        FirstNum: {},
+        RequireMotion: {},
+        RequireMotionNum: {},
+        SmallG: {},
+        SmallGForMotion: {},
+        VisualMode: {}
     };
+    let key: string;
+    applyKeyBindings(bindings, DefaultKeyBindings);
+    if (opts.useErgonomicKeyForMotion) {
+        applyKeyBindings(bindings, ErgonomicKeyBindings);
+    }
+    return bindings;
 }

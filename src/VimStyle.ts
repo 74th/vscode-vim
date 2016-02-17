@@ -1,4 +1,5 @@
 import {CommandFactory} from "./core/CommandFactory";
+import {LoadKeyBindings} from "./core/KeyBindings";
 import {InsertModeExecute} from "./mode/InsertMode";
 import * as Utils from "./Utils";
 import {Register} from "./core/Register";
@@ -8,19 +9,22 @@ export class VimStyle implements IVimStyle {
     private mode: VimMode;
     private editor: IEditor;
     private commandFactory: ICommandFactory;
+    public Options: IVimStyleOptions;
     public Register: IRegister;
 
-    constructor(editor: IEditor) {
+    constructor(editor: IEditor, conf: IVimStyleOptions) {
         this.editor = editor;
         editor.SetVimStyle(this);
         this.setMode(VimMode.Normal);
         this.commandFactory = new CommandFactory();
         this.Register = new Register();
+        this.ApplyOptions(conf);
     }
 
     public PushKey(key: Key) {
         switch (this.mode) {
             case VimMode.Normal:
+            case VimMode.Visual:
                 this.readCommand(key);
                 return;
             case VimMode.Insert:
@@ -29,8 +33,11 @@ export class VimStyle implements IVimStyle {
     }
 
     public PushEscKey() {
-        var p = this.editor.GetCurrentPosition();
-        if (this.mode == VimMode.Insert && p.Char > 0) {
+        let p = this.editor.GetCurrentPosition();
+        if (this.mode === VimMode.Insert && p.Char > 0) {
+            p.Char -= 1;
+        }
+        if (this.mode === VimMode.Visual && p.Char > 0) {
             p.Char -= 1;
         }
         this.setMode(VimMode.Normal);
@@ -44,8 +51,25 @@ export class VimStyle implements IVimStyle {
         this.editor.ApplyInsertMode(p);
     }
 
+    public ApplyVisualMode() {
+        this.setMode(VimMode.Visual);
+        this.editor.ApplyVisualMode();
+    }
+
+    public GetMode(): VimMode {
+        return this.mode;
+    }
+    public ApplyNormalMode() {
+        this.setMode(VimMode.Normal);
+    }
+
+    public ApplyOptions(conf: IVimStyleOptions) {
+        this.Options = conf;
+        this.LoadKeyBinding();
+    }
+
     private readCommand(key: Key) {
-        var action = this.commandFactory.PushKey(key);
+        let action = this.commandFactory.PushKey(key, this.mode);
         if (action == null) {
             this.showCommand();
             return;
@@ -64,8 +88,8 @@ export class VimStyle implements IVimStyle {
         this.editor.ShowModeStatus(this.mode);
     }
 
-    public GetMode(): VimMode {
-        return this.mode;
+    private LoadKeyBinding() {
+        this.commandFactory.SetKeyBindings(LoadKeyBindings(this.Options));
     }
 }
 
@@ -73,8 +97,43 @@ export class Position implements IPosition {
     public Line: number;
     public Char: number;
     constructor(line?: number, char?: number) {
-        this.Line = line == undefined ? 0 : line;
-        this.Char = char == undefined ? 0 : char;
+        this.Line = line === undefined ? 0 : line;
+        this.Char = char === undefined ? 0 : char;
+    }
+    public Copy(): IPosition {
+        return new Position(this.Line, this.Char);
+    }
+
+    public IsEqual(other: IPosition) {
+        return other.Line === this.Line && other.Char === this.Char;
+    }
+
+    public IsBefore(other: IPosition) {
+        if (this.Line === other.Line) {
+            return this.Char < other.Char;
+        }
+        return this.Line < other.Line;
+    }
+
+    public IsBeforeOrEqual(other: IPosition) {
+        if (this.Line === other.Line) {
+            return this.Char <= other.Char;
+        }
+        return this.Line < other.Line;
+    }
+
+    public IsAfter(other: IPosition) {
+        if (this.Line === other.Line) {
+            return this.Char > other.Char;
+        }
+        return this.Line > other.Line;
+    }
+
+    public IsAfterOrEqual(other: IPosition) {
+        if (this.Line === other.Line) {
+            return this.Char >= other.Char;
+        }
+        return this.Line > other.Line;
     }
 }
 
@@ -88,18 +147,37 @@ export class Range implements IRange {
     }
 
     public Sort() {
-        var isReverse = false;
+        let isReverse = false;
         if (this.end.Line < this.start.Line) {
             isReverse = true;
-        } else if (this.end.Line == this.start.Line) {
+        } else if (this.end.Line === this.start.Line) {
             if (this.end.Char < this.start.Char) {
                 isReverse = true;
             }
         }
         if (isReverse) {
-            var b = this.start;
+            let b = this.start;
             this.start = this.end;
             this.end = b;
         }
+    }
+
+    public IsContain(p: IPosition): boolean {
+        let r = this.Copy();
+        r.Sort();
+        if (p.Line < r.start.Line) return false;
+        if (r.end.Line < p.Line) return false;
+        if (p.Line === r.start.Line && p.Char < r.start.Char) return false;
+        if (p.Line === r.end.Line && r.end.Char < p.Char) return false;
+        return true;
+    }
+
+    public Copy(): IRange {
+        let r = new Range();
+        r.start.Char = this.start.Char;
+        r.start.Line = this.start.Line;
+        r.end.Char = this.end.Char;
+        r.end.Line = this.end.Line;
+        return r;
     }
 }

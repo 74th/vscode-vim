@@ -5,6 +5,8 @@ export function ModeToString(mode: VimMode): string {
             return "INSERT";
         case VimMode.Normal:
             return "NORMAL";
+        case VimMode.Visual:
+            return "VISUAL";
         default:
             throw new Error("Panic!");
     }
@@ -43,7 +45,7 @@ export function KeyToNum(key: Key): number {
  */
 export function isNumber(val) {
     console.log("testing val", val);
-    var res = parseInt(val, 10);
+    let res = parseInt(val, 10);
     return isNaN ? null : res;
 }
 
@@ -346,7 +348,7 @@ export function GetCharClass(charCode: number): CharGroup {
         // { - ~
         return CharGroup.Marks;
     }
-    if (charCode == 0x7F) {
+    if (charCode === 0x7F) {
         // DEL
         return CharGroup.Spaces;
     }
@@ -354,7 +356,7 @@ export function GetCharClass(charCode: number): CharGroup {
         // 漢字とか
         return CharGroup.Other;
     }
-    if (charCode == 0x3000) {
+    if (charCode === 0x3000) {
         // 全角スペース
         return CharGroup.Spaces;
     }
