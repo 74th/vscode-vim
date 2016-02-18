@@ -22,6 +22,17 @@ ext install vimStyle
 * d y c dd yy cc Ndd Nyy Ncc D C p P
 * v
 
+## Caution!
+
+This plugin uses selection to devide modes.
+
+Please add this setting to your `settings.json`.
+
+
+```
+"editor.selectionHighlight": false,
+```
+
 ## settings
 
 If you needs optional settings, please copy belong json and paste to your `settings.json`.
