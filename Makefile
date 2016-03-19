@@ -1,19 +1,23 @@
 PHONY:clean test build tslint
 
+MOCHA=node_modules/mocha/bin/mocha
+TSC=./node_modules/typescript/bin/tsc
+TSLINT=./node_modules/tslint/bin/tslint
+
 test: build tslint
-	cd out;mocha -g VimStyle
+	cd out;../$(MOCHA) -g VimStyle
 	
 OriginalVimTest: build
-	cd out;mocha -g OriginalVim
+	cd out;../$(MOCHA) -g OriginalVim
 	
 NeoVimTest: build
-	cd out;mocha -g NeoVim
+	cd out;../$(MOCHA) -g NeoVim
 	
 build: node_modules
-	tsc
+	$(TSC)
 
 tslint: build
-	tslint src/**/**.ts
+	$(TSLINT) src/**/**.ts
 
 release: test
 	vsce package
