@@ -1,5 +1,5 @@
 {
-    "name": "vimStyle",
+    "name": "vimstyle",
     "displayname": "Vim Style",
     "description": "vim style keybinding extension",
     "icon": "bluevim.png",
