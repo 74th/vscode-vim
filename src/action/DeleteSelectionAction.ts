@@ -29,10 +29,12 @@ export class DeleteSelectionAction {
         } else {
             vim.ApplyNormalMode();
         }
+
         if (!this.isOnlyYanc) {
             editor.DeleteRange(s, s.start);
         } else {
             editor.SetPosition(s.start);
         }
+
     }
 }

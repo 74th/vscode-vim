@@ -7,7 +7,7 @@ vim style key-binding for VSCode
 
 ## Require
 
-* VSCode 0.10.1
+* v0.3 : Visual Studio Code 0.10.11
 
 ## install
 
@@ -24,17 +24,6 @@ ext install vimStyle
 * d y c dd yy cc D C p P 
 * Ndd Nyy Ncc
 * v
-
-## Caution!
-
-This plugin uses selection to devide modes.
-
-Please add this setting to your `settings.json`.
-
-
-```
-"editor.selectionHighlight": false,
-```
 
 ## settings
 
