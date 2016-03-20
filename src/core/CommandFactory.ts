@@ -145,7 +145,22 @@ export class CommandFactory implements ICommandFactory {
                 this.moveLineAction(command.isReverse);
                 return;
             case CommandName.moveWordAction:
-                this.moveWordAction(command.isReverse);
+                this.moveWordAction(false, false, false);
+                return;
+            case CommandName.moveWORDAction:
+                this.moveWordAction(false, false, true);
+                return;
+            case CommandName.moveBackWordAction:
+                this.moveWordAction(true, true, false);
+                return;
+            case CommandName.moveBackWORDAction:
+                this.moveWordAction(true, true, true);
+                return;
+            case CommandName.moveWordEndAction:
+                this.moveWordAction(false, true, false);
+                return;
+            case CommandName.moveWORDEndAction:
+                this.moveWordAction(false, true, true);
                 return;
             case CommandName.moveHomeAction:
                 this.moveHomeAction();
@@ -177,8 +192,23 @@ export class CommandFactory implements ICommandFactory {
                 this.lineMotion(command.isReverse);
                 return;
             case CommandName.wordMotion:
-                this.wordMotion(command.isReverse);
+                this.wordMotion(false, false, false);
                 return;
+            case CommandName.wordMotion:
+                this.wordMotion(false, false, true);
+                return;
+            case CommandName.backWordMotion:
+                this.wordMotion(true, true, false);
+                break;
+            case CommandName.backWORDMotion:
+                this.wordMotion(true, true, true);
+                break;
+            case CommandName.wordEndMotion:
+                this.wordMotion(false, true, false);
+                break;
+            case CommandName.WORDEndMotion:
+                this.wordMotion(false, true, true);
+                break;
             case CommandName.homeMotion:
                 this.homeMotion();
                 return;
@@ -363,13 +393,19 @@ export class CommandFactory implements ICommandFactory {
         this.action = this.createMoveAction(m);
     }
 
-    // w b
-    private moveWordAction(isReverse: boolean) {
+    // w b e W B E
+    private moveWordAction(isReverse: boolean, isWordEnd: boolean, isWORD: boolean) {
         let m: WordMotion;
         if (isReverse) {
             m = new WordMotion(Direction.Left);
         } else {
             m = new WordMotion(Direction.Right);
+        }
+        if (isWordEnd) {
+            m.SetWordEndOption();
+        }
+        if (isWORD) {
+            m.SetWORDOption();
         }
         m.SetCount(this.getNumStack());
         this.action = this.createMoveAction(m);
@@ -467,12 +503,18 @@ export class CommandFactory implements ICommandFactory {
     }
 
     // cw cb
-    private wordMotion(isReverse: boolean) {
+    private wordMotion(isReverse: boolean, isWordEnd: boolean, isWORD: boolean) {
         let m: WordMotion;
         if (isReverse) {
             m = new WordMotion(Direction.Left);
         } else {
             m = new WordMotion(Direction.Right);
+        }
+        if (isWordEnd) {
+            m.SetWordEndOption();
+        }
+        if (isWORD) {
+            m.SetWORDOption();
         }
         m.SetCount(this.getNumStack());
         m.SetStopFinalLnOption();

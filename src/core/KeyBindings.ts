@@ -47,10 +47,13 @@ const DefaultKeyBindings: IKeyBindings = {
             cmd: CommandName.appendEndAction
         },
         "b": {
-            cmd: CommandName.moveWordAction,
+            cmd: CommandName.moveBackWordAction,
             isReverse: true
         },
-        // B
+        "B": {
+            cmd: CommandName.moveBackWORDAction,
+            isReverse: true
+        },
         "c": {
             state: StateName.RequireMotion,
             cmd: CommandName.changeAction
@@ -65,8 +68,12 @@ const DefaultKeyBindings: IKeyBindings = {
         "D": {
             cmd: CommandName.deleteToEndAction
         },
-        // e
-        // E
+        "e" : {
+            cmd: CommandName.moveWordEndAction
+        },
+        "E": {
+            cmd: CommandName.moveWORDEndAction
+        },
         "f": {
             cmd: CommandName.moveFindCharacterAction,
             state: StateName.RequireCharForMotion
@@ -149,7 +156,9 @@ const DefaultKeyBindings: IKeyBindings = {
         "w": {
             cmd: CommandName.moveWordAction
         },
-        // W
+        "W": {
+            cmd: CommandName.moveWORDAction
+        },
         "x": {
             cmd: CommandName.deleteCharacterAction
         },
@@ -215,8 +224,10 @@ const DefaultKeyBindings: IKeyBindings = {
         // Na low priority
         // NA low priority
         "b": {
-            cmd: CommandName.moveWordAction,
-            isReverse: true
+            cmd: CommandName.moveBackWordAction
+        },
+        "B": {
+            cmd: CommandName.moveBackWORDAction
         },
         // B
         // Nc low priority
@@ -226,8 +237,12 @@ const DefaultKeyBindings: IKeyBindings = {
             state: StateName.RequireMotion
         },
         // ND low priority
-        // Ne
-        // NE
+        "e": {
+            cmd: CommandName.moveWordEndAction
+        },
+        "E": {
+            cmd: CommandName.moveWORDEndAction
+        },
         "f": {
             cmd: CommandName.moveFindCharacterAction,
             state: StateName.RequireCharForMotion
@@ -286,6 +301,9 @@ const DefaultKeyBindings: IKeyBindings = {
         // NV?
         "w": {
             cmd: CommandName.moveWordAction
+        },
+        "W": {
+            cmd: CommandName.moveWORDAction
         },
         "x": {
             cmd: CommandName.deleteCharacterAction
@@ -351,7 +369,10 @@ const DefaultKeyBindings: IKeyBindings = {
             cmd: CommandName.wordMotion,
             isReverse: true
         },
-        // B
+        "B": {
+            cmd: CommandName.WORDMotion,
+            isReverse: true
+        },
         "c": {
             cmd: CommandName.doActionAtCurrentLine
         },
@@ -360,8 +381,12 @@ const DefaultKeyBindings: IKeyBindings = {
             cmd: CommandName.doActionAtCurrentLine
         },
         // D no command
-        // e
-        // E
+        "e": {
+            cmd: CommandName.wordEndMotion
+        },
+        "E": {
+            cmd: CommandName.WORDEndMotion
+        },
         "f": {
             cmd: CommandName.findCharacterMotion,
             state: StateName.RequireCharForMotion
@@ -424,7 +449,9 @@ const DefaultKeyBindings: IKeyBindings = {
         "w": {
             cmd: CommandName.wordMotion
         },
-        // W
+        "W": {
+            cmd: CommandName.WORDMotion
+        },
         // x no function
         // X no function
         "y": {
