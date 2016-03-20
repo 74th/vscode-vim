@@ -50,7 +50,17 @@ export let VimStyleTests = {
                 "|abc abc"
             ]
         },
-        "2b:move to next word": {
+        "2w:move to next word(not skip marks)": {
+            "in": ["ab|c abc(abc) abc"],
+            "key": "2w",
+            "out": ["abc abc|(abc) abc"]
+        },
+        "2W:move to next word(skip marks)": {
+            "in": ["ab|c abc(abc) abc"],
+            "key": "2W",
+            "out": ["abc abc(abc) |abc"]
+        },
+        "2b:move to before word": {
             "in": ["abc abc ab|c abc"],
             "key": "2b",
             "out": ["abc |abc abc abc"]
@@ -70,6 +80,16 @@ export let VimStyleTests = {
                 "abc |abc",
                 "abc abc"
             ]
+        },
+        "3b:move to before word(not skip marks)": {
+            "in": ["abc abc(abc) a|bc"],
+            "key": "3b",
+            "out": ["abc abc(|abc) abc"]
+        },
+        "2B:move to before word(skip marks)": {
+            "in": ["abc abc(abc) a|bc"],
+            "key": "2B",
+            "out": ["abc |abc(abc) abc"]
         },
         "2e:move to next word end": {
             "in": ["a|bc abc abc abc"],
@@ -91,6 +111,16 @@ export let VimStyleTests = {
                 "abc abc",
                 "ab|c abc"
             ]
+        },
+        "e:move to next word end(not skip marks)": {
+            "in": ["a|bc abc(abc) abc"],
+            "key": "4e",
+            "out": ["abc abc(ab|c) abc"]
+        },
+        "E:move to before word(skip marks)": {
+            "in": ["a|bc abc(abc) abc"],
+            "key": "2E",
+            "out": ["abc abc(abc|) abc"]
         }
     },
     "Down Motion": {
