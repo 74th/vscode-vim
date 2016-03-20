@@ -1,12 +1,12 @@
 import {VirtualEditor} from "./VirtualEditor";
-import {Position,VimStyle} from "../src/VimStyle";
+import {Position, VimStyle} from "../src/VimStyle";
 import {VimStyleTests} from "./VimStyleTests";
 let assert = require("assert");
 let exec = require("child_process").exec;
 let fs = require("fs");
 
 for (let target in VimStyleTests) {
-    describe("OriginalVim" + target, function(){
+    describe("OriginalVim" + target, function() {
         this.timeout(500);
         let test = VimStyleTests[target];
         for (let specName in test) {
@@ -21,7 +21,7 @@ for (let target in VimStyleTests) {
                     text = "/|\n";
                     text += ":normal x\n";
                     let list = spec["key"].split("_");
-                    for (let i = 0; i < list.length; i++){
+                    for (let i = 0; i < list.length; i++) {
                         text += ":normal " + list[i] + "\n";
                     }
                     text += ":normal i|\n";
@@ -33,9 +33,9 @@ for (let target in VimStyleTests) {
                         let i = 0;
                         fs.readFile("OriginalVimOutput", function(err, text) {
                             let out = text.toString().split("\n");
-                            assert.equal(out.length -1, spec["out"].length);
-                            for (let i = 0; i < spec["out"].length; i++){
-                                assert.equal(out[i],spec["out"][i]);
+                            assert.equal(out.length - 1, spec["out"].length);
+                            for (let i = 0; i < spec["out"].length; i++) {
+                                assert.equal(out[i], spec["out"][i]);
                             }
                             done();
                         });

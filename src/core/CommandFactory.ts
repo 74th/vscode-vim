@@ -145,22 +145,22 @@ export class CommandFactory implements ICommandFactory {
                 this.moveLineAction(command.isReverse);
                 return;
             case CommandName.moveWordAction:
-                this.moveWordAction(false, false, false);
+                this.moveWordAction(false, false, false, false);
                 return;
             case CommandName.moveWORDAction:
-                this.moveWordAction(false, false, true);
+                this.moveWordAction(false, false, true, false);
                 return;
             case CommandName.moveBackWordAction:
-                this.moveWordAction(true, true, false);
+                this.moveWordAction(true, true, false, false);
                 return;
             case CommandName.moveBackWORDAction:
-                this.moveWordAction(true, true, true);
+                this.moveWordAction(true, true, true, false);
                 return;
             case CommandName.moveWordEndAction:
-                this.moveWordAction(false, true, false);
+                this.moveWordAction(false, true, false, true);
                 return;
             case CommandName.moveWORDEndAction:
-                this.moveWordAction(false, true, true);
+                this.moveWordAction(false, true, true, true);
                 return;
             case CommandName.moveHomeAction:
                 this.moveHomeAction();
@@ -192,22 +192,22 @@ export class CommandFactory implements ICommandFactory {
                 this.lineMotion(command.isReverse);
                 return;
             case CommandName.wordMotion:
-                this.wordMotion(false, false, false);
+                this.wordMotion(false, false, false, false);
                 return;
             case CommandName.wordMotion:
-                this.wordMotion(false, false, true);
+                this.wordMotion(false, false, true, false);
                 return;
             case CommandName.backWordMotion:
-                this.wordMotion(true, true, false);
+                this.wordMotion(true, true, false, false);
                 break;
             case CommandName.backWORDMotion:
-                this.wordMotion(true, true, true);
+                this.wordMotion(true, true, true, false);
                 break;
             case CommandName.wordEndMotion:
-                this.wordMotion(false, true, false);
+                this.wordMotion(false, true, false, true);
                 break;
             case CommandName.WORDEndMotion:
-                this.wordMotion(false, true, true);
+                this.wordMotion(false, true, true, true);
                 break;
             case CommandName.homeMotion:
                 this.homeMotion();
@@ -394,7 +394,7 @@ export class CommandFactory implements ICommandFactory {
     }
 
     // w b e W B E
-    private moveWordAction(isReverse: boolean, isWordEnd: boolean, isWORD: boolean) {
+    private moveWordAction(isReverse: boolean, isWordEnd: boolean, isWORD: boolean, isSkipBlankLine) {
         let m: WordMotion;
         if (isReverse) {
             m = new WordMotion(Direction.Left);
@@ -406,6 +406,9 @@ export class CommandFactory implements ICommandFactory {
         }
         if (isWORD) {
             m.SetWORDOption();
+        }
+        if (isSkipBlankLine) {
+            m.SetSkipBlankLineOption();
         }
         m.SetCount(this.getNumStack());
         this.action = this.createMoveAction(m);
@@ -502,8 +505,8 @@ export class CommandFactory implements ICommandFactory {
         a.SetLineOption();
     }
 
-    // cw cb
-    private wordMotion(isReverse: boolean, isWordEnd: boolean, isWORD: boolean) {
+    // cw cb ce cW cB cE
+    private wordMotion(isReverse: boolean, isWordEnd: boolean, isWORD: boolean, isSkipBlankLine: boolean) {
         let m: WordMotion;
         if (isReverse) {
             m = new WordMotion(Direction.Left);
@@ -516,8 +519,10 @@ export class CommandFactory implements ICommandFactory {
         if (isWORD) {
             m.SetWORDOption();
         }
+        if (isSkipBlankLine) {
+            m.SetSkipBlankLineOption();
+        }
         m.SetCount(this.getNumStack());
-        m.SetStopFinalLnOption();
         let a = <IRequireMotionAction>this.action;
         a.SetMotion(m);
     }

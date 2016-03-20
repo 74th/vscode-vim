@@ -60,6 +60,21 @@ export let VimStyleTests = {
             "key": "2W",
             "out": ["abc abc(abc) |abc"]
         },
+        "2w:move to next word(not skip blank line)": {
+            "in": [
+                "ab|c abc",
+                "",
+                "",
+                "abd abd"
+            ],
+            "key": "4w",
+            "out": [
+                "abc abc",
+                "",
+                "",
+                "|abd abd"
+            ],
+        },
         "2b:move to before word": {
             "in": ["abc abc ab|c abc"],
             "key": "2b",
@@ -91,6 +106,21 @@ export let VimStyleTests = {
             "key": "2B",
             "out": ["abc |abc(abc) abc"]
         },
+        "4b:move to before word(not skip blank line)": {
+            "in": [
+                "abc abc",
+                "",
+                "",
+                "ab|d abd"
+            ],
+            "key": "4b",
+            "out": [
+                "abc |abc",
+                "",
+                "",
+                "abd abd"
+            ],
+        },
         "2e:move to next word end": {
             "in": ["a|bc abc abc abc"],
             "key": "2e",
@@ -121,7 +151,22 @@ export let VimStyleTests = {
             "in": ["a|bc abc(abc) abc"],
             "key": "2E",
             "out": ["abc abc(abc|) abc"]
-        }
+        },
+        "2e:move to next wordend(skip blank line)": {
+            "in": [
+                "ab|c abc",
+                "",
+                "",
+                "abd abd"
+            ],
+            "key": "2e",
+            "out": [
+                "abc abc",
+                "",
+                "",
+                "ab|d abd"
+            ],
+        },
     },
     "Down Motion": {
         "j:move to down 1": {

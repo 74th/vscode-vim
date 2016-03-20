@@ -5,20 +5,20 @@ import {Position} from "../VimStyle";
 export class WordMotion extends AbstractMotion {
 
     private direction: Direction;
-    private isStopFinalLn: boolean;
+    private isSkipBlankLine: boolean;
     private isWordEnd: boolean;
     private isWORD: boolean;
 
     constructor(direction: Direction) {
         super();
         this.direction = direction;
-        this.isStopFinalLn = false;
+        this.isSkipBlankLine = false;
         this.isWordEnd = false;
         this.isWORD = false;
     };
 
-    public SetStopFinalLnOption() {
-        this.isStopFinalLn = true;
+    public SetSkipBlankLineOption() {
+        this.isSkipBlankLine = true;
     }
 
     public SetWordEndOption() {
@@ -111,6 +111,23 @@ export class WordMotion extends AbstractMotion {
 
             // handle
             if (charClass === CharGroup.Spaces) {
+                if (this.direction === Direction.Left) {
+                    if (position.Char === 0 && previousPosition.Char === 0) {
+                        // blankline
+
+                        if (!this.isSkipBlankLine) {
+                            count--;
+                        }
+                    }
+                } else {
+                    if (position.Char === -1 && nextPosition.Char === -1) {
+                        // blankline
+
+                        if (!this.isSkipBlankLine) {
+                            count--;
+                        }
+                    }
+                }
                 continue;
             }
             if (this.isWORD) {
