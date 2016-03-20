@@ -46,7 +46,7 @@ interface IEditor {
 }
 
 interface ICommandFactory {
-    PushKey(key: Key, mode: VimMode): IAction;
+    PushKey(key: string, mode: VimMode): IAction;
     Clear(): void;
     GetCommandString(): string;
     SetKeyBindings(IKeyBindings);
@@ -111,7 +111,7 @@ interface IVimStyle {
     Register: IRegister;
     Options: IVimStyleOptions;
 
-    PushKey(key: Key): void;
+    PushKey(key: string): void;
     PushEscKey(): void;
     ApplyNormalMode();
     ApplyInsertMode(p?: IPosition): void;

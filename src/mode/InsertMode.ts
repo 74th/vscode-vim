@@ -1,5 +1,5 @@
 import * as Utils from "../Utils";
 
-export function InsertModeExecute(key: Key, editor: IEditor) {
-    editor.InsertCharactorAtCurrentPosition(Utils.KeyToChar(key));
+export function InsertModeExecute(key: string, editor: IEditor) {
+    editor.InsertCharactorAtCurrentPosition(key);
 }

@@ -54,7 +54,7 @@
         "keybindings": [{
             "command": "vim.Esc",
             "key": "escape",
-            "when": "editorTextFocus && vim.hasInput"
+            "when": "editorTextFocus"
             }
         ]
     },

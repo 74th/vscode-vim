@@ -21,7 +21,7 @@ export class VimStyle implements IVimStyle {
         this.ApplyOptions(conf);
     }
 
-    public PushKey(key: Key) {
+    public PushKey(key: string) {
         switch (this.mode) {
             case VimMode.Normal:
             case VimMode.Visual:
@@ -68,7 +68,7 @@ export class VimStyle implements IVimStyle {
         this.LoadKeyBinding();
     }
 
-    private readCommand(key: Key) {
+    private readCommand(key: string) {
         let action = this.commandFactory.PushKey(key, this.mode);
         if (action == null) {
             this.showCommand();

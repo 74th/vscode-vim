@@ -21,7 +21,7 @@ export class CommandFactory implements ICommandFactory {
     private action: IAction;
     private motion: FindCharacterMotion;
     private keyBindings: IKeyBindings;
-    private stackedKey: Key;
+    private stackedKey: string;
     private num: number;
     private commandString: string;
 
@@ -29,8 +29,7 @@ export class CommandFactory implements ICommandFactory {
         this.Clear();
     }
 
-    public PushKey(key: Key, mode: VimMode): IAction {
-        let keyChar = Utils.KeyToChar(key);
+    public PushKey(keyChar: string, mode: VimMode): IAction {
         let command: IVimStyleCommand;
         if (mode === VimMode.Normal) {
             switch (this.state) {
@@ -47,7 +46,7 @@ export class CommandFactory implements ICommandFactory {
                     command = this.keyBindings.RequireMotionNum[keyChar];
                     break;
                 case StateName.RequireCharForMotion:
-                    return this.pushKeyAtRequireCharForMotion(key);
+                    return this.pushKeyAtRequireCharForMotion(keyChar);
                 case StateName.SmallG:
                     command = this.keyBindings.SmallG[keyChar];
                     break;
@@ -65,7 +64,7 @@ export class CommandFactory implements ICommandFactory {
                     command = this.keyBindings.RequireMotionNum[keyChar];
                     break;
                 case StateName.RequireCharForMotion:
-                    return this.pushKeyAtRequireCharForMotion(key);
+                    return this.pushKeyAtRequireCharForMotion(keyChar);
                 case StateName.SmallGForMotion:
                     command = this.keyBindings.SmallGForMotion[keyChar];
                     break;
@@ -75,7 +74,7 @@ export class CommandFactory implements ICommandFactory {
             this.Clear();
             return null;
         }
-        this.createVimStyleCommand(key, command);
+        this.createVimStyleCommand(keyChar, command);
         if (command.state === StateName.Panic) {
             this.Clear();
             return null;
@@ -83,7 +82,7 @@ export class CommandFactory implements ICommandFactory {
         if (command.state === undefined) {
             return this.action;
         }
-        this.stackedKey = key;
+        this.stackedKey = keyChar;
         this.commandString += keyChar;
         this.state = command.state;
         return null;
@@ -105,7 +104,7 @@ export class CommandFactory implements ICommandFactory {
         this.keyBindings = keyBindings;
     }
 
-    private createVimStyleCommand(key: Key, command: IVimStyleCommand) {
+    private createVimStyleCommand(key: string, command: IVimStyleCommand) {
 
         switch (command.cmd) {
             // single action
@@ -279,8 +278,8 @@ export class CommandFactory implements ICommandFactory {
         }
     }
 
-    private pushKeyAtRequireCharForMotion(key: Key): IAction {
-        this.motion.SetChar(Utils.KeyToChar(key));
+    private pushKeyAtRequireCharForMotion(key: string): IAction {
+        this.motion.SetChar(key);
         return this.action;
     }
 
@@ -648,8 +647,8 @@ export class CommandFactory implements ICommandFactory {
         this.action = a;
     }
 
-    private stackNumber(key: Key) {
-        let n: number = Utils.KeyToNum(key);
+    private stackNumber(key: string) {
+        let n: number = parseInt(key, 10);
         this.num = this.num * 10 + n;
         if (this.num > 10000) {
             this.Clear();
@@ -657,7 +656,7 @@ export class CommandFactory implements ICommandFactory {
     }
 
     // dd, yy, cc    
-    private doActionAtCurrentLine(key: Key) {
+    private doActionAtCurrentLine(key: String) {
         if (this.stackedKey !== key) {
             this.Clear();
             return;
