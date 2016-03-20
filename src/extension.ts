@@ -42,7 +42,6 @@ export function activate(context: vscode.ExtensionContext) {
         if (!vscode.window.activeTextEditor) {
             return;
         }
-        console.log(args.text);
         if (vim.GetMode() === VimMode.Insert) {
             vscode.commands.executeCommand("default:type", args);
         }

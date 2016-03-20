@@ -241,41 +241,19 @@ export class VSCodeEditor implements IEditor {
         this.showBlockCursor(vp);
     }
 
-    private showBlockCursor(end: vscode.Position, isEmptyLastLine?: boolean, isEmptyDocument?: boolean) {
-        let doc = vscode.window.activeTextEditor.document;
-        let start: vscode.Position;
-        if (isEmptyDocument === undefined) {
-            isEmptyDocument = (
-                doc.lineCount === 1 &&
-                doc.lineAt(end.line).range.end.character === 0
-            );
-        }
-        if (isEmptyLastLine === undefined) {
-            isEmptyLastLine = (
-                doc.lineCount - 1 === end.line &&
-                doc.lineAt(end.line).range.end.character === 0
-            );
-        }
-        if (isEmptyDocument) {
-            start = end.translate(0, 1);
-            vscode.window.activeTextEditor.edit((editBuilder) => {
-                editBuilder.insert(end, " ");
-            });
-        } else if (isEmptyLastLine) {
-            start = selectNeiborPosition(doc, end, false);
-        } else {
-            start = selectNeiborPosition(doc, end, true);
-        }
-        let select = new vscode.Selection(start, end);
-        this.selectionSetTime = new Date().getTime();
+    private showBlockCursor(p: vscode.Position) {
+        let select = new vscode.Selection(p, p);
+        vscode.window.activeTextEditor.options = {
+            cursorStyle: vscode.TextEditorCursorStyle.Block
+        };
         vscode.window.activeTextEditor.selection = select;
-        if (isEmptyDocument) {
-            this.dummySpacePosition = end;
-        }
+        this.selectionSetTime = new Date().getTime();
     }
 
     public ApplyInsertMode(p?: Position) {
-        this.deleteNonCharLine();
+        vscode.window.activeTextEditor.options = {
+            cursorStyle: vscode.TextEditorCursorStyle.Line
+        };
         let c: vscode.Position;
         if (p === undefined) {
             c = vscode.window.activeTextEditor.selection.active;
