@@ -76,9 +76,7 @@ export class VSCodeEditor implements IEditor {
         vscode.window.activeTextEditor.edit((editBuilder) => {
             editBuilder.delete(tranceVSCodeRange(range));
             if (this.vimStyle.GetMode() === VimMode.Normal) {
-                vscode.window.activeTextEditor.options = {
-                    cursorStyle: vscode.TextEditorCursorStyle.Block
-                };
+                this.showBlockCursor();
             }
         });
     }
@@ -110,8 +108,9 @@ export class VSCodeEditor implements IEditor {
     }
     public SetPosition(p: IPosition) {
         let cp = tranceVSCodePosition(p);
-        this.showBlockCursor(cp);
+        vscode.window.activeTextEditor.selection = new vscode.Selection(cp, cp);
         vscode.window.activeTextEditor.revealRange(vscode.window.activeTextEditor.selection, vscode.TextEditorRevealType.Default);
+        this.showBlockCursor();
     }
     public GetLastPosition(): IPosition {
         let end = vscode.window.activeTextEditor.document.lineAt(vscode.window.activeTextEditor.document.lineCount - 1).range.end;
@@ -160,44 +159,28 @@ export class VSCodeEditor implements IEditor {
             vp = tranceVSCodePosition(p);
             vscode.window.activeTextEditor.selection = new vscode.Selection(vp, vp);
         }
-        vscode.window.activeTextEditor.options = {
-            cursorStyle: vscode.TextEditorCursorStyle.Block
-        };
+        this.showBlockCursor();
     }
 
-    private showBlockCursor(p: vscode.Position) {
-        let select = new vscode.Selection(p, p);
-        vscode.window.activeTextEditor.options = {
-            cursorStyle: vscode.TextEditorCursorStyle.Block
-        };
-        vscode.window.activeTextEditor.selection = select;
-    }
+
 
     public ApplyInsertMode(p?: Position) {
-        vscode.window.activeTextEditor.options = {
-            cursorStyle: vscode.TextEditorCursorStyle.Line
-        };
-        let c: vscode.Position;
-        if (p === undefined) {
-            c = vscode.window.activeTextEditor.selection.active;
-        } else {
-            c = tranceVSCodePosition(p);
+        if (p) {
+            let c = tranceVSCodePosition(p);
+            vscode.window.activeTextEditor.selection = new vscode.Selection(c, c);
         }
-        let s = new vscode.Selection(c, c);
-        vscode.window.activeTextEditor.selection = s;
+        this.showLineCursor();
     }
 
     public ApplyVisualMode() {
-        vscode.window.activeTextEditor.options = {
-            cursorStyle: vscode.TextEditorCursorStyle.Line
-        };
         let s = vscode.window.activeTextEditor.selection;
         if (s.start.isEqual(s.end)) {
             // select current position
             let np = new vscode.Position(s.start.line, s.start.character + 1);
-            let v = new vscode.Selection(s.start, np)
+            let v = new vscode.Selection(s.start, np);
             vscode.window.activeTextEditor.selection = v;
         }
+        this.showLineCursor();
     }
 
     public UpdateValidPosition(p: IPosition, isBlock?: boolean): IPosition {
@@ -227,6 +210,18 @@ export class VSCodeEditor implements IEditor {
             }
         }
         return cp;
+    }
+
+    private showLineCursor() {
+        vscode.window.activeTextEditor.options = {
+            cursorStyle: vscode.TextEditorCursorStyle.Line
+        };
+    }
+
+    private showBlockCursor() {
+        vscode.window.activeTextEditor.options = {
+            cursorStyle: vscode.TextEditorCursorStyle.Block
+        };
     }
 }
 
