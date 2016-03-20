@@ -43,6 +43,9 @@ export function activate(context: vscode.ExtensionContext) {
             return;
         }
         console.log(args.text);
+        if (vim.GetMode() === VimMode.Insert) {
+            vscode.commands.executeCommand("default:type", args);
+        }
         vim.PushKey(args.text);
     }));
     context.subscriptions.push(vscode.commands.registerCommand("vim.Esc", () => {
