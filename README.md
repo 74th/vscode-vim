@@ -87,6 +87,10 @@ MIT License
 
 ## update
 
+### 0.3.0
+
+* update for vscode 0.10.12
+
 ### 0.2.4
 
 * support W B e E
