@@ -18,8 +18,11 @@ ext install vimStyle
 ## support
 
 * h j k l 0 $ w b tx fx Tx Fx gg G
+* Nh Nj Nk Nl Nw Nb Ntx Nfx NTx NFx NG
 * i a s o x I A S O X
-* d y c dd yy cc Ndd Nyy Ncc D C p P
+* Nx
+* d y c dd yy cc D C p P 
+* Ndd Nyy Ncc
 * v
 
 ## Caution!
