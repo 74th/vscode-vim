@@ -19,15 +19,15 @@
 			"name": "Launch Tests",
 			"type": "node",
 			"request": "launch",
-			"program": "./node_modules/mocha/bin/_mocha",
+			"program": "${workspaceRoot}/node_modules/mocha/bin/_mocha",
 			"stopOnEntry": false,
 			"sourceMaps": true,
 			"args": [
 				"-g",
 				"VimStyle"
 			],
-			"outDir": "./out",
-			"cwd": "./out",
+			"outDir": "${workspaceRoot}/out",
+			"cwd": "${workspaceRoot}/out",
 			"runtimeExecutable": null,
 			"preLaunchTask": "build"
 		}
