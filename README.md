@@ -98,6 +98,10 @@ MIT License
 
 ## update
 
+### 0.2.4
+
+* support W B e E
+
 ### 0.2.3
 
 * support `useErgonomicKeyForMotion` option : move a cursur by `jkl;`
