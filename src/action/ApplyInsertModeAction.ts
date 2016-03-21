@@ -28,6 +28,13 @@ export class ApplyInsertModeAction implements IAction {
             editor.Insert(p, this.insertText);
         } else {
             vim.ApplyInsertMode(p);
+            let text = editor.ReadLineAtCurrentPosition();
+            vim.InsertModeInfo = {
+                DocumentLineCount: editor.GetLastLineNum() + 1,
+                Position: p,
+                BeforeText: text.substring(0, p.Char),
+                AfterText: text.substring(p.Char)
+            };
         }
     }
 }

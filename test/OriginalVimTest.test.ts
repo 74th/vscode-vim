@@ -6,7 +6,7 @@ let exec = require("child_process").exec;
 let fs = require("fs");
 
 for (let target in VimTests) {
-    describe("OriginalVim" + target, function() {
+    describe("OriginalVim " + target, function() {
         this.timeout(500);
         let test = VimTests[target];
         for (let specName in test) {

@@ -20,11 +20,13 @@ for (target in VimTests) {
                     ed.SetContent(spec["in"]);
                     ed.Type(spec.key);
                     let out = ed.GetContent();
-                    assert.equal(out.length, spec.out.length);
+                    //assert.equal(out.length, spec.out.length);
                     let outText = out[0];
                     let specText = spec.out[0];
-                    for (let i = 1; i < spec.out.length; i++) {
+                    for (let i = 1; i < out.length; i++) {
                         outText += "\n" + out[i];
+                    }
+                    for (let i = 1; i < spec.out.length; i++) {
                         specText += "\n" + spec.out[i];
                     }
                     assert.equal(outText, specText);

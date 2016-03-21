@@ -105,6 +105,18 @@ export class DeleteAction implements IRequireMotionAction {
         if (!this.isOnlyYanc) {
             editor.DeleteRange(range, nextPosition);
         }
+        if (this.isInsert && this.insertText === null) {
+            let startLine = editor.ReadLine(range.start.Line);
+            let endLine = editor.ReadLine(range.end.Line);
+            let afterLineCount = editor.GetLastLineNum() + 1 - (range.end.Line - range.start.Line);
+            vim.ApplyInsertMode();
+            vim.InsertModeInfo = {
+                DocumentLineCount: afterLineCount,
+                Position: nextPosition,
+                BeforeText: startLine.substring(0, range.start.Char),
+                AfterText: endLine.substring(range.end.Char)
+            };
+        }
     }
 
     private deleteLine(range: Range, editor: IEditor, vim: IVimStyle) {
@@ -177,11 +189,6 @@ export class DeleteAction implements IRequireMotionAction {
         item.Type = RegisterType.LineText;
         vim.Register.SetRoll(item);
 
-        if (this.isInsert) {
-            if (this.insertText !== null) {
-                vim.ApplyInsertMode();
-            }
-        }
         if (!this.isOnlyYanc) {
             if (this.isInsert && this.insertText !== null) {
                 editor.ReplaceRange(del, this.insertText);
@@ -189,5 +196,15 @@ export class DeleteAction implements IRequireMotionAction {
                 editor.DeleteRange(del, nextPosition);
             }
         }
+        if (this.isInsert && this.insertText === null) {
+            vim.ApplyInsertMode();
+            vim.InsertModeInfo = {
+                DocumentLineCount: lastLine + 1,
+                Position: nextPosition,
+                BeforeText: "",
+                AfterText: ""
+            };
+        }
+
     }
 }

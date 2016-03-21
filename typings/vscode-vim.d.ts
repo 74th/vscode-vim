@@ -115,6 +115,7 @@ interface IVimStyle {
     LastEditAction: IAction;
     LastInsertText: string;
     LastMoveCharPosition: number;
+    InsertModeInfo: any;
 
     PushKey(key: string): void;
     PushEscKey(): void;

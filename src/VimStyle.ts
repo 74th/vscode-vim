@@ -16,6 +16,7 @@ export class VimStyle implements IVimStyle {
     public LastEditAction: IAction;
     public LastInsertText: string;
     public LastMoveCharPosition: number;
+    public InsertModeInfo: any;
 
     constructor(editor: IEditor, conf: IVimStyleOptions) {
         this.editor = editor;
@@ -28,6 +29,7 @@ export class VimStyle implements IVimStyle {
         this.LastEditAction = null;
         this.LastInsertText = null;
         this.LastMoveCharPosition = null;
+        this.InsertModeInfo = null;
 
         this.ApplyOptions(conf);
     }
@@ -51,7 +53,9 @@ export class VimStyle implements IVimStyle {
         if (this.mode === VimMode.Visual && p.Char > 0) {
             p.Char -= 1;
         }
+        this.setInsertText();
         this.setMode(VimMode.Normal);
+
         this.commandFactory.Clear();
         this.editor.CloseCommandStatus();
         this.editor.ApplyNormalMode(p);
@@ -116,6 +120,45 @@ export class VimStyle implements IVimStyle {
 
     private LoadKeyBinding() {
         this.commandFactory.SetKeyBindings(LoadKeyBindings(this.Options));
+    }
+
+    private setInsertText() {
+
+        this.LastInsertText = "";
+
+        if (this.mode !== VimMode.Insert) {
+            return;
+        }
+
+        if (this.InsertModeInfo === null) {
+            return;
+        }
+        let info = this.InsertModeInfo;
+
+        let lineCount = this.editor.GetLastLineNum() + 1;
+        if (info.DocumentLineCount > lineCount) {
+            // reduced document?
+            return;
+        }
+
+        let cp = this.editor.GetCurrentPosition();
+        if (cp.Line < info.Position.Line) {
+            // move to back?
+            return;
+        }
+        let startLine = this.editor.ReadLine(info.Position.Line);
+        let endLine = this.editor.ReadLine(cp.Line);
+        if (startLine.substring(0, info.Position.Char) !== info.BeforeText) {
+            // use backspace?
+            return;
+        }
+        if (endLine.substring(cp.Char) !== info.AfterText) {
+            // use delete key?
+        }
+        let range = new Range();
+        range.start = info.Position;
+        range.end = cp;
+        this.LastInsertText = this.editor.ReadRange(range);
     }
 }
 
