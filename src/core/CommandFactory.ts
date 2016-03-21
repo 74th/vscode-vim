@@ -8,6 +8,7 @@ import {MoveLineAction} from "../action/MoveLineAction";
 import {ApplyVisualModeAction} from "../action/ApplyVisualModeAction";
 import {ExpandSelectionAction} from "../action/ExpandSelectionAction";
 import {DeleteSelectionAction} from "../action/DeleteSelectionAction";
+import {RepeatAction} from "../action/RepeatAction";
 import {RightMotion} from "../motion/RightMotion";
 import {DownMotion} from "../motion/DownMotion";
 import {HomeMotion} from "../motion/HomeMotion";
@@ -271,6 +272,11 @@ export class CommandFactory implements ICommandFactory {
                 this.yancSelectionAction();
                 return;
 
+            // special
+            case CommandName.repeat:
+                this.repeatAction();
+                return;
+
             // other
             case CommandName.stackNumber:
                 this.stackNumber(key);
@@ -286,6 +292,11 @@ export class CommandFactory implements ICommandFactory {
 
     private getNumStack() {
         return this.num === 0 ? 1 : this.num;
+    }
+
+    // .
+    private repeatAction() {
+        this.action = new RepeatAction();
     }
 
     // i    

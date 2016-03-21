@@ -8,6 +8,7 @@ export class DeleteAction implements IRequireMotionAction {
     public isLarge: boolean;
     public isInsert: boolean;
     public isOnlyYanc: boolean;
+    private insertText: string;
 
     constructor() {
         this.motion = null;
@@ -17,12 +18,17 @@ export class DeleteAction implements IRequireMotionAction {
         this.isOnlyYanc = false;
     }
 
-    public IsEdit(): boolean {
-        return !this.isOnlyYanc;
+    public GetActionType(): ActionType {
+        if (this.isOnlyYanc) {
+            return ActionType.Other;
+        } else if (this.isInsert) {
+            return ActionType.Insert;
+        }
+        return ActionType.Edit;
     }
 
-    public GetActionName(): string {
-        return "DeleteAction";
+    public SetInsertText(text: string) {
+        this.insertText = text;
     }
 
     public SetLineOption() {
@@ -172,10 +178,16 @@ export class DeleteAction implements IRequireMotionAction {
         vim.Register.SetRoll(item);
 
         if (this.isInsert) {
-            vim.ApplyInsertMode();
+            if (this.insertText !== null) {
+                vim.ApplyInsertMode();
+            }
         }
         if (!this.isOnlyYanc) {
-            editor.DeleteRange(del, nextPosition);
+            if (this.isInsert && this.insertText !== null) {
+                editor.ReplaceRange(del, this.insertText);
+            } else {
+                editor.DeleteRange(del, nextPosition);
+            }
         }
     }
 }

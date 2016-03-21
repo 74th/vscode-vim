@@ -92,8 +92,13 @@ export class VimStyle implements IVimStyle {
 
         action.Execute(this.editor, this);
 
-        if (action.IsEdit()) {
-            this.LastEditAction = action;
+        let type = action.GetActionType();
+        switch (type) {
+            case ActionType.Edit:
+            case ActionType.Insert:
+                this.LastInsertText = "";
+                this.LastEditAction = action;
+                break;
         }
         this.LastAction = action;
 

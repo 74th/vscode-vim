@@ -9,12 +9,8 @@ export class InsertLineBelowAction implements IAction {
         this.isAbove = false;
     }
 
-    public IsEdit(): boolean {
-        return true;
-    }
-
-    public GetActionName(): string {
-        return "InsertLineBelowAction";
+    public GetActionType(): ActionType {
+        return ActionType.Insert;
     }
 
     public SetAboveOption() {
