@@ -51,7 +51,8 @@
     "scripts": {
         "vscode:prepublish": "node ./node_modules/vscode/bin/compile",
         "compile": "node ./node_modules/vscode/bin/compile -watch -p ./",
-        "test": "mocha -g VimStyle out/test/",
+        "build": "node ./node_modules/vscode/bin/compile -p ./",
+        "test": "node ./node_modules/mocha/bin/mocha -g VimStyle out/test/",
         "postinstall": "node ./node_modules/vscode/bin/install"
     },
     "devDependencies": {
