@@ -15,6 +15,13 @@ vim style key-binding for VSCode
 ext install vimStyle
 ```
 
+## feature
+
+* pure TypeScript vim engine
+* have tests that compared with original vim
+* support complex command (ex: d3fx, 3p)
+* support visual mode
+
 ## support
 
 * h j k l 0 $ w W b B e E tx fx Tx Fx gg G
