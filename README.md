@@ -7,7 +7,7 @@ vim style key-binding for VSCode
 
 ## Require
 
-* v0.3 : Visual Studio Code 0.10.11
+* v0.3 : Visual Studio Code 0.10.11 ( [available in Insider preview](https://code.visualstudio.com/insiders) )
 
 ## install
 
