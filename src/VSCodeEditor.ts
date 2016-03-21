@@ -211,15 +211,15 @@ export class VSCodeEditor implements IEditor {
     }
 
     private showLineCursor() {
-        // vscode.window.activeTextEditor.options = {
-        //     cursorStyle: vscode.TextEditorCursorStyle.Line
-        // };
+        vscode.window.activeTextEditor.options = {
+            cursorStyle: vscode.TextEditorCursorStyle.Line
+        };
     }
 
     private showBlockCursor() {
-        // vscode.window.activeTextEditor.options = {
-        //     cursorStyle: vscode.TextEditorCursorStyle.Block
-        // };
+        vscode.window.activeTextEditor.options = {
+            cursorStyle: vscode.TextEditorCursorStyle.Block
+        };
     }
 }
 
