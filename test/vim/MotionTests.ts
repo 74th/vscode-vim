@@ -1,28 +1,6 @@
 export let MotionTests = {};
 
-MotionTests["Right Motion"] = {
-    "l:move to right 1": {
-        "in": ["abc| def"],
-        "key": "l",
-        "out": ["abc |def"]
-    },
-    "3l:move to right 3": {
-        "in": ["a|bcdefg"],
-        "key": "3l",
-        "out": ["abcd|efg"]
-    },
-    "h:move to left 1": {
-        "in": ["abc| def"],
-        "key": "h",
-        "out": ["ab|c def"]
-    },
-    "3h:move to left 3": {
-        "in": ["abcdef|g"],
-        "key": "3h",
-        "out": ["abc|defg"]
-    }
-};
-MotionTests["Right Motion"] = {
+MotionTests["charactor motion"] = {
     "l:move to right 1": {
         "in": ["abc| def"],
         "key": "l",
@@ -45,7 +23,62 @@ MotionTests["Right Motion"] = {
     }
 };
 
-MotionTests["Word motion"] = {
+MotionTests["line motion"] = {
+    "j:move down": {
+        "in": [
+            "abc d|ef",
+            "abc",
+            "abc def"
+        ],
+        "key": "j",
+        "out": [
+            "abc def",
+            "ab|c",
+            "abc def"
+        ]
+    },
+    "3j:move down over a blank line": {
+        "in": [
+            "abcd|efg",
+            "",
+            "abcdefg"
+        ],
+        "key": "3j",
+        "out": [
+            "abcdefg",
+            "",
+            "abcd|efg"
+        ]
+    },
+    "k:move up": {
+        "in": [
+            "abc def",
+            "abc",
+            "abc d|ef"
+        ],
+        "key": "k",
+        "out": [
+            "abc def",
+            "abc|",
+            "abc def"
+        ]
+    },
+    "3k:move up over a blank line": {
+        "in": [
+            "abcdef g",
+            "abc",
+            "abcdef| g"
+        ],
+        "key": "3k",
+        "out": [
+            "abcdef |g",
+            "abc",
+            "abcdef g"
+        ]
+    }
+};
+
+MotionTests["word motion"] = {
     "2w:move to next word": {
         "in": ["ab|c abc abc abc"],
         "key": "2w",
@@ -214,7 +247,7 @@ MotionTests["Down Motion"] = {
     }
     // TODO UP
 };
-MotionTests["Forward char motion"] = {
+MotionTests["forward char motion"] = {
     "fx:move to the charactor": {
         "in": [
             "ab|cdefghi"
