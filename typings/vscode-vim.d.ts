@@ -94,6 +94,8 @@ interface IRange {
 
 interface IAction {
     Execute(editor: IEditor, vim: IVimStyle);
+    GetActionName(): string;
+    IsEdit(): boolean;
 }
 
 interface IRequireMotionAction extends IAction {
@@ -110,6 +112,10 @@ interface IMotion {
 interface IVimStyle {
     Register: IRegister;
     Options: IVimStyleOptions;
+    LastAction: IAction;
+    LastEditAction: IAction;
+    LastInsertText: string;
+    LastMoveCharPosition: number;
 
     PushKey(key: string): void;
     PushEscKey(): void;
@@ -122,6 +128,7 @@ interface IVimStyle {
 interface IVimStyleCommand {
     state?: StateName;
     isReverse?: boolean;
+    isEdit?: boolean;
     cmd: CommandName;
 }
 

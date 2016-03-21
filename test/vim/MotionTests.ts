@@ -63,7 +63,7 @@ MotionTests["line motion"] = {
             "abc def"
         ]
     },
-    "2k:move up over a short line": {
+    "kk:move up over a short line": {
         "in": [
             "abcdef g",
             "a",
@@ -218,35 +218,7 @@ MotionTests["word motion"] = {
         ],
     },
 };
-MotionTests["Down Motion"] = {
-    "j:move to down 1": {
-        "in": [
-            "aaaaaaa",
-            "bbbb|bbb",
-            "ccccccc"
-        ],
-        "key": "j",
-        "out": [
-            "aaaaaaa",
-            "bbbbbbb",
-            "cccc|ccc"
-        ]
-    },
-    "k:move to prev line": {
-        "in": [
-            "aaaa",
-            "bb|bb",
-            "cccc"
-        ],
-        "key": "k",
-        "out": [
-            "aa|aa",
-            "bbbb",
-            "cccc"
-        ]
-    }
-    // TODO UP
-};
+
 MotionTests["forward char motion"] = {
     "fx:move to the charactor": {
         "in": [

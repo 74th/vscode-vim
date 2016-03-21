@@ -6,6 +6,19 @@ export class DeleteSelectionAction {
     public isInsert: boolean;
     public isOnlyYanc: boolean;
 
+    constructor() {
+        this.isInsert = false;
+        this.isOnlyYanc = false;
+    }
+
+    public IsEdit(): boolean {
+        return !this.isOnlyYanc;
+    }
+
+    public GetActionName(): string {
+        return "DeleteSelectionAction";
+    }
+
     public SetChangeOption() {
         this.isInsert = true;
     }

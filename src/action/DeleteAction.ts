@@ -17,6 +17,14 @@ export class DeleteAction implements IRequireMotionAction {
         this.isOnlyYanc = false;
     }
 
+    public IsEdit(): boolean {
+        return !this.isOnlyYanc;
+    }
+
+    public GetActionName(): string {
+        return "DeleteAction";
+    }
+
     public SetLineOption() {
         this.isLine = true;
     }

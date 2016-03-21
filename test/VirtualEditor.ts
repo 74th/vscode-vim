@@ -184,10 +184,10 @@ export class VirtualEditor implements IEditor {
         if (p.Line > this.GetLastLineNum()) {
             return this.GetLastPosition();
         }
-        if (p.Char > this.contents[p.Line].length) {
+        if (p.Char > this.contents[p.Line].length - 1 ) {
             let np = new Position();
             np.Line = p.Line;
-            np.Char = this.contents[p.Line].length;
+            np.Char = this.contents[p.Line].length - 1;
             return np;
         }
         return p;

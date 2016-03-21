@@ -7,6 +7,14 @@ export class ExpandSelectionAction implements IAction {
         this.motion = null;
     }
 
+    public IsEdit(): boolean {
+        return false;
+    }
+
+    public GetActionName(): string {
+        return "ExpandSelectionAction";
+    }
+
     public SetMotion(motion: IMotion) {
         this.motion = motion;
     }

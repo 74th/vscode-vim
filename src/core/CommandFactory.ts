@@ -4,6 +4,7 @@ import {InsertLineBelowAction} from "../action/InsertLineBelowAction";
 import {PasteAction} from "../action/PasteAction";
 import {DeleteAction} from "../action/DeleteAction";
 import {MoveAction} from "../action/MoveAction";
+import {MoveLineAction} from "../action/MoveLineAction";
 import {ApplyVisualModeAction} from "../action/ApplyVisualModeAction";
 import {ExpandSelectionAction} from "../action/ExpandSelectionAction";
 import {DeleteSelectionAction} from "../action/DeleteSelectionAction";
@@ -366,6 +367,18 @@ export class CommandFactory implements ICommandFactory {
         this.action = a;
     }
 
+    // j k
+    private moveLineAction(isUp: boolean) {
+        let m = new DownMotion();
+        if (isUp) {
+            m.SetUpDirection();
+        }
+        m.SetCount(this.getNumStack());
+        let a = new MoveLineAction();
+        a.SetMotion(m);
+        this.action = a;
+    }
+
     private createMoveAction(motion: IMotion) {
         let a = new MoveAction();
         a.SetMotion(motion);
@@ -378,16 +391,6 @@ export class CommandFactory implements ICommandFactory {
         if (isLeft) {
             m.SetLeftDirection();
         };
-        m.SetCount(this.getNumStack());
-        this.action = this.createMoveAction(m);
-    }
-
-    // j k
-    private moveLineAction(isUp: boolean) {
-        let m = new DownMotion();
-        if (isUp) {
-            m.SetUpDirection();
-        }
         m.SetCount(this.getNumStack());
         this.action = this.createMoveAction(m);
     }

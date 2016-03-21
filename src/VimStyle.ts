@@ -12,12 +12,23 @@ export class VimStyle implements IVimStyle {
     public Options: IVimStyleOptions;
     public Register: IRegister;
 
+    public LastAction: IAction;
+    public LastEditAction: IAction;
+    public LastInsertText: string;
+    public LastMoveCharPosition: number;
+
     constructor(editor: IEditor, conf: IVimStyleOptions) {
         this.editor = editor;
         editor.SetVimStyle(this);
         this.setMode(VimMode.Normal);
         this.commandFactory = new CommandFactory();
         this.Register = new Register();
+
+        this.LastAction = null;
+        this.LastEditAction = null;
+        this.LastInsertText = null;
+        this.LastMoveCharPosition = null;
+
         this.ApplyOptions(conf);
     }
 
@@ -69,13 +80,23 @@ export class VimStyle implements IVimStyle {
     }
 
     private readCommand(key: string) {
+
         let action = this.commandFactory.PushKey(key, this.mode);
+
         if (action == null) {
             this.showCommand();
             return;
         }
+
         this.editor.CloseCommandStatus();
+
         action.Execute(this.editor, this);
+
+        if (action.IsEdit()) {
+            this.LastEditAction = action;
+        }
+        this.LastAction = action;
+
         this.commandFactory.Clear();
     }
 

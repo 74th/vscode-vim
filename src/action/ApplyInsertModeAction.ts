@@ -9,6 +9,14 @@ export class ApplyInsertModeAction implements IAction {
         }
     }
 
+    public IsEdit(): boolean {
+        return true;
+    }
+
+    public GetActionName(): string {
+        return "ApplyInsertModeAction";
+    }
+
     public Execute(editor: IEditor, vim: IVimStyle) {
         let p = editor.GetCurrentPosition();
         if (this.motion != null) {

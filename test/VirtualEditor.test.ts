@@ -3,11 +3,9 @@ import {Position, VimStyle} from "../src/VimStyle";
 import {VimTests} from "./vim/VimTests";
 let assert = require("assert");
 
-let ed = new VirtualEditor();
 let opt: IVimStyleOptions = {
     useErgonomicKeyForMotion: false
 };
-let vim = new VimStyle(ed, opt);
 
 let target;
 for (target in VimTests) {
@@ -17,6 +15,8 @@ for (target in VimTests) {
             (function(specName) {
                 it(specName, () => {
                     let spec = test[specName];
+                    let ed = new VirtualEditor();
+                    let vim = new VimStyle(ed, opt);
                     ed.SetContent(spec["in"]);
                     ed.Type(spec.key);
                     let out = ed.GetContent();
