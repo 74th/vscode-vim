@@ -1,6 +1,6 @@
-PHONY:clean test build tslint
+PHONY:clean test testOriginalVim testNeoVim build tslint release buildcontainer testincontainer
 
-MOCHA=node_modules/mocha/bin/mocha
+MOCHA=./node_modules/mocha/bin/mocha
 TSC=./node_modules/typescript/bin/tsc
 TSLINT=./node_modules/tslint/bin/tslint
 
