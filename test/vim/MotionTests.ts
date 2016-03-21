@@ -37,16 +37,16 @@ MotionTests["line motion"] = {
             "abc def"
         ]
     },
-    "3j:move down over a blank line": {
+    "2j:move down over a short line": {
         "in": [
             "abcd|efg",
-            "",
+            "b",
             "abcdefg"
         ],
-        "key": "3j",
+        "key": "2j",
         "out": [
             "abcdefg",
-            "",
+            "b",
             "abcd|efg"
         ]
     },
@@ -59,20 +59,20 @@ MotionTests["line motion"] = {
         "key": "k",
         "out": [
             "abc def",
-            "abc|",
+            "ab|c",
             "abc def"
         ]
     },
-    "3k:move up over a blank line": {
+    "2k:move up over a short line": {
         "in": [
             "abcdef g",
-            "abc",
+            "a",
             "abcdef| g"
         ],
-        "key": "3k",
+        "key": "kk",
         "out": [
-            "abcdef |g",
-            "abc",
+            "abcdef| g",
+            "a",
             "abcdef g"
         ]
     }
