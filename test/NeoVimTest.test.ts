@@ -1,6 +1,6 @@
 import {VirtualEditor} from "./VirtualEditor";
 import {Position, VimStyle} from "../src/VimStyle";
-import {VimTests} from "./Vim/VimTests";
+import {VimTests} from "./vim/VimTests";
 let assert = require("assert");
 let exec = require("child_process").exec;
 let fs = require("fs");
