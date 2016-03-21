@@ -29,16 +29,6 @@
             "type": "object",
             "title": "vim style configuration",
             "properties": {
-                "vimStyle.useWinJisKeyboard": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Win JIS keyboard keybinding"
-                },
-                "vimStyle.useMacJisKeyboard": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Mac JIS keyboard keybinding (動作しないキーがあります→ = @ : ' * )"
-                },
                 "vimStyle.showMode": {
                     "type": "boolean",
                     "default": true,

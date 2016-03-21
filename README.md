@@ -18,7 +18,7 @@ ext install vimStyle
 ## feature
 
 * pure TypeScript vim engine
-* have tests that compared with original vim
+* [have tests comparing with original vim](https://github.com/74th/vscode-vim/tree/master/test/vim)
 * support complex command (ex: d3fx, 3p)
 * support visual mode
 
@@ -37,12 +37,8 @@ ext install vimStyle
 If you needs optional settings, please copy belong json and paste to your `settings.json`.
 
 ```
-// Show mode in status bar (default: false)
-"vimStyle.showMode": true,
-// Windows JIS Keyboard(default: false)
-"vimStyle.useWinJisKeyboard": true,
-// Mac JIS Keyboard(default: false)
-"vimStyle.useMacJisKeyboard": true,
+// Show mode in status bar (default: true)
+"vimStyle.showMode": false,
 // motion with jkl;(default: false)
 "vimStyle.useErgonomicKeyForMotion": true,
 ```
@@ -81,12 +77,6 @@ This extension is to become more friendly with vscode and vim-keybinding!
 * *
 * m `
 * ...
-
-## JISキーボードユーザへ
-
-VSCodeのキーバインドの不具合が見つかっています。tX、fXのアクションできない文字があります。
-Windowsの場合は、`settings.json`に`vimStyle.useWinJisKeyboard:true`を設定してください。
-Macの場合は、`settings.json`に`vimStyle.useMacJisKeyboard:true`を設定してください。ただし、Macの場合完全には動作しません。
 
 ## License
 
