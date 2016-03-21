@@ -17,8 +17,6 @@ class EditorAction {
 
 export interface IVSCodeEditorOptions {
     showMode: boolean;
-    isWinJisKeyboard: boolean;
-    isMacJisKeyboard: boolean;
 }
 
 export class VSCodeEditor implements IEditor {

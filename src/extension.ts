@@ -9,8 +9,6 @@ export function activate(context: vscode.ExtensionContext) {
     function loadConfiguration() {
         let conf = vscode.workspace.getConfiguration("vimStyle");
         editorOpt = {
-            isWinJisKeyboard: conf.get<boolean>("useWinJisKeyboard", false),
-            isMacJisKeyboard: conf.get<boolean>("useMacJisKeyboard", false),
             showMode: conf.get<boolean>("showMode", false)
         };
         vimOpt = {
