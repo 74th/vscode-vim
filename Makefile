@@ -7,10 +7,10 @@ TSLINT=./node_modules/tslint/bin/tslint
 test: build tslint
 	cd out;../$(MOCHA) -g VimStyle
 	
-OriginalVimTest: build
+testOriginalVim: build
 	cd out;../$(MOCHA) -g OriginalVim
 	
-NeoVimTest: build
+testNeoVim: build
 	cd out;../$(MOCHA) -g NeoVim
 	
 build: node_modules

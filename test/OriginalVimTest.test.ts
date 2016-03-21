@@ -1,14 +1,14 @@
 import {VirtualEditor} from "./VirtualEditor";
 import {Position, VimStyle} from "../src/VimStyle";
-import {VimStyleTests} from "./VimStyleTests";
+import {VimTests} from "./vim/VimTests";
 let assert = require("assert");
 let exec = require("child_process").exec;
 let fs = require("fs");
 
-for (let target in VimStyleTests) {
+for (let target in VimTests) {
     describe("OriginalVim" + target, function() {
         this.timeout(500);
-        let test = VimStyleTests[target];
+        let test = VimTests[target];
         for (let specName in test) {
             (function(specName) {
                 it(specName, function(done) {

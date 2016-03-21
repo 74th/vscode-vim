@@ -1,6 +1,6 @@
 import {VirtualEditor} from "./VirtualEditor";
 import {Position, VimStyle} from "../src/VimStyle";
-import {VimStyleTests} from "./VimStyleTests";
+import {VimTests} from "./vim/VimTests";
 let assert = require("assert");
 
 let ed = new VirtualEditor();
@@ -10,9 +10,9 @@ let opt: IVimStyleOptions = {
 let vim = new VimStyle(ed, opt);
 
 let target;
-for (target in VimStyleTests) {
+for (target in VimTests) {
     describe("VimStyle " + target, () => {
-        let test = VimStyleTests[target];
+        let test = VimTests[target];
         for (let specName in test) {
             (function(specName) {
                 it(specName, () => {
