@@ -22,7 +22,7 @@ for (let target in VimTests) {
                     text += ":normal x\n";
                     let list = spec["key"].split("_");
                     for (let i = 0; i < list.length; i++) {
-                        text += ":normal " + list[i] + "\n";
+                        text += ":exe \":normal " + list[i].replace("\n", "\\<CR>") + "\"\n";
                     }
                     text += ":normal i|\n";
                     text += ":w! NeoVimOutput\n";
@@ -33,7 +33,6 @@ for (let target in VimTests) {
                         let i = 0;
                         fs.readFile("NeoVimOutput", function(err, text) {
                             let out = text.toString().split("\n");
-                            assert.equal(out.length - 1, spec["out"].length);
                             let outText = out[0];
                             let specText = spec.out[0]
                             for (let i = 1; i < spec["out"].length; i++) {
