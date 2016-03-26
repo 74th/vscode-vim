@@ -13,5 +13,27 @@ DeleteTests["delete word"] = {
         "in": ["aaa |bbb ccc"],
         "key": "dw",
         "out": ["aaa |ccc"],
-    }
+    },
+    "dw:delete a wrod at end of line": {
+        "in": [
+            "aaa |bbb",
+            "ccc ddd",
+        ],
+        "key": "dw",
+        "out": [
+            "aaa| ",
+            "ccc ddd",
+        ],
+    },
+    "dw:delete a wrod at end of document": {
+        "in": [
+            "aaa bbb",
+            "ccc |ddd",
+        ],
+        "key": "dw",
+        "out": [
+            "aaa bbb",
+            "ccc| ",
+        ],
+    },
 };
