@@ -10,6 +10,19 @@ RepeatTests["repeat insert"] = {
             "adefbcde|f",
         ]
     },
+    "repeat insert text containing LF": {
+        "in": [
+            "|abc",
+            "ABC",
+        ],
+        "key": "Adef\nghe_j.",
+        "out": [
+            "abcdef",
+            "ghe",
+            "ABCdef",
+            "gh|e"
+        ]
+    },
     "repeat insert text to new line": {
         "in": [
             "a|bc"
