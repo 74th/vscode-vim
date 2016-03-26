@@ -1,6 +1,7 @@
 import {CommandFactory} from "./core/CommandFactory";
 import {LoadKeyBindings} from "./core/KeyBindings";
 import {InsertModeExecute} from "./mode/InsertMode";
+import {ApplyInsertModeAction} from "./action/ApplyInsertModeAction";
 import * as Utils from "./Utils";
 import {Register} from "./core/Register";
 
@@ -46,6 +47,13 @@ export class VimStyle implements IVimStyle {
     }
 
     public PushEscKey() {
+
+        // if this mode insert
+        // save inserted text infomation
+        if (this.mode === VimMode.Insert) {
+            this.setInsertText();
+        }
+
         let p = this.editor.GetCurrentPosition();
         if (this.mode === VimMode.Insert && p.Char > 0) {
             p.Char -= 1;
@@ -53,7 +61,7 @@ export class VimStyle implements IVimStyle {
         if (this.mode === VimMode.Visual && p.Char > 0) {
             p.Char -= 1;
         }
-        this.setInsertText();
+
         this.setMode(VimMode.Normal);
 
         this.commandFactory.Clear();
@@ -126,14 +134,15 @@ export class VimStyle implements IVimStyle {
 
         this.LastInsertText = "";
 
-        if (this.mode !== VimMode.Insert) {
-            return;
-        }
-
         if (this.InsertModeInfo === null) {
             return;
         }
         let info = this.InsertModeInfo;
+
+        if (this.LastAction.GetActionType() !== ActionType.Insert) {
+            return;
+        }
+        let action = this.LastAction as ApplyInsertModeAction;
 
         let lineCount = this.editor.GetLastLineNum() + 1;
         if (info.DocumentLineCount > lineCount) {
@@ -154,11 +163,12 @@ export class VimStyle implements IVimStyle {
         }
         if (endLine.substring(cp.Char) !== info.AfterText) {
             // use delete key?
+            return;
         }
         let range = new Range();
         range.start = info.Position;
         range.end = cp;
-        this.LastInsertText = this.editor.ReadRange(range);
+        action.SetInsertText(this.editor.ReadRange(range));
     }
 }
 

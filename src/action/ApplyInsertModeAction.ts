@@ -25,13 +25,18 @@ export class ApplyInsertModeAction implements IAction {
             p = this.motion.CalculateEnd(editor, p);
         }
         if (this.insertText !== null) {
-            editor.Insert(p, this.insertText);
+            editor.SetPosition(p);
+            editor.InsertTextAtCurrentPosition(this.insertText);
+            p = editor.GetCurrentPosition();
+            p = p.Copy();
+            p.Char--;
+            editor.SetPosition(p);
         } else {
             vim.ApplyInsertMode(p);
             let text = editor.ReadLineAtCurrentPosition();
             vim.InsertModeInfo = {
                 DocumentLineCount: editor.GetLastLineNum() + 1,
-                Position: p,
+                Position: p.Copy(),
                 BeforeText: text.substring(0, p.Char),
                 AfterText: text.substring(p.Char)
             };

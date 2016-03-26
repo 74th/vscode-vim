@@ -30,6 +30,22 @@
 			"cwd": "${workspaceRoot}/out",
 			"runtimeExecutable": null,
 			"preLaunchTask": "build"
+		},
+		{
+			"name": "Launch current tests",
+			"type": "node",
+			"request": "launch",
+			"program": "${workspaceRoot}/node_modules/mocha/bin/_mocha",
+			"stopOnEntry": false,
+			"sourceMaps": true,
+			"args": [
+				"-g",
+				"VimStyle repeat insert"
+			],
+			"outDir": "${workspaceRoot}/out",
+			"cwd": "${workspaceRoot}/out",
+			"runtimeExecutable": null,
+			"preLaunchTask": "build"
 		}
 	]
 }

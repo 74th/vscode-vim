@@ -20,7 +20,6 @@ export class RepeatAction implements IAction {
                 case ActionType.Edit:
                     (function() {
                         let action: any = vim.LastEditAction;
-                        action.SetInsertText(vim.LastInsertText);
                         vim.LastEditAction.Execute(editor, vim);
                     })();
             }

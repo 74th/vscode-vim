@@ -1,6 +1,6 @@
 export let RepeatTests = {};
 
-RepeatTests["add text"] = {
+RepeatTests["repeat insert"] = {
     "add text": {
         "in": [
             "a|bc",
