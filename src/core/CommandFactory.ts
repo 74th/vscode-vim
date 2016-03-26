@@ -414,15 +414,9 @@ export class CommandFactory implements ICommandFactory {
         } else {
             m = new WordMotion(Direction.Right);
         }
-        if (isWordEnd) {
-            m.SetWordEndOption();
-        }
-        if (isWORD) {
-            m.SetWORDOption();
-        }
-        if (isSkipBlankLine) {
-            m.SetSkipBlankLineOption();
-        }
+        m.IsWordEnd = isWordEnd;
+        m.IsWORD = isWORD;
+        m.IsSkipBlankLine = isSkipBlankLine;
         m.SetCount(this.getNumStack());
         this.action = this.createMoveAction(m);
     }
@@ -526,15 +520,9 @@ export class CommandFactory implements ICommandFactory {
         } else {
             m = new WordMotion(Direction.Right);
         }
-        if (isWordEnd) {
-            m.SetWordEndOption();
-        }
-        if (isWORD) {
-            m.SetWORDOption();
-        }
-        if (isSkipBlankLine) {
-            m.SetSkipBlankLineOption();
-        }
+        m.IsWordEnd = isWordEnd;
+        m.IsWORD = isWORD;
+        m.IsSkipBlankLine = isSkipBlankLine;
         m.SetCount(this.getNumStack());
         let a = <IRequireMotionAction>this.action;
         a.SetMotion(m);

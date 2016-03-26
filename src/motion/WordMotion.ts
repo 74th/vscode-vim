@@ -4,30 +4,18 @@ import {Position} from "../VimStyle";
 
 export class WordMotion extends AbstractMotion {
 
-    private direction: Direction;
-    private isSkipBlankLine: boolean;
-    private isWordEnd: boolean;
-    private isWORD: boolean;
+    public Direction: Direction;
+    public IsSkipBlankLine: boolean;
+    public IsWordEnd: boolean;
+    public IsWORD: boolean;
 
     constructor(direction: Direction) {
         super();
-        this.direction = direction;
-        this.isSkipBlankLine = false;
-        this.isWordEnd = false;
-        this.isWORD = false;
+        this.Direction = direction;
+        this.IsSkipBlankLine = false;
+        this.IsWordEnd = false;
+        this.IsWORD = false;
     };
-
-    public SetSkipBlankLineOption() {
-        this.isSkipBlankLine = true;
-    }
-
-    public SetWordEndOption() {
-        this.isWordEnd = true;
-    }
-
-    public SetWORDOption() {
-        this.isWORD = true;
-    }
 
     public CalculateEnd(editor: IEditor, start: IPosition): IPosition {
 
@@ -58,7 +46,7 @@ export class WordMotion extends AbstractMotion {
 
             // get next charactor
 
-            if (this.direction === Direction.Left) {
+            if (this.Direction === Direction.Left) {
 
                 nextPosition.Char--;
                 if (nextPosition.Char < 0) {
@@ -111,11 +99,11 @@ export class WordMotion extends AbstractMotion {
 
             // handle
             if (charClass === CharGroup.Spaces) {
-                if (this.direction === Direction.Left) {
+                if (this.Direction === Direction.Left) {
                     if (position.Char === 0 && previousPosition.Char === 0) {
                         // blankline
 
-                        if (!this.isSkipBlankLine) {
+                        if (!this.IsSkipBlankLine) {
                             count--;
                         }
                     }
@@ -123,36 +111,36 @@ export class WordMotion extends AbstractMotion {
                     if (position.Char === -1 && nextPosition.Char === -1) {
                         // blankline
 
-                        if (!this.isSkipBlankLine) {
+                        if (!this.IsSkipBlankLine) {
                             count--;
                         }
                     }
                 }
                 continue;
             }
-            if (this.isWORD) {
+            if (this.IsWORD) {
                 if (nextCharClass === CharGroup.Spaces) {
                     // end of word
-                    if (this.isWordEnd) {
+                    if (this.IsWordEnd) {
                         count--;
                     }
                 } else if (previousCharClass === CharGroup.Spaces) {
                     // first of word
-                    if (!this.isWordEnd) {
+                    if (!this.IsWordEnd) {
                         count--;
                     }
                 }
             } else {
                 if (nextCharClass !== charClass) {
                     // end of word
-                    if (this.isWordEnd) {
+                    if (this.IsWordEnd) {
                         count--;
                     }
                 }
                 if (previousCharClass !== null &&
                     previousCharClass !== charClass) {
                     // end of word
-                    if (!this.isWordEnd) {
+                    if (!this.IsWordEnd) {
                         count--;
                     }
                 }
@@ -161,7 +149,7 @@ export class WordMotion extends AbstractMotion {
 
         if (isReachLast) {
             // reach last position
-            if (this.direction === Direction.Left) {
+            if (this.Direction === Direction.Left) {
                 // top position
                 return new Position(0, 0);
             } else {
