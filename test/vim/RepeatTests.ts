@@ -1,7 +1,7 @@
 export let RepeatTests = {};
 
 RepeatTests["repeat insert"] = {
-    "repeat insert text": {
+    "a.repeat insert text": {
         "in": [
             "|abc",
         ],
@@ -10,7 +10,7 @@ RepeatTests["repeat insert"] = {
             "adefbcde|f",
         ]
     },
-    "repeat insert text containing LF": {
+    "A.:repeat insert text containing LF": {
         "in": [
             "|abc",
             "ABC",
@@ -23,7 +23,7 @@ RepeatTests["repeat insert"] = {
             "gh|e"
         ]
     },
-    "repeat insert text to new line": {
+    "o.:repeat insert text to new line": {
         "in": [
             "a|bc"
         ],
@@ -34,13 +34,15 @@ RepeatTests["repeat insert"] = {
             "de|f"
         ]
     },
-    "repeat cut command": {
+    "cw.:repeat cut command": {
         "in": [
-            "aaa |bbb ccc ddd",
+            "aaa |bbb",
+            "ccc ddd",
         ],
-        "key": "cwkkk_2w.",
+        "key": "c$kkk_jb.",
         "out": [
-            "aaa kkk ccc kk|k"
+            "aaa kkk",
+            "ccc kk|k"
         ]
     }
 };
