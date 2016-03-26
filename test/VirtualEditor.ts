@@ -101,11 +101,11 @@ export class VirtualEditor implements IEditor {
             let pre = line.substr(0, range.start.Char);
             let su = line.substr(range.end.Char, line.length - range.end.Char);
             this.contents[range.start.Line] = pre + su;
-            return;
+        } else {
+            let line = this.contents[range.start.Line].substr(0, range.start.Char);
+            line += this.contents[range.end.Line].substr(range.end.Char, this.contents[range.end.Line].length - range.end.Char);
+            this.contents.splice(range.start.Line, range.end.Line - range.start.Line + 1, line);
         }
-        let line = this.contents[range.start.Line].substr(0, range.start.Char);
-        line += this.contents[range.end.Line].substr(range.end.Char, this.contents[range.end.Line].length - range.end.Char);
-        this.contents.splice(range.start.Line, range.end.Line - range.start.Line + 1, line);
         if (position !== undefined) {
             this.Position = position;
         }

@@ -523,6 +523,7 @@ export class CommandFactory implements ICommandFactory {
         m.IsWordEnd = isWordEnd;
         m.IsWORD = isWORD;
         m.IsSkipBlankLine = isSkipBlankLine;
+        m.IsForRange = true;
         m.SetCount(this.getNumStack());
         let a = <IRequireMotionAction>this.action;
         a.SetMotion(m);

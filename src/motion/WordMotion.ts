@@ -8,6 +8,7 @@ export class WordMotion extends AbstractMotion {
     public IsSkipBlankLine: boolean;
     public IsWordEnd: boolean;
     public IsWORD: boolean;
+    public IsForRange: boolean;
 
     constructor(direction: Direction) {
         super();
@@ -15,6 +16,7 @@ export class WordMotion extends AbstractMotion {
         this.IsSkipBlankLine = false;
         this.IsWordEnd = false;
         this.IsWORD = false;
+        this.IsForRange = false;
     };
 
     public CalculateEnd(editor: IEditor, start: IPosition): IPosition {
@@ -154,8 +156,16 @@ export class WordMotion extends AbstractMotion {
                 return new Position(0, 0);
             } else {
                 // last position
+                if (this.IsForRange) {
+                    position.Char += 1;
+                }
                 return position;
             }
+        }
+        if (this.IsForRange && previousPosition.Char === -1) {
+            // Stop end of line
+            line = editor.ReadLine(previousPosition.Line - 1);
+            return new Position(previousPosition.Line - 1, line.length);
         }
 
         return position;
