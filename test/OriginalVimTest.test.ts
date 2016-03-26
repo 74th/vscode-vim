@@ -34,7 +34,7 @@ for (let target in VimTests) {
                         fs.readFile("OriginalVimOutput", function(err, text) {
                             let out = text.toString().split("\n");
                             let outText = out[0];
-                            let specText = spec.out[0]
+                            let specText = spec.out[0];
                             for (let i = 1; i < spec["out"].length; i++) {
                                 outText += "\n" + out[i];
                                 specText += "\n" + spec.out[i];
