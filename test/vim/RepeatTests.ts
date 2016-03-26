@@ -3,11 +3,11 @@ export let RepeatTests = {};
 RepeatTests["repeat insert"] = {
     "add text": {
         "in": [
-            "a|bc",
+            "|abc",
         ],
-        "key": "idef_$.",
+        "key": "adef_$.",
         "out": [
-            "adefbde|fc",
+            "adefbcde|f",
         ]
     }
 };
