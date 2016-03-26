@@ -111,7 +111,7 @@ export class DeleteAction extends AbstractInsertAction implements IRequireMotion
             let startLine = editor.ReadLine(range.start.Line);
             let endLine = editor.ReadLine(range.end.Line);
             let afterLineCount = editor.GetLastLineNum() + 1 - (range.end.Line - range.start.Line);
-            vim.ApplyInsertMode();
+            vim.ApplyInsertMode(range.start);
             this.insertModeInfo = {
                 DocumentLineCount: afterLineCount,
                 Position: nextPosition,

@@ -20,7 +20,6 @@ for (target in VimTests) {
                     ed.SetContent(spec["in"]);
                     ed.Type(spec.key);
                     let out = ed.GetContent();
-                    //assert.equal(out.length, spec.out.length);
                     let outText = out[0];
                     let specText = spec.out[0];
                     for (let i = 1; i < out.length; i++) {

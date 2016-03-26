@@ -40,7 +40,7 @@
 			"sourceMaps": true,
 			"args": [
 				"-g",
-				"VimStyle repeat insert"
+				"VimStyle repeat insert repeat cut command"
 			],
 			"outDir": "${workspaceRoot}/out",
 			"cwd": "${workspaceRoot}/out",
