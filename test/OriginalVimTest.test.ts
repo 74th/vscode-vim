@@ -33,7 +33,6 @@ for (let target in VimTests) {
                         let i = 0;
                         fs.readFile("OriginalVimOutput", function(err, text) {
                             let out = text.toString().split("\n");
-                            assert.equal(out.length - 1, spec["out"].length);
                             let outText = out[0];
                             let specText = spec.out[0]
                             for (let i = 1; i < spec["out"].length; i++) {
