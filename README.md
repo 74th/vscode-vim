@@ -32,6 +32,7 @@ ext install vimStyle
 * d y c dd yy cc D C p P 
 * Ndd Nyy Ncc
 * v
+* .
 
 ## settings
 
@@ -72,7 +73,6 @@ This extension is to become more friendly with vscode and vim-keybinding!
 
 ## low priority
 
-* . (can't do with IntelliSence)
 * = (`>Format Code`)
 * > <(can use `Tab` and  `Shift-Tab`)
 * *
