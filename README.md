@@ -88,6 +88,7 @@ MIT License
 ### 0.3.0
 
 * update for vscode 0.10.12
+* support repeat command
 
 ### 0.2.4
 
