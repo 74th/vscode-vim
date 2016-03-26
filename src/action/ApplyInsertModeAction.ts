@@ -9,7 +9,6 @@ export class ApplyInsertModeAction extends AbstractInsertAction {
         } else {
             this.motion = m;
         }
-        this.insertText = null;
     }
 
     public GetActionType(): ActionType {

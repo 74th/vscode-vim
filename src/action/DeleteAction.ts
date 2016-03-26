@@ -97,11 +97,11 @@ export class DeleteAction extends AbstractInsertAction implements IRequireMotion
             vim.Register.SetRoll(item);
         }
         if (this.isInsert) {
-            if (this.insertText === null) {
-                vim.ApplyInsertMode(nextPosition);
-            } else {
+            if (this.insertText !== null) {
                 editor.Insert(nextPosition, this.insertText);
                 editor.SetPosition(this.calcPositionAfterInsert(nextPosition));
+            } else {
+                vim.ApplyInsertMode(nextPosition);
             }
         }
         if (!this.isOnlyYanc) {

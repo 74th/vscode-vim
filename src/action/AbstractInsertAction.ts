@@ -5,7 +5,7 @@ export abstract class AbstractInsertAction implements IInsertAction {
 
     constructor() {
         this.insertModeInfo = null;
-        this.insertModeInfo = null;
+        this.insertText = null;
     }
 
     abstract GetActionType(): ActionType;

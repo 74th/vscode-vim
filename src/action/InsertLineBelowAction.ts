@@ -9,7 +9,6 @@ export class InsertLineBelowAction extends AbstractInsertAction {
     constructor() {
         super();
         this.isAbove = false;
-        this.insertText = null;
     }
 
     public GetActionType(): ActionType {
