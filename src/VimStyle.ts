@@ -1,6 +1,7 @@
 import {CommandFactory} from "./core/CommandFactory";
 import {LoadKeyBindings} from "./core/KeyBindings";
 import {InsertModeExecute} from "./mode/InsertMode";
+import {ApplyInsertModeAction} from "./action/ApplyInsertModeAction";
 import * as Utils from "./Utils";
 import {Register} from "./core/Register";
 
@@ -16,6 +17,7 @@ export class VimStyle implements IVimStyle {
     public LastEditAction: IAction;
     public LastInsertText: string;
     public LastMoveCharPosition: number;
+    public InsertModeInfo: any;
 
     constructor(editor: IEditor, conf: IVimStyleOptions) {
         this.editor = editor;
@@ -28,6 +30,7 @@ export class VimStyle implements IVimStyle {
         this.LastEditAction = null;
         this.LastInsertText = null;
         this.LastMoveCharPosition = null;
+        this.InsertModeInfo = null;
 
         this.ApplyOptions(conf);
     }
@@ -44,6 +47,13 @@ export class VimStyle implements IVimStyle {
     }
 
     public PushEscKey() {
+
+        // if this mode insert
+        // save inserted text infomation
+        if (this.mode === VimMode.Insert) {
+            this.setInsertText();
+        }
+
         let p = this.editor.GetCurrentPosition();
         if (this.mode === VimMode.Insert && p.Char > 0) {
             p.Char -= 1;
@@ -51,7 +61,9 @@ export class VimStyle implements IVimStyle {
         if (this.mode === VimMode.Visual && p.Char > 0) {
             p.Char -= 1;
         }
+
         this.setMode(VimMode.Normal);
+
         this.commandFactory.Clear();
         this.editor.CloseCommandStatus();
         this.editor.ApplyNormalMode(p);
@@ -92,8 +104,13 @@ export class VimStyle implements IVimStyle {
 
         action.Execute(this.editor, this);
 
-        if (action.IsEdit()) {
-            this.LastEditAction = action;
+        let type = action.GetActionType();
+        switch (type) {
+            case ActionType.Edit:
+            case ActionType.Insert:
+                this.LastInsertText = "";
+                this.LastEditAction = action;
+                break;
         }
         this.LastAction = action;
 
@@ -111,6 +128,47 @@ export class VimStyle implements IVimStyle {
 
     private LoadKeyBinding() {
         this.commandFactory.SetKeyBindings(LoadKeyBindings(this.Options));
+    }
+
+    private setInsertText() {
+
+        this.LastInsertText = "";
+
+        if (this.InsertModeInfo === null) {
+            return;
+        }
+        let info = this.InsertModeInfo;
+
+        if (this.LastAction.GetActionType() !== ActionType.Insert) {
+            return;
+        }
+        let action = this.LastAction as ApplyInsertModeAction;
+
+        let lineCount = this.editor.GetLastLineNum() + 1;
+        if (info.DocumentLineCount > lineCount) {
+            // reduced document?
+            return;
+        }
+
+        let cp = this.editor.GetCurrentPosition();
+        if (cp.Line < info.Position.Line) {
+            // move to back?
+            return;
+        }
+        let startLine = this.editor.ReadLine(info.Position.Line);
+        let endLine = this.editor.ReadLine(cp.Line);
+        if (startLine.substring(0, info.Position.Char) !== info.BeforeText) {
+            // use backspace?
+            return;
+        }
+        if (endLine.substring(cp.Char) !== info.AfterText) {
+            // use delete key?
+            return;
+        }
+        let range = new Range();
+        range.start = info.Position;
+        range.end = cp;
+        action.SetInsertText(this.editor.ReadRange(range));
     }
 }
 

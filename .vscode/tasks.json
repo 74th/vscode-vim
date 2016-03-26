@@ -12,6 +12,13 @@
 			]
 		},
 		{
+			"taskName": "testnow",
+			"isTestCommand": true,
+			"args": [
+				"testnow"
+			]
+		},
+			{
 			"taskName": "test",
 			"isTestCommand": true,
 			"args": [

@@ -94,8 +94,7 @@ interface IRange {
 
 interface IAction {
     Execute(editor: IEditor, vim: IVimStyle);
-    GetActionName(): string;
-    IsEdit(): boolean;
+    GetActionType(): ActionType;
 }
 
 interface IRequireMotionAction extends IAction {
@@ -116,6 +115,7 @@ interface IVimStyle {
     LastEditAction: IAction;
     LastInsertText: string;
     LastMoveCharPosition: number;
+    InsertModeInfo: any;
 
     PushKey(key: string): void;
     PushEscKey(): void;
@@ -250,6 +250,14 @@ declare const enum KeyType {
     Charactor,
     Mark
 }
+declare const enum ActionType {
+    Insert,
+    LineMove,
+    Move,
+    Edit,
+    Other,
+    Repeat
+}
 
 declare const enum RegisterType {
     Text,
@@ -338,6 +346,9 @@ declare const enum CommandName {
     changeSelectionAction,
     deleteSelectionAction,
     yancSelectionAction,
+
+    // special
+    repeat,
 
     // other
     stackNumber,

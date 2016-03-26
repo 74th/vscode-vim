@@ -1,13 +1,17 @@
-import {MotionTests} from "./MotionTests"
-import {InsertModeTests} from "./InsertModeTests"
+import {MotionTests} from "./MotionTests";
+import {InsertModeTests} from "./InsertModeTests";
+import {DeleteTests} from "./DeleteTests";
+import {RepeatTests} from "./RepeatTests";
 
 export let VimTests = {};
 let testsets = [
     MotionTests,
-    InsertModeTests
+    InsertModeTests,
+    DeleteTests,
+    RepeatTests
 ];
 
-for(let testset in testsets ){
+for (let testset in testsets ) {
     for (let test in testsets[testset]) {
         VimTests[test] = testsets[testset][test];
     }

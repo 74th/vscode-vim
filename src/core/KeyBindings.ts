@@ -216,6 +216,9 @@ const DefaultKeyBindings: IKeyBindings = {
         },
         "$": {
             cmd: CommandName.moveEndAction
+        },
+        ".": {
+            cmd: CommandName.repeat
         }
     },
 

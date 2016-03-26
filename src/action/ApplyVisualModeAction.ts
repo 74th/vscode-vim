@@ -1,11 +1,7 @@
 export class ApplyVisualModeAction implements IAction {
 
-    public IsEdit(): boolean {
-        return false;
-    }
-
-    public GetActionName(): string {
-        return "ApplyVisualModeAction";
+    public GetActionType(): ActionType {
+        return ActionType.Other;
     }
 
     public Execute(editor: IEditor, vim: IVimStyle) {

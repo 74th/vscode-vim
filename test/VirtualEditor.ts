@@ -56,8 +56,9 @@ export class VirtualEditor implements IEditor {
         let pre = cLine.substr(0, this.Position.Char);
         let su = cLine.substr(this.Position.Char, cLine.length - this.Position.Char);
         let lineList = text.split("\n");
-        if (lineList.length === 0) {
+        if (lineList.length === 1) {
             this.contents[this.Position.Line] = pre + text + su;
+            this.Position.Char += text.length;
             return;
         }
         this.contents[this.Position.Line] = pre + lineList[0];
@@ -84,8 +85,8 @@ export class VirtualEditor implements IEditor {
         let pre = cLine.substr(0, position.Char);
         let su = cLine.substr(position.Char, cLine.length - position.Char);
         let lineList = text.split("\n");
-        if (lineList.length === 0) {
-            this.contents[position.Line] = pre + text + su;
+        if (lineList.length === 1) {
+            this.contents[this.Position.Line] = pre + text + su;
             return;
         }
         this.contents[position.Line] = pre + lineList[0];

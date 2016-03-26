@@ -11,12 +11,8 @@ export class PasteAction implements IAction {
         this.registerKey = null;
     }
 
-    public IsEdit(): boolean {
-        return true;
-    }
-
-    public GetActionName(): string {
-        return "PasteAction";
+    public GetActionType(): ActionType {
+        return ActionType.Edit;
     }
 
     public SetCount(value: number) {

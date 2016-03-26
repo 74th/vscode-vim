@@ -9,12 +9,8 @@ export class MoveLineAction implements IAction {
         this.motion = null;
     }
 
-    public IsEdit(): boolean {
-        return false;
-    }
-
-    public GetActionName(): string {
-        return "MoveLineAction";
+    public GetActionType(): ActionType {
+        return ActionType.LineMove;
     }
 
     public SetMotion(motion: IMotion) {
@@ -31,7 +27,7 @@ export class MoveLineAction implements IAction {
         }
 
         if (vim.LastAction &&
-            this.GetActionName() === vim.LastAction.GetActionName()) {
+            ActionType.LineMove === vim.LastAction.GetActionType()) {
             // use last move position
             to.Char = vim.LastMoveCharPosition;
         } else {

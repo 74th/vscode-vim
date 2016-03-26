@@ -6,12 +6,8 @@ export class MoveAction implements IAction {
         this.motion = null;
     }
 
-    public IsEdit(): boolean {
-        return false;
-    }
-
-    public GetActionName(): string {
-        return "MoveAction";
+    public GetActionType(): ActionType {
+        return ActionType.Move;
     }
 
     public SetMotion(motion: IMotion) {

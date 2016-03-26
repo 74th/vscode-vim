@@ -11,12 +11,8 @@ export class DeleteSelectionAction {
         this.isOnlyYanc = false;
     }
 
-    public IsEdit(): boolean {
-        return !this.isOnlyYanc;
-    }
-
-    public GetActionName(): string {
-        return "DeleteSelectionAction";
+    public GetActionType(): ActionType {
+        return ActionType.Other;
     }
 
     public SetChangeOption() {
