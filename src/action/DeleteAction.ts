@@ -1,17 +1,17 @@
+import {AbstractInsertAction} from "./AbstractInsertAction";
 import {Range, Position} from "../VimStyle";
 import {RegisterItem} from "../core/Register";
 
-export class DeleteAction implements IRequireMotionAction, IInsertAction {
+export class DeleteAction extends AbstractInsertAction implements IRequireMotionAction, IInsertAction {
 
     public motion: IMotion;
     public isLine: boolean;
     public isLarge: boolean;
     public isInsert: boolean;
     public isOnlyYanc: boolean;
-    private insertText: string;
-    private insertModeInfo: any;
 
     constructor() {
+        super();
         this.motion = null;
         this.isLine = false;
         this.isLarge = true;
@@ -26,10 +26,6 @@ export class DeleteAction implements IRequireMotionAction, IInsertAction {
             return ActionType.Insert;
         }
         return ActionType.Edit;
-    }
-
-    public SetInsertText(text: string) {
-        this.insertText = text;
     }
 
     public SetLineOption() {
@@ -50,10 +46,6 @@ export class DeleteAction implements IRequireMotionAction, IInsertAction {
 
     public SetMotion(motion: IMotion) {
         this.motion = motion;
-    }
-
-    public GetInsertModeInfo() {
-        return this.insertModeInfo;
     }
 
     public Execute(editor: IEditor, vim: IVimStyle) {
@@ -105,7 +97,12 @@ export class DeleteAction implements IRequireMotionAction, IInsertAction {
             vim.Register.SetRoll(item);
         }
         if (this.isInsert) {
-            vim.ApplyInsertMode(nextPosition);
+            if (this.insertText === null) {
+                vim.ApplyInsertMode(nextPosition);
+            } else {
+                editor.Insert(nextPosition, this.insertText);
+                editor.SetPosition(this.calcPositionAfterInsert(nextPosition));
+            }
         }
         if (!this.isOnlyYanc) {
             editor.DeleteRange(range, nextPosition);

@@ -1,10 +1,12 @@
 import {Range, Position} from "../VimStyle";
 import {RegisterItem} from "../core/Register";
 
-export class DeleteSelectionAction {
+export class DeleteSelectionAction implements IInsertAction {
 
     public isInsert: boolean;
     public isOnlyYanc: boolean;
+    private insertText: string;
+    private insertModeInfo: any;
 
     constructor() {
         this.isInsert = false;
@@ -21,6 +23,14 @@ export class DeleteSelectionAction {
 
     public SetOnlyYancOption() {
         this.isOnlyYanc = true;
+    }
+
+    public GetInsertModeInfo(): any {
+        return this.insertModeInfo;
+    }
+
+    public SetInsertText(text: string) {
+        this.insertText = text;
     }
 
     public Execute(editor: IEditor, vim: IVimStyle) {

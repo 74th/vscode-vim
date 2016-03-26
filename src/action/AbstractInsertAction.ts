@@ -1,0 +1,35 @@
+export abstract class AbstractInsertAction implements IInsertAction {
+
+    protected insertText: string;
+    protected insertModeInfo: any;
+
+    constructor() {
+        this.insertModeInfo = null;
+        this.insertModeInfo = null;
+    }
+
+    abstract GetActionType(): ActionType;
+
+    public GetInsertModeInfo(): any {
+        return this.insertModeInfo;
+    }
+    public SetInsertText(text: string) {
+        this.insertText = text;
+    }
+
+    protected calcPositionAfterInsert(p: IPosition): IPosition {
+        let splitText = this.insertText.split("\n");
+        let np = p.Copy();
+        if (splitText.length > 1) {
+            np.Line += splitText.length - 1;
+            np.Char = 0;
+        }
+        np.Char += splitText[splitText.length - 1].length - 1;
+        if (np.Char < 0) {
+            np.Char = 0;
+        }
+        return np;
+    }
+
+    abstract Execute(editor: IEditor, vim: IVimStyle): any;
+}

@@ -1,9 +1,9 @@
-export class ApplyInsertModeAction implements IInsertAction {
+import {AbstractInsertAction} from "./AbstractInsertAction";
+export class ApplyInsertModeAction extends AbstractInsertAction {
     private motion: IMotion;
-    private insertText: string;
-    private insertModeInfo: any;
 
     constructor(m?: IMotion) {
+        super();
         if (m === undefined) {
             this.motion = null;
         } else {
@@ -16,15 +16,6 @@ export class ApplyInsertModeAction implements IInsertAction {
         return ActionType.Insert;
     }
 
-    public SetInsertText(text: string) {
-        this.insertText = text;
-    }
-
-    public GetInsertModeInfo() {
-        return this.insertModeInfo;
-    }
-
-
     public Execute(editor: IEditor, vim: IVimStyle) {
         let p = editor.GetCurrentPosition();
         if (this.motion != null) {
@@ -32,7 +23,7 @@ export class ApplyInsertModeAction implements IInsertAction {
         }
         if (this.insertText !== null) {
             editor.Insert(p, this.insertText);
-            editor.SetPosition(this.calcPositionAfterInsert(p, this.insertText));
+            editor.SetPosition(this.calcPositionAfterInsert(p));
         } else {
             vim.ApplyInsertMode(p);
             let text = editor.ReadLineAtCurrentPosition();
@@ -45,17 +36,5 @@ export class ApplyInsertModeAction implements IInsertAction {
         }
     }
 
-    private calcPositionAfterInsert(p: IPosition, text: string): IPosition {
-        let splitText = text.split("\n");
-        let np = p.Copy();
-        if (splitText.length > 1) {
-            np.Line += splitText.length - 1;
-            np.Char = 0;
-        }
-        np.Char += splitText[splitText.length - 1].length - 1;
-        if (np.Char < 0) {
-            np.Char = 0;
-        }
-        return np;
-    }
+
 }
