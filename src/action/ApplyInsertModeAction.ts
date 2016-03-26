@@ -1,6 +1,7 @@
-export class ApplyInsertModeAction implements IAction {
+export class ApplyInsertModeAction implements IInsertAction {
     private motion: IMotion;
     private insertText: string;
+    private insertModeInfo: any;
 
     constructor(m?: IMotion) {
         if (m === undefined) {
@@ -19,6 +20,11 @@ export class ApplyInsertModeAction implements IAction {
         this.insertText = text;
     }
 
+    public GetInsertModeInfo() {
+        return this.insertModeInfo;
+    }
+
+
     public Execute(editor: IEditor, vim: IVimStyle) {
         let p = editor.GetCurrentPosition();
         if (this.motion != null) {
@@ -30,7 +36,7 @@ export class ApplyInsertModeAction implements IAction {
         } else {
             vim.ApplyInsertMode(p);
             let text = editor.ReadLineAtCurrentPosition();
-            vim.InsertModeInfo = {
+            this.insertModeInfo = {
                 DocumentLineCount: editor.GetLastLineNum() + 1,
                 Position: p.Copy(),
                 BeforeText: text.substring(0, p.Char),

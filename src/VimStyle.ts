@@ -15,9 +15,7 @@ export class VimStyle implements IVimStyle {
 
     public LastAction: IAction;
     public LastEditAction: IAction;
-    public LastInsertText: string;
     public LastMoveCharPosition: number;
-    public InsertModeInfo: any;
 
     constructor(editor: IEditor, conf: IVimStyleOptions) {
         this.editor = editor;
@@ -28,9 +26,7 @@ export class VimStyle implements IVimStyle {
 
         this.LastAction = null;
         this.LastEditAction = null;
-        this.LastInsertText = null;
         this.LastMoveCharPosition = null;
-        this.InsertModeInfo = null;
 
         this.ApplyOptions(conf);
     }
@@ -108,7 +104,6 @@ export class VimStyle implements IVimStyle {
         switch (type) {
             case ActionType.Edit:
             case ActionType.Insert:
-                this.LastInsertText = "";
                 this.LastEditAction = action;
                 break;
         }
@@ -132,17 +127,11 @@ export class VimStyle implements IVimStyle {
 
     private setInsertText() {
 
-        this.LastInsertText = "";
-
-        if (this.InsertModeInfo === null) {
-            return;
-        }
-        let info = this.InsertModeInfo;
-
         if (this.LastAction.GetActionType() !== ActionType.Insert) {
             return;
         }
-        let action = this.LastAction as ApplyInsertModeAction;
+        let action = this.LastAction as IInsertAction;
+        let info = action.GetInsertModeInfo();
 
         let lineCount = this.editor.GetLastLineNum() + 1;
         if (info.DocumentLineCount > lineCount) {

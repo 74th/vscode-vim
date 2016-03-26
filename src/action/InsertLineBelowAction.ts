@@ -1,12 +1,15 @@
 import {Position} from "../VimStyle";
 import * as Utils from "../Utils";
 
-export class InsertLineBelowAction implements IAction {
+export class InsertLineBelowAction implements IInsertAction {
 
     private isAbove: boolean;
+    private insertText: string;
+    private insertModeInfo: any;
 
     constructor() {
         this.isAbove = false;
+        this.insertText = null;
     }
 
     public GetActionType(): ActionType {
@@ -15,6 +18,13 @@ export class InsertLineBelowAction implements IAction {
 
     public SetAboveOption() {
         this.isAbove = true;
+    }
+
+    public SetInsertText(text: string) {
+        this.insertText = text;
+    }
+    public GetInsertModeInfo() {
+        return this.insertModeInfo;
     }
     public Execute(editor: IEditor, vim: IVimStyle) {
         let currentPosition = editor.GetCurrentPosition();

@@ -1,7 +1,7 @@
 import {Range, Position} from "../VimStyle";
 import {RegisterItem} from "../core/Register";
 
-export class DeleteAction implements IRequireMotionAction {
+export class DeleteAction implements IRequireMotionAction, IInsertAction {
 
     public motion: IMotion;
     public isLine: boolean;
@@ -9,6 +9,7 @@ export class DeleteAction implements IRequireMotionAction {
     public isInsert: boolean;
     public isOnlyYanc: boolean;
     private insertText: string;
+    private insertModeInfo: any;
 
     constructor() {
         this.motion = null;
@@ -49,6 +50,10 @@ export class DeleteAction implements IRequireMotionAction {
 
     public SetMotion(motion: IMotion) {
         this.motion = motion;
+    }
+
+    public GetInsertModeInfo() {
+        return this.insertModeInfo;
     }
 
     public Execute(editor: IEditor, vim: IVimStyle) {
@@ -110,7 +115,7 @@ export class DeleteAction implements IRequireMotionAction {
             let endLine = editor.ReadLine(range.end.Line);
             let afterLineCount = editor.GetLastLineNum() + 1 - (range.end.Line - range.start.Line);
             vim.ApplyInsertMode();
-            vim.InsertModeInfo = {
+            this.insertModeInfo = {
                 DocumentLineCount: afterLineCount,
                 Position: nextPosition,
                 BeforeText: startLine.substring(0, range.start.Char),
@@ -198,7 +203,7 @@ export class DeleteAction implements IRequireMotionAction {
         }
         if (this.isInsert && this.insertText === null) {
             vim.ApplyInsertMode();
-            vim.InsertModeInfo = {
+            this.insertModeInfo = {
                 DocumentLineCount: lastLine + 1,
                 Position: nextPosition,
                 BeforeText: "",

@@ -97,6 +97,13 @@ interface IAction {
     GetActionType(): ActionType;
 }
 
+interface IInsertAction {
+    Execute(editor: IEditor, vim: IVimStyle);
+    GetActionType(): ActionType;
+    SetInsertText(text: string);
+    GetInsertModeInfo(): any;
+}
+
 interface IRequireMotionAction extends IAction {
     SetMotion(motion: IMotion);
     SetLineOption();
@@ -113,9 +120,7 @@ interface IVimStyle {
     Options: IVimStyleOptions;
     LastAction: IAction;
     LastEditAction: IAction;
-    LastInsertText: string;
     LastMoveCharPosition: number;
-    InsertModeInfo: any;
 
     PushKey(key: string): void;
     PushEscKey(): void;
