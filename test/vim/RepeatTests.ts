@@ -1,7 +1,7 @@
 export let RepeatTests = {};
 
 RepeatTests["repeat insert"] = {
-    "add text to current position": {
+    "repeat insert text": {
         "in": [
             "|abc",
         ],
@@ -10,7 +10,7 @@ RepeatTests["repeat insert"] = {
             "adefbcde|f",
         ]
     },
-    "add text to new line": {
+    "repeat insert text to new line": {
         "in": [
             "a|bc"
         ],
@@ -19,6 +19,15 @@ RepeatTests["repeat insert"] = {
             "abc",
             "def",
             "de|f"
+        ]
+    },
+    "repeat cut command": {
+        "in": [
+            "aaa |bbb ccc ddd",
+        ],
+        "key": "cwkkk_2w.",
+        "out": [
+            "aaa kkk ccc kk|k"
         ]
     }
 };
