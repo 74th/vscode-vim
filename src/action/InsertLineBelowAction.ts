@@ -1,13 +1,13 @@
+import {AbstractInsertAction} from "./AbstractInsertAction";
 import {Position} from "../VimStyle";
 import * as Utils from "../Utils";
 
-export class InsertLineBelowAction implements IInsertAction {
+export class InsertLineBelowAction extends AbstractInsertAction {
 
     private isAbove: boolean;
-    private insertText: string;
-    private insertModeInfo: any;
 
     constructor() {
+        super();
         this.isAbove = false;
         this.insertText = null;
     }
@@ -20,12 +20,6 @@ export class InsertLineBelowAction implements IInsertAction {
         this.isAbove = true;
     }
 
-    public SetInsertText(text: string) {
-        this.insertText = text;
-    }
-    public GetInsertModeInfo() {
-        return this.insertModeInfo;
-    }
     public Execute(editor: IEditor, vim: IVimStyle) {
         let currentPosition = editor.GetCurrentPosition();
         let selecterPosition = new Position();
@@ -42,9 +36,13 @@ export class InsertLineBelowAction implements IInsertAction {
             insertPosition.Char = currentLine.length;
         }
 
-        let insertText = appendWhiteSpace(currentLine);
-        selecterPosition.Char = insertText.length;
+        let insertSpace = appendWhiteSpace(currentLine);
+        selecterPosition.Char = insertSpace.length;
 
+        let insertText = insertSpace;
+        if (this.insertText !== null) {
+            insertText += this.insertText;
+        }
         if (this.isAbove) {
             insertText = insertText + "\n";
         } else {
@@ -52,7 +50,20 @@ export class InsertLineBelowAction implements IInsertAction {
         }
         editor.Insert(insertPosition, insertText);
 
-        vim.ApplyInsertMode(selecterPosition);
+        if (this.insertText === null) {
+
+            this.insertModeInfo = {
+                DocumentLineCunt: editor.GetLastLineNum() + 1,
+                Position: selecterPosition.Copy(),
+                BeforeText: insertSpace,
+                AfterText: ""
+            };
+
+            vim.ApplyInsertMode(selecterPosition);
+
+        } else {
+            editor.SetPosition(this.calcPositionAfterInsert(selecterPosition));
+        }
     }
 }
 
