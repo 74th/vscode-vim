@@ -40,7 +40,7 @@
 			"sourceMaps": true,
 			"args": [
 				"-g",
-				"VimStyle delete word dw:delete a wrod at end of line"
+				"VimStyle repeat insert cw.:repeat cut command"
 			],
 			"outDir": "${workspaceRoot}/out",
 			"cwd": "${workspaceRoot}/out",
