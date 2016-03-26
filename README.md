@@ -19,7 +19,7 @@ ext install vimStyle
 
 * pure TypeScript vim engine
 * [have tests comparing with original vim](https://github.com/74th/vscode-vim/tree/master/test/vim)
-* support complex command (ex: d3fx yy3p)
+* support complex command (ex: d3fx 3yyp)
 * support repeat command (ex: d3fx. Ahoge\[ESC\]j. )
 * support visual mode
 
