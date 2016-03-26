@@ -81,6 +81,6 @@ export class ExpandSelectionAction implements IAction {
                 after.end = startBlock.start.Copy();
             }
         }
-        editor.SetSelection(after);
+        editor.SetSelection(after, after.end);
     }
 }

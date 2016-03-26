@@ -26,7 +26,7 @@ interface IEditor {
 
     // Selection
     GetCurrentSelection(): IRange;
-    SetSelection(range: IRange);
+    SetSelection(range: IRange, focusPosition?: IPosition);
 
     // Document Info
     GetLastLineNum(): number;

@@ -119,9 +119,14 @@ export class VSCodeEditor implements IEditor {
     public GetCurrentSelection(): IRange {
         return tranceVimStyleRange(vscode.window.activeTextEditor.selection);
     }
-    public SetSelection(range: IRange) {
+    public SetSelection(range: IRange, focusPosition?: IPosition) {
         let s = new vscode.Selection(tranceVSCodePosition(range.start), tranceVSCodePosition(range.end));
         vscode.window.activeTextEditor.selection = s;
+        if (focusPosition !== undefined) {
+            let p = tranceVSCodePosition(focusPosition);
+            let r = new vscode.Range(p, p);
+            vscode.window.activeTextEditor.revealRange(r, vscode.TextEditorRevealType.Default);
+        }
     }
 
     // Document Info
