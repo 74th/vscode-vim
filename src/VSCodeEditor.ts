@@ -198,7 +198,9 @@ export class VSCodeEditor implements IEditor {
         } else {
             let line = this.ReadLine(cp.Line);
             if (isBlock) {
-                if (cp.Char >= line.length) {
+                if (line.length === 0) {
+                    cp.Char = 0;
+                } else if (cp.Char >= line.length) {
                     cp.Char = line.length - 1;
                 }
             } else {
