@@ -19,7 +19,7 @@ export class ExpandSelectionAction implements IAction {
     }
 
     public Execute(editor: IEditor, vim: IVimStyle) {
-        let before = editor.GetCurrentSelection();
+        let before = editor.GetCurrentVisualModeSelection();
         before.Sort();
         let p = editor.GetCurrentPosition();
 

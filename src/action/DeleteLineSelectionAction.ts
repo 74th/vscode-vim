@@ -35,7 +35,7 @@ export class DeleteLineSelectionAction implements IInsertAction {
 
     public Execute(editor: IEditor, vim: IVimStyle) {
 
-        let s = editor.GetVisualLineModeSelection();
+        let s = editor.GetCurrentVisualLineModeSelection();
         let n1line, n2line: number;
         if (s.startLine < s.endLine) {
             n1line = s.startLine;

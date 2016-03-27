@@ -36,7 +36,7 @@ interface IEditor {
 
     // Visual mode
     ShowVisualMode(range: IRange, focusPosition?: IPosition);
-    GetCurrentSelection(): IRange;
+    GetCurrentVisualModeSelection(): IRange;
     ShowVisualLineMode(startLine: number, endLine: number, focusPosition?: IPosition);
     GetCurrentVisualLineModeSelection(): IVisualLineModeSelectionInfo;
 

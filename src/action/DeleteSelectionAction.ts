@@ -35,7 +35,7 @@ export class DeleteSelectionAction implements IInsertAction {
 
     public Execute(editor: IEditor, vim: IVimStyle) {
 
-        let s = editor.GetCurrentSelection();
+        let s = editor.GetCurrentVisualModeSelection();
         s.Sort();
 
         let item = new RegisterItem();

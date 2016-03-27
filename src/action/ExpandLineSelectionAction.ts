@@ -19,7 +19,7 @@ export class ExpandLineSelectionAction implements IAction {
     }
 
     public Execute(editor: IEditor, vim: IVimStyle) {
-        let before = editor.GetVisualLineModeSelection();
+        let before = editor.GetCurrentVisualLineModeSelection();
         let cp = before.focusPosition;
         let np = this.motion.CalculateEnd(editor, cp);
         editor.ShowVisualLineMode(before.startLine, np.Line, np);

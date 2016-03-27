@@ -9,6 +9,7 @@ export class VirtualEditor implements IEditor {
     public VimStyle: IVimStyle;
 
     private currentVisualLineModeInfo: IVisualLineModeSelectionInfo;
+    private currentVisualModeSelection: IRange;
 
     constructor() {
         this.contents = [];
@@ -155,10 +156,6 @@ export class VirtualEditor implements IEditor {
         return p;
     }
 
-    // Selection
-    public GetCurrentSelection(): IRange {
-        return null; // TODO
-    }
     public SetSelection(range: IRange) {
         // TODO
     }
@@ -181,8 +178,14 @@ export class VirtualEditor implements IEditor {
         this.Position = p;
     }
     public ShowVisualMode(range: IRange, focusPosition?: IPosition) {
-        // TODO
+        this.Position = focusPosition;
+        this.currentVisualModeSelection = range;
     }
+
+    public GetCurrentVisualModeSelection(): IRange {
+        return null; // TODO
+    }
+
     public ShowVisualLineMode(startLine: number, endLine: number, focusPosition?: IPosition) {
         this.currentVisualLineModeInfo = {
             startLine: startLine,
@@ -190,6 +193,7 @@ export class VirtualEditor implements IEditor {
             focusPosition: focusPosition
         };
     }
+
     public GetCurrentVisualLineModeSelection(): IVisualLineModeSelectionInfo {
         return this.currentVisualLineModeInfo;
     }

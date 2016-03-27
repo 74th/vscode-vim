@@ -119,10 +119,6 @@ export class VSCodeEditor implements IEditor {
         return tranceVimStylePosition(end);
     }
 
-    // Selection
-    public GetCurrentSelection(): IRange {
-        return tranceVimStyleRange(vscode.window.activeTextEditor.selection);
-    }
 
     // Document Info
     public GetLastLineNum(): number {
@@ -180,6 +176,10 @@ export class VSCodeEditor implements IEditor {
             let r = new vscode.Range(p, p);
             vscode.window.activeTextEditor.revealRange(r, vscode.TextEditorRevealType.Default);
         }
+    }
+
+    public GetCurrentVisualModeSelection(): IRange {
+        return tranceVimStyleRange(vscode.window.activeTextEditor.selection);
     }
 
     public ShowVisualLineMode(startLine: number, endLine: number, focusPosition: IPosition) {
