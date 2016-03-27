@@ -32,7 +32,7 @@ ext install vimStyle
 * Nx
 * d y c dd yy cc D C p P 
 * Ndd Nyy Ncc
-* v
+* v V
 * .
 
 ## settings
@@ -63,7 +63,6 @@ This extension is to become more friendly with vscode and vim-keybinding!
 * r
 * ; ,
 * J
-* V
 * { }
 * "xd "xy "xc "xp
 * ~
@@ -90,6 +89,7 @@ MIT License
 
 * update for vscode 0.10.12
 * support repeat command
+* support visual line mode
 
 ### 0.2.4
 

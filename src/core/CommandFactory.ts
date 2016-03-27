@@ -78,7 +78,7 @@ export class CommandFactory implements ICommandFactory {
             switch (this.state) {
                 case StateName.AtStart:
                     this.action = new ExpandLineSelectionAction();
-                    command = this.keyBindings.VisualMode[keyChar];
+                    command = this.keyBindings.VisualLineMode[keyChar];
                     break;
                 case StateName.RequireMotionNum:
                     command = this.keyBindings.RequireMotionNum[keyChar];

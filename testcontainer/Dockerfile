@@ -1,4 +1,7 @@
 FROM library/node
 
-RUN npm install -g mocha typescript
+ADD * /root/
 WORKDIR /root/
+RUN npm install
+
+ENTRYPOINT make test
