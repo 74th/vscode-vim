@@ -1,5 +1,5 @@
 import {Range} from "../VimStyle";
-export class ApplyVisualModeAction implements IAction {
+export class ApplyVisualLineModeAction implements IAction {
 
     public GetActionType(): ActionType {
         return ActionType.Other;
@@ -7,10 +7,7 @@ export class ApplyVisualModeAction implements IAction {
 
     public Execute(editor: IEditor, vim: IVimStyle) {
         let cp = editor.GetCurrentPosition();
-        let s = new Range();
-        s.start = cp;
-        s.end = cp;
-        editor.ShowVisualMode(s, cp);
-        vim.ApplyVisualMode();
+        editor.ShowVisualLineMode(cp.Line, cp.Line, cp);
+        vim.ApplyVisualLineMode();
     }
 }

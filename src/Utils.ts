@@ -7,6 +7,8 @@ export function ModeToString(mode: VimMode): string {
             return "NORMAL";
         case VimMode.Visual:
             return "VISUAL";
+        case VimMode.VisualLine:
+            return "VISUAL LINE";
         default:
             throw new Error("Panic!");
     }

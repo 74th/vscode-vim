@@ -177,8 +177,15 @@ export class VirtualEditor implements IEditor {
     public ApplyInsertMode(p: IPosition) {
         this.Position = p;
     }
-    public ApplyVisualMode() {
+    public ShowVisualMode(range: IRange, focusPosition?: IPosition) {
         // TODO
+    }
+    public ShowVisualLineMode(startLine: number, endLine: number, focusPosition?: IPosition) {
+        // TODO
+    }
+    public GetVisualLineModeSelection(): IVisualLineModeSelectionInfo {
+        // TODO
+        return null;
     }
     // check invalid position
     public UpdateValidPosition(p: IPosition, isBlock?: boolean): IPosition {

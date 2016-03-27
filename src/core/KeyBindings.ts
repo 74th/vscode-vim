@@ -6,6 +6,7 @@ class KeyBindings implements IKeyBindings {
     SmallG: { [key: string]: IVimStyleCommand };
     SmallGForMotion: { [key: string]: IVimStyleCommand };
     VisualMode: { [key: string]: IVimStyleCommand };
+    VisualLineMode: { [key: string]: IVimStyleCommand };
 }
 
 function applyKeyBindingsByEachState(dest: { [key: string]: IVimStyleCommand }, src: { [key: string]: IVimStyleCommand }) {
@@ -35,6 +36,9 @@ function applyKeyBindings(dest: IKeyBindings, src: IKeyBindings) {
     }
     if (dest.VisualMode) {
         applyKeyBindingsByEachState(dest.VisualMode, src.VisualMode);
+    }
+    if (dest.VisualLineMode) {
+        applyKeyBindingsByEachState(dest.VisualLineMode, src.VisualLineMode);
     }
 }
 
@@ -152,7 +156,9 @@ const DefaultKeyBindings: IKeyBindings = {
         "v": {
             cmd: CommandName.enterVisualModeAction
         },
-        // V low priority
+        "V": {
+            cmd: CommandName.enterVisualLineModeAction
+        },
         "w": {
             cmd: CommandName.moveWordAction
         },
@@ -782,7 +788,115 @@ const DefaultKeyBindings: IKeyBindings = {
         "$": {
             cmd: CommandName.endMotion
         }
-    }
+    },
+
+    // V
+    VisualLineMode: {
+        // V..a
+        // V..A
+        "b": {
+            cmd: CommandName.wordMotion,
+            isReverse: true
+        },
+        // V..B
+        "c": {
+            cmd: CommandName.changeLineSelectionAction
+        },
+        // V..C no command
+        "d": {
+            cmd: CommandName.deleteLineSelectionAction
+        },
+        // V..D no command
+        // V..e
+        // V..E
+        // V..f
+        // V..F
+        "g": {
+            cmd: CommandName.nothing,
+            state: StateName.SmallGForMotion
+        },
+        "G": {
+            cmd: CommandName.lastLineMotion,
+        },
+        // V..h
+        // V..H no function
+        // V..i
+        // V..I
+        "j": {
+            cmd: CommandName.lineMotion
+        },
+        // V..J?
+        "k": {
+            cmd: CommandName.lineMotion,
+            isReverse: true
+        },
+        // V..K no function
+        // V..l
+        // V..L no function
+        // V..o never support
+        // V..O no function
+        // V..p never support
+        // V..P no function
+        // V..q no function
+        // V..Q no function
+        // V..r no function
+        // V..R low priority
+        // V..s ?
+        // V..S ?
+        // V..t ?
+        // V..T ?
+        // u low priority
+        // U low priority
+        // V..v low priority
+        // V..V back to normal mode
+        // V..w
+        // v..W
+        // x no function
+        // X no function
+        "y": {
+            cmd: CommandName.yancLineSelectionAction
+        },
+        "0": {
+            cmd: CommandName.homeMotion
+        },
+        "1": {
+            cmd: CommandName.stackNumber,
+            state: StateName.RequireMotionNum
+        },
+        "2": {
+            cmd: CommandName.stackNumber,
+            state: StateName.RequireMotionNum
+        },
+        "3": {
+            cmd: CommandName.stackNumber,
+            state: StateName.RequireMotionNum
+        },
+        "4": {
+            cmd: CommandName.stackNumber,
+            state: StateName.RequireMotionNum
+        },
+        "5": {
+            cmd: CommandName.stackNumber,
+            state: StateName.RequireMotionNum
+        },
+        "6": {
+            cmd: CommandName.stackNumber,
+            state: StateName.RequireMotionNum
+        },
+        "7": {
+            cmd: CommandName.stackNumber,
+            state: StateName.RequireMotionNum
+        },
+        "8": {
+            cmd: CommandName.stackNumber,
+            state: StateName.RequireMotionNum
+        },
+        "9": {
+            cmd: CommandName.stackNumber,
+            state: StateName.RequireMotionNum
+        },
+        // V..$
+    },
 };
 
 // move a cursur by jkl; keys
@@ -808,7 +922,13 @@ const ErgonomicKeyBindings: IKeyBindings = {
         "k": DefaultKeyBindings.VisualMode["j"],
         "l": DefaultKeyBindings.VisualMode["k"],
         ";": DefaultKeyBindings.VisualMode["l"]
-    }
+    },
+    VisualLineMode: {
+        "j": DefaultKeyBindings.VisualMode["h"],
+        "k": DefaultKeyBindings.VisualMode["j"],
+        "l": DefaultKeyBindings.VisualMode["k"],
+        ";": DefaultKeyBindings.VisualMode["l"]
+    },
 };
 
 export function LoadKeyBindings(opts: IVimStyleOptions): IKeyBindings {
@@ -819,7 +939,8 @@ export function LoadKeyBindings(opts: IVimStyleOptions): IKeyBindings {
         RequireMotionNum: {},
         SmallG: {},
         SmallGForMotion: {},
-        VisualMode: {}
+        VisualMode: {},
+        VisualLineMode: {}
     };
     let key: string;
     applyKeyBindings(bindings, DefaultKeyBindings);

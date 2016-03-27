@@ -24,10 +24,6 @@ interface IEditor {
     SetPosition(position: IPosition);
     GetLastPosition(): IPosition;
 
-    // Selection
-    GetCurrentSelection(): IRange;
-    SetSelection(range: IRange, focusPosition?: IPosition);
-
     // Document Info
     GetLastLineNum(): number;
 
@@ -37,7 +33,12 @@ interface IEditor {
     // set modes
     ApplyNormalMode(cursor?: IPosition, isLineHasNoChar?: boolean, isLastLine?: boolean);
     ApplyInsertMode(p: IPosition);
-    ApplyVisualMode();
+
+    // Visual mode
+    ShowVisualMode(range: IRange, focusPosition?: IPosition);
+    GetCurrentSelection(): IRange;
+    ShowVisualLineMode(startLine: number, endLine: number, focusPosition?: IPosition);
+    GetVisualLineModeSelection(): IVisualLineModeSelectionInfo;
 
     // check invalid position
     UpdateValidPosition(p: IPosition, isBlock?: boolean): IPosition;
@@ -127,6 +128,7 @@ interface IVimStyle {
     ApplyNormalMode();
     ApplyInsertMode(p?: IPosition): void;
     ApplyVisualMode(): void;
+    ApplyVisualLineMode(): void;
     GetMode(): VimMode;
 }
 
@@ -145,10 +147,17 @@ interface IKeyBindings {
     SmallG: { [key: string]: IVimStyleCommand };
     SmallGForMotion: { [key: string]: IVimStyleCommand };
     VisualMode: { [key: string]: IVimStyleCommand };
+    VisualLineMode: { [key: string]: IVimStyleCommand };
 }
 
 interface IVimStyleOptions {
     useErgonomicKeyForMotion: boolean;
+}
+
+interface IVisualLineModeSelectionInfo {
+    startLine: number;
+    endLine: number;
+    focusPosition: IPosition;
 }
 
 declare const enum Key {
@@ -280,13 +289,14 @@ declare const enum CharGroup {
     Spaces,
     Hiragana,
     Katakana,
-    Other
+    Other,
 }
 
 declare const enum VimMode {
     Normal,
     Insert,
-    Visual
+    Visual,
+    VisualLine,
 }
 
 declare const enum CommandName {
@@ -351,6 +361,13 @@ declare const enum CommandName {
     changeSelectionAction,
     deleteSelectionAction,
     yancSelectionAction,
+
+    // line visual mode
+    enterVisualLineModeAction,
+    expandLineSelectionAction,
+    changeLineSelectionAction,
+    deleteLineSelectionAction,
+    yancLineSelectionAction,
 
     // special
     repeat,

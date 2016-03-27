@@ -24,6 +24,10 @@ export class VSCodeEditor implements IEditor {
     private commandStatusBarItem: vscode.StatusBarItem;
     private vimStyle: IVimStyle;
 
+    private visualLineModeStartLine: number;
+    private visualLineModeEndLine: number;
+    private visualLineModeFocusPosition: IPosition;
+
     public Options: IVSCodeEditorOptions;
 
     public constructor(options: IVSCodeEditorOptions) {
@@ -119,15 +123,6 @@ export class VSCodeEditor implements IEditor {
     public GetCurrentSelection(): IRange {
         return tranceVimStyleRange(vscode.window.activeTextEditor.selection);
     }
-    public SetSelection(range: IRange, focusPosition?: IPosition) {
-        let s = new vscode.Selection(tranceVSCodePosition(range.start), tranceVSCodePosition(range.end));
-        vscode.window.activeTextEditor.selection = s;
-        if (focusPosition !== undefined) {
-            let p = tranceVSCodePosition(focusPosition);
-            let r = new vscode.Range(p, p);
-            vscode.window.activeTextEditor.revealRange(r, vscode.TextEditorRevealType.Default);
-        }
-    }
 
     // Document Info
     public GetLastLineNum(): number {
@@ -142,6 +137,10 @@ export class VSCodeEditor implements IEditor {
     // changed focused editor or changed position by user
     public ChangePositionByUser() {
         if (this.vimStyle.GetMode() === VimMode.Insert) {
+            // do nothing
+            return;
+        }
+        if (this.vimStyle.GetMode() === VimMode.VisualLine) {
             // do nothing
             return;
         }
@@ -165,8 +164,6 @@ export class VSCodeEditor implements IEditor {
         this.showBlockCursor();
     }
 
-
-
     public ApplyInsertMode(p?: Position) {
         if (p) {
             let c = tranceVSCodePosition(p);
@@ -175,15 +172,48 @@ export class VSCodeEditor implements IEditor {
         this.showLineCursor();
     }
 
-    public ApplyVisualMode() {
-        let s = vscode.window.activeTextEditor.selection;
-        if (s.start.isEqual(s.end)) {
-            // select current position
-            let np = new vscode.Position(s.start.line, s.start.character + 1);
-            let v = new vscode.Selection(s.start, np);
-            vscode.window.activeTextEditor.selection = v;
+    public ShowVisualMode(range: IRange, focusPosition?: IPosition) {
+        let s = new vscode.Selection(tranceVSCodePosition(range.start), tranceVSCodePosition(range.end));
+        vscode.window.activeTextEditor.selection = s;
+        if (focusPosition !== undefined) {
+            let p = tranceVSCodePosition(focusPosition);
+            let r = new vscode.Range(p, p);
+            vscode.window.activeTextEditor.revealRange(r, vscode.TextEditorRevealType.Default);
         }
-        this.showLineCursor();
+    }
+
+    public ShowVisualLineMode(startLine: number, endLine: number, focusPosition: IPosition) {
+
+        this.visualLineModeStartLine = startLine;
+        this.visualLineModeEndLine = endLine;
+        this.visualLineModeFocusPosition = focusPosition;
+
+        let start: vscode.Position, end: vscode.Position;
+        let line: string;
+        if (startLine <= endLine) {
+            start = new vscode.Position(startLine, 0);
+            line = vscode.window.activeTextEditor.document.lineAt(endLine).text;
+            end = new vscode.Position(endLine, line.length);
+        } else if (endLine < startLine) {
+            line = vscode.window.activeTextEditor.document.lineAt(startLine).text;
+            start = new vscode.Position(startLine, line.length);
+            end = new vscode.Position(endLine, 0);
+        }
+        let v = new vscode.Selection(start, end);
+        vscode.window.activeTextEditor.selection = v;
+
+        let fc = tranceVSCodePosition(focusPosition);
+        let rc = new vscode.Range(fc, fc);
+        vscode.window.activeTextEditor.revealRange(rc);
+
+        this.showBlockCursor();
+    }
+    public GetVisualLineModeSelection():IVisualLineModeSelectionInfo {
+        return {
+            startLine: this.visualLineModeStartLine,
+            endLine: this.visualLineModeEndLine,
+            focusPosition: this.visualLineModeFocusPosition
+        };
     }
 
     public UpdateValidPosition(p: IPosition, isBlock?: boolean): IPosition {

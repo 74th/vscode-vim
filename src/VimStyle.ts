@@ -35,6 +35,7 @@ export class VimStyle implements IVimStyle {
         switch (this.mode) {
             case VimMode.Normal:
             case VimMode.Visual:
+            case VimMode.VisualLine:
                 this.readCommand(key);
                 return;
             case VimMode.Insert:
@@ -72,7 +73,11 @@ export class VimStyle implements IVimStyle {
 
     public ApplyVisualMode() {
         this.setMode(VimMode.Visual);
-        this.editor.ApplyVisualMode();
+
+    }
+
+    public ApplyVisualLineMode() {
+        this.setMode(VimMode.VisualLine);
     }
 
     public GetMode(): VimMode {

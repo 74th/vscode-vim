@@ -8,6 +8,9 @@ import {MoveLineAction} from "../action/MoveLineAction";
 import {ApplyVisualModeAction} from "../action/ApplyVisualModeAction";
 import {ExpandSelectionAction} from "../action/ExpandSelectionAction";
 import {DeleteSelectionAction} from "../action/DeleteSelectionAction";
+import {ApplyVisualLineModeAction} from "../action/ApplyVisualLineModeAction";
+import {ExpandLineSelectionAction} from "../action/ExpandLineSelectionAction";
+import {DeleteLineSelectionAction} from "../action/DeleteLineSelectionAction";
 import {RepeatAction} from "../action/RepeatAction";
 import {RightMotion} from "../motion/RightMotion";
 import {DownMotion} from "../motion/DownMotion";
@@ -60,6 +63,21 @@ export class CommandFactory implements ICommandFactory {
             switch (this.state) {
                 case StateName.AtStart:
                     this.action = new ExpandSelectionAction();
+                    command = this.keyBindings.VisualMode[keyChar];
+                    break;
+                case StateName.RequireMotionNum:
+                    command = this.keyBindings.RequireMotionNum[keyChar];
+                    break;
+                case StateName.RequireCharForMotion:
+                    return this.pushKeyAtRequireCharForMotion(keyChar);
+                case StateName.SmallGForMotion:
+                    command = this.keyBindings.SmallGForMotion[keyChar];
+                    break;
+            }
+       } else if (mode === VimMode.VisualLine) {
+            switch (this.state) {
+                case StateName.AtStart:
+                    this.action = new ExpandLineSelectionAction();
                     command = this.keyBindings.VisualMode[keyChar];
                     break;
                 case StateName.RequireMotionNum:
@@ -270,6 +288,23 @@ export class CommandFactory implements ICommandFactory {
                 return;
             case CommandName.yancSelectionAction:
                 this.yancSelectionAction();
+                return;
+
+            // line visual mode
+            case CommandName.enterVisualLineModeAction:
+                this.enterVisualLineModeAction();
+                return;
+            case CommandName.deleteLineSelectionAction:
+                this.deleteLineSelectionAction();
+                return;
+            case CommandName.changeLineSelectionAction:
+                this.changeLineSelectionAction();
+                return;
+            case CommandName.deleteLineSelectionAction:
+                this.deleteLineSelectionAction();
+                return;
+            case CommandName.yancLineSelectionAction:
+                this.yancLineSelectionAction();
                 return;
 
             // special
@@ -695,6 +730,30 @@ export class CommandFactory implements ICommandFactory {
     // v...y
     private yancSelectionAction() {
         let a = new DeleteSelectionAction();
+        a.SetOnlyYancOption();
+        this.action = a;
+    }
+
+    // V
+    private enterVisualLineModeAction() {
+        this.action = new ApplyVisualLineModeAction();
+    }
+
+    // V...c
+    private changeLineSelectionAction() {
+        let a = new DeleteLineSelectionAction();
+        a.SetChangeOption();
+        this.action = a;
+    }
+
+    // V...d
+    private deleteLineSelectionAction() {
+        this.action = new DeleteLineSelectionAction();
+    }
+
+    // V...y
+    private yancLineSelectionAction() {
+        let a = new DeleteLineSelectionAction();
         a.SetOnlyYancOption();
         this.action = a;
     }
