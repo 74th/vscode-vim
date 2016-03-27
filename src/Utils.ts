@@ -376,3 +376,30 @@ export function GetCharClass(charCode: number): CharGroup {
     }
     return CharGroup.Other;
 }
+
+export function CalcVisialPosition(systemPosition: number, text: string, tabSize: number): number {
+    let tabCount = 0;
+    for (let i = 0; i < text.length; i++) {
+        if (text[i] === "\t") {
+            tabCount++;
+        } else {
+            break;
+        }
+    }
+    return (tabSize - 1) * tabCount + systemPosition;
+}
+
+export function CalcSystemPosition(visualPosition: number, text: string, tabSize: number): number {
+    let tabCount = 0;
+    for (let i = 0; i < text.length; i++) {
+        if (text[i] === "\t") {
+            tabCount++;
+        } else {
+            break;
+        }
+    }
+    if (visualPosition <= tabSize * tabCount) {
+        return Math.floor(visualPosition / tabSize);
+    }
+    return visualPosition - (tabSize - 1) * tabCount;
+}

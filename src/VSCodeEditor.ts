@@ -247,6 +247,20 @@ export class VSCodeEditor implements IEditor {
         return cp;
     }
 
+    public GetTabSize(): number {
+        let n = vscode.window.activeTextEditor.options.tabSize;
+        let ntype = typeof n;
+        if (ntype === "number") {
+            return n as number;
+        } else if (ntype === "string") {
+            let ns = parseInt(n as string, 10);
+            if (ns !== NaN) {
+                return ns;
+            }
+        }
+        return 4;
+    }
+
     private showLineCursor() {
         vscode.window.activeTextEditor.options = {
             cursorStyle: vscode.TextEditorCursorStyle.Line

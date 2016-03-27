@@ -43,6 +43,8 @@ interface IEditor {
     // check invalid position
     UpdateValidPosition(p: IPosition, isBlock?: boolean): IPosition;
 
+    GetTabSize(): number;
+
     dispose(): void;
 }
 

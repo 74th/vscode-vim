@@ -1,5 +1,4 @@
-
-const commandLegex = /[0-9]*[jk]/;
+import * as Utils from "../Utils";
 
 export class MoveLineAction implements IAction {
 
@@ -19,6 +18,8 @@ export class MoveLineAction implements IAction {
 
     public Execute(editor: IEditor, vim: IVimStyle) {
 
+        let tabSize = editor.GetTabSize();
+
         let from = editor.GetCurrentPosition();
         let to = this.motion.CalculateEnd(editor, from);
         if (to == null) {
@@ -29,9 +30,11 @@ export class MoveLineAction implements IAction {
         if (vim.LastAction &&
             ActionType.LineMove === vim.LastAction.GetActionType()) {
             // use last move position
-            to.Char = vim.LastMoveCharPosition;
+            let toText = editor.ReadLine(to.Line);
+            to.Char = Utils.CalcSystemPosition(vim.LastMoveCharPosition, toText, tabSize);
         } else {
-            vim.LastMoveCharPosition = from.Char;
+            let fromText = editor.ReadLine(from.Line);
+            vim.LastMoveCharPosition = Utils.CalcVisialPosition(from.Char, fromText, tabSize);
         }
 
         if (from.Char === to.Char && from.Line === to.Line) {

@@ -233,6 +233,10 @@ export class VirtualEditor implements IEditor {
         }
     }
 
+    public GetTabSize() {
+        return 4;
+    }
+
     public dispose() {
         return;
     }
