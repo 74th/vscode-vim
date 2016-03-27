@@ -6,7 +6,7 @@
 	"tasks": [
 		{
 			"taskName": "build",
-			"isBuildCoommand": true,
+			"isBuildCommand": true,
 			"args": [
 				"build"
 			]
