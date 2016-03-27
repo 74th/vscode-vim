@@ -1,7 +1,7 @@
 {
     "name": "vimStyle",
     "displayname": "Vim Style",
-    "description": "vim style keybindings",
+    "description": "Vim emulator for VSCode",
     "icon": "bluevim.png",
     "license": "MIT License",
     "bugs": {

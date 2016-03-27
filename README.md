@@ -1,4 +1,4 @@
-vim style key-binding for VSCode
+vim emulator for VSCode
 
 * https://github.com/74th/vscode-vim
 * https://marketplace.visualstudio.com/items/74th.vimStyle
@@ -8,6 +8,7 @@ vim style key-binding for VSCode
 ## Require
 
 * v0.3 : Visual Studio Code 0.10.12 ( [available in Insider preview](https://code.visualstudio.com/insiders) )
+* v~0.2(released) : Visual Studio Code 0.10.1
 
 ## install
 
