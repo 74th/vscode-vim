@@ -156,10 +156,6 @@ export class VirtualEditor implements IEditor {
         return p;
     }
 
-    public SetSelection(range: IRange) {
-        // TODO
-    }
-
     // Document Info
     public GetLastLineNum(): number {
         return this.contents.length - 1;
@@ -183,7 +179,7 @@ export class VirtualEditor implements IEditor {
     }
 
     public GetCurrentVisualModeSelection(): IRange {
-        return null; // TODO
+        return this.currentVisualModeSelection;
     }
 
     public ShowVisualLineMode(startLine: number, endLine: number, focusPosition?: IPosition) {

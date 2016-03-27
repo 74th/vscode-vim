@@ -18,10 +18,8 @@ export class RepeatAction implements IAction {
             switch (vim.LastEditAction.GetActionType()) {
                 case ActionType.Insert:
                 case ActionType.Edit:
-                    (function() {
-                        let action: any = vim.LastEditAction;
-                        vim.LastEditAction.Execute(editor, vim);
-                    })();
+                    let action = vim.LastEditAction;
+                    vim.LastEditAction.Execute(editor, vim);
             }
         }
     }
