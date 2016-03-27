@@ -7,6 +7,9 @@ export class VirtualEditor implements IEditor {
     public ModeStatus: string;
     public Position: Position;
     public VimStyle: IVimStyle;
+
+    private currentVisualLineModeInfo: IVisualLineModeSelectionInfo;
+
     constructor() {
         this.contents = [];
         this.CommandStatus = "";
@@ -181,11 +184,14 @@ export class VirtualEditor implements IEditor {
         // TODO
     }
     public ShowVisualLineMode(startLine: number, endLine: number, focusPosition?: IPosition) {
-        // TODO
+        this.currentVisualLineModeInfo = {
+            startLine: startLine,
+            endLine: endLine,
+            focusPosition: focusPosition
+        };
     }
-    public GetVisualLineModeSelection(): IVisualLineModeSelectionInfo {
-        // TODO
-        return null;
+    public GetCurrentVisualLineModeSelection(): IVisualLineModeSelectionInfo {
+        return this.currentVisualLineModeInfo;
     }
     // check invalid position
     public UpdateValidPosition(p: IPosition, isBlock?: boolean): IPosition {

@@ -208,7 +208,7 @@ export class VSCodeEditor implements IEditor {
 
         this.showBlockCursor();
     }
-    public GetVisualLineModeSelection():IVisualLineModeSelectionInfo {
+    public GetCurrentVisualLineModeSelection(): IVisualLineModeSelectionInfo {
         return {
             startLine: this.visualLineModeStartLine,
             endLine: this.visualLineModeEndLine,

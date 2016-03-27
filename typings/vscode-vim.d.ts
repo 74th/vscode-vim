@@ -38,7 +38,7 @@ interface IEditor {
     ShowVisualMode(range: IRange, focusPosition?: IPosition);
     GetCurrentSelection(): IRange;
     ShowVisualLineMode(startLine: number, endLine: number, focusPosition?: IPosition);
-    GetVisualLineModeSelection(): IVisualLineModeSelectionInfo;
+    GetCurrentVisualLineModeSelection(): IVisualLineModeSelectionInfo;
 
     // check invalid position
     UpdateValidPosition(p: IPosition, isBlock?: boolean): IPosition;
