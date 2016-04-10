@@ -1,5 +1,7 @@
 vim emulator for VSCode
 
+![vimanimetion](https://raw.githubusercontent.com/74th/vscode-vim/master/tutorial/tutorial1.gif)
+
 * https://github.com/74th/vscode-vim
 * https://marketplace.visualstudio.com/items/74th.vimStyle
 
@@ -20,9 +22,12 @@ ext install vimStyle
 
 * pure TypeScript vim engine
 * [have tests comparing with original vim](https://github.com/74th/vscode-vim/tree/master/test/vim)
-* support complex command (ex: d3fx 3yyp)
-* support repeat command (ex: d3fx. Ahoge\[ESC\]j. )
+* support complex command
 * support visual mode
+![vimanimetion](https://raw.githubusercontent.com/74th/vscode-vim/master/tutorial/tutorial2.gif)
+
+* support repeat command
+![vimanimetion](https://raw.githubusercontent.com/74th/vscode-vim/master/tutorial/tutorial3.gif)
 
 ## support
 
@@ -30,7 +35,7 @@ ext install vimStyle
 * Nh Nj Nk Nl Nw NW Nb NB Ne NE Ntx Nfx NTx NFx NG
 * i a s o x I A S O X
 * Nx
-* d y c dd yy cc D C p P 
+* d y c dd yy cc D C p P
 * Ndd Nyy Ncc
 * v V
 * .
