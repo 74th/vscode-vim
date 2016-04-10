@@ -24,9 +24,11 @@ ext install vimStyle
 * [have tests comparing with original vim](https://github.com/74th/vscode-vim/tree/master/test/vim)
 * support complex command
 * support visual mode
+
 ![vimanimetion](https://raw.githubusercontent.com/74th/vscode-vim/master/tutorial/tutorial2.gif)
 
 * support repeat command
+
 ![vimanimetion](https://raw.githubusercontent.com/74th/vscode-vim/master/tutorial/tutorial3.gif)
 
 ## support

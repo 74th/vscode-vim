@@ -1,7 +1,13 @@
-work complex command : 3w 2f(
+insert mode : i A ...
+
+--> var = function()
+
+complex command : 3w 2f( ...
+
 --> var value = func( fuc(arg) )
 
-work delete and yank : dd yy p
+delete and yank : 2dd p yy p
+
 --> line4
 --> line5
 --> line1
