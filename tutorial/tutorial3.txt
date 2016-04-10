@@ -1,0 +1,5 @@
+support repeat command : .
+
+--> var num1 int
+--> var num2 int
+--> var num3 int
