@@ -100,9 +100,9 @@ MIT License
 
 ## update
 
-### 0.3.0
+### 0.3.2
 
-* update for vscode 0.10.12
+* update for vscode 1.0.0
 * support repeat command
 * support visual line mode
 * support tab size

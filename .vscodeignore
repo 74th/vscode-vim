@@ -1,9 +1,0 @@
-.vscode/**
-typings/**
-out/**
-**/*.map
-node_module/**
-*.vsix
-.gitignore
-tsconfig.json
-vsc-extension-quickstart.md
