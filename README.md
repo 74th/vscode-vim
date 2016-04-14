@@ -9,8 +9,7 @@ vim emulator for VSCode
 
 ## Require
 
-* v0.3 : Visual Studio Code 0.10.12 ( [available in Insiders build](https://code.visualstudio.com/insiders) )
-* v~0.2(released) : Visual Studio Code 0.10.1
+* v0.3 : Visual Studio Code 1.0.0 
 
 ## install
 
