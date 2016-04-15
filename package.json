@@ -3,6 +3,10 @@
     "displayname": "Vim Style",
     "description": "Vim emulator for VSCode",
     "icon": "bluevim.png",
+    "galleryBanner": {
+        "color": "#229932",
+        "theme": "dark"
+    },
     "license": "MIT License",
     "bugs": {
         "url": "https://github.com/74th/vscode-vim/issues"
@@ -17,6 +21,9 @@
     "engines": {
         "vscode": "^1.0.0"
     },
+    "keywords": [
+        "vim"
+    ],
     "categories": [
         "Other"
     ],
@@ -58,7 +65,7 @@
     "devDependencies": {
         "mocha": "^2.3.4",
         "typescript": "^1.8.5",
-        "vscode": "0.11.9",
+        "vscode": "^0.11.10",
         "tslint": "^3.6.0"
     }
 }
