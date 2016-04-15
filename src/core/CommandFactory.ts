@@ -18,7 +18,7 @@ import {HomeMotion} from "../motion/HomeMotion";
 import {EndMotion} from "../motion/EndMotion";
 import {FindCharacterMotion} from "../motion/FindCharacterMotion";
 import {WordMotion} from "../motion/WordMotion";
-import {LineHeadMotion} from "../motion/LineHeadMotion";
+import {LineHeadMotion, LineHeadTarget} from "../motion/LineHeadMotion";
 
 export class CommandFactory implements ICommandFactory {
 
@@ -187,6 +187,9 @@ export class CommandFactory implements ICommandFactory {
             case CommandName.moveEndAction:
                 this.moveEndAction();
                 return;
+            case CommandName.moveFirstNonBlankCharAction:
+                this.moveFirstNonBlankCharAction();
+                return;
             case CommandName.moveFindCharacterAction:
                 this.moveFindCharacterAction(command.isReverse);
                 return;
@@ -233,6 +236,9 @@ export class CommandFactory implements ICommandFactory {
                 return;
             case CommandName.endMotion:
                 this.endMotion();
+                return;
+            case CommandName.firstNonBlankCharMotion:
+                this.firstNonBlankCharMotion();
                 return;
             case CommandName.findCharacterMotion:
                 this.findCharacterMotion(command.isReverse);
@@ -349,7 +355,7 @@ export class CommandFactory implements ICommandFactory {
     // I
     private insertHomeAction() {
         let m = new LineHeadMotion();
-        m.SetCurrentLineOption();
+        m.TargetLine = LineHeadTarget.Current;
         this.action = new ApplyInsertModeAction(m);
     }
 
@@ -466,6 +472,13 @@ export class CommandFactory implements ICommandFactory {
         this.action = this.createMoveAction(new EndMotion());
     }
 
+    // ^
+    private moveFirstNonBlankCharAction() {
+        let m = new LineHeadMotion();
+        m.TargetLine = LineHeadTarget.Current;
+        this.action = this.createMoveAction(m);
+    }
+
     // fx Fx
     private moveFindCharacterAction(isReverse) {
         let a = new MoveAction();
@@ -510,7 +523,7 @@ export class CommandFactory implements ICommandFactory {
     private moveLastLineAction() {
         let a = new MoveAction();
         let m = new LineHeadMotion();
-        m.SetLastLineOption();
+        m.TargetLine = LineHeadTarget.Last;
         a.SetMotion(m);
         this.action = a;
     }
@@ -519,7 +532,7 @@ export class CommandFactory implements ICommandFactory {
     private moveFirstLineAction() {
         let a = new MoveAction();
         let m = new LineHeadMotion();
-        m.SetFirstLineOption();
+        m.TargetLine = LineHeadTarget.First;
         a.SetMotion(m);
         this.action = a;
     }
@@ -575,6 +588,14 @@ export class CommandFactory implements ICommandFactory {
         let a = <IRequireMotionAction>this.action;
         a.SetMotion(new EndMotion());
     }
+    
+    // c^
+    private firstNonBlankCharMotion() {
+        let a = <IRequireMotionAction>this.action;
+        let m = new LineHeadMotion();
+        m.TargetLine = LineHeadTarget.Current;
+        a.SetMotion(m);
+    }
 
     // fx Fx
     private findCharacterMotion(isReverse) {
@@ -619,7 +640,7 @@ export class CommandFactory implements ICommandFactory {
     // cG
     private lastLineMotion() {
         let m = new LineHeadMotion();
-        m.SetLastLineOption();
+        m.TargetLine = LineHeadTarget.Last;
         let a = <IRequireMotionAction>this.action;
         a.SetMotion(m);
         a.SetLineOption();
@@ -628,7 +649,7 @@ export class CommandFactory implements ICommandFactory {
     // cgg
     private firstLineMotion() {
         let m = new LineHeadMotion();
-        m.SetFirstLineOption();
+        m.TargetLine = LineHeadTarget.First;
         let a = <IRequireMotionAction>this.action;
         a.SetMotion(m);
         a.SetLineOption();

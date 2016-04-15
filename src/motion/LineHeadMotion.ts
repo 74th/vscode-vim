@@ -2,7 +2,7 @@ import {AbstractMotion} from "./AbstractMotion";
 import * as Utils from "../Utils";
 import {Position} from "../VimStyle";
 
-enum Target {
+export enum LineHeadTarget {
     Current,
     First,
     Last,
@@ -11,42 +11,33 @@ enum Target {
 
 export class LineHeadMotion extends AbstractMotion {
 
-    private targetLine: Target;
+    public TargetLine: LineHeadTarget;
+    public IsSkipSpaces: boolean;
 
     constructor() {
         super();
-        this.targetLine = Target.Number;
-    }
-
-    public SetFirstLineOption() {
-        this.targetLine = Target.First;
-    }
-
-    public SetLastLineOption() {
-        this.targetLine = Target.Last;
-    }
-    public SetCurrentLineOption() {
-        this.targetLine = Target.Current;
+        this.TargetLine = LineHeadTarget.Number;
+        this.IsSkipSpaces = false;
     }
 
     public CalculateEnd(editor: IEditor, start: IPosition): IPosition {
 
         let lineDocument: string;
         let lineNumber: number;
-        switch (this.targetLine) {
-            case Target.Current:
+        switch (this.TargetLine) {
+            case LineHeadTarget.Current:
                 lineDocument = editor.ReadLineAtCurrentPosition();
                 lineNumber = start.Line;
                 break;
-            case Target.First:
+            case LineHeadTarget.First:
                 lineNumber = 0;
                 lineDocument = editor.ReadLine(lineNumber);
                 break;
-            case Target.Last:
+            case LineHeadTarget.Last:
                 lineNumber = editor.GetLastLineNum();
                 lineDocument = editor.ReadLine(lineNumber);
                 break;
-            case Target.Number:
+            case LineHeadTarget.Number:
                 lineNumber = this.GetCount();
                 let lastLineNum = editor.GetLastLineNum();
                 if (lineNumber > lastLineNum) {

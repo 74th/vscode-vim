@@ -223,6 +223,9 @@ const DefaultKeyBindings: IKeyBindings = {
         "$": {
             cmd: CommandName.moveEndAction
         },
+        "^": {
+            cmd: CommandName.moveFirstNonBlankCharAction
+        },
         ".": {
             cmd: CommandName.repeat
         }
@@ -512,6 +515,9 @@ const DefaultKeyBindings: IKeyBindings = {
         },
         "$": {
             cmd: CommandName.endMotion
+        },
+        "^": {
+            cmd: CommandName.firstNonBlankCharMotion
         }
     },
 

@@ -1,3 +1,4 @@
+
 vim emulator for VSCode
 
 ![vimanimetion](https://raw.githubusercontent.com/74th/vscode-vim/master/tutorial/tutorial1.gif)
@@ -41,11 +42,11 @@ npm run-script build
 
 ## support
 
-* h j k l 0 $ w W b B e E tx fx Tx Fx gg G
+* h j k l 0 $ ^ w W b B e E tx fx Tx Fx gg G
 * Nh Nj Nk Nl Nw NW Nb NB Ne NE Ntx Nfx NTx NFx NG
 * i a s o x I A S O X
 * Nx
-* d y c dd yy cc D C p P
+* d y c dd yy cc D C p P d$ y$ c$ ...
 * Ndd Nyy Ncc
 * v V
 * .
@@ -99,6 +100,13 @@ This extension is to become more friendly with vscode and vim-keybinding!
 MIT License
 
 ## update
+
+### 0.3.3
+
+* support ^
+* change icon
+
+![icon](https://raw.githubusercontent.com/74th/vscode-vim/master/vim.png)
 
 ### 0.3.2
 
