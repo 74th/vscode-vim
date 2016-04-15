@@ -2,7 +2,7 @@
     "name": "vimStyle",
     "displayname": "Vim Style",
     "description": "Vim emulator for VSCode",
-    "icon": "bluevim.png",
+    "icon": "vim.png",
     "galleryBanner": {
         "color": "#229932",
         "theme": "dark"
