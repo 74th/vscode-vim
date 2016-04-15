@@ -70,10 +70,6 @@ If you needs optional settings, please copy belong json and paste to your `setti
 * `vimrc`(all settings available in `settings.json`)
 * q @ (can't use with IntelliSence)
 
-A goal of this extension is not to improve vim emulation.
-
-This extension is to become more friendly with vscode and vim-keybinding!
-
 ## future suppprt
 
 * r
