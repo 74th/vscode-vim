@@ -588,7 +588,7 @@ export class CommandFactory implements ICommandFactory {
         let a = <IRequireMotionAction>this.action;
         a.SetMotion(new EndMotion());
     }
-    
+
     // c^
     private firstNonBlankCharMotion() {
         let a = <IRequireMotionAction>this.action;
