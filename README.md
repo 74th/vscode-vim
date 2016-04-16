@@ -51,6 +51,8 @@ npm run-script build
 * v V
 * .
 
+[function list](https://github.com/74th/vscode-vim/blob/master/quickref.md)
+
 ## settings
 
 If you needs optional settings, please copy belong json and paste to your `settings.json`.
