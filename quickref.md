@@ -4,20 +4,20 @@ This is imported from [quickref.txt](https://github.com/vim/vim/blob/master/runt
 
 |status|key|function|
 |---|---|---|
-|comp|`Nh`|left (also: CTRL-H, <BS>, or <Left> key)|
-|comp|`Nl`|right (also: <Space> or <Right> key)|
-|comp|`0`|to first character in the line (also: <Home> key)|
-|comp|`^`|to first non-blank character in the line|
-|only`$`|`N$`|to the last character in the line (N-1 lines lower) (also: <End> key)|
+|complete|`Nh`|left (also: CTRL-H, <BS>, or <Left> key)|
+|complete|`Nl`|right (also: <Space> or <Right> key)|
+|complete|`0`|to first character in the line (also: <Home> key)|
+|complete|`^`|to first non-blank character in the line|
+|partial|`N$`|to the last character in the line (N-1 lines lower) (also: <End> key)|
 ||`g0`|to first character in screen line (differs from "0" when lines wrap)|
 ||`g^`|to first non-blank character in screen line (differs from "^" when lines wrap)|
 ||`Ng$`|to last character in screen line (differs from "$" when lines wrap)|
 ||`gm`|to middle of the screen line|
 ||`N|`|to column N (default: 1)|
-|comp|`Nf{char}`|to the Nth occurrence of {char} to the right|
-|comp|`NF{char}`|to the Nth occurrence of {char} to the left|
-|comp|`Nt{char}`|till before the Nth occurrence of {char} to the right|
-|comp|`NT{char}`|till before the Nth occurrence of {char} to the left|
+|complete|`Nf{char}`|to the Nth occurrence of {char} to the right|
+|complete|`NF{char}`|to the Nth occurrence of {char} to the left|
+|complete|`Nt{char}`|till before the Nth occurrence of {char} to the right|
+|complete|`NT{char}`|till before the Nth occurrence of {char} to the left|
 ||`N;`|repeat the last "f", "F", "t", or "T" N times|
 ||`N,`|repeat the last "f", "F", "t", or "T" N times in opposite direction|
 
@@ -25,8 +25,8 @@ This is imported from [quickref.txt](https://github.com/vim/vim/blob/master/runt
 
 |status|key|function|
 |---|---|---|
-|comp|`Nk`|up N lines (also: CTRL-P and <Up>)|
-|comp|`Nj`|down N lines (also: CTRL-J, CTRL-N, <NL>, and <Down>)|
+|complete|`Nk`|up N lines (also: CTRL-P and <Up>)|
+|complete|`Nj`|down N lines (also: CTRL-J, CTRL-N, <NL>, and <Down>)|
 ||`N-`|up N lines, on the first non-blank character|
 ||`N+`|down N lines, on the first non-blank character (also: CTRL-M and <CR>)|
 ||`N_`|down N-1 lines, on the first non-blank character|
@@ -40,12 +40,12 @@ This is imported from [quickref.txt](https://github.com/vim/vim/blob/master/runt
 
 |status|key|function|
 |---|---|---|
-|comp|`Nw`|N words forward|
-|comp|`NW`|N blank-separated |WORD|s forward|
-|comp|`Ne`|forward to the end of the Nth word|
-|comp|`NE`|forward to the end of the Nth blank-separated |WORD||
-|comp|`Nb`|N words backward|
-|comp|`NB`|N blank-separated |WORD|s backward|
+|complete|`Nw`|N words forward|
+|complete|`NW`|N blank-separated |WORD|s forward|
+|complete|`Ne`|forward to the end of the Nth word|
+|complete|`NE`|forward to the end of the Nth blank-separated |WORD||
+|complete|`Nb`|N words backward|
+|complete|`NB`|N blank-separated |WORD|s backward|
 ||`Nge`|backward to the end of the Nth word|
 ||`NgE`|backward to the end of the Nth blank-separated |WORD||
 ||`N)`|N sentences forward|
@@ -137,13 +137,13 @@ This is imported from [quickref.txt](https://github.com/vim/vim/blob/master/runt
 
 |status|key|function|
 |---|---|---|
-|comp except N|`Na`|append text after the cursor (N times)|
-|comp except N|`NA`|append text at the end of the line (N times)|
-|comp except N|`Ni`|insert text before the cursor (N times) (also: <Insert>)|
-|comp except N|`NI`|insert text before the first non-blank in the line (N times)|
+|complete except N|`Na`|append text after the cursor (N times)|
+|complete except N|`NA`|append text at the end of the line (N times)|
+|complete except N|`Ni`|insert text before the cursor (N times) (also: <Insert>)|
+|complete except N|`NI`|insert text before the first non-blank in the line (N times)|
 ||`NgI`|insert text in column 1 (N times)|
-|comp except N|`No`|open a new line below the current line, append text (N times)|
-|comp except N|`NO`|open a new line above the current line, append text (N times)|
+|complete except N|`No`|open a new line below the current line, append text (N times)|
+|complete except N|`NO`|open a new line above the current line, append text (N times)|
 ||in Visual block mode: `I`|insert the same text in front of all the selected lines|
 ||in Visual block mode: `A`|append the same text after all the selected lines|
 
@@ -151,13 +151,13 @@ This is imported from [quickref.txt](https://github.com/vim/vim/blob/master/runt
 
 |status|key|function|
 |---|---|---|
-|comp|`Nx`|delete N characters under and after the cursor|
+|complete|`Nx`|delete N characters under and after the cursor|
 ||`N<Del>`|delete N characters under and after the cursor|
 ||`NX`|delete N characters before the cursor|
-|comp|`Nd{motion}`|delete the text that is moved over with {motion}|
-|comp|`{visual}d`|delete the highlighted text|
-|comp|`Ndd`|delete N lines|
-|comp|`ND`|delete to the end of the line (and N-1 more lines)|
+|complete|`Nd{motion}`|delete the text that is moved over with {motion}|
+|complete|`{visual}d`|delete the highlighted text|
+|complete|`Ndd`|delete N lines|
+|complete|`ND`|delete to the end of the line (and N-1 more lines)|
 ||`NJ`|join N-1 lines (delete <EOL>s)|
 ||`{visual}J`|join the highlighted lines|
 ||`NgJ`|like "J", but without inserting spaces|
@@ -168,12 +168,12 @@ This is imported from [quickref.txt](https://github.com/vim/vim/blob/master/runt
 |status|key|function|
 |---|---|---|
 ||`"{char}`|use register {char} for the next delete, yank, or put|
-|comp|`Ny{motion}`|yank the text moved over with {motion} into a register|
-|comp|`{visual}y`|yank the highlighted text into a register|
-|comp|`Nyy`|yank N lines into a register|
-|comp|`NY`|yank N lines into a register|
-|comp|`Np`|put a register after the cursor position (N times)|
-|comp|`NP`|put a register before the cursor position (N times)|
+|complete|`Ny{motion}`|yank the text moved over with {motion} into a register|
+|complete|`{visual}y`|yank the highlighted text into a register|
+|complete|`Nyy`|yank N lines into a register|
+|complete|`NY`|yank N lines into a register|
+|complete|`Np`|put a register after the cursor position (N times)|
+|complete|`NP`|put a register before the cursor position (N times)|
 ||`N]p`|like p, but adjust indent to current line|
 ||`N[p`|like P, but adjust indent to current line|
 ||`Ngp`|like p, but leave cursor after the new text|
@@ -270,7 +270,7 @@ list of Visual mode commands.
 
 |status|key|function|
 |---|---|---|
-||`N.`|repeat last change (with count replaced with N)|
+|partial|`N.`|repeat last change (with count replaced with N)|
 ||`q{a-z}`|record typed characters into register {a-z}|
 ||`q{A-Z}`|record typed characters, appended to register {a-z}|
 ||`q`|stop recording|
