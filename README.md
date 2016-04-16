@@ -12,20 +12,6 @@ vim emulator for VSCode
 
 * v0.3 : Visual Studio Code 1.0.0 
 
-## install
-
-```
-ext install vimStyle
-```
-
-If you want to use latest version, you can use [VSCode insiders build](https://code.visualstudio.com/insiders) and exec following commands.
-
-```
-git clone https://github.com/74th/vscode-vim.git ~/.vscode-insiders/extensions/vscode-vim
-cd ~/.vscode-insiders/extensions/vscode-vim
-npm install
-npm run-script build
-```
 
 ## feature
 
@@ -39,6 +25,12 @@ npm run-script build
 * support repeat command
 
 ![vimanimetion](https://raw.githubusercontent.com/74th/vscode-vim/master/tutorial/tutorial3.gif)
+
+## install
+
+```
+ext install vimStyle
+```
 
 ## support
 
@@ -96,6 +88,17 @@ If you needs optional settings, please copy belong json and paste to your `setti
 ## License
 
 MIT License
+
+## contribute
+
+[function list](https://github.com/74th/vscode-vim/blob/master/quickref.md)
+
+```
+git clone https://github.com/74th/vscode-vim.git ~/.vscode/extensions/vscode-vim
+cd ~/.vscode/extensions/vscode-vim
+npm install
+npm run-script build
+```
 
 ## update
 
