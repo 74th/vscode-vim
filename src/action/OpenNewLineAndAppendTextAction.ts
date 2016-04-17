@@ -4,19 +4,15 @@ import * as Utils from "../Utils";
 
 export class OpenNewLineAndAppendTextAction extends AbstractInsertTextAction {
 
-    private isAbove: boolean;
+    public IsAbove: boolean;
 
     constructor() {
         super();
-        this.isAbove = false;
+        this.IsAbove = false;
     }
 
     public GetActionType(): ActionType {
         return ActionType.Insert;
-    }
-
-    public SetAboveOption() {
-        this.isAbove = true;
     }
 
     public Execute(editor: IEditor, vim: IVimStyle) {
@@ -25,7 +21,7 @@ export class OpenNewLineAndAppendTextAction extends AbstractInsertTextAction {
         selecterPosition.Char = 0;
         let insertPosition = new Position();
         let currentLine = editor.ReadLineAtCurrentPosition();
-        if (this.isAbove) {
+        if (this.IsAbove) {
             selecterPosition.Line = currentPosition.Line;
             insertPosition.Line = currentPosition.Line;
             insertPosition.Char = 0;
@@ -42,7 +38,7 @@ export class OpenNewLineAndAppendTextAction extends AbstractInsertTextAction {
         if (this.insertText !== null) {
             insertText += this.insertText;
         }
-        if (this.isAbove) {
+        if (this.IsAbove) {
             insertText = insertText + "\n";
         } else {
             insertText = "\n" + insertText;

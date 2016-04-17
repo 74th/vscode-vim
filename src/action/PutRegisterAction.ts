@@ -2,37 +2,25 @@ import {Position} from "../VimStyle";
 
 export class PutRegisterAction implements IAction {
 
-    private isPrev: boolean;
-    private registerKey: Key;
-    private count: number;
+    public IsPrev: boolean;
+    public RegisterKey: Key;
+    public Count: number;
 
     constructor() {
-        this.isPrev = false;
-        this.registerKey = null;
+        this.IsPrev = false;
+        this.RegisterKey = null;
     }
 
     public GetActionType(): ActionType {
         return ActionType.Edit;
     }
 
-    public SetCount(value: number) {
-        this.count = value;
-    }
-
-    public SetBackOption() {
-        this.isPrev = true;
-    }
-
-    public SetRegisterKey(key: Key) {
-        this.registerKey = key;
-    }
-
     public Execute(editor: IEditor, vim: IVimStyle) {
         let item: IRegisterItem;
-        if (this.registerKey == null) {
+        if (this.RegisterKey == null) {
             item = vim.Register.GetUnName();
         } else {
-            item = vim.Register.Get(this.registerKey);
+            item = vim.Register.Get(this.RegisterKey);
         }
         if (item == null) {
             return;
@@ -40,7 +28,7 @@ export class PutRegisterAction implements IAction {
         let content = item.Body;
         let cp = editor.GetCurrentPosition();
         if (item.Type === RegisterType.Text) {
-            if (this.isPrev) {
+            if (this.IsPrev) {
                 // paste before posision character
                 editor.InsertTextAtCurrentPosition(item.Body);
                 editor.SetPosition(cp);
@@ -57,7 +45,7 @@ export class PutRegisterAction implements IAction {
             // line Paste
             let np = new Position();
             np.Char = 0;
-            if (this.isPrev) {
+            if (this.IsPrev) {
                 // paste at home of current position¥
                 np.Line = cp.Line;
             } else {

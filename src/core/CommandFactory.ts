@@ -903,7 +903,7 @@ export class CommandFactory implements ICommandFactory {
     // O
     private openNewLineAboveCurrentLineAndAppendText() {
         let a = new OpenNewLineAndAppendTextAction();
-        a.SetAboveOption();
+        a.IsAbove = true;
         this.action = a;
     }
 
@@ -1013,15 +1013,15 @@ export class CommandFactory implements ICommandFactory {
     // p
     private putRegisterAfterCursorPosition() {
         let a = new PutRegisterAction();
-        a.SetCount(this.getNumStack());
+        a.Count = this.getNumStack();
         this.action = a;
     }
 
     // P
     private putRegisterBeforeCursorPosition() {
         let a = new PutRegisterAction();
-        a.SetBackOption();
-        a.SetCount(this.getNumStack());
+        a.IsPrev = true;
+        a.Count = this.getNumStack();
         this.action = a;
     }
 
