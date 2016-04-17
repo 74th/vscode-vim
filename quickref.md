@@ -2,13 +2,13 @@ This is imported from [quickref.txt](https://github.com/vim/vim/blob/master/runt
 
 ## Left-right motions
 
-|class|tests|class|key|function|
+|VimStyle class|test classs|VimStyle class|key|function|
 |---|---|---|---|---|
 |RightMotion||`Nh`|left (also: CTRL-H, &lt;BS&gt;, or &lt;Left&gt; key)|
 |RightMotion||`Nl`|right (also: &lt;Space&gt; or &lt;Right&gt; key)|
-|HomeMotion||`0`|to first character in the line (also: &lt;Home&gt; key)|
+|FirstCharacterInLineMotion||`0`|to first character in the line (also: &lt;Home&gt; key)|
 |FirstCharactorMotion||`^`|to first non-blank character in the line|
-|EndMotion(partial)||`N$`|to the last character in the line (N-1 lines lower) (also: &lt;End&gt; key)|
+|LastCharacterInLineMotion(partial)||`N$`|to the last character in the line (N-1 lines lower) (also: &lt;End&gt; key)|
 |||`g0`|to first character in screen line (differs from "0" when lines wrap)|
 |||`g^`|to first non-blank character in screen line (differs from "^" when lines wrap)|
 |||`Ng$`|to last character in screen line (differs from "$" when lines wrap)|
@@ -23,10 +23,10 @@ This is imported from [quickref.txt](https://github.com/vim/vim/blob/master/runt
 
 ## Up-down motions
 
-|class|tests|key|function|
+|VimStyle class|test classs|key|function|
 |---|---|---|---|---|
 |DownMotion||`Nk`|up N lines (also: CTRL-P and &lt;Up&gt;)|
-|complete||`Nj`|down N lines (also: CTRL-J, CTRL-N, &lt;NL&gt;, and &lt;Down&gt;)|
+|DownMotion||`Nj`|down N lines (also: CTRL-J, CTRL-N, &lt;NL&gt;, and &lt;Down&gt;)|
 |||`N-`|up N lines, on the first non-blank character|
 |||`N+`|down N lines, on the first non-blank character (also: CTRL-M and &lt;CR&gt;)|
 |||`N_`|down N-1 lines, on the first non-blank character|
@@ -38,14 +38,14 @@ This is imported from [quickref.txt](https://github.com/vim/vim/blob/master/runt
 
 ## Text object motions
 
-|class|tests|key|function|
+|VimStyle class|test classs|key|function|
 |---|---|---|---|
-|WorkMotion||`Nw`|N words forward|
-|WorkMotion||`NW`|N blank-separated |WORD|s forward|
-|WorkMotion||`Ne`|forward to the end of the Nth word|
-|WorkMotion||`NE`|forward to the end of the Nth blank-separated |WORD||
-|WorkMotion||`Nb`|N words backward|
-|WorkMotion||`NB`|N blank-separated |WORD|s backward|
+|WordMotion||`Nw`|N words forward|
+|WordMotion||`NW`|N blank-separated |WORD|s forward|
+|WordMotion||`Ne`|forward to the end of the Nth word|
+|WordMotion||`NE`|forward to the end of the Nth blank-separated |WORD||
+|WordMotion||`Nb`|N words backward|
+|WordMotion||`NB`|N blank-separated |WORD|s backward|
 |||`Nge`|backward to the end of the Nth word|
 |||`NgE`|backward to the end of the Nth blank-separated |WORD||
 |||`N)`|N sentences forward|
@@ -71,7 +71,7 @@ This is imported from [quickref.txt](https://github.com/vim/vim/blob/master/runt
 
 ## Pattern searches
 
-|class|tests|key|function|
+|VimStyle class|test classs|key|function|
 |---|---|---|---|
 |||`N/{pattern}[/[offset]]&lt;CR&gt;`|search forward for the Nth occurrence of {pattern}|
 |||`N?{pattern}[?[offset]]&lt;CR&gt;`|search backward for the Nth occurrence of {pattern}|
@@ -88,7 +88,7 @@ This is imported from [quickref.txt](https://github.com/vim/vim/blob/master/runt
 
 ## Marks and motions
 
-|class|tests|key|function|
+|VimStyle class|test classs|key|function|
 |---|---|---|---|
 |||`m{a-zA-Z}`|mark current position with mark {a-zA-Z}|
 |||``{a-z}`|go to mark {a-z} within current file|
@@ -107,7 +107,7 @@ This is imported from [quickref.txt](https://github.com/vim/vim/blob/master/runt
 
 ## Various motions
 
-|class|tests|key|function|
+|VimStyle class|test classs|key|function|
 |---|---|---|---|
 |||`%`|find the next brace, bracket, comment, or "#if"/ "#else"/"#endif" in this line and go to its match|
 |||`NH`|go to the Nth line in the window, on the first non-blank|
@@ -117,7 +117,7 @@ This is imported from [quickref.txt](https://github.com/vim/vim/blob/master/runt
 
 ## Scrolling
 
-|class|tests|key|function|
+|VimStyle class|test classs|key|function|
 |---|---|---|---|
 |||`NCTRL-E`|window N lines downwards (default: 1)|
 |||`NCTRL-D`|window N lines Downwards (default: 1/2 window)|
@@ -135,29 +135,29 @@ This is imported from [quickref.txt](https://github.com/vim/vim/blob/master/runt
 
 ## Inserting text
 
-|class|tests|key|function|
+|VimStyle class|test classs|key|function|
 |---|---|---|---|
-|complete except N||`Na`|append text after the cursor (N times)|
-|complete except N||`NA`|append text at the end of the line (N times)|
-|complete except N||`Ni`|insert text before the cursor (N times) (also: &lt;Insert&gt;)|
-|complete except N||`NI`|insert text before the first non-blank in the line (N times)|
+|InsertTextAction(except N)||`Na`|append text after the cursor (N times)|
+|InsertTextAction(except N)||`NA`|append text at the end of the line (N times)|
+|InsertTextAction(except N)||`Ni`|insert text before the cursor (N times) (also: &lt;Insert&gt;)|
+|InsertTextAction(except N)||`NI`|insert text before the first non-blank in the line (N times)|
 |||`NgI`|insert text in column 1 (N times)|
-|complete except N||`No`|open a new line below the current line, append text (N times)|
-|complete except N||`NO`|open a new line above the current line, append text (N times)|
+|OpenNewLineAndAppendTextAction(except N)||`No`|open a new line below the current line, append text (N times)|
+|OpenNewLineAndAppendTextAction(except N)||`NO`|open a new line above the current line, append text (N times)|
 |||in Visual block mode: `I`|insert the same text in front of all the selected lines|
 |||in Visual block mode: `A`|append the same text after all the selected lines|
 
 ## Deleting text
 
-|class|tests|key|function|
+|VimStyle class|test classs|key|function|
 |---|---|---|---|
-|complete||`Nx`|delete N characters under and after the cursor|
+|DeleteYankChangeAction||`Nx`|delete N characters under and after the cursor|
 |||`N&lt;Del&gt;`|delete N characters under and after the cursor|
-|||`NX`|delete N characters before the cursor|
-|complete||`Nd{motion}`|delete the text that is moved over with {motion}|
-|complete||`{visual}d`|delete the highlighted text|
-|complete||`Ndd`|delete N lines|
-|complete||`ND`|delete to the end of the line (and N-1 more lines)|
+|DeleteYankChangeAction||`NX`|delete N characters before the cursor|
+|DeleteYankChangeAction||`Nd{motion}`|delete the text that is moved over with {motion}|
+|DeleteYankChangeHighlightedTextAction,DeleteYankChangeHighlightedLineAction||`{visual}d`|delete the highlighted text|
+|DeleteYankChangeAction||`Ndd`|delete N lines|
+|DeleteYankChangeAction||`ND`|delete to the end of the line (and N-1 more lines)|
 |||`NJ`|join N-1 lines (delete &lt;EOL&gt;s)|
 |||`{visual}J`|join the highlighted lines|
 |||`NgJ`|like "J", but without inserting spaces|
@@ -165,15 +165,15 @@ This is imported from [quickref.txt](https://github.com/vim/vim/blob/master/runt
 
 ## Copying and moving text
 
-|class|tests|key|function|
+|VimStyle class|test classs|key|function|
 |---|---|---|---|
 |||`"{char}`|use register {char} for the next delete, yank, or put|
-|complete||`Ny{motion}`|yank the text moved over with {motion} into a register|
-|complete||`{visual}y`|yank the highlighted text into a register|
-|complete||`Nyy`|yank N lines into a register|
-|complete||`NY`|yank N lines into a register|
-|complete||`Np`|put a register after the cursor position (N times)|
-|complete||`NP`|put a register before the cursor position (N times)|
+|DeleteYankChangeAction||`Ny{motion}`|yank the text moved over with {motion} into a register|
+|||`{visual}y`|yank the highlighted text into a register|
+|DeleteYankChangeAction||`Nyy`|yank N lines into a register|
+|DeleteYankChangeAction||`NY`|yank N lines into a register|
+|PutRegisterAction||`Np`|put a register after the cursor position (N times)|
+|PutRegisterAction||`NP`|put a register before the cursor position (N times)|
 |||`N]p`|like p, but adjust indent to current line|
 |||`N[p`|like P, but adjust indent to current line|
 |||`Ngp`|like p, but leave cursor after the new text|
@@ -181,21 +181,21 @@ This is imported from [quickref.txt](https://github.com/vim/vim/blob/master/runt
 
 ## Changing text
 
-|class|tests|key|function|
+|VimStyle class|test classs|key|function|
 |---|---|---|---|
 |||`Nr{char}`|replace N characters with {char}|
 |||`Ngr{char}`|replace N characters without affecting layout|
 |||`NR`|enter Replace mode (repeat the entered text N times)|
 |||`NgR`|enter virtual Replace mode: Like Replace mode but without affecting layout|
 |||`{visual}r{char}`|in Visual block mode: Replace each char of the selected text with {char}|
-|||`Nc{motion}`|change the text that is moved over with {motion}|
-|||`{visual}c`|change the highlighted text|
-|||`Ncc`|change N lines|
-|||`NS`|change N lines|
-|||`NC`|change to the end of the line (and N-1 more lines)|
-|||`Ns`|change N characters|
-|||`{visual}c`|in Visual block mode: Change each of the selected lines with the entered text|
-|||`{visual}C`|in Visual block mode: Change each of the selected lines until end-of-line with the entered text|
+|DeleteYankChangeAction||`Nc{motion}`|change the text that is moved over with {motion}|
+|DeleteYankChangeAction||`{visual}c`|change the highlighted text|
+|DeleteYankChangeAction||`Ncc`|change N lines|
+|DeleteYankChangeAction||`NS`|change N lines|
+|DeleteYankChangeAction||`NC`|change to the end of the line (and N-1 more lines)|
+|DeleteYankChangeAction||`Ns`|change N characters|
+|DeleteYankChangeAction||`{visual}c`|in Visual block mode: Change each of the selected lines with the entered text|
+|DeleteYankChangeAction||`{visual}C`|in Visual block mode: Change each of the selected lines until end-of-line with the entered text|
 |||`N  ~`|switch case for N characters and advance cursor|
 |||`{visual}~`|switch case for highlighted text|
 |||`{visual}u`|make highlighted text lowercase|
@@ -215,7 +215,7 @@ This is imported from [quickref.txt](https://github.com/vim/vim/blob/master/runt
 
 ## Complex changes
 
-|class|tests|key|function|
+|VimStyle class|test classs|key|function|
 |---|---|---|---|
 |||`N!{motion}{command}&lt;CR&gt;`|filter the lines that are moved over through {command}|
 |||`N!!{command}&lt;CR&gt;`|filter N lines through {command}|
@@ -228,10 +228,10 @@ This is imported from [quickref.txt](https://github.com/vim/vim/blob/master/runt
 
 list of Visual mode commands.
 
-|class|tests|key|function|
+|VimStyle class|test classs|key|function|
 |---|---|---|---|
-|||`v`|start highlighting characters  }  move cursor and use|
-|||`V`|start highlighting linewise    }  operator to affect|
+|StartVisualModeAction||`v`|start highlighting characters  }  move cursor and use|
+|StartVisualLineModeAction||`V`|start highlighting linewise    }  operator to affect|
 |||`CTRL-V`|start highlighting blockwise   }  highlighted text|
 |||`o`|exchange cursor position with start of highlighting|
 |||`gv`|start highlighting on previous visual area|
@@ -241,7 +241,7 @@ list of Visual mode commands.
 
 ## Text objects (only in Visual mode or after an operator)
 
-|class|tests|key|function|
+|VimStyle class|test classs|key|function|
 |---|---|---|---|
 |||`Naw`|Select "a word"|
 |||`Niw`|Select "inner word"|
@@ -268,9 +268,9 @@ list of Visual mode commands.
 
 ## Repeating commands
 
-|class|tests|key|function|
+|VimStyle class|test classs|key|function|
 |---|---|---|---|
-|partial||`N.`|repeat last change (with count replaced with N)|
+|RepeatLastChangeAction(implemented except N)||`N.`|repeat last change (with count replaced with N)|
 |||`q{a-z}`|record typed characters into register {a-z}|
 |||`q{A-Z}`|record typed characters, appended to register {a-z}|
 |||`q`|stop recording|

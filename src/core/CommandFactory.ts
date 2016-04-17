@@ -697,7 +697,7 @@ export class CommandFactory implements ICommandFactory {
     // Deleting text
     // -----
 
-    // x Nx
+    // x Nx X NX
     private deleteCharactersUnderCursor(isLeft: boolean) {
         let m = new RightMotion();
         if (isLeft) {
@@ -809,20 +809,6 @@ export class CommandFactory implements ICommandFactory {
         this.action = a;
     }
 
-    // {visual}c
-    private changeHighlightedText() {
-        let a = new DeleteYankChangeHighlightedTextAction();
-        a.SetChangeOption();
-        this.action = a;
-    }
-
-    // {visualLine}c
-    private changeLineSelectionAction() {
-        let a = new DeleteYankChangeHighlightedLineAction();
-        a.SetChangeOption();
-        this.action = a;
-    }
-
     // S
     private changeLines() {
         let m = new DownMotion();
@@ -852,6 +838,20 @@ export class CommandFactory implements ICommandFactory {
         let a = new DeleteYankChangeAction();
         a.SetSmallOption();
         a.SetMotion(m);
+        a.SetChangeOption();
+        this.action = a;
+    }
+
+    // {visual}c
+    private changeHighlightedText() {
+        let a = new DeleteYankChangeHighlightedTextAction();
+        a.SetChangeOption();
+        this.action = a;
+    }
+
+    // {visualLine}c
+    private changeLineSelectionAction() {
+        let a = new DeleteYankChangeHighlightedLineAction();
         a.SetChangeOption();
         this.action = a;
     }
