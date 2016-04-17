@@ -6,12 +6,12 @@ import {DeleteYankChangeAction} from "../action/DeleteYankChangeAction";
 import {GoAction} from "../action/GoAction";
 import {GoDownAction} from "../action/MoveLineAction";
 import {StartVisualModeAction} from "../action/StartVisualModeAction";
-import {ExpandSelectionAction} from "../action/ExpandSelectionAction";
-import {DeleteYankChangeHighlightedAction} from "../action/DeleteSelectionAction";
+import {ExpandHighlightedTextAction} from "../action/ExpandSelectionAction";
+import {DeleteYankChangeHighlightedTextAction} from "../action/DeleteYankChangeHighlightedTextAction";
 import {StartVisualLineModeAction} from "../action/StartVisualLineModeAction";
-import {ExpandLineSelectionAction} from "../action/ExpandLineSelectionAction";
-import {DeleteYankChangeHighlightedLineAction} from "../action/DeleteLineSelectionAction";
-import {RepeatAction} from "../action/RepeatAction";
+import {ExpandHighlightedLineSelectionAction} from "../action/ExpandLineSelectionAction";
+import {DeleteYankChangeHighlightedLineAction} from "../action/DeleteYankChangeHighlightedLineAction";
+import {RepeatLastChangeAction} from "../action/RepeatLastChangeAction";
 import {RightMotion} from "../motion/RightMotion";
 import {DownMotion} from "../motion/DownMotion";
 import {FirstCharacterInLineMotion} from "../motion/HomeMotion";
@@ -62,7 +62,7 @@ export class CommandFactory implements ICommandFactory {
         } else if (mode === VimMode.Visual) {
             switch (this.state) {
                 case StateName.AtStart:
-                    this.action = new ExpandSelectionAction();
+                    this.action = new ExpandHighlightedTextAction();
                     command = this.keyBindings.VisualMode[keyChar];
                     break;
                 case StateName.RequireMotionNum:
@@ -77,7 +77,7 @@ export class CommandFactory implements ICommandFactory {
         } else if (mode === VimMode.VisualLine) {
             switch (this.state) {
                 case StateName.AtStart:
-                    this.action = new ExpandLineSelectionAction();
+                    this.action = new ExpandHighlightedLineSelectionAction();
                     command = this.keyBindings.VisualLineMode[keyChar];
                     break;
                 case StateName.RequireMotionNum:
@@ -717,7 +717,7 @@ export class CommandFactory implements ICommandFactory {
 
     // {visual}d
     private deleteHighligtedText() {
-        this.action = new DeleteYankChangeHighlightedAction();
+        this.action = new DeleteYankChangeHighlightedTextAction();
     }
 
     // {visualLine}d
@@ -765,7 +765,7 @@ export class CommandFactory implements ICommandFactory {
 
     // {visual}y
     private yancSelectionAction() {
-        let a = new DeleteYankChangeHighlightedAction();
+        let a = new DeleteYankChangeHighlightedTextAction();
         a.SetOnlyYancOption();
         this.action = a;
     }
@@ -811,7 +811,7 @@ export class CommandFactory implements ICommandFactory {
 
     // {visual}c
     private changeHighlightedText() {
-        let a = new DeleteYankChangeHighlightedAction();
+        let a = new DeleteYankChangeHighlightedTextAction();
         a.SetChangeOption();
         this.action = a;
     }
@@ -884,7 +884,7 @@ export class CommandFactory implements ICommandFactory {
 
     // .
     private repeatLastChange() {
-        this.action = new RepeatAction();
+        this.action = new RepeatLastChangeAction();
     }
 
     // -----

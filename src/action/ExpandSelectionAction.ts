@@ -1,5 +1,5 @@
 import {Range} from "../VimStyle";
-export class ExpandSelectionAction implements IAction {
+export class ExpandHighlightedTextAction implements IAction {
 
     private motion: IMotion;
 

@@ -1,6 +1,6 @@
 import {Position} from "../VimStyle";
 
-export class RepeatAction implements IAction {
+export class RepeatLastChangeAction implements IAction {
 
     constructor() {
     }
