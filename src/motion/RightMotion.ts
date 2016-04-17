@@ -3,22 +3,18 @@ import {Position} from "../VimStyle";
 
 export class RightMotion extends AbstractMotion {
 
-    private isLeftDirection: boolean;
+    public IsLeftDirection: boolean;
 
     constructor() {
         super();
-        this.isLeftDirection = false;
-    }
-
-    public SetLeftDirection() {
-        this.isLeftDirection = true;
+        this.IsLeftDirection = false;
     }
 
     public CalculateEnd(editor: IEditor, start: IPosition): IPosition {
         let line = editor.ReadLineAtCurrentPosition();
         let end = new Position();
         end.Line = start.Line;
-        if (this.isLeftDirection) {
+        if (this.IsLeftDirection) {
             end.Char = start.Char - this.GetCount();
         } else {
             end.Char = start.Char + this.GetCount();

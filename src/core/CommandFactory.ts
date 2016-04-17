@@ -14,7 +14,7 @@ import {DeleteYankChangeHighlightedLineAction} from "../action/DeleteYankChangeH
 import {RepeatLastChangeAction} from "../action/RepeatLastChangeAction";
 import {RightMotion} from "../motion/RightMotion";
 import {DownMotion} from "../motion/DownMotion";
-import {FirstCharacterInLineMotion} from "../motion/HomeMotion";
+import {FirstCharacterInLineMotion} from "../motion/FirstCharacterInLineMotion";
 import {LastCharacterInLineMotion} from "../motion/EndMotion";
 import {CharacterMotion} from "../motion/FindCharacterMotion";
 import {WordMotion} from "../motion/WordMotion";
@@ -405,7 +405,7 @@ export class CommandFactory implements ICommandFactory {
     private gotoRight(isLeft: boolean) {
         let m = new RightMotion();
         if (isLeft) {
-            m.SetLeftDirection();
+            m.IsLeftDirection = true;
         };
         m.SetCount(this.getNumStack());
         this.action = this.createGotoAction(m);
@@ -415,7 +415,7 @@ export class CommandFactory implements ICommandFactory {
     private addRightMotion(isLeft: boolean) {
         let m = new RightMotion();
         if (isLeft) {
-            m.SetLeftDirection();
+            m.IsLeftDirection = true;
         };
         m.SetCount(this.getNumStack());
         let a = <IRequireMotionAction>this.action;
@@ -484,7 +484,7 @@ export class CommandFactory implements ICommandFactory {
             m = new CharacterMotion(Direction.Right);
         }
         m.SetCount(this.getNumStack());
-        m.SetTillOption();
+        m.IsTill = true;
         a.SetMotion(m);
         this.action = a;
         this.motion = m;
@@ -497,7 +497,7 @@ export class CommandFactory implements ICommandFactory {
             m = new CharacterMotion(Direction.Left);
         } else {
             m = new CharacterMotion(Direction.Right);
-            m.SetContainTargetCharOption();
+            m.IsContainTargetChar = true;
         }
         m.SetCount(this.getNumStack());
         let a = <IRequireMotionAction>this.action;
@@ -512,10 +512,10 @@ export class CommandFactory implements ICommandFactory {
             m = new CharacterMotion(Direction.Left);
         } else {
             m = new CharacterMotion(Direction.Right);
-            m.SetContainTargetCharOption();
+            m.IsContainTargetChar = true;
         }
         m.SetCount(this.getNumStack());
-        m.SetTillOption();
+        m.IsTill = true;
         let a = <IRequireMotionAction>this.action;
         a.Motion = m;
         this.motion = m;
@@ -529,7 +529,7 @@ export class CommandFactory implements ICommandFactory {
     private gotoDown(isUp: boolean) {
         let m = new DownMotion();
         if (isUp) {
-            m.SetUpDirection();
+            m.IsUpDirection = true;
         }
         m.SetCount(this.getNumStack());
         let a = new GoDownAction();
@@ -541,7 +541,7 @@ export class CommandFactory implements ICommandFactory {
     private addDownMotion(isUp: boolean) {
         let m = new DownMotion();
         if (isUp) {
-            m.SetUpDirection();
+            m.IsUpDirection = true;
         }
         m.SetCount(this.getNumStack());
         let a = <IRequireMotionAction>this.action;
@@ -701,7 +701,7 @@ export class CommandFactory implements ICommandFactory {
     private deleteCharactersUnderCursor(isLeft: boolean) {
         let m = new RightMotion();
         if (isLeft) {
-            m.SetLeftDirection();
+            m.IsLeftDirection = true;
         }
         m.SetCount(this.getNumStack());
         let a = new DeleteYankChangeAction();

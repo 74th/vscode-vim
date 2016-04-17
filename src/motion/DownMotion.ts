@@ -4,15 +4,11 @@ import * as Utils from "../Utils";
 
 export class DownMotion extends AbstractMotion {
 
-    private isUpDirection: boolean;
+    public IsUpDirection: boolean;
 
     constructor() {
         super();
-        this.isUpDirection = false;
-    }
-
-    public SetUpDirection() {
-        this.isUpDirection = true;
+        this.IsUpDirection = false;
     }
 
     public CalculateEnd(editor: IEditor, start: IPosition): IPosition {
@@ -20,7 +16,7 @@ export class DownMotion extends AbstractMotion {
         let tabSize = editor.GetTabSize();
 
         let end = new Position();
-        if (this.isUpDirection) {
+        if (this.IsUpDirection) {
             end.Line = start.Line - this.GetCount();
         } else {
             end.Line = start.Line + this.GetCount();
