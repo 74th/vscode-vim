@@ -51,7 +51,7 @@ const DefaultKeyBindings: IKeyBindings = {
             cmd: VimCommand.appendTextAtEndOfLine
         },
         "b": {
-            cmd: VimCommand.gotoWords,
+            cmd: VimCommand.gotoWordBackword,
             isReverse: true
         },
         "B": {
@@ -140,7 +140,7 @@ const DefaultKeyBindings: IKeyBindings = {
             cmd: VimCommand.changeCharacters
         },
         "S": {
-            cmd: VimCommand.changeToEndOfLine
+            cmd: VimCommand.changeLines
         },
         "t": {
             cmd: VimCommand.goTillBeforeCharacterToRight,
@@ -236,7 +236,7 @@ const DefaultKeyBindings: IKeyBindings = {
         // Na low priority
         // NA low priority
         "b": {
-            cmd: VimCommand.gotoWords
+            cmd: VimCommand.gotoWordBackword
         },
         "B": {
             cmd: VimCommand.gotoBlankSepalated
@@ -382,7 +382,7 @@ const DefaultKeyBindings: IKeyBindings = {
             isReverse: true
         },
         "B": {
-            cmd: VimCommand.motion_blankSeparated,
+            cmd: VimCommand.blankSeparatedMotion,
             isReverse: true
         },
         "c": {
@@ -462,7 +462,7 @@ const DefaultKeyBindings: IKeyBindings = {
             cmd: VimCommand.wordForwardMotion
         },
         "W": {
-            cmd: VimCommand.motion_blankSeparated
+            cmd: VimCommand.blankSeparatedMotion
         },
         // x no function
         // X no function

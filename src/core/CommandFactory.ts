@@ -127,190 +127,262 @@ export class CommandFactory implements ICommandFactory {
     private createVimStyleCommand(key: string, command: IVimStyleCommand) {
 
         switch (command.cmd) {
-            // single action
-            case VimCommand.insertTextBeforeCursor:
-                this.insertTextBeforeCursor();
-                return;
-            case VimCommand.appendTextAfterCursor:
-                this.appendTextAfterCursor();
-                return;
-            case VimCommand.insertTextBeforeFirstNonBlankInLine:
-                this.insertTextBeforeFirstNonBlankInLine();
-                return;
-            case VimCommand.appendTextAtEndOfLine:
-                this.appendTextAtEndOfLine();
-                return;
-            case VimCommand.openNewLineBelowCurrentLineAndAppnedText:
-                this.openNewLineBelowCurrentLineAndAppendText(command.isReverse);
-                return;
-            case VimCommand.deleteCharactersUnderCursor:
-                this.deleteCharactersUnderCursor(command.isReverse);
-                return;
-            case VimCommand.changeCharacters:
-                this.changeCharacters();
-                return;
-            case VimCommand.changeToEndOfLine:
-                this.changeToEndOfLine();
-                return;
 
-            // move action
-            case VimCommand.putRegisterAfterCursorPosition:
-                this.putRegisterAfterCursorPosition(command.isReverse);
-                return;
+            // sorted and categorised by quickref.md
+
+            // ** Left-right motions **
+            // Nj Nl
             case VimCommand.gotoRight:
                 this.gotoRight(command.isReverse);
                 return;
-            case VimCommand.gotoDownLine:
-                this.gotoDownLine(command.isReverse);
-                return;
-            case VimCommand.gotoWordFoward:
-                this.gotoWordFoward(false, false, false, false);
-                return;
-            case VimCommand.gotoBlankSeparated:
-                this.gotoWordFoward(false, false, true, false);
-                return;
-            case VimCommand.gotoWords:
-                this.gotoWordFoward(true, true, false, false);
-                return;
-            case VimCommand.gotoBlankSepalated:
-                this.gotoWordFoward(true, true, true, false);
-                return;
-            case VimCommand.gotoForwardToEndOfWold:
-                this.gotoWordFoward(false, true, false, true);
-                return;
-            case VimCommand.gotoForwardToEndOfBlankSeparated:
-                this.gotoWordFoward(false, true, true, true);
-                return;
-            case VimCommand.gotoFirstCharacterInLine:
-                this.gotoFirstCharacterInLine();
-                return;
-            case VimCommand.gotoLastCharacterInLine:
-                this.gotoLastCharacterInLine();
-                return;
-            case VimCommand.gotoFirstNonBlankCharacterInLine:
-                this.gotoFirstNonBlankCharacterInLine();
-                return;
-            case VimCommand.gotoCharacterToRight:
-                this.gotoCharacterToRight(command.isReverse);
-                return;
-            case VimCommand.goTillBeforeCharacterToRight:
-                this.goTillBeforeCharacterToRight(command.isReverse);
-                return;
-            case VimCommand.gotoLine:
-                this.gotoLine();
-                return;
-            case VimCommand.gotoLastLine:
-                this.gotoLastLine();
-                return;
-            case VimCommand.gotoFirstLineOnFirstNonBlankCharacter:
-                this.gotoFirstLineOnFirstNonBlankCharacter();
-                return;
-
-            // motion
+            // cNj cNl
             case VimCommand.rightMotion:
                 this.addRightMotion(command.isReverse);
                 return;
-            case VimCommand.downLineMotion:
-                this.addDownLineMotion(command.isReverse);
+            // 0
+            case VimCommand.gotoFirstCharacterInLine:
+                this.gotoFirstCharacterInLine();
                 return;
-            case VimCommand.wordForwardMotion:
-                this.addWordMotion(false, false, false, false);
-                return;
-            case VimCommand.wordForwardMotion:
-                this.addWordMotion(false, false, true, false);
-                return;
-            case VimCommand.wordsBackwardMotion:
-                this.addWordMotion(true, true, false, false);
-                break;
-            case VimCommand.motion_BlankSeparatedBackWard:
-                this.addWordMotion(true, true, true, false);
-                break;
-            case VimCommand.motion_endOfWord:
-                this.addWordMotion(false, true, false, true);
-                break;
-            case VimCommand.endOfBlankSeparatedMotion:
-                this.addWordMotion(false, true, true, true);
-                break;
+            // c0
             case VimCommand.firstCharacterInLineMotion:
                 this.addFirstCharacterInLineMotion();
                 return;
-            case VimCommand.lastCharacterInLineMotion:
-                this.addLastCharacterInLineMotion();
+            // ^
+            case VimCommand.gotoFirstLineOnFirstNonBlankCharacter:
+                this.gotoFirstLineOnFirstNonBlankCharacter();
                 return;
+            // c^
             case VimCommand.firstNonBlankCharacterInLineMotion:
                 this.addFirstNonBlankCharacterInLineMotion();
                 return;
+            // $
+            case VimCommand.gotoLastCharacterInLine:
+                this.gotoLastCharacterInLine();
+                return;
+            // c$
+            case VimCommand.lastCharacterInLineMotion:
+                this.addLastCharacterInLineMotion();
+                return;
+            // Nf{char} NF{char}
+            case VimCommand.gotoCharacterToRight:
+                this.gotoCharacterToRight(command.isReverse);
+                return;
+            // cNf{char} cNF{char}
             case VimCommand.characterToRightMotion:
                 this.addCharacterToRightMotion(command.isReverse);
                 return;
+            // Nt{char} NT{char}
+            case VimCommand.goTillBeforeCharacterToRight:
+                this.goTillBeforeCharacterToRight(command.isReverse);
+                return;
+            //  cNt{char} cNT{char}
             case VimCommand.tillBeforeCharToRightMotion:
                 this.addTillCharacterMotion(command.isReverse);
                 return;
+
+            // ** Up-down motions **
+            // Nk Nj
+            case VimCommand.gotoDownLine:
+                this.gotoDownLine(command.isReverse);
+                return;
+            // cNk cNj
+            case VimCommand.downLineMotion:
+                this.addDownLineMotion(command.isReverse);
+                return;
+            // NG
+            case VimCommand.gotoLine:
+                this.gotoLine();
+                return;
+            // cNG
             case VimCommand.lineMotion:
                 this.addLineMotion();
                 return;
-            case VimCommand.lastLineMotion:
-                this.addLastLineMotion();
+            // gg
+            case VimCommand.gotoFirstNonBlankCharacterInLine:
+                this.gotoFirstNonBlankCharacterInLine();
                 return;
+            // cgg
             case VimCommand.firstLineMotion:
                 this.addFirstLineMotion();
                 return;
-
-            // delete, yanc, change action
-            case VimCommand.changeTextWithMotion:
-                this.changeTextWithMotion();
+            // G
+            case VimCommand.gotoLastLine:
+                this.gotoLastLine();
                 return;
+            // cG
+            case VimCommand.lastLineMotion:
+                this.addLastLineMotion();
+                return;
+
+            // ** Text object motions **
+            // w
+            case VimCommand.gotoWordFoward:
+                this.gotoWordFoward(false, false, false, false);
+                return;
+            // cw
+            case VimCommand.wordForwardMotion:
+                this.addWordMotion(false, false, true, false);
+                return;
+            // W
+            case VimCommand.gotoBlankSeparated:
+                this.gotoWordFoward(false, false, true, false);
+                return;
+            // cW
+            case VimCommand.blankSeparatedMotion:
+                this.addWordMotion(false, true, false, false);
+                return;
+            // e
+            case VimCommand.gotoForwardToEndOfWold:
+                this.gotoWordFoward(false, true, false, true);
+                return;
+            // ce
+            case VimCommand.motion_endOfWord:
+                this.addWordMotion(false, true, false, true);
+                break;
+            // E
+            case VimCommand.gotoForwardToEndOfBlankSeparated:
+                this.gotoWordFoward(false, true, true, true);
+                return;
+            // cE
+            case VimCommand.endOfBlankSeparatedMotion:
+                this.addWordMotion(false, true, true, true);
+                break;
+            // b
+            case VimCommand.gotoWordBackword:
+                this.gotoWordFoward(true, true, false, false);
+                return;
+            // cb
+            case VimCommand.wordBackwardMotion:
+                this.addWordMotion(true, true, false, false);
+                break;
+            // B
+            case VimCommand.gotoBlankSepalated:
+                this.gotoWordFoward(true, true, true, false);
+                return;
+            // cB
+            case VimCommand.blankSeparatedBackwordMotion:
+                this.addWordMotion(true, true, true, false);
+                break;
+
+            // ** Pattern searches **
+
+            // ** Marks and motions **
+
+            // ** Various motions **
+
+            // ** Scrolling **
+
+            // ** Inserting text **
+            // Ni
+            case VimCommand.appendTextAfterCursor:
+                this.appendTextAfterCursor();
+                return;
+            // NI
+            case VimCommand.appendTextAtEndOfLine:
+                this.appendTextAtEndOfLine();
+                return;
+            // Na
+            case VimCommand.insertTextBeforeCursor:
+                this.insertTextBeforeCursor();
+                return;
+            // NA
+            case VimCommand.insertTextBeforeFirstNonBlankInLine:
+                this.insertTextBeforeFirstNonBlankInLine();
+                return;
+            // No NO
+            case VimCommand.openNewLineBelowCurrentLineAndAppnedText:
+                this.openNewLineBelowCurrentLineAndAppendText(command.isReverse);
+                return;
+
+            // ** Deleting text **
+            // Nx
+            case VimCommand.deleteCharactersUnderCursor:
+                this.deleteCharactersUnderCursor(command.isReverse);
+                return;
+            // Nd{motion}
             case VimCommand.deleteTextWithMotion:
                 this.deleteTextWithMotion();
                 return;
-            case VimCommand.yankTextWithMotion:
-                this.yankTextWithMotion();
-                return;
-            case VimCommand.changeTextToEndOfLine:
-                this.changeTextToEndOfLine();
-                return;
-            case VimCommand.deleteTextToEndOfLine:
-                this.deleteTextToEndOfLine();
-                return;
-            case VimCommand.yankLine:
-                this.yankLine();
-                return;
-            case VimCommand.doActionAtCurrentLine:
-                this.doActionAtCurrentLine(key);
-                return;
-
-            // visual mode
-            case VimCommand.startVisualMode:
-                this.startVisualMode();
-                return;
+            // {visual}d
             case VimCommand.deleteHighlightedText:
                 this.deleteHighligtedText();
                 return;
-            case VimCommand.changeHighlightedText:
-                this.changeHighlightedText();
+            // {visualLine}d
+            case VimCommand.deleteHighlitedLine:
+                this.deleteLineSelectionAction();
                 return;
+            // dd cc yy
+            case VimCommand.doActionAtCurrentLine:
+                this.doActionAtCurrentLine(key);
+                return;
+            // D
+            case VimCommand.deleteTextToEndOfLine:
+                this.deleteTextToEndOfLine();
+                return;
+
+            // ** Copying and moving text **
+            // y{motion}
+            case VimCommand.yankTextWithMotion:
+                this.yankTextWithMotion();
+                return;
+            // {visual}y
             case VimCommand.yankHighlightedText:
                 this.yancSelectionAction();
                 return;
-
-            // line visual mode
-            case VimCommand.startVisualLineMode:
-                this.enterVisualLineModeAction();
-                return;
-            case VimCommand.deleteHighlitedLine:
-                this.deleteLineSelectionAction();
-                return;
-            case VimCommand.changeHighligtedLine:
-                this.changeLineSelectionAction();
-                return;
-            case VimCommand.deleteHighlitedLine:
-                this.deleteLineSelectionAction();
-                return;
+            // {visualLine}y
             case VimCommand.yankHighlightedLine:
                 this.yancLineSelectionAction();
                 return;
+            // Nyy
+            case VimCommand.yankLine:
+                this.yankLine();
+                return;
+            // Np NP
+            case VimCommand.putRegisterAfterCursorPosition:
+                this.putRegisterAfterCursorPosition(command.isReverse);
+                return;
 
-            // special
+            // ** Changing text **
+            // c{motion}
+            case VimCommand.changeTextWithMotion:
+                this.changeTextWithMotion();
+                return;
+            // C
+            case VimCommand.changeTextToEndOfLine:
+                this.changeTextToEndOfLine();
+                return;
+            // NS
+            case VimCommand.changeLines:
+                this.changeLines();
+                return;
+            // s
+            case VimCommand.changeCharacters:
+                this.changeCharacters();
+                return;
+            // {visual}c
+            case VimCommand.changeHighlightedText:
+                this.changeHighlightedText();
+                return;
+            // {visualLine}c
+            case VimCommand.changeHighligtedLine:
+                this.changeLineSelectionAction();
+                return;
+
+            // ** Complex changes **
+
+            // ** Visual mode **
+            // v
+            case VimCommand.startVisualMode:
+                this.startVisualMode();
+                return;
+            // V
+            case VimCommand.startVisualLineMode:
+                this.enterVisualLineModeAction();
+                return;
+
+            // ** Text objects (only in Visual mode or after an operator) **
+
+            // ** Repeating commands **
             case VimCommand.repeatLastChange:
                 this.repeatLastChange();
                 return;
@@ -323,32 +395,7 @@ export class CommandFactory implements ICommandFactory {
         }
     }
 
-    // -----
-    // other
-    // -----
-
-    private pushKeyAtRequireCharForMotion(key: string): IAction {
-        this.motion.SetChar(key);
-        return this.action;
-    }
-
-    private getNumStack() {
-        return this.num === 0 ? 1 : this.num;
-    }
-
-    private stackNumber(key: string) {
-        let n: number = parseInt(key, 10);
-        this.num = this.num * 10 + n;
-        if (this.num > 10000) {
-            this.Clear();
-        }
-    }
-
-    private createGotoAction(motion: IMotion) {
-        let a = new MoveAction();
-        a.SetMotion(motion);
-        return a;
-    }
+    // sorted and categorised by quickref.md
 
     // -----
     // Left-right motions
@@ -769,7 +816,7 @@ export class CommandFactory implements ICommandFactory {
         this.action = a;
     }
 
-    // {visualList}c
+    // {visualLine}c
     private changeLineSelectionAction() {
         let a = new DeleteLineSelectionAction();
         a.SetChangeOption();
@@ -777,7 +824,7 @@ export class CommandFactory implements ICommandFactory {
     }
 
     // S
-    private changeToEndOfLine() {
+    private changeLines() {
         let m = new DownMotion();
         m.SetCount(this.getNumStack() - 1);
         let a = new DeleteAction();
@@ -839,4 +886,32 @@ export class CommandFactory implements ICommandFactory {
     private repeatLastChange() {
         this.action = new RepeatAction();
     }
+
+    // -----
+    // other
+    // -----
+
+    private pushKeyAtRequireCharForMotion(key: string): IAction {
+        this.motion.SetChar(key);
+        return this.action;
+    }
+
+    private getNumStack() {
+        return this.num === 0 ? 1 : this.num;
+    }
+
+    private stackNumber(key: string) {
+        let n: number = parseInt(key, 10);
+        this.num = this.num * 10 + n;
+        if (this.num > 10000) {
+            this.Clear();
+        }
+    }
+
+    private createGotoAction(motion: IMotion) {
+        let a = new MoveAction();
+        a.SetMotion(motion);
+        return a;
+    }
+
 }
