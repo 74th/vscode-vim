@@ -6,10 +6,10 @@ import {DeleteYankChangeAction} from "../action/DeleteYankChangeAction";
 import {GoAction} from "../action/GoAction";
 import {GoDownAction} from "../action/MoveLineAction";
 import {StartVisualModeAction} from "../action/StartVisualModeAction";
-import {ExpandHighlightedTextAction} from "../action/ExpandSelectionAction";
+import {ExpandHighlightedTextAction} from "../action/ExpandHighlightedTextAction";
 import {DeleteYankChangeHighlightedTextAction} from "../action/DeleteYankChangeHighlightedTextAction";
 import {StartVisualLineModeAction} from "../action/StartVisualLineModeAction";
-import {ExpandHighlightedLineSelectionAction} from "../action/ExpandLineSelectionAction";
+import {ExpandHighlightedLineAction} from "../action/ExpandHighlightedLineAction";
 import {DeleteYankChangeHighlightedLineAction} from "../action/DeleteYankChangeHighlightedLineAction";
 import {RepeatLastChangeAction} from "../action/RepeatLastChangeAction";
 import {RightMotion} from "../motion/RightMotion";
@@ -77,7 +77,7 @@ export class CommandFactory implements ICommandFactory {
         } else if (mode === VimMode.VisualLine) {
             switch (this.state) {
                 case StateName.AtStart:
-                    this.action = new ExpandHighlightedLineSelectionAction();
+                    this.action = new ExpandHighlightedLineAction();
                     command = this.keyBindings.VisualLineMode[keyChar];
                     break;
                 case StateName.RequireMotionNum:
