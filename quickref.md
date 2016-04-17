@@ -2,7 +2,7 @@ This is imported from [quickref.txt](https://github.com/vim/vim/blob/master/runt
 
 ## Left-right motions
 
-|VimStyle class|test classs|VimStyle class|key|function|
+|VimStyle class|test classs|key|function|
 |---|---|---|---|---|
 |RightMotion||`Nh`|left (also: CTRL-H, &lt;BS&gt;, or &lt;Left&gt; key)|
 |RightMotion||`Nl`|right (also: &lt;Space&gt; or &lt;Right&gt; key)|
