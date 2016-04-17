@@ -304,10 +304,14 @@ declare const enum VimMode {
 declare const enum VimCommand {
 
     // ** Left-right motion **
-    // Nj Nl
+    // Nj
     gotoRight,
-    // cNj cNl
+    // Nl
+    gotoLeft,
+    // cNj
     rightMotion,
+    // cNl
+    leftMotion,
     // 0
     gotoFirstCharacterInLine,
     // c0
@@ -320,20 +324,56 @@ declare const enum VimCommand {
     gotoLastCharacterInLine,
     // c$
     lastCharacterInLineMotion,
-    // Nf{char} NF{char}
+    // g0
+    // g^
+    // g$
+    // gm
+    // N|
+    gotoColumnN,
+    // cN|
+    columnNMotion,
+    // Nf{char}
     gotoCharacterToRight,
-    // cNf{char} cNF{char}
+    // NF{char}
+    gotoCharacterToLeft,
+    // cNf{char}
     characterToRightMotion,
-    // Nt{char} NT{char}
+    // cNF{char}
+    characterToLeftMotion,
+    // Nt{char}
     goTillBeforeCharacterToRight,
-    // cNt{char} cNT{char}
+    // NT{char}
+    goTillBeforeCharacterToLeft,
+    // cNt{char}
     tillBeforeCharToRightMotion,
+    // cNT{char}
+    tillBeforeCharToLeftMotion,
+    // N;
+    gotoRepeatCharacter,
+    // cN;
+    repeartCharacterMotion,
+    // N,
+    gotoRepeatCharacterOppositeDirection,
+    // cN,
+    repeartCharacterMotionOppositeDirection,
 
     // ** Up-down motions **
-    // Nk Nj
+    // Nk 
+    goUp,
+    // Nj
     goDown,
-    // cNk cNj
+    // cNk
+    upMotion,
+    // cNj
     downMotion,
+    // N-
+    goUpOnFirstNonBlankCharacter,
+    // cN-
+    upOnFirstNonBlankCharacterMotion,
+    // N+
+    goDownOnFirstNonBlankCharacter,
+    // cN+
+    downOnFirstNonBlankCharacterMotion,
     // G
     gotoLastLine,
     // cG
@@ -346,6 +386,11 @@ declare const enum VimCommand {
     gotoFirstLineOnFirstNonBlankCharacter,
     // cgg
     firstLineMotion,
+    // N%
+    gotoLinePercentageDown,
+    // cN%
+    linePercentageDownMotion,
+    // Ngj
 
     // ** Text object motions **
     // Nw
@@ -372,8 +417,41 @@ declare const enum VimCommand {
     gotoBlankSeparatedBackword,
     // cNB
     blankSeparatedBackwordMotion,
+    // Nge
+    gotoEndOfWordBackword,
+    // cNge
+    endOfWordBackwordMotion,
+    // N)
+    gotoSentenceForword,
+    // cN)
+    sentenceForwordMotion,
+    // N(
+    gotoSentenceBackword,
+    // cN(
+    sentenceBackwordMotion,
+    // N}
+    gotoParagraphFoword,
+    // cN}
+    paragraphFowordMotion,
+    // N{
+    gotoParagraphBackword,
+    // cN{
+    paragraphBackwordMotion,
+    // some methods...
 
     // ** Pattern searches **
+    // Nn
+    repeatLastSearch,
+    // NN
+    repeatLastSearchOpositeDirection,
+    // N*
+    searchFowordForIdentifierUnderCursor,
+    // N#
+    searchBackwordForIdentifierUnderCursor,
+    // gd
+    gotoLocalDeclarationOfIdentifierUnderCursor,
+    // gD
+    gotoGlobalDeclarationOfIdentifierUnderCursor,
 
     // ** Marks and motions **
 
@@ -390,8 +468,12 @@ declare const enum VimCommand {
     insertTextBeforeCursor,
     // NI
     insertTextBeforeFirstNonBlankInLine,
-    // No NO
+    // NgI
+    insertTextColumnN,
+    // No
     openNewLineBelowCurrentLineAndAppnedText,
+    // NO
+    openNewLineAboveCurrentLineAndAppnedText,
 
     // ** Deleting text **
     // Nx
@@ -416,8 +498,10 @@ declare const enum VimCommand {
     yankHighlightedLine,
     // NY
     yankLine,
-    // Np NP
+    // Np
     putRegisterAfterCursorPosition,
+    // NP
+    putRegisterBeforeCursorPosition,
 
     // ** Changing text **
     // c{motion}

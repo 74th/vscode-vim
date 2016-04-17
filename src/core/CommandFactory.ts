@@ -288,9 +288,13 @@ export class CommandFactory implements ICommandFactory {
             case VimCommand.insertTextBeforeFirstNonBlankInLine:
                 this.insertTextBeforeFirstNonBlankInLine();
                 return;
-            // No NO
+            // No
             case VimCommand.openNewLineBelowCurrentLineAndAppnedText:
-                this.openNewLineBelowCurrentLineAndAppendText(command.isReverse);
+                this.openNewLineBelowCurrentLineAndAppendText();
+                return;
+            // NO
+            case VimCommand.openNewLineAboveCurrentLineAndAppnedText:
+                this.openNewLineAboveCurrentLineAndAppendText();
                 return;
 
             // ** Deleting text **
@@ -684,12 +688,16 @@ export class CommandFactory implements ICommandFactory {
         this.action = new InsertTextAction(m);
     }
 
-    // o O    
-    private openNewLineBelowCurrentLineAndAppendText(isAbove: boolean) {
+    // o    
+    private openNewLineBelowCurrentLineAndAppendText() {
         let a = new OpenNewLineAndAppendTextAction();
-        if (isAbove) {
-            a.SetAboveOption();
-        }
+        this.action = a;
+    }
+    
+    // O
+    private openNewLineAboveCurrentLineAndAppendText() {
+        let a = new OpenNewLineAndAppendTextAction();
+        a.SetAboveOption();
         this.action = a;
     }
 
