@@ -125,8 +125,7 @@ const DefaultKeyBindings: IKeyBindings = {
             cmd: VimCommand.putRegisterAfterCursorPosition
         },
         "P": {
-            cmd: VimCommand.putRegisterAfterCursorPosition,
-            isReverse: true
+            cmd: VimCommand.putRegisterBeforeCursorPosition
         },
         // q low priority
         // Q never support

@@ -376,9 +376,13 @@ export class CommandFactory implements ICommandFactory {
             case VimCommand.yankLine:
                 this.yankLine();
                 return;
-            // Np NP
+            // Np
             case VimCommand.putRegisterAfterCursorPosition:
-                this.putRegisterAfterCursorPosition(command.isReverse);
+                this.putRegisterAfterCursorPosition();
+                return;
+            // NP
+            case VimCommand.putRegisterBeforeCursorPosition:
+                this.putRegisterBeforeCursorPosition();
                 return;
 
             // ** Changing text **
@@ -1006,12 +1010,17 @@ export class CommandFactory implements ICommandFactory {
         this.action = a;
     }
 
-    // p P Np NP
-    private putRegisterAfterCursorPosition(isBack: boolean) {
+    // p
+    private putRegisterAfterCursorPosition() {
         let a = new PutRegisterAction();
-        if (isBack) {
-            a.SetBackOption();
-        }
+        a.SetCount(this.getNumStack());
+        this.action = a;
+    }
+
+    // P
+    private putRegisterBeforeCursorPosition() {
+        let a = new PutRegisterAction();
+        a.SetBackOption();
         a.SetCount(this.getNumStack());
         this.action = a;
     }
