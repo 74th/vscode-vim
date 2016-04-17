@@ -108,9 +108,9 @@ interface IInsertTextAction {
 }
 
 interface IRequireMotionAction extends IAction {
-    SetMotion(motion: IMotion);
-    SetLineOption();
-    SetSmallOption();
+    Motion: IMotion;
+    IsLine: boolean;
+    IsLarge: boolean;
 }
 
 interface IMotion {

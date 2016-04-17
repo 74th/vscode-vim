@@ -419,7 +419,7 @@ export class CommandFactory implements ICommandFactory {
         };
         m.SetCount(this.getNumStack());
         let a = <IRequireMotionAction>this.action;
-        a.SetMotion(m);
+        a.Motion = m;
     }
 
     // 0
@@ -430,7 +430,7 @@ export class CommandFactory implements ICommandFactory {
     // c0
     private addFirstCharacterInLineMotion() {
         let a = <IRequireMotionAction>this.action;
-        a.SetMotion(new FirstCharacterInLineMotion());
+        a.Motion = new FirstCharacterInLineMotion();
     }
 
     // ^
@@ -445,13 +445,13 @@ export class CommandFactory implements ICommandFactory {
         let a = <IRequireMotionAction>this.action;
         let m = new FirstCharacterMotion();
         m.Target = FirstCharacterMotion.Target.Current;
-        a.SetMotion(m);
+        a.Motion = m;
     }
 
     // c$
     private addLastCharacterInLineMotion() {
         let a = <IRequireMotionAction>this.action;
-        a.SetMotion(new LastCharacterInLineMotion());
+        a.Motion = new LastCharacterInLineMotion();
     }
 
     // $
@@ -501,7 +501,7 @@ export class CommandFactory implements ICommandFactory {
         }
         m.SetCount(this.getNumStack());
         let a = <IRequireMotionAction>this.action;
-        a.SetMotion(m);
+        a.Motion = m;
         this.motion = m;
     }
 
@@ -517,7 +517,7 @@ export class CommandFactory implements ICommandFactory {
         m.SetCount(this.getNumStack());
         m.SetTillOption();
         let a = <IRequireMotionAction>this.action;
-        a.SetMotion(m);
+        a.Motion = m;
         this.motion = m;
     }
 
@@ -545,8 +545,8 @@ export class CommandFactory implements ICommandFactory {
         }
         m.SetCount(this.getNumStack());
         let a = <IRequireMotionAction>this.action;
-        a.SetMotion(m);
-        a.SetLineOption();
+        a.Motion = m;
+        a.IsLine = true;
     }
 
     // G
@@ -563,8 +563,8 @@ export class CommandFactory implements ICommandFactory {
         let m = new FirstCharacterMotion();
         m.Target = FirstCharacterMotion.Target.Last;
         let a = <IRequireMotionAction>this.action;
-        a.SetMotion(m);
-        a.SetLineOption();
+        a.Motion = m;
+        a.IsLine = true;
     }
 
     // NG
@@ -581,8 +581,8 @@ export class CommandFactory implements ICommandFactory {
         let m = new FirstCharacterMotion();
         m.SetCount(this.getNumStack() - 1);
         let a = <IRequireMotionAction>this.action;
-        a.SetMotion(m);
-        a.SetLineOption();
+        a.Motion = m;
+        a.IsLine = true;
     }
 
     // gg
@@ -599,8 +599,8 @@ export class CommandFactory implements ICommandFactory {
         let m = new FirstCharacterMotion();
         m.Target = FirstCharacterMotion.Target.First;
         let a = <IRequireMotionAction>this.action;
-        a.SetMotion(m);
-        a.SetLineOption();
+        a.Motion = m;
+        a.IsLine = true;
     }
 
     // -----
@@ -636,7 +636,7 @@ export class CommandFactory implements ICommandFactory {
         m.IsForRange = true;
         m.SetCount(this.getNumStack());
         let a = <IRequireMotionAction>this.action;
-        a.SetMotion(m);
+        a.Motion = m;
     }
 
     // -----
@@ -705,8 +705,8 @@ export class CommandFactory implements ICommandFactory {
         }
         m.SetCount(this.getNumStack());
         let a = new DeleteYankChangeAction();
-        a.SetSmallOption();
-        a.SetMotion(m);
+        a.IsLarge = false;
+        a.Motion = m;
         this.action = a;
     }
 
@@ -732,14 +732,14 @@ export class CommandFactory implements ICommandFactory {
             return;
         }
         let a = <IRequireMotionAction>this.action;
-        a.SetLineOption();
+        a.IsLine = true;
         let count = 0;
         if (this.num !== 0) {
             count = this.num - 1;
         }
         let m = new DownMotion();
         m.SetCount(count);
-        a.SetMotion(m);
+        a.Motion = m;
     }
 
     // D
@@ -747,8 +747,8 @@ export class CommandFactory implements ICommandFactory {
         let m = new LastCharacterInLineMotion();
         m.SetCount(1);
         let a = new DeleteYankChangeAction();
-        a.SetSmallOption();
-        a.SetMotion(m);
+        a.IsLarge = false;
+        a.Motion = m;
         this.action = a;
     }
 
@@ -759,7 +759,7 @@ export class CommandFactory implements ICommandFactory {
     // ym
     private yankTextWithMotion() {
         let a = new DeleteYankChangeAction();
-        a.SetOnlyYancOption();
+        a.IsOnlyYanc = true;
         this.action = a;
     }
 
@@ -782,9 +782,9 @@ export class CommandFactory implements ICommandFactory {
         let m = new LastCharacterInLineMotion();
         m.SetCount(1);
         let a = new DeleteYankChangeAction();
-        a.SetSmallOption();
-        a.SetMotion(m);
-        a.SetOnlyYancOption();
+        a.IsLarge = false;
+        a.Motion = m;
+        a.IsOnlyYanc = true;
         this.action = a;
     }
 
@@ -805,7 +805,7 @@ export class CommandFactory implements ICommandFactory {
     // c{motion}
     private changeTextWithMotion() {
         let a = new DeleteYankChangeAction();
-        a.SetChangeOption();
+        a.IsChange = true;
         this.action = a;
     }
 
@@ -814,9 +814,9 @@ export class CommandFactory implements ICommandFactory {
         let m = new DownMotion();
         m.SetCount(this.getNumStack() - 1);
         let a = new DeleteYankChangeAction();
-        a.SetLineOption();
-        a.SetMotion(m);
-        a.SetChangeOption();
+        a.IsLine = true;
+        a.Motion = m;
+        a.IsChange = true;
         this.action = a;
     }
 
@@ -825,9 +825,9 @@ export class CommandFactory implements ICommandFactory {
         let m = new LastCharacterInLineMotion();
         m.SetCount(1);
         let a = new DeleteYankChangeAction();
-        a.SetSmallOption();
-        a.SetMotion(m);
-        a.SetChangeOption();
+        a.IsLarge = false;
+        a.Motion = m;
+        a.IsChange = true;
         this.action = a;
     }
 
@@ -836,9 +836,9 @@ export class CommandFactory implements ICommandFactory {
         let m = new RightMotion();
         m.SetCount(1);
         let a = new DeleteYankChangeAction();
-        a.SetSmallOption();
-        a.SetMotion(m);
-        a.SetChangeOption();
+        a.IsLarge = false;
+        a.Motion = m;
+        a.IsChange = true;
         this.action = a;
     }
 

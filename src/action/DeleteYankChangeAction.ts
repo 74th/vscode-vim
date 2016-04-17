@@ -4,55 +4,35 @@ import {RegisterItem} from "../core/Register";
 
 export class DeleteYankChangeAction extends AbstractInsertTextAction implements IRequireMotionAction, IInsertTextAction {
 
-    public motion: IMotion;
-    public isLine: boolean;
-    public isLarge: boolean;
-    public isInsert: boolean;
-    public isOnlyYanc: boolean;
+    public Motion: IMotion;
+    public IsLine: boolean;
+    public IsLarge: boolean;
+    public IsChange: boolean;
+    public IsOnlyYanc: boolean;
 
     constructor() {
         super();
-        this.motion = null;
-        this.isLine = false;
-        this.isLarge = true;
-        this.isInsert = false;
-        this.isOnlyYanc = false;
+        this.Motion = null;
+        this.IsLine = false;
+        this.IsLarge = true;
+        this.IsChange = false;
+        this.IsOnlyYanc = false;
     }
 
     public GetActionType(): ActionType {
-        if (this.isOnlyYanc) {
+        if (this.IsOnlyYanc) {
             return ActionType.Other;
-        } else if (this.isInsert) {
+        } else if (this.IsChange) {
             return ActionType.Insert;
         }
         return ActionType.Edit;
-    }
-
-    public SetLineOption() {
-        this.isLine = true;
-    }
-
-    public SetSmallOption() {
-        this.isLarge = true;
-    }
-
-    public SetChangeOption() {
-        this.isInsert = true;
-    }
-
-    public SetOnlyYancOption() {
-        this.isOnlyYanc = true;
-    }
-
-    public SetMotion(motion: IMotion) {
-        this.motion = motion;
     }
 
     public Execute(editor: IEditor, vim: IVimStyle) {
 
         let range = new Range();
         range.start = editor.GetCurrentPosition();
-        let p = this.motion.CalculateEnd(editor, range.start);
+        let p = this.Motion.CalculateEnd(editor, range.start);
         if (p == null) {
             // cancel
             return;
@@ -60,7 +40,7 @@ export class DeleteYankChangeAction extends AbstractInsertTextAction implements 
         range.end = p;
         range.Sort();
 
-        if (this.isLine) {
+        if (this.IsLine) {
             this.deleteLine(range, editor, vim);
         } else {
             this.deleteRange(range, editor, vim);
@@ -79,7 +59,7 @@ export class DeleteYankChangeAction extends AbstractInsertTextAction implements 
         } else {
             if (endLine.length <= range.end.Char) {
                 // delete to end of line 
-                if (this.isInsert) {
+                if (this.IsChange) {
                     nextPosition.Char = range.start.Char;
                 } else {
                     nextPosition.Char = range.start.Char - 1;
@@ -93,17 +73,17 @@ export class DeleteYankChangeAction extends AbstractInsertTextAction implements 
         let item = new RegisterItem();
         item.Body = editor.ReadRange(range);
         item.Type = RegisterType.Text;
-        if (this.isLarge) {
+        if (this.IsLarge) {
             vim.Register.SetRoll(item);
         }
-        if (this.isInsert) {
+        if (this.IsChange) {
             if (this.insertText === null) {
 
                 vim.ApplyInsertMode(nextPosition);
             }
         }
-        if (!this.isOnlyYanc) {
-            if (this.isInsert && this.insertText) {
+        if (!this.IsOnlyYanc) {
+            if (this.IsChange && this.insertText) {
                 editor.ReplaceRange(range, this.insertText);
                 editor.SetPosition(this.calcPositionAfterInsert(nextPosition));
             } else {
@@ -111,7 +91,7 @@ export class DeleteYankChangeAction extends AbstractInsertTextAction implements 
             }
 
         }
-        if (this.isInsert && this.insertText === null) {
+        if (this.IsChange && this.insertText === null) {
             let startLine = editor.ReadLine(range.start.Line);
             let endLine = editor.ReadLine(range.end.Line);
             let afterLineCount = editor.GetLastLineNum() + 1 - (range.end.Line - range.start.Line);
@@ -142,7 +122,7 @@ export class DeleteYankChangeAction extends AbstractInsertTextAction implements 
                 del.end.Line = range.end.Line;
                 del.end = editor.UpdateValidPosition(del.end);
                 nextPosition.Line = 0;
-            } else if (this.isInsert) {
+            } else if (this.IsChange) {
                 // delete from home of start line
                 del.start.Char = 0;
                 del.start.Line = range.start.Line;
@@ -162,7 +142,7 @@ export class DeleteYankChangeAction extends AbstractInsertTextAction implements 
                 nextPosition.Line = range.start.Line - 1;
             }
         } else {
-            if (this.isInsert) {
+            if (this.IsChange) {
                 // delete from top of start line to end of end line
                 del.start.Char = 0;
                 del.start.Line = range.start.Line;
@@ -189,20 +169,20 @@ export class DeleteYankChangeAction extends AbstractInsertTextAction implements 
 
         let item = new RegisterItem();
         item.Body = editor.ReadRange(yanc);
-        if (this.isLine) {
+        if (this.IsLine) {
             item.Body += "\n";
         }
         item.Type = RegisterType.LineText;
         vim.Register.SetRoll(item);
 
-        if (!this.isOnlyYanc) {
-            if (this.isInsert && this.insertText !== null) {
+        if (!this.IsOnlyYanc) {
+            if (this.IsChange && this.insertText !== null) {
                 editor.ReplaceRange(del, this.insertText);
             } else {
                 editor.DeleteRange(del, nextPosition);
             }
         }
-        if (this.isInsert && this.insertText === null) {
+        if (this.IsChange && this.insertText === null) {
             vim.ApplyInsertMode();
             this.insertModeInfo = {
                 DocumentLineCount: lastLine + 1,
