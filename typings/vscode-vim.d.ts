@@ -478,6 +478,8 @@ declare const enum VimCommand {
     // ** Deleting text **
     // Nx
     deleteCharactersUnderCursor,
+    // NX
+    deleteCharactersBeforeCursor,
     // Nd{motion}
     deleteTextWithMotion,
     // {visual}d

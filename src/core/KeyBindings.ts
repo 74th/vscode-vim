@@ -164,8 +164,7 @@ const DefaultKeyBindings: IKeyBindings = {
             cmd: VimCommand.deleteCharactersUnderCursor
         },
         "X": {
-            cmd: VimCommand.deleteCharactersUnderCursor,
-            isReverse: true
+            cmd: VimCommand.deleteCharactersBeforeCursor
         },
         "y": {
             cmd: VimCommand.yankTextWithMotion,
@@ -311,7 +310,9 @@ const DefaultKeyBindings: IKeyBindings = {
         "x": {
             cmd: VimCommand.deleteCharactersUnderCursor
         },
-        // NX
+        "X": {
+            cmd: VimCommand.deleteCharactersBeforeCursor
+        },
         "y": {
             cmd: VimCommand.yankTextWithMotion,
             state: StateName.RequireMotion

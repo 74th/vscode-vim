@@ -332,7 +332,11 @@ export class CommandFactory implements ICommandFactory {
             // ** Deleting text **
             // Nx
             case VimCommand.deleteCharactersUnderCursor:
-                this.deleteCharactersUnderCursor(command.isReverse);
+                this.deleteCharactersUnderCursor();
+                return;
+            // Nx
+            case VimCommand.deleteCharactersBeforeCursor:
+                this.deleteCharactersBeforeCursor();
                 return;
             // Nd{motion}
             case VimCommand.deleteTextWithMotion:
@@ -903,12 +907,20 @@ export class CommandFactory implements ICommandFactory {
     // Deleting text
     // -----
 
-    // x Nx X NX
-    private deleteCharactersUnderCursor(isLeft: boolean) {
+    // Nx
+    private deleteCharactersUnderCursor() {
         let m = new RightMotion();
-        if (isLeft) {
-            m.IsLeftDirection = true;
-        }
+        m.SetCount(this.getNumStack());
+        let a = new DeleteYankChangeAction();
+        a.IsLarge = false;
+        a.Motion = m;
+        this.action = a;
+    }
+
+    // NX
+    private deleteCharactersBeforeCursor() {
+        let m = new RightMotion();
+        m.IsLeftDirection = true;
         m.SetCount(this.getNumStack());
         let a = new DeleteYankChangeAction();
         a.IsLarge = false;
