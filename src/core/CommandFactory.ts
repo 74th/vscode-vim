@@ -74,7 +74,7 @@ export class CommandFactory implements ICommandFactory {
                     command = this.keyBindings.SmallGForMotion[keyChar];
                     break;
             }
-       } else if (mode === VimMode.VisualLine) {
+        } else if (mode === VimMode.VisualLine) {
             switch (this.state) {
                 case StateName.AtStart:
                     this.action = new ExpandLineSelectionAction();
@@ -323,6 +323,10 @@ export class CommandFactory implements ICommandFactory {
         }
     }
 
+    // -----
+    // other
+    // -----
+
     private pushKeyAtRequireCharForMotion(key: string): IAction {
         this.motion.SetChar(key);
         return this.action;
@@ -332,107 +336,23 @@ export class CommandFactory implements ICommandFactory {
         return this.num === 0 ? 1 : this.num;
     }
 
-    // .
-    private repeatLastChange() {
-        this.action = new RepeatAction();
-    }
-
-    // i    
-    private insertTextBeforeCursor() {
-        this.action = new InsertTextAction();
-    }
-
-    // a    
-    private appendTextAfterCursor() {
-        let m = new RightMotion();
-        m.SetCount(1);
-        this.action = new InsertTextAction(m);
-    }
-
-    // I
-    private insertTextBeforeFirstNonBlankInLine() {
-        let m = new FirstCharacterMotion();
-        m.Target = FirstCharacterMotion.Target.Current;
-        this.action = new InsertTextAction(m);
-    }
-
-    // A    
-    private appendTextAtEndOfLine() {
-        let m = new EndMotion();
-        this.action = new InsertTextAction(m);
-    }
-
-    // o O    
-    private openNewLineBelowCurrentLineAndAppendText(isAbove: boolean) {
-        let a = new InsertLineBelowAction();
-        if (isAbove) {
-            a.SetAboveOption();
+    private stackNumber(key: string) {
+        let n: number = parseInt(key, 10);
+        this.num = this.num * 10 + n;
+        if (this.num > 10000) {
+            this.Clear();
         }
-        this.action = a;
     }
 
-    // x Nx
-    private deleteCharactersUnderCursor(isLeft: boolean) {
-        let m = new RightMotion();
-        if (isLeft) {
-            m.SetLeftDirection();
-        }
-        m.SetCount(this.getNumStack());
-        let a = new DeleteAction();
-        a.SetSmallOption();
-        a.SetMotion(m);
-        this.action = a;
-    }
-
-    // s
-    private changeCharacters() {
-        let m = new RightMotion();
-        m.SetCount(1);
-        let a = new DeleteAction();
-        a.SetSmallOption();
-        a.SetMotion(m);
-        a.SetChangeOption();
-        this.action = a;
-    }
-
-    // S
-    private changeToEndOfLine() {
-        let m = new DownMotion();
-        m.SetCount(this.getNumStack() - 1);
-        let a = new DeleteAction();
-        a.SetLineOption();
-        a.SetMotion(m);
-        a.SetChangeOption();
-        this.action = a;
-    }
-
-    // p P Np NP
-    private putRegisterAfterCursorPosition(isBack: boolean) {
-        let a = new PasteAction();
-        if (isBack) {
-            a.SetBackOption();
-        }
-        a.SetCount(this.getNumStack());
-        this.action = a;
-    }
-
-    // j k
-    private gotoDownLine(isUp: boolean) {
-        let m = new DownMotion();
-        if (isUp) {
-            m.SetUpDirection();
-        }
-        m.SetCount(this.getNumStack());
-        let a = new MoveLineAction();
-        a.SetMotion(m);
-        this.action = a;
-    }
-
-    private createMoveAction(motion: IMotion) {
+    private createGotoAction(motion: IMotion) {
         let a = new MoveAction();
         a.SetMotion(motion);
         return a;
     }
+
+    // -----
+    // Left-right motions
+    // -----
 
     // h l
     private gotoRight(isLeft: boolean) {
@@ -441,39 +361,55 @@ export class CommandFactory implements ICommandFactory {
             m.SetLeftDirection();
         };
         m.SetCount(this.getNumStack());
-        this.action = this.createMoveAction(m);
+        this.action = this.createGotoAction(m);
     }
 
-    // w b e W B E
-    private gotoWordFoward(isReverse: boolean, isWordEnd: boolean, isWORD: boolean, isSkipBlankLine) {
-        let m: WordMotion;
-        if (isReverse) {
-            m = new WordMotion(Direction.Left);
-        } else {
-            m = new WordMotion(Direction.Right);
-        }
-        m.IsWordEnd = isWordEnd;
-        m.IsWORD = isWORD;
-        m.IsSkipBlankLine = isSkipBlankLine;
+    // ch cl
+    private addRightMotion(isLeft: boolean) {
+        let m = new RightMotion();
+        if (isLeft) {
+            m.SetLeftDirection();
+        };
         m.SetCount(this.getNumStack());
-        this.action = this.createMoveAction(m);
+        let a = <IRequireMotionAction>this.action;
+        a.SetMotion(m);
     }
 
     // 0
     private gotoFirstCharacterInLine() {
-        this.action = this.createMoveAction(new HomeMotion());
+        this.action = this.createGotoAction(new HomeMotion());
     }
 
-    // $
-    private gotoLastCharacterInLine() {
-        this.action = this.createMoveAction(new EndMotion());
+    // c0
+    private addFirstCharacterInLineMotion() {
+        let a = <IRequireMotionAction>this.action;
+        a.SetMotion(new HomeMotion());
     }
 
     // ^
     private gotoFirstNonBlankCharacterInLine() {
         let m = new FirstCharacterMotion();
         m.Target = FirstCharacterMotion.Target.Current;
-        this.action = this.createMoveAction(m);
+        this.action = this.createGotoAction(m);
+    }
+
+    // c^
+    private addFirstNonBlankCharacterInLineMotion() {
+        let a = <IRequireMotionAction>this.action;
+        let m = new FirstCharacterMotion();
+        m.Target = FirstCharacterMotion.Target.Current;
+        a.SetMotion(m);
+    }
+
+    // c$
+    private addLastCharacterInLineMotion() {
+        let a = <IRequireMotionAction>this.action;
+        a.SetMotion(new EndMotion());
+    }
+
+    // $
+    private gotoLastCharacterInLine() {
+        this.action = this.createGotoAction(new EndMotion());
     }
 
     // fx Fx
@@ -507,42 +443,51 @@ export class CommandFactory implements ICommandFactory {
         this.motion = m;
     }
 
-    // Ng
-    private gotoLine() {
-        let a = new MoveAction();
-        let m = new FirstCharacterMotion();
-        m.SetCount(this.getNumStack() - 1);
-        a.SetMotion(m);
-        this.action = a;
-    }
-
-    // G
-    private gotoLastLine() {
-        let a = new MoveAction();
-        let m = new FirstCharacterMotion();
-        m.Target = FirstCharacterMotion.Target.Last;
-        a.SetMotion(m);
-        this.action = a;
-    }
-
-    // gg
-    private gotoFirstLineOnFirstNonBlankCharacter() {
-        let a = new MoveAction();
-        let m = new FirstCharacterMotion();
-        m.Target = FirstCharacterMotion.Target.First;
-        a.SetMotion(m);
-        this.action = a;
-    }
-
-    // ch cl
-    private addRightMotion(isLeft: boolean) {
-        let m = new RightMotion();
-        if (isLeft) {
-            m.SetLeftDirection();
-        };
+    // cfx cFx
+    private addCharacterToRightMotion(isReverse) {
+        let m: FindCharacterMotion;
+        if (isReverse) {
+            m = new FindCharacterMotion(Direction.Left);
+        } else {
+            m = new FindCharacterMotion(Direction.Right);
+            m.SetContainTargetCharOption();
+        }
         m.SetCount(this.getNumStack());
         let a = <IRequireMotionAction>this.action;
         a.SetMotion(m);
+        this.motion = m;
+    }
+
+    // ctx cTx
+    private addTillCharacterMotion(isReverse) {
+        let m: FindCharacterMotion;
+        if (isReverse) {
+            m = new FindCharacterMotion(Direction.Left);
+        } else {
+            m = new FindCharacterMotion(Direction.Right);
+            m.SetContainTargetCharOption();
+        }
+        m.SetCount(this.getNumStack());
+        m.SetTillOption();
+        let a = <IRequireMotionAction>this.action;
+        a.SetMotion(m);
+        this.motion = m;
+    }
+
+    // -----
+    // Up-down motions
+    // -----
+
+    // j k
+    private gotoDownLine(isUp: boolean) {
+        let m = new DownMotion();
+        if (isUp) {
+            m.SetUpDirection();
+        }
+        m.SetCount(this.getNumStack());
+        let a = new MoveLineAction();
+        a.SetMotion(m);
+        this.action = a;
     }
 
     // cj ck
@@ -555,6 +500,79 @@ export class CommandFactory implements ICommandFactory {
         let a = <IRequireMotionAction>this.action;
         a.SetMotion(m);
         a.SetLineOption();
+    }
+
+    // G
+    private gotoLastLine() {
+        let a = new MoveAction();
+        let m = new FirstCharacterMotion();
+        m.Target = FirstCharacterMotion.Target.Last;
+        a.SetMotion(m);
+        this.action = a;
+    }
+
+    // cG
+    private addLastLineMotion() {
+        let m = new FirstCharacterMotion();
+        m.Target = FirstCharacterMotion.Target.Last;
+        let a = <IRequireMotionAction>this.action;
+        a.SetMotion(m);
+        a.SetLineOption();
+    }
+
+    // NG
+    private gotoLine() {
+        let a = new MoveAction();
+        let m = new FirstCharacterMotion();
+        m.SetCount(this.getNumStack() - 1);
+        a.SetMotion(m);
+        this.action = a;
+    }
+
+    // cNG
+    private addLineMotion() {
+        let m = new FirstCharacterMotion();
+        m.SetCount(this.getNumStack() - 1);
+        let a = <IRequireMotionAction>this.action;
+        a.SetMotion(m);
+        a.SetLineOption();
+    }
+
+    // gg
+    private gotoFirstLineOnFirstNonBlankCharacter() {
+        let a = new MoveAction();
+        let m = new FirstCharacterMotion();
+        m.Target = FirstCharacterMotion.Target.First;
+        a.SetMotion(m);
+        this.action = a;
+    }
+
+    // cgg
+    private addFirstLineMotion() {
+        let m = new FirstCharacterMotion();
+        m.Target = FirstCharacterMotion.Target.First;
+        let a = <IRequireMotionAction>this.action;
+        a.SetMotion(m);
+        a.SetLineOption();
+    }
+
+    // -----
+    // Text object motions
+    // -----
+
+    // w b e W B E
+    private gotoWordFoward(isReverse: boolean, isWordEnd: boolean, isWORD: boolean, isSkipBlankLine) {
+        let m: WordMotion;
+        if (isReverse) {
+            m = new WordMotion(Direction.Left);
+        } else {
+            m = new WordMotion(Direction.Right);
+        }
+        m.IsWordEnd = isWordEnd;
+        m.IsWORD = isWORD;
+        m.IsSkipBlankLine = isSkipBlankLine;
+        m.SetCount(this.getNumStack());
+        this.action = this.createGotoAction(m);
     }
 
     // cw cb ce cW cB cE
@@ -574,88 +592,74 @@ export class CommandFactory implements ICommandFactory {
         a.SetMotion(m);
     }
 
-    // c0
-    private addFirstCharacterInLineMotion() {
-        let a = <IRequireMotionAction>this.action;
-        a.SetMotion(new HomeMotion());
+    // -----
+    // Pattern searches
+    // -----
+
+    // -----
+    // Marks and motions
+    // -----
+
+    // -----
+    // Various motions
+    // -----
+
+    // -----
+    // Scrolling
+    // -----
+
+    // -----
+    // Inserting text
+    // -----
+
+    // a    
+    private appendTextAfterCursor() {
+        let m = new RightMotion();
+        m.SetCount(1);
+        this.action = new InsertTextAction(m);
     }
 
-    // c$
-    private addLastCharacterInLineMotion() {
-        let a = <IRequireMotionAction>this.action;
-        a.SetMotion(new EndMotion());
+    // A    
+    private appendTextAtEndOfLine() {
+        let m = new EndMotion();
+        this.action = new InsertTextAction(m);
     }
 
-    // c^
-    private addFirstNonBlankCharacterInLineMotion() {
-        let a = <IRequireMotionAction>this.action;
+    // i    
+    private insertTextBeforeCursor() {
+        this.action = new InsertTextAction();
+    }
+
+    // I
+    private insertTextBeforeFirstNonBlankInLine() {
         let m = new FirstCharacterMotion();
         m.Target = FirstCharacterMotion.Target.Current;
-        a.SetMotion(m);
+        this.action = new InsertTextAction(m);
     }
 
-    // fx Fx
-    private addCharacterToRightMotion(isReverse) {
-        let m: FindCharacterMotion;
-        if (isReverse) {
-            m = new FindCharacterMotion(Direction.Left);
-        } else {
-            m = new FindCharacterMotion(Direction.Right);
-            m.SetContainTargetCharOption();
+    // o O    
+    private openNewLineBelowCurrentLineAndAppendText(isAbove: boolean) {
+        let a = new InsertLineBelowAction();
+        if (isAbove) {
+            a.SetAboveOption();
+        }
+        this.action = a;
+    }
+
+    // -----
+    // Deleting text
+    // -----
+
+    // x Nx
+    private deleteCharactersUnderCursor(isLeft: boolean) {
+        let m = new RightMotion();
+        if (isLeft) {
+            m.SetLeftDirection();
         }
         m.SetCount(this.getNumStack());
-        let a = <IRequireMotionAction>this.action;
-        a.SetMotion(m);
-        this.motion = m;
-    }
-
-    // tx Tx
-    private addTillCharacterMotion(isReverse) {
-        let m: FindCharacterMotion;
-        if (isReverse) {
-            m = new FindCharacterMotion(Direction.Left);
-        } else {
-            m = new FindCharacterMotion(Direction.Right);
-            m.SetContainTargetCharOption();
-        }
-        m.SetCount(this.getNumStack());
-        m.SetTillOption();
-        let a = <IRequireMotionAction>this.action;
-        a.SetMotion(m);
-        this.motion = m;
-    }
-
-    // cNg
-    private addLineMotion() {
-        let m = new FirstCharacterMotion();
-        m.SetCount(this.getNumStack() - 1);
-        let a = <IRequireMotionAction>this.action;
-        a.SetMotion(m);
-        a.SetLineOption();
-    }
-
-    // cG
-    private addLastLineMotion() {
-        let m = new FirstCharacterMotion();
-        m.Target = FirstCharacterMotion.Target.Last;
-        let a = <IRequireMotionAction>this.action;
-        a.SetMotion(m);
-        a.SetLineOption();
-    }
-
-    // cgg
-    private addFirstLineMotion() {
-        let m = new FirstCharacterMotion();
-        m.Target = FirstCharacterMotion.Target.First;
-        let a = <IRequireMotionAction>this.action;
-        a.SetMotion(m);
-        a.SetLineOption();
-    }
-
-    // cm 
-    private changeTextWithMotion() {
         let a = new DeleteAction();
-        a.SetChangeOption();
+        a.SetSmallOption();
+        a.SetMotion(m);
         this.action = a;
     }
 
@@ -664,51 +668,14 @@ export class CommandFactory implements ICommandFactory {
         this.action = new DeleteAction();
     }
 
-    // ym
-    private yankTextWithMotion() {
-        let a = new DeleteAction();
-        a.SetOnlyYancOption();
-        this.action = a;
+    // {visual}d
+    private deleteHighligtedText() {
+        this.action = new DeleteSelectionAction();
     }
 
-    // C
-    private changeTextToEndOfLine() {
-        let m = new EndMotion();
-        m.SetCount(1);
-        let a = new DeleteAction();
-        a.SetSmallOption();
-        a.SetMotion(m);
-        a.SetChangeOption();
-        this.action = a;
-    }
-
-    // D
-    private deleteTextToEndOfLine() {
-        let m = new EndMotion();
-        m.SetCount(1);
-        let a = new DeleteAction();
-        a.SetSmallOption();
-        a.SetMotion(m);
-        this.action = a;
-    }
-
-    // Y
-    private yankLine() {
-        let m = new EndMotion();
-        m.SetCount(1);
-        let a = new DeleteAction();
-        a.SetSmallOption();
-        a.SetMotion(m);
-        a.SetOnlyYancOption();
-        this.action = a;
-    }
-
-    private stackNumber(key: string) {
-        let n: number = parseInt(key, 10);
-        this.num = this.num * 10 + n;
-        if (this.num > 10000) {
-            this.Clear();
-        }
+    // {visualLine}d
+    private deleteLineSelectionAction() {
+        this.action = new DeleteLineSelectionAction();
     }
 
     // dd, yy, cc    
@@ -728,28 +695,131 @@ export class CommandFactory implements ICommandFactory {
         a.SetMotion(m);
     }
 
-    // v
-    private startVisualMode() {
-        this.action = new ApplyVisualModeAction();
+    // D
+    private deleteTextToEndOfLine() {
+        let m = new EndMotion();
+        m.SetCount(1);
+        let a = new DeleteAction();
+        a.SetSmallOption();
+        a.SetMotion(m);
+        this.action = a;
     }
 
-    // v...c
+    // -----
+    // Copying and moving text
+    // -----
+
+    // ym
+    private yankTextWithMotion() {
+        let a = new DeleteAction();
+        a.SetOnlyYancOption();
+        this.action = a;
+    }
+
+    // {visual}y
+    private yancSelectionAction() {
+        let a = new DeleteSelectionAction();
+        a.SetOnlyYancOption();
+        this.action = a;
+    }
+
+    // {visualLine}y
+    private yancLineSelectionAction() {
+        let a = new DeleteLineSelectionAction();
+        a.SetOnlyYancOption();
+        this.action = a;
+    }
+
+    // Y
+    private yankLine() {
+        let m = new EndMotion();
+        m.SetCount(1);
+        let a = new DeleteAction();
+        a.SetSmallOption();
+        a.SetMotion(m);
+        a.SetOnlyYancOption();
+        this.action = a;
+    }
+
+    // p P Np NP
+    private putRegisterAfterCursorPosition(isBack: boolean) {
+        let a = new PasteAction();
+        if (isBack) {
+            a.SetBackOption();
+        }
+        a.SetCount(this.getNumStack());
+        this.action = a;
+    }
+
+    // -----
+    // Changing text
+    // -----
+
+    // c{motion}
+    private changeTextWithMotion() {
+        let a = new DeleteAction();
+        a.SetChangeOption();
+        this.action = a;
+    }
+
+    // {visual}c
     private changeHighlightedText() {
         let a = new DeleteSelectionAction();
         a.SetChangeOption();
         this.action = a;
     }
 
-    // v...d
-    private deleteHighligtedText() {
-        this.action = new DeleteSelectionAction();
+    // {visualList}c
+    private changeLineSelectionAction() {
+        let a = new DeleteLineSelectionAction();
+        a.SetChangeOption();
+        this.action = a;
     }
 
-    // v...y
-    private yancSelectionAction() {
-        let a = new DeleteSelectionAction();
-        a.SetOnlyYancOption();
+    // S
+    private changeToEndOfLine() {
+        let m = new DownMotion();
+        m.SetCount(this.getNumStack() - 1);
+        let a = new DeleteAction();
+        a.SetLineOption();
+        a.SetMotion(m);
+        a.SetChangeOption();
         this.action = a;
+    }
+
+    // C
+    private changeTextToEndOfLine() {
+        let m = new EndMotion();
+        m.SetCount(1);
+        let a = new DeleteAction();
+        a.SetSmallOption();
+        a.SetMotion(m);
+        a.SetChangeOption();
+        this.action = a;
+    }
+
+    // s
+    private changeCharacters() {
+        let m = new RightMotion();
+        m.SetCount(1);
+        let a = new DeleteAction();
+        a.SetSmallOption();
+        a.SetMotion(m);
+        a.SetChangeOption();
+        this.action = a;
+    }
+
+    // -----
+    // Complex changes
+    // -----
+
+    // -----
+    // Visual mode
+    // -----
+
+    // v
+    private startVisualMode() {
+        this.action = new ApplyVisualModeAction();
     }
 
     // V
@@ -757,22 +827,16 @@ export class CommandFactory implements ICommandFactory {
         this.action = new ApplyVisualLineModeAction();
     }
 
-    // V...c
-    private changeLineSelectionAction() {
-        let a = new DeleteLineSelectionAction();
-        a.SetChangeOption();
-        this.action = a;
-    }
+    // -----
+    // Text objects (only in Visual mode or after an operator)
+    // -----
 
-    // V...d
-    private deleteLineSelectionAction() {
-        this.action = new DeleteLineSelectionAction();
-    }
+    // -----
+    // Repeating commands
+    // -----
 
-    // V...y
-    private yancLineSelectionAction() {
-        let a = new DeleteLineSelectionAction();
-        a.SetOnlyYancOption();
-        this.action = a;
+    // .
+    private repeatLastChange() {
+        this.action = new RepeatAction();
     }
 }
