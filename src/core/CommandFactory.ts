@@ -129,151 +129,151 @@ export class CommandFactory implements ICommandFactory {
         switch (command.cmd) {
             // single action
             case VimCommand.insertTextBeforeCursor:
-                this.insertCurrentPositionAction();
+                this.insertTextBeforeCursor();
                 return;
             case VimCommand.appendTextAfterCursor:
-                this.appendCurrentPositionAction();
+                this.appendTextAfterCursor();
                 return;
             case VimCommand.insertTextBeforeFirstNonBlankInLine:
-                this.insertHomeAction();
+                this.insertTextBeforeFirstNonBlankInLine();
                 return;
             case VimCommand.appendTextAtEndOfLine:
-                this.appendEndAction();
+                this.appendTextAtEndOfLine();
                 return;
             case VimCommand.openNewLineBelowCurrentLineAndAppnedText:
-                this.insertLineBelowAction(command.isReverse);
+                this.openNewLineBelowCurrentLineAndAppendText(command.isReverse);
                 return;
             case VimCommand.deleteCharactersUnderCursor:
-                this.deleteCharacterAction(command.isReverse);
+                this.deleteCharactersUnderCursor(command.isReverse);
                 return;
             case VimCommand.changeCharacters:
-                this.changeCharacterAction();
+                this.changeCharacters();
                 return;
             case VimCommand.changeToEndOfLine:
-                this.changeLineAction();
+                this.changeToEndOfLine();
                 return;
 
             // move action
             case VimCommand.putRegisterAfterCursorPosition:
-                this.pasteBelowAction(command.isReverse);
+                this.putRegisterAfterCursorPosition(command.isReverse);
                 return;
             case VimCommand.gotoRight:
-                this.moveRightAction(command.isReverse);
+                this.gotoRight(command.isReverse);
                 return;
             case VimCommand.gotoDownLine:
-                this.moveLineAction(command.isReverse);
+                this.gotoDownLine(command.isReverse);
                 return;
             case VimCommand.gotoWordFoward:
-                this.moveWordAction(false, false, false, false);
+                this.gotoWordFoward(false, false, false, false);
                 return;
             case VimCommand.gotoBlankSeparated:
-                this.moveWordAction(false, false, true, false);
+                this.gotoWordFoward(false, false, true, false);
                 return;
             case VimCommand.gotoWords:
-                this.moveWordAction(true, true, false, false);
+                this.gotoWordFoward(true, true, false, false);
                 return;
             case VimCommand.gotoBlankSepalated:
-                this.moveWordAction(true, true, true, false);
+                this.gotoWordFoward(true, true, true, false);
                 return;
             case VimCommand.gotoForwardToEndOfWold:
-                this.moveWordAction(false, true, false, true);
+                this.gotoWordFoward(false, true, false, true);
                 return;
             case VimCommand.gotoForwardToEndOfBlankSeparated:
-                this.moveWordAction(false, true, true, true);
+                this.gotoWordFoward(false, true, true, true);
                 return;
             case VimCommand.gotoFirstCharacterInLine:
-                this.moveHomeAction();
+                this.gotoFirstCharacterInLine();
                 return;
             case VimCommand.gotoLastCharacterInLine:
-                this.moveEndAction();
+                this.gotoLastCharacterInLine();
                 return;
             case VimCommand.gotoFirstNonBlankCharacterInLine:
-                this.moveFirstNonBlankCharAction();
+                this.gotoFirstNonBlankCharacterInLine();
                 return;
-            case VimCommand.gotoCharToRight:
-                this.moveFindCharacterAction(command.isReverse);
+            case VimCommand.gotoCharacterToRight:
+                this.gotoCharacterToRight(command.isReverse);
                 return;
             case VimCommand.goTillBeforeCharacterToRight:
-                this.moveTillCharacterAction(command.isReverse);
+                this.goTillBeforeCharacterToRight(command.isReverse);
                 return;
             case VimCommand.gotoLine:
-                this.moveGotoLineAction();
+                this.gotoLine();
                 return;
             case VimCommand.gotoLastLine:
-                this.moveLastLineAction();
+                this.gotoLastLine();
                 return;
             case VimCommand.gotoFirstLineOnFirstNonBlankCharacter:
-                this.moveFirstLineAction();
+                this.gotoFirstLineOnFirstNonBlankCharacter();
                 return;
 
             // motion
-            case VimCommand.motion_right:
-                this.rightMotion(command.isReverse);
+            case VimCommand.rightMotion:
+                this.addRightMotion(command.isReverse);
                 return;
-            case VimCommand.motion_downLine:
-                this.lineMotion(command.isReverse);
+            case VimCommand.downLineMotion:
+                this.addDownLineMotion(command.isReverse);
                 return;
-            case VimCommand.motion_wordForward:
-                this.wordMotion(false, false, false, false);
+            case VimCommand.wordForwardMotion:
+                this.addWordMotion(false, false, false, false);
                 return;
-            case VimCommand.motion_wordForward:
-                this.wordMotion(false, false, true, false);
+            case VimCommand.wordForwardMotion:
+                this.addWordMotion(false, false, true, false);
                 return;
-            case VimCommand.motion_wordsBackward:
-                this.wordMotion(true, true, false, false);
+            case VimCommand.wordsBackwardMotion:
+                this.addWordMotion(true, true, false, false);
                 break;
             case VimCommand.motion_BlankSeparatedBackWard:
-                this.wordMotion(true, true, true, false);
+                this.addWordMotion(true, true, true, false);
                 break;
             case VimCommand.motion_endOfWord:
-                this.wordMotion(false, true, false, true);
+                this.addWordMotion(false, true, false, true);
                 break;
-            case VimCommand.motion_endOfBlankSeparated:
-                this.wordMotion(false, true, true, true);
+            case VimCommand.endOfBlankSeparatedMotion:
+                this.addWordMotion(false, true, true, true);
                 break;
-            case VimCommand.motion_firstCharacterInLine:
-                this.homeMotion();
+            case VimCommand.firstCharacterInLineMotion:
+                this.addFirstCharacterInLineMotion();
                 return;
-            case VimCommand.motion_lastCharacterInLine:
-                this.endMotion();
+            case VimCommand.lastCharacterInLineMotion:
+                this.addLastCharacterInLineMotion();
                 return;
-            case VimCommand.motion_firstNonBlankCharacterInLine:
-                this.firstNonBlankCharMotion();
+            case VimCommand.firstNonBlankCharacterInLineMotion:
+                this.addFirstNonBlankCharacterInLineMotion();
                 return;
-            case VimCommand.motion_charToRight:
-                this.findCharacterMotion(command.isReverse);
+            case VimCommand.characterToRightMotion:
+                this.addCharacterToRightMotion(command.isReverse);
                 return;
-            case VimCommand.motion_tillBeforeCharToRight:
-                this.tillCharacterMotion(command.isReverse);
+            case VimCommand.tillBeforeCharToRightMotion:
+                this.addTillCharacterMotion(command.isReverse);
                 return;
-            case VimCommand.motion_line:
-                this.gotoLineMotion();
+            case VimCommand.lineMotion:
+                this.addLineMotion();
                 return;
-            case VimCommand.motion_lastLine:
-                this.lastLineMotion();
+            case VimCommand.lastLineMotion:
+                this.addLastLineMotion();
                 return;
-            case VimCommand.motion_firstLine:
-                this.firstLineMotion();
+            case VimCommand.firstLineMotion:
+                this.addFirstLineMotion();
                 return;
 
             // delete, yanc, change action
             case VimCommand.changeTextWithMotion:
-                this.changeAction();
+                this.changeTextWithMotion();
                 return;
             case VimCommand.deleteTextWithMotion:
-                this.deleteAction();
+                this.deleteTextWithMotion();
                 return;
             case VimCommand.yankTextWithMotion:
-                this.yancAction();
+                this.yankTextWithMotion();
                 return;
             case VimCommand.changeTextToEndOfLine:
-                this.changeToEndAction();
+                this.changeTextToEndOfLine();
                 return;
             case VimCommand.deleteTextToEndOfLine:
-                this.deleteToEndAction();
+                this.deleteTextToEndOfLine();
                 return;
             case VimCommand.yankLine:
-                this.yancToEndAction();
+                this.yankLine();
                 return;
             case VimCommand.doActionAtCurrentLine:
                 this.doActionAtCurrentLine(key);
@@ -281,16 +281,13 @@ export class CommandFactory implements ICommandFactory {
 
             // visual mode
             case VimCommand.startVisualMode:
-                this.enterVisualModeAction();
+                this.startVisualMode();
                 return;
             case VimCommand.deleteHighlightedText:
-                this.deleteSelectionAction();
+                this.deleteHighligtedText();
                 return;
             case VimCommand.changeHighlightedText:
-                this.changeSelectionAction();
-                return;
-            case VimCommand.deleteHighlightedText:
-                this.deleteSelectionAction();
+                this.changeHighlightedText();
                 return;
             case VimCommand.yankHighlightedText:
                 this.yancSelectionAction();
@@ -315,7 +312,7 @@ export class CommandFactory implements ICommandFactory {
 
             // special
             case VimCommand.repeatLastChange:
-                this.repeatAction();
+                this.repeatLastChange();
                 return;
 
             // other
@@ -336,37 +333,37 @@ export class CommandFactory implements ICommandFactory {
     }
 
     // .
-    private repeatAction() {
+    private repeatLastChange() {
         this.action = new RepeatAction();
     }
 
     // i    
-    private insertCurrentPositionAction() {
+    private insertTextBeforeCursor() {
         this.action = new ApplyInsertModeAction();
     }
 
     // a    
-    private appendCurrentPositionAction() {
+    private appendTextAfterCursor() {
         let m = new RightMotion();
         m.SetCount(1);
         this.action = new ApplyInsertModeAction(m);
     }
 
     // I
-    private insertHomeAction() {
+    private insertTextBeforeFirstNonBlankInLine() {
         let m = new FirstCharacterMotion();
         m.Target = FirstCharacterMotion.Target.Current;
         this.action = new ApplyInsertModeAction(m);
     }
 
     // A    
-    private appendEndAction() {
+    private appendTextAtEndOfLine() {
         let m = new EndMotion();
         this.action = new ApplyInsertModeAction(m);
     }
 
     // o O    
-    private insertLineBelowAction(isAbove: boolean) {
+    private openNewLineBelowCurrentLineAndAppendText(isAbove: boolean) {
         let a = new InsertLineBelowAction();
         if (isAbove) {
             a.SetAboveOption();
@@ -375,7 +372,7 @@ export class CommandFactory implements ICommandFactory {
     }
 
     // x Nx
-    private deleteCharacterAction(isLeft: boolean) {
+    private deleteCharactersUnderCursor(isLeft: boolean) {
         let m = new RightMotion();
         if (isLeft) {
             m.SetLeftDirection();
@@ -388,7 +385,7 @@ export class CommandFactory implements ICommandFactory {
     }
 
     // s
-    private changeCharacterAction() {
+    private changeCharacters() {
         let m = new RightMotion();
         m.SetCount(1);
         let a = new DeleteAction();
@@ -399,7 +396,7 @@ export class CommandFactory implements ICommandFactory {
     }
 
     // S
-    private changeLineAction() {
+    private changeToEndOfLine() {
         let m = new DownMotion();
         m.SetCount(this.getNumStack() - 1);
         let a = new DeleteAction();
@@ -410,7 +407,7 @@ export class CommandFactory implements ICommandFactory {
     }
 
     // p P Np NP
-    private pasteBelowAction(isBack: boolean) {
+    private putRegisterAfterCursorPosition(isBack: boolean) {
         let a = new PasteAction();
         if (isBack) {
             a.SetBackOption();
@@ -420,7 +417,7 @@ export class CommandFactory implements ICommandFactory {
     }
 
     // j k
-    private moveLineAction(isUp: boolean) {
+    private gotoDownLine(isUp: boolean) {
         let m = new DownMotion();
         if (isUp) {
             m.SetUpDirection();
@@ -438,7 +435,7 @@ export class CommandFactory implements ICommandFactory {
     }
 
     // h l
-    private moveRightAction(isLeft: boolean) {
+    private gotoRight(isLeft: boolean) {
         let m = new RightMotion();
         if (isLeft) {
             m.SetLeftDirection();
@@ -448,7 +445,7 @@ export class CommandFactory implements ICommandFactory {
     }
 
     // w b e W B E
-    private moveWordAction(isReverse: boolean, isWordEnd: boolean, isWORD: boolean, isSkipBlankLine) {
+    private gotoWordFoward(isReverse: boolean, isWordEnd: boolean, isWORD: boolean, isSkipBlankLine) {
         let m: WordMotion;
         if (isReverse) {
             m = new WordMotion(Direction.Left);
@@ -463,24 +460,24 @@ export class CommandFactory implements ICommandFactory {
     }
 
     // 0
-    private moveHomeAction() {
+    private gotoFirstCharacterInLine() {
         this.action = this.createMoveAction(new HomeMotion());
     }
 
     // $
-    private moveEndAction() {
+    private gotoLastCharacterInLine() {
         this.action = this.createMoveAction(new EndMotion());
     }
 
     // ^
-    private moveFirstNonBlankCharAction() {
+    private gotoFirstNonBlankCharacterInLine() {
         let m = new FirstCharacterMotion();
         m.Target = FirstCharacterMotion.Target.Current;
         this.action = this.createMoveAction(m);
     }
 
     // fx Fx
-    private moveFindCharacterAction(isReverse) {
+    private gotoCharacterToRight(isReverse) {
         let a = new MoveAction();
         let m: FindCharacterMotion;
         if (isReverse) {
@@ -495,7 +492,7 @@ export class CommandFactory implements ICommandFactory {
     }
 
     // tx Tx
-    private moveTillCharacterAction(isReverse) {
+    private goTillBeforeCharacterToRight(isReverse) {
         let a = new MoveAction();
         let m: FindCharacterMotion;
         if (isReverse) {
@@ -511,7 +508,7 @@ export class CommandFactory implements ICommandFactory {
     }
 
     // Ng
-    private moveGotoLineAction() {
+    private gotoLine() {
         let a = new MoveAction();
         let m = new FirstCharacterMotion();
         m.SetCount(this.getNumStack() - 1);
@@ -520,7 +517,7 @@ export class CommandFactory implements ICommandFactory {
     }
 
     // G
-    private moveLastLineAction() {
+    private gotoLastLine() {
         let a = new MoveAction();
         let m = new FirstCharacterMotion();
         m.Target = FirstCharacterMotion.Target.Last;
@@ -529,7 +526,7 @@ export class CommandFactory implements ICommandFactory {
     }
 
     // gg
-    private moveFirstLineAction() {
+    private gotoFirstLineOnFirstNonBlankCharacter() {
         let a = new MoveAction();
         let m = new FirstCharacterMotion();
         m.Target = FirstCharacterMotion.Target.First;
@@ -538,7 +535,7 @@ export class CommandFactory implements ICommandFactory {
     }
 
     // ch cl
-    private rightMotion(isLeft: boolean) {
+    private addRightMotion(isLeft: boolean) {
         let m = new RightMotion();
         if (isLeft) {
             m.SetLeftDirection();
@@ -549,7 +546,7 @@ export class CommandFactory implements ICommandFactory {
     }
 
     // cj ck
-    private lineMotion(isUp: boolean) {
+    private addDownLineMotion(isUp: boolean) {
         let m = new DownMotion();
         if (isUp) {
             m.SetUpDirection();
@@ -561,7 +558,7 @@ export class CommandFactory implements ICommandFactory {
     }
 
     // cw cb ce cW cB cE
-    private wordMotion(isReverse: boolean, isWordEnd: boolean, isWORD: boolean, isSkipBlankLine: boolean) {
+    private addWordMotion(isReverse: boolean, isWordEnd: boolean, isWORD: boolean, isSkipBlankLine: boolean) {
         let m: WordMotion;
         if (isReverse) {
             m = new WordMotion(Direction.Left);
@@ -578,19 +575,19 @@ export class CommandFactory implements ICommandFactory {
     }
 
     // c0
-    private homeMotion() {
+    private addFirstCharacterInLineMotion() {
         let a = <IRequireMotionAction>this.action;
         a.SetMotion(new HomeMotion());
     }
 
     // c$
-    private endMotion() {
+    private addLastCharacterInLineMotion() {
         let a = <IRequireMotionAction>this.action;
         a.SetMotion(new EndMotion());
     }
 
     // c^
-    private firstNonBlankCharMotion() {
+    private addFirstNonBlankCharacterInLineMotion() {
         let a = <IRequireMotionAction>this.action;
         let m = new FirstCharacterMotion();
         m.Target = FirstCharacterMotion.Target.Current;
@@ -598,7 +595,7 @@ export class CommandFactory implements ICommandFactory {
     }
 
     // fx Fx
-    private findCharacterMotion(isReverse) {
+    private addCharacterToRightMotion(isReverse) {
         let m: FindCharacterMotion;
         if (isReverse) {
             m = new FindCharacterMotion(Direction.Left);
@@ -613,7 +610,7 @@ export class CommandFactory implements ICommandFactory {
     }
 
     // tx Tx
-    private tillCharacterMotion(isReverse) {
+    private addTillCharacterMotion(isReverse) {
         let m: FindCharacterMotion;
         if (isReverse) {
             m = new FindCharacterMotion(Direction.Left);
@@ -629,7 +626,7 @@ export class CommandFactory implements ICommandFactory {
     }
 
     // cNg
-    private gotoLineMotion() {
+    private addLineMotion() {
         let m = new FirstCharacterMotion();
         m.SetCount(this.getNumStack() - 1);
         let a = <IRequireMotionAction>this.action;
@@ -638,7 +635,7 @@ export class CommandFactory implements ICommandFactory {
     }
 
     // cG
-    private lastLineMotion() {
+    private addLastLineMotion() {
         let m = new FirstCharacterMotion();
         m.Target = FirstCharacterMotion.Target.Last;
         let a = <IRequireMotionAction>this.action;
@@ -647,7 +644,7 @@ export class CommandFactory implements ICommandFactory {
     }
 
     // cgg
-    private firstLineMotion() {
+    private addFirstLineMotion() {
         let m = new FirstCharacterMotion();
         m.Target = FirstCharacterMotion.Target.First;
         let a = <IRequireMotionAction>this.action;
@@ -656,26 +653,26 @@ export class CommandFactory implements ICommandFactory {
     }
 
     // cm 
-    private changeAction() {
+    private changeTextWithMotion() {
         let a = new DeleteAction();
         a.SetChangeOption();
         this.action = a;
     }
 
     // dm
-    private deleteAction() {
+    private deleteTextWithMotion() {
         this.action = new DeleteAction();
     }
 
     // ym
-    private yancAction() {
+    private yankTextWithMotion() {
         let a = new DeleteAction();
         a.SetOnlyYancOption();
         this.action = a;
     }
 
     // C
-    private changeToEndAction() {
+    private changeTextToEndOfLine() {
         let m = new EndMotion();
         m.SetCount(1);
         let a = new DeleteAction();
@@ -686,7 +683,7 @@ export class CommandFactory implements ICommandFactory {
     }
 
     // D
-    private deleteToEndAction() {
+    private deleteTextToEndOfLine() {
         let m = new EndMotion();
         m.SetCount(1);
         let a = new DeleteAction();
@@ -696,7 +693,7 @@ export class CommandFactory implements ICommandFactory {
     }
 
     // Y
-    private yancToEndAction() {
+    private yankLine() {
         let m = new EndMotion();
         m.SetCount(1);
         let a = new DeleteAction();
@@ -732,19 +729,19 @@ export class CommandFactory implements ICommandFactory {
     }
 
     // v
-    private enterVisualModeAction() {
+    private startVisualMode() {
         this.action = new ApplyVisualModeAction();
     }
 
     // v...c
-    private changeSelectionAction() {
+    private changeHighlightedText() {
         let a = new DeleteSelectionAction();
         a.SetChangeOption();
         this.action = a;
     }
 
     // v...d
-    private deleteSelectionAction() {
+    private deleteHighligtedText() {
         this.action = new DeleteSelectionAction();
     }
 
