@@ -83,8 +83,7 @@ const DefaultKeyBindings: IKeyBindings = {
             state: StateName.RequireCharForMotion
         },
         "F": {
-            cmd: VimCommand.gotoCharacterToRight,
-            isReverse: true,
+            cmd: VimCommand.gotoCharacterToLeft,
             state: StateName.RequireCharForMotion
         },
         "g": {
@@ -145,8 +144,7 @@ const DefaultKeyBindings: IKeyBindings = {
             state: StateName.RequireCharForMotion
         },
         "T": {
-            cmd: VimCommand.goTillBeforeCharacterToRight,
-            isReverse: true,
+            cmd: VimCommand.goTillBeforeCharacterToLeft,
             state: StateName.RequireCharForMotion
         },
         // u low priority
@@ -258,8 +256,7 @@ const DefaultKeyBindings: IKeyBindings = {
             state: StateName.RequireCharForMotion
         },
         "F": {
-            cmd: VimCommand.gotoCharacterToRight,
-            isReverse: true,
+            cmd: VimCommand.gotoCharacterToLeft,
             state: StateName.RequireCharForMotion
         },
         // Ng
@@ -300,8 +297,7 @@ const DefaultKeyBindings: IKeyBindings = {
             state: StateName.RequireCharForMotion
         },
         "T": {
-            cmd: VimCommand.goTillBeforeCharacterToRight,
-            isReverse: true,
+            cmd: VimCommand.goTillBeforeCharacterToLeft,
             state: StateName.RequireCharForMotion
         },
         // u low priority
@@ -401,8 +397,7 @@ const DefaultKeyBindings: IKeyBindings = {
             state: StateName.RequireCharForMotion
         },
         "F": {
-            cmd: VimCommand.characterToRightMotion,
-            isReverse: true,
+            cmd: VimCommand.characterToLeftMotion,
             state: StateName.RequireCharForMotion
         },
         "g": {
@@ -446,8 +441,7 @@ const DefaultKeyBindings: IKeyBindings = {
             state: StateName.RequireCharForMotion
         },
         "T": {
-            cmd: VimCommand.tillBeforeCharToRightMotion,
-            isReverse: true,
+            cmd: VimCommand.tillBeforeCharToLeftMotion,
             state: StateName.RequireCharForMotion
         },
         // u low priority
@@ -541,8 +535,7 @@ const DefaultKeyBindings: IKeyBindings = {
             state: StateName.RequireCharForMotion
         },
         "F": {
-            cmd: VimCommand.characterToRightMotion,
-            isReverse: true,
+            cmd: VimCommand.characterToLeftMotion,
             state: StateName.RequireCharForMotion
         },
         // g
@@ -583,8 +576,7 @@ const DefaultKeyBindings: IKeyBindings = {
             state: StateName.RequireCharForMotion
         },
         "T": {
-            cmd: VimCommand.tillBeforeCharToRightMotion,
-            isReverse: true,
+            cmd: VimCommand.tillBeforeCharToLeftMotion,
             state: StateName.RequireCharForMotion
         },
         // u low priority
@@ -684,8 +676,7 @@ const DefaultKeyBindings: IKeyBindings = {
             state: StateName.RequireCharForMotion
         },
         "F": {
-            cmd: VimCommand.characterToRightMotion,
-            isReverse: true,
+            cmd: VimCommand.characterToLeftMotion,
             state: StateName.RequireCharForMotion
         },
         "g": {
@@ -730,8 +721,7 @@ const DefaultKeyBindings: IKeyBindings = {
             state: StateName.RequireCharForMotion
         },
         "T": {
-            cmd: VimCommand.tillBeforeCharToRightMotion,
-            isReverse: true,
+            cmd: VimCommand.tillBeforeCharToLeftMotion,
             state: StateName.RequireCharForMotion
         },
         // u low priority

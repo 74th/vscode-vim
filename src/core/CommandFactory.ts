@@ -171,21 +171,37 @@ export class CommandFactory implements ICommandFactory {
             case VimCommand.lastCharacterInLineMotion:
                 this.addLastCharacterInLineMotion();
                 return;
-            // Nf{char} NF{char}
+            // Nf{char}
             case VimCommand.gotoCharacterToRight:
-                this.gotoCharacterToRight(command.isReverse);
+                this.gotoCharacterToRight();
                 return;
-            // cNf{char} cNF{char}
+            // NF{char}
+            case VimCommand.gotoCharacterToLeft:
+                this.gotoCharacterToLeft();
+                return;
+            // cNf{char}
             case VimCommand.characterToRightMotion:
-                this.addCharacterToRightMotion(command.isReverse);
+                this.addCharacterToRightMotion();
                 return;
-            // Nt{char} NT{char}
+            // cNF{char}
+            case VimCommand.characterToLeftMotion:
+                this.addCharacterToLeftMotion();
+                return;
+            // Nt{char}
             case VimCommand.goTillBeforeCharacterToRight:
-                this.goTillBeforeCharacterToRight(command.isReverse);
+                this.goTillBeforeCharacterToRight();
                 return;
-            //  cNt{char} cNT{char}
+            // NT{char}
+            case VimCommand.goTillBeforeCharacterToLeft:
+                this.goTillBeforeCharacterToLeft();
+                return;
+            //  cNt{char}
             case VimCommand.tillBeforeCharToRightMotion:
-                this.addTillCharacterMotion(command.isReverse);
+                this.addTillCharacterToRightMotion();
+                return;
+            //  cNT{char}
+            case VimCommand.tillBeforeCharToLeftMotion:
+                this.addTillCharacterToLeftMotion();
                 return;
 
             // ** Up-down motions **
@@ -482,30 +498,33 @@ export class CommandFactory implements ICommandFactory {
         this.action = this.createGotoAction(new LastCharacterInLineMotion());
     }
 
-    // fx Fx
-    private gotoCharacterToRight(isReverse) {
+    // fx
+    private gotoCharacterToRight() {
         let a = new GoAction();
         let m: CharacterMotion;
-        if (isReverse) {
-            m = new CharacterMotion(Direction.Left);
-        } else {
-            m = new CharacterMotion(Direction.Right);
-        }
+        m = new CharacterMotion(Direction.Right);
         m.SetCount(this.getNumStack());
         a.Motion = m;
         this.action = a;
         this.motion = m;
     }
 
-    // tx Tx
-    private goTillBeforeCharacterToRight(isReverse) {
+    // Fx
+    private gotoCharacterToLeft() {
         let a = new GoAction();
         let m: CharacterMotion;
-        if (isReverse) {
-            m = new CharacterMotion(Direction.Left);
-        } else {
-            m = new CharacterMotion(Direction.Right);
-        }
+        m = new CharacterMotion(Direction.Left);
+        m.SetCount(this.getNumStack());
+        a.Motion = m;
+        this.action = a;
+        this.motion = m;
+    }
+
+    // tx
+    private goTillBeforeCharacterToRight() {
+        let a = new GoAction();
+        let m: CharacterMotion;
+        m = new CharacterMotion(Direction.Right);
         m.SetCount(this.getNumStack());
         m.IsTill = true;
         a.Motion = m;
@@ -513,30 +532,56 @@ export class CommandFactory implements ICommandFactory {
         this.motion = m;
     }
 
-    // cfx cFx
-    private addCharacterToRightMotion(isReverse) {
+    // Tx
+    private goTillBeforeCharacterToLeft() {
+        let a = new GoAction();
         let m: CharacterMotion;
-        if (isReverse) {
-            m = new CharacterMotion(Direction.Left);
-        } else {
-            m = new CharacterMotion(Direction.Right);
-            m.IsContainTargetChar = true;
-        }
+        m = new CharacterMotion(Direction.Left);
+        m.SetCount(this.getNumStack());
+        m.IsTill = true;
+        a.Motion = m;
+        this.action = a;
+        this.motion = m;
+    }
+
+    // cfx
+    private addCharacterToRightMotion() {
+        let m: CharacterMotion;
+        m = new CharacterMotion(Direction.Right);
+        m.IsContainTargetChar = true;
         m.SetCount(this.getNumStack());
         let a = <IRequireMotionAction>this.action;
         a.Motion = m;
         this.motion = m;
     }
 
-    // ctx cTx
-    private addTillCharacterMotion(isReverse) {
+
+    // cFx
+    private addCharacterToLeftMotion() {
         let m: CharacterMotion;
-        if (isReverse) {
-            m = new CharacterMotion(Direction.Left);
-        } else {
-            m = new CharacterMotion(Direction.Right);
-            m.IsContainTargetChar = true;
-        }
+        m = new CharacterMotion(Direction.Left);
+        m.SetCount(this.getNumStack());
+        let a = <IRequireMotionAction>this.action;
+        a.Motion = m;
+        this.motion = m;
+    }
+
+    // ctx
+    private addTillCharacterToRightMotion() {
+        let m: CharacterMotion;
+        m = new CharacterMotion(Direction.Right);
+        m.IsContainTargetChar = true;
+        m.SetCount(this.getNumStack());
+        m.IsTill = true;
+        let a = <IRequireMotionAction>this.action;
+        a.Motion = m;
+        this.motion = m;
+    }
+
+    // cTx
+    private addTillCharacterToLeftMotion() {
+        let m: CharacterMotion;
+        m = new CharacterMotion(Direction.Left);
         m.SetCount(this.getNumStack());
         m.IsTill = true;
         let a = <IRequireMotionAction>this.action;
