@@ -219,10 +219,10 @@ export class CommandFactory implements ICommandFactory {
             case VimCommand.motion_wordForward:
                 this.wordMotion(false, false, true, false);
                 return;
-            case VimCommand.backWordMotion:
+            case VimCommand.motion_wordsBackward:
                 this.wordMotion(true, true, false, false);
                 break;
-            case VimCommand.backWORDMotion:
+            case VimCommand.motion_BlankSeparatedBackWard:
                 this.wordMotion(true, true, true, false);
                 break;
             case VimCommand.motion_endOfWord:
@@ -246,7 +246,7 @@ export class CommandFactory implements ICommandFactory {
             case VimCommand.motion_tillBeforeCharToRight:
                 this.tillCharacterMotion(command.isReverse);
                 return;
-            case VimCommand.gotoLineMotion:
+            case VimCommand.motion_line:
                 this.gotoLineMotion();
                 return;
             case VimCommand.motion_lastLine:
@@ -263,7 +263,7 @@ export class CommandFactory implements ICommandFactory {
             case VimCommand.deleteTextWithMotion:
                 this.deleteAction();
                 return;
-            case VimCommand.yankTextMovedOverWithMotion:
+            case VimCommand.yankTextWithMotion:
                 this.yancAction();
                 return;
             case VimCommand.changeTextToEndOfLine:
@@ -300,16 +300,16 @@ export class CommandFactory implements ICommandFactory {
             case VimCommand.startVisualLineMode:
                 this.enterVisualLineModeAction();
                 return;
-            case VimCommand.deleteLineSelectionAction:
+            case VimCommand.deleteHighlitedLine:
                 this.deleteLineSelectionAction();
                 return;
-            case VimCommand.changeLineSelectionAction:
+            case VimCommand.changeHighligtedLine:
                 this.changeLineSelectionAction();
                 return;
-            case VimCommand.deleteLineSelectionAction:
+            case VimCommand.deleteHighlitedLine:
                 this.deleteLineSelectionAction();
                 return;
-            case VimCommand.yancLineSelectionAction:
+            case VimCommand.yankHighlightedLine:
                 this.yancLineSelectionAction();
                 return;
 

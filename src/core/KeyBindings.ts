@@ -173,7 +173,7 @@ const DefaultKeyBindings: IKeyBindings = {
             isReverse: true
         },
         "y": {
-            cmd: VimCommand.yankTextMovedOverWithMotion,
+            cmd: VimCommand.yankTextWithMotion,
             state: StateName.RequireMotion
         },
         "Y": {
@@ -322,7 +322,7 @@ const DefaultKeyBindings: IKeyBindings = {
         },
         // NX
         "y": {
-            cmd: VimCommand.yankTextMovedOverWithMotion,
+            cmd: VimCommand.yankTextWithMotion,
             state: StateName.RequireMotion
         },
         "Y": {
@@ -551,7 +551,7 @@ const DefaultKeyBindings: IKeyBindings = {
         },
         // g
         "G": {
-            cmd: VimCommand.gotoLineMotion
+            cmd: VimCommand.motion_line
         },
         "h": {
             cmd: VimCommand.motion_right,
@@ -806,11 +806,11 @@ const DefaultKeyBindings: IKeyBindings = {
         },
         // V..B
         "c": {
-            cmd: VimCommand.changeLineSelectionAction
+            cmd: VimCommand.changeHighligtedLine
         },
         // V..C no command
         "d": {
-            cmd: VimCommand.deleteLineSelectionAction
+            cmd: VimCommand.deleteHighlitedLine
         },
         // V..D no command
         // V..e
@@ -860,7 +860,7 @@ const DefaultKeyBindings: IKeyBindings = {
         // x no function
         // X no function
         "y": {
-            cmd: VimCommand.yancLineSelectionAction
+            cmd: VimCommand.yankHighlightedLine
         },
         "0": {
             cmd: VimCommand.motion_firstCharacterInLine

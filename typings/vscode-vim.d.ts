@@ -337,8 +337,8 @@ declare const enum VimCommand {
     motion_downLine,
     motion_wordForward,
     motion_blankSeparated,
-    backWordMotion,
-    backWORDMotion,
+    motion_wordsBackward,
+    motion_BlankSeparatedBackWard,
     motion_endOfWord,
     motion_endOfBlankSeparated,
     motion_firstCharacterInLine,
@@ -346,14 +346,14 @@ declare const enum VimCommand {
     motion_firstNonBlankCharacterInLine,
     motion_charToRight,
     motion_tillBeforeCharToRight,
-    gotoLineMotion,
+    motion_line,
     motion_lastLine,
     motion_firstLine,
 
     // delete, yanc, change action
     changeTextWithMotion,
     deleteTextWithMotion,
-    yankTextMovedOverWithMotion,
+    yankTextWithMotion,
     changeTextToEndOfLine,
     deleteTextToEndOfLine,
     yankLine,
@@ -361,17 +361,15 @@ declare const enum VimCommand {
 
     // visual mode
     startVisualMode,
-    expandSelectionAction,
     changeHighlightedText,
     deleteHighlightedText,
     yankHighlightedText,
 
     // line visual mode
     startVisualLineMode,
-    expandLineSelectionAction,
-    changeLineSelectionAction,
-    deleteLineSelectionAction,
-    yancLineSelectionAction,
+    changeHighligtedLine,
+    deleteHighlitedLine,
+    yankHighlightedLine,
 
     // special
     repeatLastChange,
