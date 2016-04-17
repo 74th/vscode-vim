@@ -108,8 +108,7 @@ const DefaultKeyBindings: IKeyBindings = {
         },
         // J
         "k": {
-            cmd: VimCommand.goDown,
-            isReverse: true
+            cmd: VimCommand.goUp
         },
         // K no function
         "l": {
@@ -274,8 +273,7 @@ const DefaultKeyBindings: IKeyBindings = {
         },
         // NJ
         "k": {
-            cmd: VimCommand.goDown,
-            isReverse: true
+            cmd: VimCommand.goUp
         },
         // K no function
         "l": {
@@ -418,8 +416,7 @@ const DefaultKeyBindings: IKeyBindings = {
         },
         // J
         "k": {
-            cmd: VimCommand.downMotion,
-            isReverse: true
+            cmd: VimCommand.upMotion
         },
         // K no function
         "l": {
@@ -553,8 +550,7 @@ const DefaultKeyBindings: IKeyBindings = {
         },
         // J
         "k": {
-            cmd: VimCommand.downMotion,
-            isReverse: true
+            cmd: VimCommand.upMotion
         },
         // K no function
         "l": {
@@ -698,8 +694,7 @@ const DefaultKeyBindings: IKeyBindings = {
         },
         // J?
         "k": {
-            cmd: VimCommand.downMotion,
-            isReverse: true
+            cmd: VimCommand.upMotion
         },
         // K no function
         "l": {
@@ -818,8 +813,7 @@ const DefaultKeyBindings: IKeyBindings = {
         },
         // V..J?
         "k": {
-            cmd: VimCommand.downMotion,
-            isReverse: true
+            cmd: VimCommand.upMotion
         },
         // V..K no function
         // V..l

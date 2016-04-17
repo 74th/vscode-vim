@@ -205,13 +205,21 @@ export class CommandFactory implements ICommandFactory {
                 return;
 
             // ** Up-down motions **
-            // Nk Nj
-            case VimCommand.goDown:
-                this.gotoDown(command.isReverse);
+            // Nk
+            case VimCommand.goUp:
+                this.goUp();
                 return;
-            // cNk cNj
+            // Nj
+            case VimCommand.goDown:
+                this.goDown();
+                return;
+            // cNk
             case VimCommand.downMotion:
-                this.addDownMotion(command.isReverse);
+                this.addUpMotion();
+                return;
+            // cNj
+            case VimCommand.downMotion:
+                this.addDownMotion();
                 return;
             // G
             case VimCommand.gotoLastLine:
@@ -593,24 +601,38 @@ export class CommandFactory implements ICommandFactory {
     // Up-down motions
     // -----
 
-    // j k
-    private gotoDown(isUp: boolean) {
+    // j
+    private goDown() {
         let m = new DownMotion();
-        if (isUp) {
-            m.IsUpDirection = true;
-        }
         m.SetCount(this.getNumStack());
         let a = new GoDownAction();
         a.Motion = m;
         this.action = a;
     }
 
-    // cj ck
-    private addDownMotion(isUp: boolean) {
+    // k
+    private goUp() {
         let m = new DownMotion();
-        if (isUp) {
-            m.IsUpDirection = true;
-        }
+        m.IsUpDirection = true;
+        m.SetCount(this.getNumStack());
+        let a = new GoDownAction();
+        a.Motion = m;
+        this.action = a;
+    }
+
+    // cj
+    private addDownMotion() {
+        let m = new DownMotion();
+        m.SetCount(this.getNumStack());
+        let a = <IRequireMotionAction>this.action;
+        a.Motion = m;
+        a.IsLine = true;
+    }
+
+    // ck
+    private addUpMotion() {
+        let m = new DownMotion();
+        m.IsUpDirection = true;
         m.SetCount(this.getNumStack());
         let a = <IRequireMotionAction>this.action;
         a.Motion = m;
