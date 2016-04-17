@@ -77,8 +77,8 @@ This is imported from [quickref.txt](https://github.com/vim/vim/blob/master/runt
 |||`N?{pattern}[?[offset]]&lt;CR&gt;`|search backward for the Nth occurrence of {pattern}|
 |||`N/&lt;CR&gt;`|repeat last search, in the forward direction|
 |||`N?&lt;CR&gt;`|repeat last search, in the backward direction|
-|||`Nn`|repeat last search|
-|||`NN`|repeat last search, in opposite direction|
+|VSCode next match find||`Nn`|repeat last search|
+|VSCode prefious match find||`NN`|repeat last search, in opposite direction|
 |||`N*`|search forward for the identifier under the cursor|
 |||`N#`|search backward for the identifier under the cursor|
 |||`Ng*`|like "*", but also find partial matches|
@@ -155,7 +155,7 @@ This is imported from [quickref.txt](https://github.com/vim/vim/blob/master/runt
 |||`N&lt;Del&gt;`|delete N characters under and after the cursor|
 |DeleteYankChangeAction||`NX`|delete N characters before the cursor|
 |DeleteYankChangeAction||`Nd{motion}`|delete the text that is moved over with {motion}|
-|DeleteYankChangeHighlightedTextAction,DeleteYankChangeHighlightedLineAction||`{visual}d`|delete the highlighted text|
+|DeleteYankChangeHighlightedTextAction,<br />DeleteYankChangeHighlightedLineAction||`{visual}d`|delete the highlighted text|
 |DeleteYankChangeAction||`Ndd`|delete N lines|
 |DeleteYankChangeAction||`ND`|delete to the end of the line (and N-1 more lines)|
 |||`NJ`|join N-1 lines (delete &lt;EOL&gt;s)|
@@ -208,9 +208,9 @@ This is imported from [quickref.txt](https://github.com/vim/vim/blob/master/runt
 |||`NCTRL-A`|add N to the number at or after the cursor|
 |||`NCTRL-X`|subtract N from the number at or after the cursor|
 |||`N&lt;{motion}`|move the lines that are moved over with {motion} one shiftwidth left|
-|||`N&lt;&lt;`|move N lines one shiftwidth left|
+|vscode indent||`N&lt;&lt;`|move N lines one shiftwidth left|
 |||`N&gt;{motion}`|move the lines that are moved over with {motion} one shiftwidth right|
-|||`N&gt;&gt;`|move N lines one shiftwidth right|
+|vscode outdent||`N&gt;&gt;`|move N lines one shiftwidth right|
 |||`Ngq{motion}`|format the lines that are moved over with {motion} to 'textwidth' length|
 
 ## Complex changes

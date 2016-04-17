@@ -1,26 +1,102 @@
 export const VSCodeEditorKeyBindngs: IKeyBindings = {
-	AtStart: {
-		"u": {
-			cmd: VimCommand.editorCommand,
-			argument: "undo"
-		},
-		":": {
-			cmd: VimCommand.editorCommand,
-			argument: "workbench.action.showCommands"
-		}
-	},
-	FirstNum: {
-	},
-	RequireMotion: {
-	},
-	RequireMotionNum: {
-	},
-	SmallG: {
-	},
-	SmallGForMotion: {
-	},
-	VisualMode: {
-	},
-	VisualLineMode: {
-	}
+    AtStart: {
+        "u": {
+            cmd: VimCommand.editorCommand,
+            argument: "undo"
+        },
+        ":": {
+            cmd: VimCommand.editorCommand,
+            argument: "workbench.action.showCommands"
+        },
+        "/": {
+            cmd: VimCommand.editorCommand,
+            argument: "actions.find"
+        },
+        "n": {
+            cmd: VimCommand.editorCommand,
+            argument: "editor.action.nextMatchFindAction"
+        },
+        "N": {
+            cmd: VimCommand.editorCommand,
+           argument:"editor.action.previousMatchFindAction"
+        },
+        ">": {
+            cmd: VimCommand.editorCommand,
+            argument:"editor.action.indentLines"
+        },
+        "<": {
+            cmd: VimCommand.editorCommand,
+            argument:"editor.action.outdentLines"
+        }
+    },
+    FirstNum: {
+    },
+    RequireMotion: {
+    },
+    RequireMotionNum: {
+    },
+    SmallG: {
+    },
+    SmallGForMotion: {
+    },
+    VisualMode: {
+        "u": {
+            cmd: VimCommand.editorCommand,
+            argument: "undo"
+        },
+        ":": {
+            cmd: VimCommand.editorCommand,
+            argument: "workbench.action.showCommands"
+        },
+        "/": {
+            cmd: VimCommand.editorCommand,
+            argument: "actions.find"
+        },
+        "n": {
+            cmd: VimCommand.editorCommand,
+            argument: "editor.action.nextMatchFindAction"
+        },
+        "N": {
+            cmd: VimCommand.editorCommand,
+           argument:"editor.action.previousMatchFindAction"
+        },
+        ">": {
+            cmd: VimCommand.editorCommand,
+            argument:"editor.action.indentLines"
+        },
+        "<": {
+            cmd: VimCommand.editorCommand,
+            argument:"editor.action.outdentLines"
+        }
+    },
+    VisualLineMode: {
+        "u": {
+            cmd: VimCommand.editorCommand,
+            argument: "undo"
+        },
+        ":": {
+            cmd: VimCommand.editorCommand,
+            argument: "workbench.action.showCommands"
+        },
+        "/": {
+            cmd: VimCommand.editorCommand,
+            argument: "actions.find"
+        },
+        "n": {
+            cmd: VimCommand.editorCommand,
+            argument: "editor.action.nextMatchFindAction"
+        },
+        "N": {
+            cmd: VimCommand.editorCommand,
+           argument:"editor.action.previousMatchFindAction"
+        },
+        ">": {
+            cmd: VimCommand.editorCommand,
+            argument:"editor.action.indentLines"
+        },
+        "<": {
+            cmd: VimCommand.editorCommand,
+            argument:"editor.action.outdentLines"
+        }
+    }
 };

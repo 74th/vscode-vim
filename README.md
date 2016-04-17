@@ -32,7 +32,7 @@ vim emulator for VSCode
 ext install vimStyle
 ```
 
-## support
+## support vim commands
 
 * h j k l 0 $ ^ w W b B e E tx fx Tx Fx gg G
 * Nh Nj Nk Nl Nw NW Nb NB Ne NE Ntx Nfx NTx NFx NG
@@ -43,7 +43,13 @@ ext install vimStyle
 * v V
 * .
 
-[function list](https://github.com/74th/vscode-vim/blob/master/quickref.md)
+[quickref function list is here.](https://github.com/74th/vscode-vim/blob/master/quickref.md)
+
+## support to call VSCode commands from vim keybind
+
+* u : / n N &gt; &lt;
+
+But they do not behave exactly as vim command, and their supports may be changed.
 
 ## settings
 
@@ -101,6 +107,10 @@ npm run-script build
 ```
 
 ## update
+
+### 0.3.4
+
+* support VSCode commands from vim keybindings : / n N &gt; &lt;
 
 ### 0.3.3
 
