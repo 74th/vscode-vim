@@ -1,13 +1,13 @@
 import {AbstractInsertTextAction} from "./AbstractInsertTextAction";
 export class InsertTextAction extends AbstractInsertTextAction {
-    private motion: IMotion;
+    public Motion: IMotion;
 
     constructor(m?: IMotion) {
         super();
         if (m === undefined) {
-            this.motion = null;
+            this.Motion = null;
         } else {
-            this.motion = m;
+            this.Motion = m;
         }
     }
 
@@ -17,8 +17,8 @@ export class InsertTextAction extends AbstractInsertTextAction {
 
     public Execute(editor: IEditor, vim: IVimStyle) {
         let p = editor.GetCurrentPosition();
-        if (this.motion != null) {
-            p = this.motion.CalculateEnd(editor, p);
+        if (this.Motion != null) {
+            p = this.Motion.CalculateEnd(editor, p);
         }
         if (this.insertText !== null) {
             editor.Insert(p, this.insertText);

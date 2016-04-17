@@ -2,18 +2,14 @@ import * as Utils from "../Utils";
 
 export class GoDownAction implements IAction {
 
-    private motion: IMotion;
+    public Motion: IMotion;
 
     constructor() {
-        this.motion = null;
+        this.Motion = null;
     }
 
     public GetActionType(): ActionType {
         return ActionType.LineMove;
-    }
-
-    public SetMotion(motion: IMotion) {
-        this.motion = motion;
     }
 
     public Execute(editor: IEditor, vim: IVimStyle) {
@@ -21,7 +17,7 @@ export class GoDownAction implements IAction {
         let tabSize = editor.GetTabSize();
 
         let from = editor.GetCurrentPosition();
-        let to = this.motion.CalculateEnd(editor, from);
+        let to = this.Motion.CalculateEnd(editor, from);
         if (to == null) {
             // cancel
             return;

@@ -1,27 +1,20 @@
 import {Range} from "../VimStyle";
 export class ExpandHighlightedLineSelectionAction implements IAction {
 
-    private motion: IMotion;
+    public Motion: IMotion;
 
     constructor() {
-        this.motion = null;
+        this.Motion = null;
     }
 
     public GetActionType(): ActionType {
         return ActionType.Other;
     }
 
-    public SetMotion(motion: IMotion) {
-        this.motion = motion;
-    }
-
-    public SetLineOption() {
-    }
-
     public Execute(editor: IEditor, vim: IVimStyle) {
         let before = editor.GetCurrentVisualLineModeSelection();
         let cp = before.focusPosition;
-        let np = this.motion.CalculateEnd(editor, cp);
+        let np = this.Motion.CalculateEnd(editor, cp);
         editor.ShowVisualLineMode(before.startLine, np.Line, np);
     }
 }

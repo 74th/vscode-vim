@@ -469,7 +469,7 @@ export class CommandFactory implements ICommandFactory {
             m = new CharacterMotion(Direction.Right);
         }
         m.SetCount(this.getNumStack());
-        a.SetMotion(m);
+        a.Motion = m;
         this.action = a;
         this.motion = m;
     }
@@ -485,7 +485,7 @@ export class CommandFactory implements ICommandFactory {
         }
         m.SetCount(this.getNumStack());
         m.IsTill = true;
-        a.SetMotion(m);
+        a.Motion = m;
         this.action = a;
         this.motion = m;
     }
@@ -533,7 +533,7 @@ export class CommandFactory implements ICommandFactory {
         }
         m.SetCount(this.getNumStack());
         let a = new GoDownAction();
-        a.SetMotion(m);
+        a.Motion = m;
         this.action = a;
     }
 
@@ -554,7 +554,7 @@ export class CommandFactory implements ICommandFactory {
         let a = new GoAction();
         let m = new FirstCharacterMotion();
         m.Target = FirstCharacterMotion.Target.Last;
-        a.SetMotion(m);
+        a.Motion = m;
         this.action = a;
     }
 
@@ -572,7 +572,7 @@ export class CommandFactory implements ICommandFactory {
         let a = new GoAction();
         let m = new FirstCharacterMotion();
         m.SetCount(this.getNumStack() - 1);
-        a.SetMotion(m);
+        a.Motion = m;
         this.action = a;
     }
 
@@ -590,7 +590,7 @@ export class CommandFactory implements ICommandFactory {
         let a = new GoAction();
         let m = new FirstCharacterMotion();
         m.Target = FirstCharacterMotion.Target.First;
-        a.SetMotion(m);
+        a.Motion = m;
         this.action = a;
     }
 
@@ -910,7 +910,7 @@ export class CommandFactory implements ICommandFactory {
 
     private createGotoAction(motion: IMotion) {
         let a = new GoAction();
-        a.SetMotion(motion);
+        a.Motion = motion;
         return a;
     }
 

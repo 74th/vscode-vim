@@ -1,21 +1,14 @@
 import {Range} from "../VimStyle";
 export class ExpandHighlightedTextAction implements IAction {
 
-    private motion: IMotion;
+    public Motion: IMotion;
 
     constructor() {
-        this.motion = null;
+        this.Motion = null;
     }
 
     public GetActionType(): ActionType {
         return ActionType.Other;
-    }
-
-    public SetMotion(motion: IMotion) {
-        this.motion = motion;
-    }
-
-    public SetLineOption() {
     }
 
     public Execute(editor: IEditor, vim: IVimStyle) {
@@ -23,7 +16,7 @@ export class ExpandHighlightedTextAction implements IAction {
         before.Sort();
         let p = editor.GetCurrentPosition();
 
-        let np = this.motion.CalculateEnd(editor, p);
+        let np = this.Motion.CalculateEnd(editor, p);
         let after = new Range();
 
         if (before.start.Line === before.end.Line &&
@@ -32,14 +25,14 @@ export class ExpandHighlightedTextAction implements IAction {
             // selected 1 char
             before.Sort();
             if (np.IsBefore(before.start)) {
-                np = this.motion.CalculateEnd(editor, before.start);
+                np = this.Motion.CalculateEnd(editor, before.start);
                 after.start = before.end;
                 after.end = np;
             } else if (np.IsEqual(before.start)) {
                 after.start = before.end;
                 after.end = np;
             }else {
-                np = this.motion.CalculateEnd(editor, before.end);
+                np = this.Motion.CalculateEnd(editor, before.end);
                 after.start = before.start;
                 after.end = np;
             }
@@ -65,7 +58,7 @@ export class ExpandHighlightedTextAction implements IAction {
                 }
             }
 
-            np = this.motion.CalculateEnd(editor, cursor);
+            np = this.Motion.CalculateEnd(editor, cursor);
 
             if (np.IsBefore(startBlock.start)) {
                 // move start

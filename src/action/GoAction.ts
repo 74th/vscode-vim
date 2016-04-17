@@ -1,22 +1,18 @@
 export class GoAction implements IAction {
 
-    private motion: IMotion;
+    public Motion: IMotion;
 
     constructor() {
-        this.motion = null;
+        this.Motion = null;
     }
 
     public GetActionType(): ActionType {
         return ActionType.Move;
     }
 
-    public SetMotion(motion: IMotion) {
-        this.motion = motion;
-    }
-
     public Execute(editor: IEditor, vim: IVimStyle) {
         let from = editor.GetCurrentPosition();
-        let to = this.motion.CalculateEnd(editor, from);
+        let to = this.Motion.CalculateEnd(editor, from);
         if (to == null) {
             // cancel
             return;
