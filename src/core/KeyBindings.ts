@@ -266,7 +266,7 @@ const DefaultKeyBindings: IKeyBindings = {
         },
         // Ng
         "G": {
-            cmd: VimCommand.moveGotoLineAction
+            cmd: VimCommand.gotoLine
         },
         "h": {
             cmd: VimCommand.gotoRight,
@@ -378,11 +378,11 @@ const DefaultKeyBindings: IKeyBindings = {
         // da
         // dA
         "b": {
-            cmd: VimCommand.wordMotion,
+            cmd: VimCommand.motion_wordForward,
             isReverse: true
         },
         "B": {
-            cmd: VimCommand.WORDMotion,
+            cmd: VimCommand.motion_blankSeparated,
             isReverse: true
         },
         "c": {
@@ -394,17 +394,17 @@ const DefaultKeyBindings: IKeyBindings = {
         },
         // D no command
         "e": {
-            cmd: VimCommand.wordEndMotion
+            cmd: VimCommand.motion_endOfWord
         },
         "E": {
-            cmd: VimCommand.WORDEndMotion
+            cmd: VimCommand.motion_endOfBlankSeparated
         },
         "f": {
-            cmd: VimCommand.findCharacterMotion,
+            cmd: VimCommand.motion_charToRight,
             state: StateName.RequireCharForMotion
         },
         "F": {
-            cmd: VimCommand.findCharacterMotion,
+            cmd: VimCommand.motion_charToRight,
             isReverse: true,
             state: StateName.RequireCharForMotion
         },
@@ -413,26 +413,26 @@ const DefaultKeyBindings: IKeyBindings = {
             state: StateName.SmallGForMotion
         },
         "G": {
-            cmd: VimCommand.lastLineMotion,
+            cmd: VimCommand.motion_lastLine,
         },
         "h": {
-            cmd: VimCommand.rightMotion,
+            cmd: VimCommand.motion_right,
             isReverse: true
         },
         // H no function
         // i
         // I
         "j": {
-            cmd: VimCommand.lineMotion
+            cmd: VimCommand.motion_downLine
         },
         // J
         "k": {
-            cmd: VimCommand.lineMotion,
+            cmd: VimCommand.motion_downLine,
             isReverse: true
         },
         // K no function
         "l": {
-            cmd: VimCommand.rightMotion
+            cmd: VimCommand.motion_right
         },
         // L no function
         // o never support
@@ -446,11 +446,11 @@ const DefaultKeyBindings: IKeyBindings = {
         // s ?
         // S ?
         "t": {
-            cmd: VimCommand.tillCharacterMotion,
+            cmd: VimCommand.motion_tillBeforeCharToRight,
             state: StateName.RequireCharForMotion
         },
         "T": {
-            cmd: VimCommand.tillCharacterMotion,
+            cmd: VimCommand.motion_tillBeforeCharToRight,
             isReverse: true,
             state: StateName.RequireCharForMotion
         },
@@ -459,10 +459,10 @@ const DefaultKeyBindings: IKeyBindings = {
         // v low priority
         // V low priority
         "w": {
-            cmd: VimCommand.wordMotion
+            cmd: VimCommand.motion_wordForward
         },
         "W": {
-            cmd: VimCommand.WORDMotion
+            cmd: VimCommand.motion_blankSeparated
         },
         // x no function
         // X no function
@@ -475,7 +475,7 @@ const DefaultKeyBindings: IKeyBindings = {
         // z never suppoer
         // Z no function
         "0": {
-            cmd: VimCommand.homeMotion
+            cmd: VimCommand.motion_firstCharacterInLine
         },
         "1": {
             cmd: VimCommand.stackNumber,
@@ -514,10 +514,10 @@ const DefaultKeyBindings: IKeyBindings = {
             state: StateName.RequireMotionNum
         },
         "$": {
-            cmd: VimCommand.endMotion
+            cmd: VimCommand.motion_lastCharacterInLine
         },
         "^": {
-            cmd: VimCommand.firstNonBlankCharMotion
+            cmd: VimCommand.motion_firstNonBlankCharacterInLine
         }
     },
 
@@ -526,7 +526,7 @@ const DefaultKeyBindings: IKeyBindings = {
         // da
         // dA
         "b": {
-            cmd: VimCommand.wordMotion,
+            cmd: VimCommand.motion_wordForward,
             isReverse: true
         },
         // B
@@ -541,11 +541,11 @@ const DefaultKeyBindings: IKeyBindings = {
         // e
         // E
         "f": {
-            cmd: VimCommand.findCharacterMotion,
+            cmd: VimCommand.motion_charToRight,
             state: StateName.RequireCharForMotion
         },
         "F": {
-            cmd: VimCommand.findCharacterMotion,
+            cmd: VimCommand.motion_charToRight,
             isReverse: true,
             state: StateName.RequireCharForMotion
         },
@@ -554,23 +554,23 @@ const DefaultKeyBindings: IKeyBindings = {
             cmd: VimCommand.gotoLineMotion
         },
         "h": {
-            cmd: VimCommand.rightMotion,
+            cmd: VimCommand.motion_right,
             isReverse: true
         },
         // H no function
         // i
         // I
         "j": {
-            cmd: VimCommand.lineMotion
+            cmd: VimCommand.motion_downLine
         },
         // J
         "k": {
-            cmd: VimCommand.lineMotion,
+            cmd: VimCommand.motion_downLine,
             isReverse: true
         },
         // K no function
         "l": {
-            cmd: VimCommand.rightMotion
+            cmd: VimCommand.motion_right
         },
         // L no function
         // o never support
@@ -584,11 +584,11 @@ const DefaultKeyBindings: IKeyBindings = {
         // s ?
         // S ?
         "t": {
-            cmd: VimCommand.findCharacterMotion,
+            cmd: VimCommand.motion_charToRight,
             state: StateName.RequireCharForMotion
         },
         "T": {
-            cmd: VimCommand.tillCharacterMotion,
+            cmd: VimCommand.motion_tillBeforeCharToRight,
             isReverse: true,
             state: StateName.RequireCharForMotion
         },
@@ -597,7 +597,7 @@ const DefaultKeyBindings: IKeyBindings = {
         // v low priority
         // V low priority
         "w": {
-            cmd: VimCommand.wordMotion
+            cmd: VimCommand.motion_wordForward
         },
         // W
         // x no function
@@ -654,14 +654,14 @@ const DefaultKeyBindings: IKeyBindings = {
     // g
     SmallG: {
         "g": {
-            cmd: VimCommand.moveFirstLineAction
+            cmd: VimCommand.gotoFirstLineOnFirstNonBlankCharacter
         }
     },
 
     // cg
     SmallGForMotion: {
         "g": {
-            cmd: VimCommand.firstLineMotion
+            cmd: VimCommand.motion_firstLine
         }
     },
 
@@ -670,26 +670,26 @@ const DefaultKeyBindings: IKeyBindings = {
         // v..a
         // v..A
         "b": {
-            cmd: VimCommand.wordMotion,
+            cmd: VimCommand.motion_wordForward,
             isReverse: true
         },
         // v..B
         "c": {
-            cmd: VimCommand.changeSelectionAction
+            cmd: VimCommand.changeHighlightedText
         },
         // C no command
         "d": {
-            cmd: VimCommand.deleteSelectionAction
+            cmd: VimCommand.deleteHighlightedText
         },
         // D no command
         // v..e
         // V..E
         "f": {
-            cmd: VimCommand.findCharacterMotion,
+            cmd: VimCommand.motion_charToRight,
             state: StateName.RequireCharForMotion
         },
         "F": {
-            cmd: VimCommand.findCharacterMotion,
+            cmd: VimCommand.motion_charToRight,
             isReverse: true,
             state: StateName.RequireCharForMotion
         },
@@ -698,26 +698,26 @@ const DefaultKeyBindings: IKeyBindings = {
             state: StateName.SmallGForMotion
         },
         "G": {
-            cmd: VimCommand.lastLineMotion,
+            cmd: VimCommand.motion_lastLine,
         },
         "h": {
-            cmd: VimCommand.rightMotion,
+            cmd: VimCommand.motion_right,
             isReverse: true
         },
         // H no function
         // v..i
         // v..I
         "j": {
-            cmd: VimCommand.lineMotion
+            cmd: VimCommand.motion_downLine
         },
         // J?
         "k": {
-            cmd: VimCommand.lineMotion,
+            cmd: VimCommand.motion_downLine,
             isReverse: true
         },
         // K no function
         "l": {
-            cmd: VimCommand.rightMotion
+            cmd: VimCommand.motion_right
         },
         // l no function
         // o never support
@@ -731,11 +731,11 @@ const DefaultKeyBindings: IKeyBindings = {
         // s ?
         // S ?
         "t": {
-            cmd: VimCommand.tillCharacterMotion,
+            cmd: VimCommand.motion_tillBeforeCharToRight,
             state: StateName.RequireCharForMotion
         },
         "T": {
-            cmd: VimCommand.tillCharacterMotion,
+            cmd: VimCommand.motion_tillBeforeCharToRight,
             isReverse: true,
             state: StateName.RequireCharForMotion
         },
@@ -744,16 +744,16 @@ const DefaultKeyBindings: IKeyBindings = {
         // v low priority
         // V low priority
         "w": {
-            cmd: VimCommand.wordMotion
+            cmd: VimCommand.motion_wordForward
         },
         // W
         // x no function
         // X no function
         "y": {
-            cmd: VimCommand.yancSelectionAction
+            cmd: VimCommand.yankHighlightedText
         },
         "0": {
-            cmd: VimCommand.homeMotion
+            cmd: VimCommand.motion_firstCharacterInLine
         },
         "1": {
             cmd: VimCommand.stackNumber,
@@ -792,7 +792,7 @@ const DefaultKeyBindings: IKeyBindings = {
             state: StateName.RequireMotionNum
         },
         "$": {
-            cmd: VimCommand.endMotion
+            cmd: VimCommand.motion_lastCharacterInLine
         }
     },
 
@@ -801,7 +801,7 @@ const DefaultKeyBindings: IKeyBindings = {
         // V..a
         // V..A
         "b": {
-            cmd: VimCommand.wordMotion,
+            cmd: VimCommand.motion_wordForward,
             isReverse: true
         },
         // V..B
@@ -822,18 +822,18 @@ const DefaultKeyBindings: IKeyBindings = {
             state: StateName.SmallGForMotion
         },
         "G": {
-            cmd: VimCommand.lastLineMotion,
+            cmd: VimCommand.motion_lastLine,
         },
         // V..h
         // V..H no function
         // V..i
         // V..I
         "j": {
-            cmd: VimCommand.lineMotion
+            cmd: VimCommand.motion_downLine
         },
         // V..J?
         "k": {
-            cmd: VimCommand.lineMotion,
+            cmd: VimCommand.motion_downLine,
             isReverse: true
         },
         // V..K no function
@@ -863,7 +863,7 @@ const DefaultKeyBindings: IKeyBindings = {
             cmd: VimCommand.yancLineSelectionAction
         },
         "0": {
-            cmd: VimCommand.homeMotion
+            cmd: VimCommand.motion_firstCharacterInLine
         },
         "1": {
             cmd: VimCommand.stackNumber,

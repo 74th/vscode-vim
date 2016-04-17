@@ -196,27 +196,27 @@ export class CommandFactory implements ICommandFactory {
             case VimCommand.goTillBeforeCharacterToRight:
                 this.moveTillCharacterAction(command.isReverse);
                 return;
-            case VimCommand.moveGotoLineAction:
+            case VimCommand.gotoLine:
                 this.moveGotoLineAction();
                 return;
             case VimCommand.gotoLastLine:
                 this.moveLastLineAction();
                 return;
-            case VimCommand.moveFirstLineAction:
+            case VimCommand.gotoFirstLineOnFirstNonBlankCharacter:
                 this.moveFirstLineAction();
                 return;
 
             // motion
-            case VimCommand.rightMotion:
+            case VimCommand.motion_right:
                 this.rightMotion(command.isReverse);
                 return;
-            case VimCommand.lineMotion:
+            case VimCommand.motion_downLine:
                 this.lineMotion(command.isReverse);
                 return;
-            case VimCommand.wordMotion:
+            case VimCommand.motion_wordForward:
                 this.wordMotion(false, false, false, false);
                 return;
-            case VimCommand.wordMotion:
+            case VimCommand.motion_wordForward:
                 this.wordMotion(false, false, true, false);
                 return;
             case VimCommand.backWordMotion:
@@ -225,34 +225,34 @@ export class CommandFactory implements ICommandFactory {
             case VimCommand.backWORDMotion:
                 this.wordMotion(true, true, true, false);
                 break;
-            case VimCommand.wordEndMotion:
+            case VimCommand.motion_endOfWord:
                 this.wordMotion(false, true, false, true);
                 break;
-            case VimCommand.WORDEndMotion:
+            case VimCommand.motion_endOfBlankSeparated:
                 this.wordMotion(false, true, true, true);
                 break;
-            case VimCommand.homeMotion:
+            case VimCommand.motion_firstCharacterInLine:
                 this.homeMotion();
                 return;
-            case VimCommand.endMotion:
+            case VimCommand.motion_lastCharacterInLine:
                 this.endMotion();
                 return;
-            case VimCommand.firstNonBlankCharMotion:
+            case VimCommand.motion_firstNonBlankCharacterInLine:
                 this.firstNonBlankCharMotion();
                 return;
-            case VimCommand.findCharacterMotion:
+            case VimCommand.motion_charToRight:
                 this.findCharacterMotion(command.isReverse);
                 return;
-            case VimCommand.tillCharacterMotion:
+            case VimCommand.motion_tillBeforeCharToRight:
                 this.tillCharacterMotion(command.isReverse);
                 return;
             case VimCommand.gotoLineMotion:
                 this.gotoLineMotion();
                 return;
-            case VimCommand.lastLineMotion:
+            case VimCommand.motion_lastLine:
                 this.lastLineMotion();
                 return;
-            case VimCommand.firstLineMotion:
+            case VimCommand.motion_firstLine:
                 this.firstLineMotion();
                 return;
 
@@ -283,16 +283,16 @@ export class CommandFactory implements ICommandFactory {
             case VimCommand.startVisualMode:
                 this.enterVisualModeAction();
                 return;
-            case VimCommand.deleteSelectionAction:
+            case VimCommand.deleteHighlightedText:
                 this.deleteSelectionAction();
                 return;
-            case VimCommand.changeSelectionAction:
+            case VimCommand.changeHighlightedText:
                 this.changeSelectionAction();
                 return;
-            case VimCommand.deleteSelectionAction:
+            case VimCommand.deleteHighlightedText:
                 this.deleteSelectionAction();
                 return;
-            case VimCommand.yancSelectionAction:
+            case VimCommand.yankHighlightedText:
                 this.yancSelectionAction();
                 return;
 
