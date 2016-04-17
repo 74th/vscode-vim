@@ -248,51 +248,51 @@ export class CommandFactory implements ICommandFactory {
             // ** Text object motions **
             // Nw
             case VimCommand.gotoWordFoward:
-                this.gotoWordFoward(false, false, false, false);
+                this.gotoWordFoword();
                 return;
             // cNw
             case VimCommand.wordForwardMotion:
-                this.addWordMotion(false, false, true, false);
+                this.addWordForwordMotion();
                 return;
             // NW
             case VimCommand.gotoBlankSeparated:
-                this.gotoWordFoward(false, false, true, false);
+                this.gotoBlankSeparated();
                 return;
             // cNW
             case VimCommand.blankSeparatedMotion:
-                this.addWordMotion(false, true, false, false);
+                this.addBlankSparatedMotion();
                 return;
             // Ne
             case VimCommand.gotoForwardToEndOfWold:
-                this.gotoWordFoward(false, true, false, true);
+                this.gotoForwardToEndOfWold();
                 return;
             // cNe
             case VimCommand.endOfWordMotion:
-                this.addWordMotion(false, true, false, true);
+                this.addEndOfWordMotion();
                 break;
             // NE
             case VimCommand.gotoForwardToEndOfBlankSeparated:
-                this.gotoWordFoward(false, true, true, true);
+                this.gotoForwardToEndOfBlankSeparated();
                 return;
             // cNE
             case VimCommand.endOfBlankSeparatedMotion:
-                this.addWordMotion(false, true, true, true);
+                this.addEndOfBlankSeparatedMotion();
                 break;
             // Nb
             case VimCommand.gotoWordBackword:
-                this.gotoWordFoward(true, true, false, false);
+                this.gotoWordBackword();
                 return;
             // cNb
             case VimCommand.wordBackwardMotion:
-                this.addWordMotion(true, true, false, false);
+                this.addWordBackwardMotion();
                 break;
             // NB
             case VimCommand.gotoBlankSeparatedBackword:
-                this.gotoWordFoward(true, true, true, false);
+                this.gotoBlankSeparatedBackwordWord();
                 return;
             // cNB
             case VimCommand.blankSeparatedBackwordMotion:
-                this.addWordMotion(true, true, true, false);
+                this.addBlankSeparatedBackwordMotion();
                 break;
 
             // ** Pattern searches **
@@ -697,32 +697,144 @@ export class CommandFactory implements ICommandFactory {
     // Text object motions
     // -----
 
-    // w b e W B E
-    private gotoWordFoward(isReverse: boolean, isWordEnd: boolean, isWORD: boolean, isSkipBlankLine) {
+    // Nw
+    private gotoWordFoword() {
         let m: WordMotion;
-        if (isReverse) {
-            m = new WordMotion(Direction.Left);
-        } else {
-            m = new WordMotion(Direction.Right);
-        }
-        m.IsWordEnd = isWordEnd;
-        m.IsWORD = isWORD;
-        m.IsSkipBlankLine = isSkipBlankLine;
+        m = new WordMotion(Direction.Right);
+        m.IsWordEnd = false;
+        m.IsWORD = false;
+        m.IsSkipBlankLine = false;
         m.SetCount(this.getNumStack());
         this.action = this.createGotoAction(m);
     }
 
-    // cw cb ce cW cB cE
-    private addWordMotion(isReverse: boolean, isWordEnd: boolean, isWORD: boolean, isSkipBlankLine: boolean) {
+    // cNw
+    private addWordForwordMotion() {
         let m: WordMotion;
-        if (isReverse) {
-            m = new WordMotion(Direction.Left);
-        } else {
-            m = new WordMotion(Direction.Right);
-        }
-        m.IsWordEnd = isWordEnd;
-        m.IsWORD = isWORD;
-        m.IsSkipBlankLine = isSkipBlankLine;
+        m = new WordMotion(Direction.Right);
+        m.IsWordEnd = false;
+        m.IsWORD = false;
+        m.IsSkipBlankLine = false;
+        m.IsForRange = true;
+        m.SetCount(this.getNumStack());
+        let a = <IRequireMotionAction>this.action;
+        a.Motion = m;
+    }
+
+    // NW
+    private gotoBlankSeparated() {
+        let m: WordMotion;
+        m = new WordMotion(Direction.Right);
+        m.IsWordEnd = false;
+        m.IsWORD = true;
+        m.IsSkipBlankLine = false;
+        m.SetCount(this.getNumStack());
+        this.action = this.createGotoAction(m);
+    }
+
+    // cNW
+    private addBlankSparatedMotion() {
+        let m: WordMotion;
+        m = new WordMotion(Direction.Right);
+        m.IsWordEnd = false;
+        m.IsWORD = true;
+        m.IsSkipBlankLine = false;
+        m.IsForRange = true;
+        m.SetCount(this.getNumStack());
+        let a = <IRequireMotionAction>this.action;
+        a.Motion = m;
+    }
+
+    // Ne
+    private gotoForwardToEndOfWold() {
+        let m: WordMotion;
+        m = new WordMotion(Direction.Right);
+        m.IsWordEnd = true;
+        m.IsWORD = false;
+        m.IsSkipBlankLine = true;
+        m.SetCount(this.getNumStack());
+        this.action = this.createGotoAction(m);
+    }
+
+    // cNe
+    private addEndOfWordMotion() {
+        let m: WordMotion;
+        m = new WordMotion(Direction.Right);
+        m.IsWordEnd = true;
+        m.IsWORD = false;
+        m.IsSkipBlankLine = true;
+        m.IsForRange = true;
+        m.SetCount(this.getNumStack());
+        let a = <IRequireMotionAction>this.action;
+        a.Motion = m;
+    }
+
+    // NE
+    private gotoForwardToEndOfBlankSeparated() {
+        let m: WordMotion;
+        m = new WordMotion(Direction.Right);
+        m.IsWordEnd = true;
+        m.IsWORD = true;
+        m.IsSkipBlankLine = true;
+        m.SetCount(this.getNumStack());
+        this.action = this.createGotoAction(m);
+    }
+
+    // cWE
+    private addEndOfBlankSeparatedMotion() {
+        let m: WordMotion;
+        m = new WordMotion(Direction.Right);
+        m.IsWordEnd = true;
+        m.IsWORD = true;
+        m.IsSkipBlankLine = true;
+        m.IsForRange = true;
+        m.SetCount(this.getNumStack());
+        let a = <IRequireMotionAction>this.action;
+        a.Motion = m;
+    }
+
+    // Nb
+    private gotoWordBackword() {
+        let m: WordMotion;
+        m = new WordMotion(Direction.Left);
+        m.IsWordEnd = true;
+        m.IsWORD = false;
+        m.IsSkipBlankLine = false;
+        m.SetCount(this.getNumStack());
+        this.action = this.createGotoAction(m);
+    }
+
+    // cNb
+    private addWordBackwardMotion() {
+        let m: WordMotion;
+        m = new WordMotion(Direction.Left);
+        m.IsWordEnd = true;
+        m.IsWORD = false;
+        m.IsSkipBlankLine = false;
+        m.IsForRange = true;
+        m.SetCount(this.getNumStack());
+        let a = <IRequireMotionAction>this.action;
+        a.Motion = m;
+    }
+
+    // NB
+    private gotoBlankSeparatedBackwordWord() {
+        let m: WordMotion;
+        m = new WordMotion(Direction.Left);
+        m.IsWordEnd = true;
+        m.IsWORD = true;
+        m.IsSkipBlankLine = false;
+        m.SetCount(this.getNumStack());
+        this.action = this.createGotoAction(m);
+    }
+
+    // cNB
+    private addBlankSeparatedBackwordMotion() {
+        let m: WordMotion;
+        m = new WordMotion(Direction.Left);
+        m.IsWordEnd = true;
+        m.IsWORD = true;
+        m.IsSkipBlankLine = false;
         m.IsForRange = true;
         m.SetCount(this.getNumStack());
         let a = <IRequireMotionAction>this.action;
