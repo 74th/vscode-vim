@@ -189,6 +189,14 @@ export class CommandFactory implements ICommandFactory {
             case VimCommand.downMotion:
                 this.addDownMotion(command.isReverse);
                 return;
+            // G
+            case VimCommand.gotoLastLine:
+                this.gotoLastLine();
+                return;
+            // cG
+            case VimCommand.lastLineMotion:
+                this.addLastLineMotion();
+                return;
             // NG
             case VimCommand.gotoLine:
                 this.gotoLine();
@@ -205,61 +213,52 @@ export class CommandFactory implements ICommandFactory {
             case VimCommand.firstLineMotion:
                 this.addFirstLineMotion();
                 return;
-            // G
-            case VimCommand.gotoLastLine:
-                this.gotoLastLine();
-                return;
-            // cG
-            case VimCommand.lastLineMotion:
-                this.addLastLineMotion();
-                return;
-
             // ** Text object motions **
-            // w
+            // Nw
             case VimCommand.gotoWordFoward:
                 this.gotoWordFoward(false, false, false, false);
                 return;
-            // cw
+            // cNw
             case VimCommand.wordForwardMotion:
                 this.addWordMotion(false, false, true, false);
                 return;
-            // W
+            // NW
             case VimCommand.gotoBlankSeparated:
                 this.gotoWordFoward(false, false, true, false);
                 return;
-            // cW
+            // cNW
             case VimCommand.blankSeparatedMotion:
                 this.addWordMotion(false, true, false, false);
                 return;
-            // e
+            // Ne
             case VimCommand.gotoForwardToEndOfWold:
                 this.gotoWordFoward(false, true, false, true);
                 return;
-            // ce
-            case VimCommand.motion_endOfWord:
+            // cNe
+            case VimCommand.endOfWordMotion:
                 this.addWordMotion(false, true, false, true);
                 break;
-            // E
+            // NE
             case VimCommand.gotoForwardToEndOfBlankSeparated:
                 this.gotoWordFoward(false, true, true, true);
                 return;
-            // cE
+            // cNE
             case VimCommand.endOfBlankSeparatedMotion:
                 this.addWordMotion(false, true, true, true);
                 break;
-            // b
+            // Nb
             case VimCommand.gotoWordBackword:
                 this.gotoWordFoward(true, true, false, false);
                 return;
-            // cb
+            // cNb
             case VimCommand.wordBackwardMotion:
                 this.addWordMotion(true, true, false, false);
                 break;
-            // B
-            case VimCommand.gotoBlankSepalated:
+            // NB
+            case VimCommand.gotoBlankSeparatedBackword:
                 this.gotoWordFoward(true, true, true, false);
                 return;
-            // cB
+            // cNB
             case VimCommand.blankSeparatedBackwordMotion:
                 this.addWordMotion(true, true, true, false);
                 break;
@@ -273,19 +272,19 @@ export class CommandFactory implements ICommandFactory {
             // ** Scrolling **
 
             // ** Inserting text **
-            // Ni
+            // Na
             case VimCommand.appendTextAfterCursor:
                 this.appendTextAfterCursor();
                 return;
-            // NI
+            // NA
             case VimCommand.appendTextAtEndOfLine:
                 this.appendTextAtEndOfLine();
                 return;
-            // Na
+            // Ni
             case VimCommand.insertTextBeforeCursor:
                 this.insertTextBeforeCursor();
                 return;
-            // NA
+            // NI
             case VimCommand.insertTextBeforeFirstNonBlankInLine:
                 this.insertTextBeforeFirstNonBlankInLine();
                 return;
@@ -308,7 +307,7 @@ export class CommandFactory implements ICommandFactory {
                 this.deleteHighligtedText();
                 return;
             // {visualLine}d
-            case VimCommand.deleteHighlitedLine:
+            case VimCommand.deleteHighlightedLine:
                 this.deleteHightlightedLineAction();
                 return;
             // dd cc yy
@@ -383,11 +382,12 @@ export class CommandFactory implements ICommandFactory {
             // ** Text objects (only in Visual mode or after an operator) **
 
             // ** Repeating commands **
+            // .
             case VimCommand.repeatLastChange:
                 this.repeatLastChange();
                 return;
 
-            // other
+            // ** other **
             case VimCommand.stackNumber:
                 this.stackNumber(key);
             case VimCommand.nothing:

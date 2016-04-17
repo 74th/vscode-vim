@@ -303,75 +303,147 @@ declare const enum VimMode {
 
 declare const enum VimCommand {
 
-    // single action
-    insertTextBeforeCursor,
-    appendTextAfterCursor,
-    insertTextBeforeFirstNonBlankInLine,
-    appendTextAtEndOfLine,
-    openNewLineBelowCurrentLineAndAppnedText,
-    deleteCharactersUnderCursor,
-    changeCharacters,
-    changeLines,
-    putRegisterAfterCursorPosition,
-
-    // move action
+    // ** Left-right motion **
+    // Nj Nl
     gotoRight,
-    goDown,
-    gotoWordFoward,
-    gotoBlankSeparated,
-    gotoWordBackword,
-    gotoBlankSepalated,
-    gotoForwardToEndOfWold,
-    gotoForwardToEndOfBlankSeparated,
-    gotoFirstCharacterInLine,
-    gotoLastCharacterInLine,
-    gotoFirstNonBlankCharacterInLine,
-    gotoCharacterToRight,
-    goTillBeforeCharacterToRight,
-    gotoLine,
-    gotoLastLine,
-    gotoFirstLineOnFirstNonBlankCharacter,
-
-    // motion
+    // cNj cNl
     rightMotion,
-    downMotion,
-    wordForwardMotion,
-    blankSeparatedMotion,
-    wordBackwardMotion,
-    blankSeparatedBackwordMotion,
-    motion_endOfWord,
-    endOfBlankSeparatedMotion,
+    // 0
+    gotoFirstCharacterInLine,
+    // c0
     firstCharacterInLineMotion,
-    lastCharacterInLineMotion,
+    // ^
+    gotoFirstNonBlankCharacterInLine,
+    // c^
     firstNonBlankCharacterInLineMotion,
+    // $
+    gotoLastCharacterInLine,
+    // c$
+    lastCharacterInLineMotion,
+    // Nf{char} NF{char}
+    gotoCharacterToRight,
+    // cNf{char} cNF{char}
     characterToRightMotion,
+    // Nt{char} NT{char}
+    goTillBeforeCharacterToRight,
+    // cNt{char} cNT{char}
     tillBeforeCharToRightMotion,
-    lineMotion,
+
+    // ** Up-down motions **
+    // Nk Nj
+    goDown,
+    // cNk cNj
+    downMotion,
+    // G
+    gotoLastLine,
+    // cG
     lastLineMotion,
+    // NG
+    gotoLine,
+    // cNG
+    lineMotion,
+    // gg
+    gotoFirstLineOnFirstNonBlankCharacter,
+    // cgg
     firstLineMotion,
 
-    // delete, yanc, change action
-    changeTextWithMotion,
+    // ** Text object motions **
+    // Nw
+    gotoWordFoward,
+    // cw
+    wordForwardMotion,
+    // NW
+    gotoBlankSeparated,
+    // cNW
+    blankSeparatedMotion,
+    // Ne
+    gotoForwardToEndOfWold,
+    // cNe
+    endOfWordMotion,
+    // NE
+    gotoForwardToEndOfBlankSeparated,
+    // cNE
+    endOfBlankSeparatedMotion,
+    // Nb
+    gotoWordBackword,
+    // cNb
+    wordBackwardMotion,
+    // NB
+    gotoBlankSeparatedBackword,
+    // cNB
+    blankSeparatedBackwordMotion,
+
+    // ** Pattern searches **
+
+    // ** Marks and motions **
+
+    // ** Various motions **
+
+    // ** Scrolling **
+
+    // ** Inserting text **
+    // Na
+    appendTextAfterCursor,
+    // NA
+    appendTextAtEndOfLine,
+    // Ni
+    insertTextBeforeCursor,
+    // NI
+    insertTextBeforeFirstNonBlankInLine,
+    // No NO
+    openNewLineBelowCurrentLineAndAppnedText,
+
+    // ** Deleting text **
+    // Nx
+    deleteCharactersUnderCursor,
+    // Nd{motion}
     deleteTextWithMotion,
-    yankTextWithMotion,
-    changeTextToEndOfLine,
-    deleteTextToEndOfLine,
-    yankLine,
-    doActionAtCurrentLine,
-
-    // visual mode
-    startVisualMode,
-    changeHighlightedText,
+    // {visual}d
     deleteHighlightedText,
+    // {visualLine}d
+    deleteHighlightedLine,
+    // dd cc yy
+    doActionAtCurrentLine,
+    // D
+    deleteTextToEndOfLine,
+
+    // ** Copying and moving text **
+    // y{motion}
+    yankTextWithMotion,
+    // {visual}y
     yankHighlightedText,
-
-    // line visual mode
-    startVisualLineMode,
-    changeHighligtedLine,
-    deleteHighlitedLine,
+    // {visualList}y
     yankHighlightedLine,
+    // NY
+    yankLine,
+    // Np NP
+    putRegisterAfterCursorPosition,
 
-    // special
+    // ** Changing text **
+    // c{motion}
+    changeTextWithMotion,
+    // C
+    changeTextToEndOfLine,
+    // {visual}c
+    changeHighlightedText,
+    // {visualLine}c
+    changeHighligtedLine,
+    // NS
+    changeLines,
+    // Ns
+    changeCharacters,
+    // ** Complex changes **
+
+    // ** Visual mode **
+    // v
+    startVisualMode,
+    // V
+    startVisualLineMode,
+
+    // ** Text objects (only in Visual mode or after an operator) **
+
+    // ** Repeating commands **
+    // .
     repeatLastChange,
 
     // other

@@ -55,7 +55,7 @@ const DefaultKeyBindings: IKeyBindings = {
             isReverse: true
         },
         "B": {
-            cmd: VimCommand.gotoBlankSepalated,
+            cmd: VimCommand.gotoBlankSeparated,
             isReverse: true
         },
         "c": {
@@ -239,7 +239,7 @@ const DefaultKeyBindings: IKeyBindings = {
             cmd: VimCommand.gotoWordBackword
         },
         "B": {
-            cmd: VimCommand.gotoBlankSepalated
+            cmd: VimCommand.gotoBlankSeparatedBackword
         },
         // B
         // Nc low priority
@@ -394,7 +394,7 @@ const DefaultKeyBindings: IKeyBindings = {
         },
         // D no command
         "e": {
-            cmd: VimCommand.motion_endOfWord
+            cmd: VimCommand.endOfWordMotion
         },
         "E": {
             cmd: VimCommand.endOfBlankSeparatedMotion
@@ -810,7 +810,7 @@ const DefaultKeyBindings: IKeyBindings = {
         },
         // V..C no command
         "d": {
-            cmd: VimCommand.deleteHighlitedLine
+            cmd: VimCommand.deleteHighlightedLine
         },
         // V..D no command
         // V..e
