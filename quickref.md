@@ -4,11 +4,11 @@ This is imported from [quickref.txt](https://github.com/vim/vim/blob/master/runt
 
 |class|tests|class|key|function|
 |---|---|---|---|---|
-|RightMotion||`Nh`|left (also: CTRL-H, <BS>, or <Left> key)|
-|RightMotion||`Nl`|right (also: <Space> or <Right> key)|
-|HomeMotion||`0`|to first character in the line (also: <Home> key)|
+|RightMotion||`Nh`|left (also: CTRL-H, &lt;BS&gt;, or &lt;Left&gt; key)|
+|RightMotion||`Nl`|right (also: &lt;Space&gt; or &lt;Right&gt; key)|
+|HomeMotion||`0`|to first character in the line (also: &lt;Home&gt; key)|
 |FirstCharactorMotion||`^`|to first non-blank character in the line|
-|EndMotion(partial)||`N$`|to the last character in the line (N-1 lines lower) (also: <End> key)|
+|EndMotion(partial)||`N$`|to the last character in the line (N-1 lines lower) (also: &lt;End&gt; key)|
 |||`g0`|to first character in screen line (differs from "0" when lines wrap)|
 |||`g^`|to first non-blank character in screen line (differs from "^" when lines wrap)|
 |||`Ng$`|to last character in screen line (differs from "$" when lines wrap)|
@@ -25,10 +25,10 @@ This is imported from [quickref.txt](https://github.com/vim/vim/blob/master/runt
 
 |class|tests|key|function|
 |---|---|---|---|---|
-|DownMotion||`Nk`|up N lines (also: CTRL-P and <Up>)|
-|complete||`Nj`|down N lines (also: CTRL-J, CTRL-N, <NL>, and <Down>)|
+|DownMotion||`Nk`|up N lines (also: CTRL-P and &lt;Up&gt;)|
+|complete||`Nj`|down N lines (also: CTRL-J, CTRL-N, &lt;NL&gt;, and &lt;Down&gt;)|
 |||`N-`|up N lines, on the first non-blank character|
-|||`N+`|down N lines, on the first non-blank character (also: CTRL-M and <CR>)|
+|||`N+`|down N lines, on the first non-blank character (also: CTRL-M and &lt;CR&gt;)|
 |||`N_`|down N-1 lines, on the first non-blank character|
 |FirstCharacterMotion||`NG`|goto line N (default: last line), on the first non-blank character|
 |FirstCharacterMotion||`Ngg`|goto line N (default: first line), on the first non-blank character|
@@ -73,10 +73,10 @@ This is imported from [quickref.txt](https://github.com/vim/vim/blob/master/runt
 
 |class|tests|key|function|
 |---|---|---|---|
-|||`N/{pattern}[/[offset]]<CR>`|search forward for the Nth occurrence of {pattern}|
-|||`N?{pattern}[?[offset]]<CR>`|search backward for the Nth occurrence of {pattern}|
-|||`N/<CR>`|repeat last search, in the forward direction|
-|||`N?<CR>`|repeat last search, in the backward direction|
+|||`N/{pattern}[/[offset]]&lt;CR&gt;`|search forward for the Nth occurrence of {pattern}|
+|||`N?{pattern}[?[offset]]&lt;CR&gt;`|search backward for the Nth occurrence of {pattern}|
+|||`N/&lt;CR&gt;`|repeat last search, in the forward direction|
+|||`N?&lt;CR&gt;`|repeat last search, in the backward direction|
 |||`Nn`|repeat last search|
 |||`NN`|repeat last search, in opposite direction|
 |||`N*`|search forward for the identifier under the cursor|
@@ -98,10 +98,10 @@ This is imported from [quickref.txt](https://github.com/vim/vim/blob/master/runt
 |||``` `"```|go to the position when last editing this file|
 |||``` `[```|go to the start of the previously operated or put text|
 |||``` `]```|go to the end of the previously operated or put text|
-|||``` `<```|go to the start of the (previous) Visual area|
-|||``` `>```|go to the end of the (previous) Visual area|
+|||``` `&lt;```|go to the start of the (previous) Visual area|
+|||``` `&gt;```|go to the end of the (previous) Visual area|
 |||``` `.```|go to the position of the last change in this file|
-|||`'{a-zA-Z0-9[]'"<>.}`| same as ``` `, ```but on the first non-blank in the line|
+|||`'{a-zA-Z0-9[]'"&lt;&gt;.}`| same as ``` `, ```but on the first non-blank in the line|
 |||`NCTRL-O`|go to Nth older position in jump list|
 |||`NCTRL-I`|go to Nth newer position in jump list|
 
@@ -125,7 +125,7 @@ This is imported from [quickref.txt](https://github.com/vim/vim/blob/master/runt
 |||`NCTRL-Y`|window N lines upwards (default: 1)|
 |||`NCTRL-U`|window N lines Upwards (default: 1/2 window)|
 |||`NCTRL-B`|window N pages Backwards (upwards)|
-|||`z<CR>`or`zt`|redraw, current line at top of window|
+|||`z&lt;CR&gt;`or`zt`|redraw, current line at top of window|
 |||`z.`| or zzredraw, current line at center of window|
 |||`z-`| or zbredraw, current line at bottom of window|
 |||`Nzh`|These only work when 'wrap' is off: scroll screen N characters to the right|
@@ -139,7 +139,7 @@ This is imported from [quickref.txt](https://github.com/vim/vim/blob/master/runt
 |---|---|---|---|
 |complete except N||`Na`|append text after the cursor (N times)|
 |complete except N||`NA`|append text at the end of the line (N times)|
-|complete except N||`Ni`|insert text before the cursor (N times) (also: <Insert>)|
+|complete except N||`Ni`|insert text before the cursor (N times) (also: &lt;Insert&gt;)|
 |complete except N||`NI`|insert text before the first non-blank in the line (N times)|
 |||`NgI`|insert text in column 1 (N times)|
 |complete except N||`No`|open a new line below the current line, append text (N times)|
@@ -152,13 +152,13 @@ This is imported from [quickref.txt](https://github.com/vim/vim/blob/master/runt
 |class|tests|key|function|
 |---|---|---|---|
 |complete||`Nx`|delete N characters under and after the cursor|
-|||`N<Del>`|delete N characters under and after the cursor|
+|||`N&lt;Del&gt;`|delete N characters under and after the cursor|
 |||`NX`|delete N characters before the cursor|
 |complete||`Nd{motion}`|delete the text that is moved over with {motion}|
 |complete||`{visual}d`|delete the highlighted text|
 |complete||`Ndd`|delete N lines|
 |complete||`ND`|delete to the end of the line (and N-1 more lines)|
-|||`NJ`|join N-1 lines (delete <EOL>s)|
+|||`NJ`|join N-1 lines (delete &lt;EOL&gt;s)|
 |||`{visual}J`|join the highlighted lines|
 |||`NgJ`|like "J", but without inserting spaces|
 |||`{visual}gJ`|like "{visual}J", but without inserting spaces|
@@ -207,19 +207,19 @@ This is imported from [quickref.txt](https://github.com/vim/vim/blob/master/runt
 |||`g?{motion}`|perform rot13 encoding on the text that is moved over with {motion}|
 |||`NCTRL-A`|add N to the number at or after the cursor|
 |||`NCTRL-X`|subtract N from the number at or after the cursor|
-|||`N<{motion}`|move the lines that are moved over with {motion} one shiftwidth left|
-|||`N<<`|move N lines one shiftwidth left|
-|||`N>{motion}`|move the lines that are moved over with {motion} one shiftwidth right|
-|||`N>>`|move N lines one shiftwidth right|
+|||`N&lt;{motion}`|move the lines that are moved over with {motion} one shiftwidth left|
+|||`N&lt;&lt;`|move N lines one shiftwidth left|
+|||`N&gt;{motion}`|move the lines that are moved over with {motion} one shiftwidth right|
+|||`N&gt;&gt;`|move N lines one shiftwidth right|
 |||`Ngq{motion}`|format the lines that are moved over with {motion} to 'textwidth' length|
 
 ## Complex changes
 
 |class|tests|key|function|
 |---|---|---|---|
-|||`N!{motion}{command}<CR>`|filter the lines that are moved over through {command}|
-|||`N!!{command}<CR>`|filter N lines through {command}|
-|||`{visual}!{command}<CR>`|filter the highlighted lines through {command}|
+|||`N!{motion}{command}&lt;CR&gt;`|filter the lines that are moved over through {command}|
+|||`N!!{command}&lt;CR&gt;`|filter N lines through {command}|
+|||`{visual}!{command}&lt;CR&gt;`|filter the highlighted lines through {command}|
 |||`N={motion}`|filter the lines that are moved over through 'equalprg'|
 |||`N==`|filter N lines through 'equalprg'|
 |||`{visual}=`|filter the highlighted lines through 'equalprg'|
@@ -255,10 +255,10 @@ list of Visual mode commands.
 |||`Nib`|Select "inner block" (from "[(" to "])")|
 |||`NaB`|Select "a Block" (from "[{" to "]}")|
 |||`NiB`|Select "inner Block" (from "[{" to "]}")|
-|||`Na>`|Select "a <> block"|
-|||`Ni>`|Select "inner <> block"|
-|||`Nat`|Select "a tag block" (from <aaa> to </aaa>)|
-|||`Nit`|Select "inner tag block" (from <aaa> to </aaa>)|
+|||`Na&gt;`|Select "a &lt;&gt; block"|
+|||`Ni&gt;`|Select "inner &lt;&gt; block"|
+|||`Nat`|Select "a tag block" (from &lt;aaa&gt; to &lt;/aaa&gt;)|
+|||`Nit`|Select "inner tag block" (from &lt;aaa&gt; to &lt;/aaa&gt;)|
 |||`Na'`|Select "a single quoted string"|
 |||`Ni'`|Select "inner single quoted string"|
 |||`Na"`|Select "a double quoted string"|

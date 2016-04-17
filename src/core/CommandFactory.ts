@@ -128,78 +128,78 @@ export class CommandFactory implements ICommandFactory {
 
         switch (command.cmd) {
             // single action
-            case VimCommand.insertCurrentPositionAction:
+            case VimCommand.insertTextBeforeCursor:
                 this.insertCurrentPositionAction();
                 return;
-            case VimCommand.appendCurrentPositionAction:
+            case VimCommand.appendTextAfterCursor:
                 this.appendCurrentPositionAction();
                 return;
-            case VimCommand.insertHomeAction:
+            case VimCommand.insertTextBeforeFirstNonBlankInLine:
                 this.insertHomeAction();
                 return;
-            case VimCommand.appendEndAction:
+            case VimCommand.appendTextAtEndOfLine:
                 this.appendEndAction();
                 return;
-            case VimCommand.insertLineBelowAction:
+            case VimCommand.openNewLineBelowCurrentLineAndAppnedText:
                 this.insertLineBelowAction(command.isReverse);
                 return;
-            case VimCommand.deleteCharacterAction:
+            case VimCommand.deleteCharactersUnderCursor:
                 this.deleteCharacterAction(command.isReverse);
                 return;
-            case VimCommand.changeCharacterAction:
+            case VimCommand.changeCharacters:
                 this.changeCharacterAction();
                 return;
-            case VimCommand.changeLineAction:
+            case VimCommand.changeToEndOfLine:
                 this.changeLineAction();
                 return;
 
             // move action
-            case VimCommand.pasteBelowAction:
+            case VimCommand.putRegisterAfterCursorPosition:
                 this.pasteBelowAction(command.isReverse);
                 return;
-            case VimCommand.moveRightAction:
+            case VimCommand.gotoRight:
                 this.moveRightAction(command.isReverse);
                 return;
-            case VimCommand.moveLineAction:
+            case VimCommand.gotoDownLine:
                 this.moveLineAction(command.isReverse);
                 return;
-            case VimCommand.moveWordAction:
+            case VimCommand.gotoWordFoward:
                 this.moveWordAction(false, false, false, false);
                 return;
-            case VimCommand.moveWORDAction:
+            case VimCommand.gotoBlankSeparated:
                 this.moveWordAction(false, false, true, false);
                 return;
-            case VimCommand.moveBackWordAction:
+            case VimCommand.gotoWords:
                 this.moveWordAction(true, true, false, false);
                 return;
-            case VimCommand.moveBackWORDAction:
+            case VimCommand.gotoBlankSepalated:
                 this.moveWordAction(true, true, true, false);
                 return;
-            case VimCommand.moveWordEndAction:
+            case VimCommand.gotoForwardToEndOfWold:
                 this.moveWordAction(false, true, false, true);
                 return;
-            case VimCommand.moveWORDEndAction:
+            case VimCommand.gotoForwardToEndOfBlankSeparated:
                 this.moveWordAction(false, true, true, true);
                 return;
-            case VimCommand.moveHomeAction:
+            case VimCommand.gotoFirstCharacterInLine:
                 this.moveHomeAction();
                 return;
-            case VimCommand.moveEndAction:
+            case VimCommand.gotoLastCharacterInLine:
                 this.moveEndAction();
                 return;
-            case VimCommand.moveFirstNonBlankCharAction:
+            case VimCommand.gotoFirstNonBlankCharacterInLine:
                 this.moveFirstNonBlankCharAction();
                 return;
-            case VimCommand.moveFindCharacterAction:
+            case VimCommand.gotoCharToRight:
                 this.moveFindCharacterAction(command.isReverse);
                 return;
-            case VimCommand.moveTillCharacterAction:
+            case VimCommand.goTillBeforeCharacterToRight:
                 this.moveTillCharacterAction(command.isReverse);
                 return;
             case VimCommand.moveGotoLineAction:
                 this.moveGotoLineAction();
                 return;
-            case VimCommand.moveLastLineAction:
+            case VimCommand.gotoLastLine:
                 this.moveLastLineAction();
                 return;
             case VimCommand.moveFirstLineAction:
@@ -257,22 +257,22 @@ export class CommandFactory implements ICommandFactory {
                 return;
 
             // delete, yanc, change action
-            case VimCommand.changeAction:
+            case VimCommand.changeTextWithMotion:
                 this.changeAction();
                 return;
-            case VimCommand.deleteAction:
+            case VimCommand.deleteTextWithMotion:
                 this.deleteAction();
                 return;
-            case VimCommand.yancAction:
+            case VimCommand.yankTextMovedOverWithMotion:
                 this.yancAction();
                 return;
-            case VimCommand.changeToEndAction:
+            case VimCommand.changeTextToEndOfLine:
                 this.changeToEndAction();
                 return;
-            case VimCommand.deleteToEndAction:
+            case VimCommand.deleteTextToEndOfLine:
                 this.deleteToEndAction();
                 return;
-            case VimCommand.yancToEndAction:
+            case VimCommand.yankLine:
                 this.yancToEndAction();
                 return;
             case VimCommand.doActionAtCurrentLine:
@@ -280,7 +280,7 @@ export class CommandFactory implements ICommandFactory {
                 return;
 
             // visual mode
-            case VimCommand.enterVisualModeAction:
+            case VimCommand.startVisualMode:
                 this.enterVisualModeAction();
                 return;
             case VimCommand.deleteSelectionAction:
@@ -297,7 +297,7 @@ export class CommandFactory implements ICommandFactory {
                 return;
 
             // line visual mode
-            case VimCommand.enterVisualLineModeAction:
+            case VimCommand.startVisualLineMode:
                 this.enterVisualLineModeAction();
                 return;
             case VimCommand.deleteLineSelectionAction:
@@ -314,7 +314,7 @@ export class CommandFactory implements ICommandFactory {
                 return;
 
             // special
-            case VimCommand.repeat:
+            case VimCommand.repeatLastChange:
                 this.repeatAction();
                 return;
 

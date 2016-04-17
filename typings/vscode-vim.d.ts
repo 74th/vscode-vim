@@ -304,32 +304,32 @@ declare const enum VimMode {
 declare const enum VimCommand {
 
     // single action
-    insertCurrentPositionAction,
-    appendCurrentPositionAction,
-    insertHomeAction,
-    appendEndAction,
-    insertLineBelowAction,
-    deleteCharacterAction,
-    changeCharacterAction,
-    changeLineAction,
-    pasteBelowAction,
+    insertTextBeforeCursor,
+    appendTextAfterCursor,
+    insertTextBeforeFirstNonBlankInLine,
+    appendTextAtEndOfLine,
+    openNewLineBelowCurrentLineAndAppnedText,
+    deleteCharactersUnderCursor,
+    changeCharacters,
+    changeToEndOfLine,
+    putRegisterAfterCursorPosition,
 
     // move action
-    moveRightAction,
-    moveLineAction,
-    moveWordAction,
-    moveWORDAction,
-    moveBackWordAction,
-    moveBackWORDAction,
-    moveWordEndAction,
-    moveWORDEndAction,
-    moveHomeAction,
-    moveEndAction,
-    moveFirstNonBlankCharAction,
-    moveFindCharacterAction,
-    moveTillCharacterAction,
+    gotoRight,
+    gotoDownLine,
+    gotoWordFoward,
+    gotoBlankSeparated,
+    gotoWords,
+    gotoBlankSepalated,
+    gotoForwardToEndOfWold,
+    gotoForwardToEndOfBlankSeparated,
+    gotoFirstCharacterInLine,
+    gotoLastCharacterInLine,
+    gotoFirstNonBlankCharacterInLine,
+    gotoCharToRight,
+    goTillBeforeCharacterToRight,
     moveGotoLineAction,
-    moveLastLineAction,
+    gotoLastLine,
     moveFirstLineAction,
 
     // motion
@@ -351,30 +351,30 @@ declare const enum VimCommand {
     firstLineMotion,
 
     // delete, yanc, change action
-    changeAction,
-    deleteAction,
-    yancAction,
-    changeToEndAction,
-    deleteToEndAction,
-    yancToEndAction,
+    changeTextWithMotion,
+    deleteTextWithMotion,
+    yankTextMovedOverWithMotion,
+    changeTextToEndOfLine,
+    deleteTextToEndOfLine,
+    yankLine,
     doActionAtCurrentLine,
 
     // visual mode
-    enterVisualModeAction,
+    startVisualMode,
     expandSelectionAction,
     changeSelectionAction,
     deleteSelectionAction,
     yancSelectionAction,
 
     // line visual mode
-    enterVisualLineModeAction,
+    startVisualLineMode,
     expandLineSelectionAction,
     changeLineSelectionAction,
     deleteLineSelectionAction,
     yancLineSelectionAction,
 
     // special
-    repeat,
+    repeatLastChange,
 
     // other
     stackNumber,
