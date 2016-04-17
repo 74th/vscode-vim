@@ -3,7 +3,7 @@ This is imported from [quickref.txt](https://github.com/vim/vim/blob/master/runt
 ## Left-right motions
 
 |status|tests|key|function|
-|---||---|---|
+|---|---|---|---|
 |complete||`Nh`|left (also: CTRL-H, <BS>, or <Left> key)|
 |complete||`Nl`|right (also: <Space> or <Right> key)|
 |complete||`0`|to first character in the line (also: <Home> key)|
@@ -24,7 +24,7 @@ This is imported from [quickref.txt](https://github.com/vim/vim/blob/master/runt
 ## Up-down motions
 
 |status|tests|key|function|
-|---||---|---|
+|---|---|---|---|
 |complete||`Nk`|up N lines (also: CTRL-P and <Up>)|
 |complete||`Nj`|down N lines (also: CTRL-J, CTRL-N, <NL>, and <Down>)|
 |||`N-`|up N lines, on the first non-blank character|
@@ -39,7 +39,7 @@ This is imported from [quickref.txt](https://github.com/vim/vim/blob/master/runt
 ## Text object motions
 
 |status|tests|key|function|
-|---||---|---|
+|---|---|---|---|
 |complete||`Nw`|N words forward|
 |complete||`NW`|N blank-separated |WORD|s forward|
 |complete||`Ne`|forward to the end of the Nth word|
@@ -72,7 +72,7 @@ This is imported from [quickref.txt](https://github.com/vim/vim/blob/master/runt
 ## Pattern searches
 
 |status|tests|key|function|
-|---||---|---|
+|---|---|---|---|
 |||`N/{pattern}[/[offset]]<CR>`|search forward for the Nth occurrence of {pattern}|
 |||`N?{pattern}[?[offset]]<CR>`|search backward for the Nth occurrence of {pattern}|
 |||`N/<CR>`|repeat last search, in the forward direction|
@@ -89,7 +89,7 @@ This is imported from [quickref.txt](https://github.com/vim/vim/blob/master/runt
 ## Marks and motions
 
 |status|tests|key|function|
-|---||---|---|
+|---|---|---|---|
 |||`m{a-zA-Z}`|mark current position with mark {a-zA-Z}|
 |||``{a-z}`|go to mark {a-z} within current file|
 |||``{A-Z}`|go to mark {A-Z} in any file|
@@ -108,7 +108,7 @@ This is imported from [quickref.txt](https://github.com/vim/vim/blob/master/runt
 ## Various motions
 
 |status|tests|key|function|
-|---||---|---|
+|---|---|---|---|
 |||`%`|find the next brace, bracket, comment, or "#if"/ "#else"/"#endif" in this line and go to its match|
 |||`NH`|go to the Nth line in the window, on the first non-blank|
 |||`M`|go to the middle line in the window, on the first non-blank|
@@ -118,7 +118,7 @@ This is imported from [quickref.txt](https://github.com/vim/vim/blob/master/runt
 ## Scrolling
 
 |status|tests|key|function|
-|---||---|---|
+|---|---|---|---|
 |||`NCTRL-E`|window N lines downwards (default: 1)|
 |||`NCTRL-D`|window N lines Downwards (default: 1/2 window)|
 |||`NCTRL-F`|window N pages Forwards (downwards)|
@@ -136,7 +136,7 @@ This is imported from [quickref.txt](https://github.com/vim/vim/blob/master/runt
 ## Inserting text
 
 |status|tests|key|function|
-|---||---|---|
+|---|---|---|---|
 |complete except N||`Na`|append text after the cursor (N times)|
 |complete except N||`NA`|append text at the end of the line (N times)|
 |complete except N||`Ni`|insert text before the cursor (N times) (also: <Insert>)|
@@ -150,7 +150,7 @@ This is imported from [quickref.txt](https://github.com/vim/vim/blob/master/runt
 ## Deleting text
 
 |status|tests|key|function|
-|---||---|---|
+|---|---|---|---|
 |complete||`Nx`|delete N characters under and after the cursor|
 |||`N<Del>`|delete N characters under and after the cursor|
 |||`NX`|delete N characters before the cursor|
@@ -166,7 +166,7 @@ This is imported from [quickref.txt](https://github.com/vim/vim/blob/master/runt
 ## Copying and moving text
 
 |status|tests|key|function|
-|---||---|---|
+|---|---|---|---|
 |||`"{char}`|use register {char} for the next delete, yank, or put|
 |complete||`Ny{motion}`|yank the text moved over with {motion} into a register|
 |complete||`{visual}y`|yank the highlighted text into a register|
@@ -182,7 +182,7 @@ This is imported from [quickref.txt](https://github.com/vim/vim/blob/master/runt
 ## Changing text
 
 |status|tests|key|function|
-|---||---|---|
+|---|---|---|---|
 |||`Nr{char}`|replace N characters with {char}|
 |||`Ngr{char}`|replace N characters without affecting layout|
 |||`NR`|enter Replace mode (repeat the entered text N times)|
@@ -216,7 +216,7 @@ This is imported from [quickref.txt](https://github.com/vim/vim/blob/master/runt
 ## Complex changes
 
 |status|tests|key|function|
-|---||---|---|
+|---|---|---|---|
 |||`N!{motion}{command}<CR>`|filter the lines that are moved over through {command}|
 |||`N!!{command}<CR>`|filter N lines through {command}|
 |||`{visual}!{command}<CR>`|filter the highlighted lines through {command}|
@@ -229,7 +229,7 @@ This is imported from [quickref.txt](https://github.com/vim/vim/blob/master/runt
 list of Visual mode commands.
 
 |status|tests|key|function|
-|---||---|---|
+|---|---|---|---|
 |||`v`|start highlighting characters  }  move cursor and use|
 |||`V`|start highlighting linewise    }  operator to affect|
 |||`CTRL-V`|start highlighting blockwise   }  highlighted text|
@@ -242,7 +242,7 @@ list of Visual mode commands.
 ## Text objects (only in Visual mode or after an operator)
 
 |status|tests|key|function|
-|---||---|---|
+|---|---|---|---|
 |||`Naw`|Select "a word"|
 |||`Niw`|Select "inner word"|
 |||`NaW`|Select "a |WORD|"|
@@ -269,7 +269,7 @@ list of Visual mode commands.
 ## Repeating commands
 
 |status|tests|key|function|
-|---||---|---|
+|---|---|---|---|
 |partial||`N.`|repeat last change (with count replaced with N)|
 |||`q{a-z}`|record typed characters into register {a-z}|
 |||`q{A-Z}`|record typed characters, appended to register {a-z}|
