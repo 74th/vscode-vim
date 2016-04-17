@@ -30,9 +30,9 @@ This is imported from [quickref.txt](https://github.com/vim/vim/blob/master/runt
 |||`N-`|up N lines, on the first non-blank character|
 |||`N+`|down N lines, on the first non-blank character (also: CTRL-M and <CR>)|
 |||`N_`|down N-1 lines, on the first non-blank character|
-|?||`NG`|goto line N (default: last line), on the first non-blank character|
-|?||`Ngg`|goto line N (default: first line), on the first non-blank character|
-|||`N%`|goto line N percentage down in the file; N must be given, otherwise it is the |%| command|
+|FirstCharacterMotion||`NG`|goto line N (default: last line), on the first non-blank character|
+|FirstCharacterMotion||`Ngg`|goto line N (default: first line), on the first non-blank character|
+|||`N%`|goto line N percentage down in the file; N must be given, otherwise it is the &#124;%&#124; command|
 |||`Ngk`|up N screen lines (differs from "k" when line wraps)|
 |||`Ngj`|down N screen lines (differs from "j" when line wraps)|
 
