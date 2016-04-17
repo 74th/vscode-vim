@@ -2,21 +2,14 @@ import {AbstractMotion} from "./AbstractMotion";
 import * as Utils from "../Utils";
 import {Position} from "../VimStyle";
 
-export enum LineHeadTarget {
-    Current,
-    First,
-    Last,
-    Number
-}
+export class FirstCharacterMotion extends AbstractMotion {
 
-export class LineHeadMotion extends AbstractMotion {
-
-    public TargetLine: LineHeadTarget;
+    public Target: FirstCharacterMotion.Target;
     public IsSkipSpaces: boolean;
 
     constructor() {
         super();
-        this.TargetLine = LineHeadTarget.Number;
+        this.Target = FirstCharacterMotion.Target.Number;
         this.IsSkipSpaces = false;
     }
 
@@ -24,20 +17,20 @@ export class LineHeadMotion extends AbstractMotion {
 
         let lineDocument: string;
         let lineNumber: number;
-        switch (this.TargetLine) {
-            case LineHeadTarget.Current:
+        switch (this.Target) {
+            case FirstCharacterMotion.Target.Current:
                 lineDocument = editor.ReadLineAtCurrentPosition();
                 lineNumber = start.Line;
                 break;
-            case LineHeadTarget.First:
+            case FirstCharacterMotion.Target.First:
                 lineNumber = 0;
                 lineDocument = editor.ReadLine(lineNumber);
                 break;
-            case LineHeadTarget.Last:
+            case FirstCharacterMotion.Target.Last:
                 lineNumber = editor.GetLastLineNum();
                 lineDocument = editor.ReadLine(lineNumber);
                 break;
-            case LineHeadTarget.Number:
+            case FirstCharacterMotion.Target.Number:
                 lineNumber = this.GetCount();
                 let lastLineNum = editor.GetLastLineNum();
                 if (lineNumber > lastLineNum) {
@@ -59,5 +52,15 @@ export class LineHeadMotion extends AbstractMotion {
         p.Line = lineNumber;
         p.Char = charNumber;
         return p;
+    }
+}
+
+export module FirstCharacterMotion{
+
+    export enum Target {
+        Current,
+        First,
+        Last,
+        Number
     }
 }

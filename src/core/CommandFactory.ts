@@ -18,7 +18,7 @@ import {HomeMotion} from "../motion/HomeMotion";
 import {EndMotion} from "../motion/EndMotion";
 import {FindCharacterMotion} from "../motion/FindCharacterMotion";
 import {WordMotion} from "../motion/WordMotion";
-import {LineHeadMotion, LineHeadTarget} from "../motion/LineHeadMotion";
+import {FirstCharacterMotion} from "../motion/FirstCharacterMotion";
 
 export class CommandFactory implements ICommandFactory {
 
@@ -354,8 +354,8 @@ export class CommandFactory implements ICommandFactory {
 
     // I
     private insertHomeAction() {
-        let m = new LineHeadMotion();
-        m.TargetLine = LineHeadTarget.Current;
+        let m = new FirstCharacterMotion();
+        m.Target = FirstCharacterMotion.Target.Current;
         this.action = new ApplyInsertModeAction(m);
     }
 
@@ -474,8 +474,8 @@ export class CommandFactory implements ICommandFactory {
 
     // ^
     private moveFirstNonBlankCharAction() {
-        let m = new LineHeadMotion();
-        m.TargetLine = LineHeadTarget.Current;
+        let m = new FirstCharacterMotion();
+        m.Target = FirstCharacterMotion.Target.Current;
         this.action = this.createMoveAction(m);
     }
 
@@ -513,7 +513,7 @@ export class CommandFactory implements ICommandFactory {
     // Ng
     private moveGotoLineAction() {
         let a = new MoveAction();
-        let m = new LineHeadMotion();
+        let m = new FirstCharacterMotion();
         m.SetCount(this.getNumStack() - 1);
         a.SetMotion(m);
         this.action = a;
@@ -522,8 +522,8 @@ export class CommandFactory implements ICommandFactory {
     // G
     private moveLastLineAction() {
         let a = new MoveAction();
-        let m = new LineHeadMotion();
-        m.TargetLine = LineHeadTarget.Last;
+        let m = new FirstCharacterMotion();
+        m.Target = FirstCharacterMotion.Target.Last;
         a.SetMotion(m);
         this.action = a;
     }
@@ -531,8 +531,8 @@ export class CommandFactory implements ICommandFactory {
     // gg
     private moveFirstLineAction() {
         let a = new MoveAction();
-        let m = new LineHeadMotion();
-        m.TargetLine = LineHeadTarget.First;
+        let m = new FirstCharacterMotion();
+        m.Target = FirstCharacterMotion.Target.First;
         a.SetMotion(m);
         this.action = a;
     }
@@ -592,8 +592,8 @@ export class CommandFactory implements ICommandFactory {
     // c^
     private firstNonBlankCharMotion() {
         let a = <IRequireMotionAction>this.action;
-        let m = new LineHeadMotion();
-        m.TargetLine = LineHeadTarget.Current;
+        let m = new FirstCharacterMotion();
+        m.Target = FirstCharacterMotion.Target.Current;
         a.SetMotion(m);
     }
 
@@ -630,7 +630,7 @@ export class CommandFactory implements ICommandFactory {
 
     // cNg
     private gotoLineMotion() {
-        let m = new LineHeadMotion();
+        let m = new FirstCharacterMotion();
         m.SetCount(this.getNumStack() - 1);
         let a = <IRequireMotionAction>this.action;
         a.SetMotion(m);
@@ -639,8 +639,8 @@ export class CommandFactory implements ICommandFactory {
 
     // cG
     private lastLineMotion() {
-        let m = new LineHeadMotion();
-        m.TargetLine = LineHeadTarget.Last;
+        let m = new FirstCharacterMotion();
+        m.Target = FirstCharacterMotion.Target.Last;
         let a = <IRequireMotionAction>this.action;
         a.SetMotion(m);
         a.SetLineOption();
@@ -648,8 +648,8 @@ export class CommandFactory implements ICommandFactory {
 
     // cgg
     private firstLineMotion() {
-        let m = new LineHeadMotion();
-        m.TargetLine = LineHeadTarget.First;
+        let m = new FirstCharacterMotion();
+        m.Target = FirstCharacterMotion.Target.First;
         let a = <IRequireMotionAction>this.action;
         a.SetMotion(m);
         a.SetLineOption();
