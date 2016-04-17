@@ -100,7 +100,7 @@ interface IAction {
     GetActionType(): ActionType;
 }
 
-interface IInsertAction {
+interface IInsertTextAction {
     Execute(editor: IEditor, vim: IVimStyle);
     GetActionType(): ActionType;
     SetInsertText(text: string);

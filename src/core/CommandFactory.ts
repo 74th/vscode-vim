@@ -1,5 +1,5 @@
 import * as Utils from "../Utils";
-import {ApplyInsertModeAction} from "../action/ApplyInsertModeAction";
+import {InsertTextAction} from "../action/InsertTextAction";
 import {InsertLineBelowAction} from "../action/InsertLineBelowAction";
 import {PasteAction} from "../action/PasteAction";
 import {DeleteAction} from "../action/DeleteAction";
@@ -339,27 +339,27 @@ export class CommandFactory implements ICommandFactory {
 
     // i    
     private insertTextBeforeCursor() {
-        this.action = new ApplyInsertModeAction();
+        this.action = new InsertTextAction();
     }
 
     // a    
     private appendTextAfterCursor() {
         let m = new RightMotion();
         m.SetCount(1);
-        this.action = new ApplyInsertModeAction(m);
+        this.action = new InsertTextAction(m);
     }
 
     // I
     private insertTextBeforeFirstNonBlankInLine() {
         let m = new FirstCharacterMotion();
         m.Target = FirstCharacterMotion.Target.Current;
-        this.action = new ApplyInsertModeAction(m);
+        this.action = new InsertTextAction(m);
     }
 
     // A    
     private appendTextAtEndOfLine() {
         let m = new EndMotion();
-        this.action = new ApplyInsertModeAction(m);
+        this.action = new InsertTextAction(m);
     }
 
     // o O    

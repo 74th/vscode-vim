@@ -1,5 +1,5 @@
-import {AbstractInsertAction} from "./AbstractInsertAction";
-export class ApplyInsertModeAction extends AbstractInsertAction {
+import {AbstractInsertTextAction} from "./AbstractInsertTextAction";
+export class InsertTextAction extends AbstractInsertTextAction {
     private motion: IMotion;
 
     constructor(m?: IMotion) {

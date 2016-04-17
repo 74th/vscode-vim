@@ -1,8 +1,8 @@
-import {AbstractInsertAction} from "./AbstractInsertAction";
+import {AbstractInsertTextAction} from "./AbstractInsertTextAction";
 import {Range, Position} from "../VimStyle";
 import {RegisterItem} from "../core/Register";
 
-export class DeleteAction extends AbstractInsertAction implements IRequireMotionAction, IInsertAction {
+export class DeleteAction extends AbstractInsertTextAction implements IRequireMotionAction, IInsertTextAction {
 
     public motion: IMotion;
     public isLine: boolean;

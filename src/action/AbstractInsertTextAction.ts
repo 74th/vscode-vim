@@ -1,4 +1,4 @@
-export abstract class AbstractInsertAction implements IInsertAction {
+export abstract class AbstractInsertTextAction implements IInsertTextAction {
 
     protected insertText: string;
     protected insertModeInfo: any;

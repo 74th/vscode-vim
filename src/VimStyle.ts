@@ -1,7 +1,7 @@
 import {CommandFactory} from "./core/CommandFactory";
 import {LoadKeyBindings} from "./core/KeyBindings";
 import {InsertModeExecute} from "./mode/InsertMode";
-import {ApplyInsertModeAction} from "./action/ApplyInsertModeAction";
+import {InsertTextAction} from "./action/InsertTextAction";
 import * as Utils from "./Utils";
 import {Register} from "./core/Register";
 
@@ -135,7 +135,7 @@ export class VimStyle implements IVimStyle {
         if (this.LastAction.GetActionType() !== ActionType.Insert) {
             return;
         }
-        let action = this.LastAction as IInsertAction;
+        let action = this.LastAction as IInsertTextAction;
         let info = action.GetInsertModeInfo();
 
         let lineCount = this.editor.GetLastLineNum() + 1;
