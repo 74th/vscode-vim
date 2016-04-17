@@ -131,13 +131,21 @@ export class CommandFactory implements ICommandFactory {
             // sorted and categorised by quickref.md
 
             // ** Left-right motions **
-            // Nj Nl
+            // Nj
             case VimCommand.gotoRight:
-                this.gotoRight(command.isReverse);
+                this.gotoRight();
                 return;
-            // cNj cNl
+            // Nl
+            case VimCommand.gotoLeft:
+                this.gotoLeft();
+                return;
+            // cNj
             case VimCommand.rightMotion:
-                this.addRightMotion(command.isReverse);
+                this.addRightMotion();
+                return;
+            // cNl
+            case VimCommand.leftMotion:
+                this.addLeftMotion();
                 return;
             // 0
             case VimCommand.gotoFirstCharacterInLine:
@@ -405,22 +413,33 @@ export class CommandFactory implements ICommandFactory {
     // Left-right motions
     // -----
 
-    // h l
-    private gotoRight(isLeft: boolean) {
+    // Nh
+    private gotoRight() {
         let m = new RightMotion();
-        if (isLeft) {
-            m.IsLeftDirection = true;
-        };
         m.SetCount(this.getNumStack());
         this.action = this.createGotoAction(m);
     }
 
-    // ch cl
-    private addRightMotion(isLeft: boolean) {
+    // Nl
+    private gotoLeft() {
         let m = new RightMotion();
-        if (isLeft) {
-            m.IsLeftDirection = true;
-        };
+        m.IsLeftDirection = true;
+        m.SetCount(this.getNumStack());
+        this.action = this.createGotoAction(m);
+    }
+
+    // ch
+    private addRightMotion() {
+        let m = new RightMotion();
+        m.SetCount(this.getNumStack());
+        let a = <IRequireMotionAction>this.action;
+        a.Motion = m;
+    }
+
+    // cl
+    private addLeftMotion() {
+        let m = new RightMotion();
+        m.IsLeftDirection = true;
         m.SetCount(this.getNumStack());
         let a = <IRequireMotionAction>this.action;
         a.Motion = m;
@@ -693,7 +712,7 @@ export class CommandFactory implements ICommandFactory {
         let a = new OpenNewLineAndAppendTextAction();
         this.action = a;
     }
-    
+
     // O
     private openNewLineAboveCurrentLineAndAppendText() {
         let a = new OpenNewLineAndAppendTextAction();

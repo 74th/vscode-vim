@@ -95,8 +95,7 @@ const DefaultKeyBindings: IKeyBindings = {
             cmd: VimCommand.gotoLastLine,
         },
         "h": {
-            cmd: VimCommand.gotoRight,
-            isReverse: true
+            cmd: VimCommand.gotoLeft
         },
         // H no function
         "i": {
@@ -122,8 +121,7 @@ const DefaultKeyBindings: IKeyBindings = {
             cmd: VimCommand.openNewLineBelowCurrentLineAndAppnedText
         },
         "O": {
-            cmd: VimCommand.openNewLineBelowCurrentLineAndAppnedText,
-            isReverse: true
+            cmd: VimCommand.openNewLineAboveCurrentLineAndAppnedText
         },
         "p": {
             cmd: VimCommand.putRegisterAfterCursorPosition
@@ -269,8 +267,7 @@ const DefaultKeyBindings: IKeyBindings = {
             cmd: VimCommand.gotoLine
         },
         "h": {
-            cmd: VimCommand.gotoRight,
-            isReverse: true
+            cmd: VimCommand.gotoLeft
         },
         // NH no function
         // Ni low priority
@@ -416,8 +413,7 @@ const DefaultKeyBindings: IKeyBindings = {
             cmd: VimCommand.lastLineMotion,
         },
         "h": {
-            cmd: VimCommand.rightMotion,
-            isReverse: true
+            cmd: VimCommand.leftMotion
         },
         // H no function
         // i
@@ -554,8 +550,7 @@ const DefaultKeyBindings: IKeyBindings = {
             cmd: VimCommand.lineMotion
         },
         "h": {
-            cmd: VimCommand.rightMotion,
-            isReverse: true
+            cmd: VimCommand.leftMotion
         },
         // H no function
         // i
@@ -701,7 +696,7 @@ const DefaultKeyBindings: IKeyBindings = {
             cmd: VimCommand.lastLineMotion,
         },
         "h": {
-            cmd: VimCommand.rightMotion,
+            cmd: VimCommand.leftMotion,
             isReverse: true
         },
         // H no function
