@@ -5,10 +5,6 @@ export class RepeatLastChangeAction implements IAction {
     constructor() {
     }
 
-    public IsEdit(): boolean {
-        return false;
-    }
-
     public GetActionType(): ActionType {
         return ActionType.Repeat;
     }
