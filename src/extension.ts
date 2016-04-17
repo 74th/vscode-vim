@@ -1,6 +1,7 @@
 import * as vscode from "vscode";
 import {VimStyle} from "./VimStyle";
 import {VSCodeEditor, IVSCodeEditorOptions} from "./VSCodeEditor";
+import {VSCodeEditorKeyBindngs} from "./VSCodeEditorKeyBindings";
 
 export function activate(context: vscode.ExtensionContext) {
 
@@ -12,7 +13,8 @@ export function activate(context: vscode.ExtensionContext) {
             showMode: conf.get<boolean>("showMode", false)
         };
         vimOpt = {
-            useErgonomicKeyForMotion: conf.get<boolean>("useErgonomicKeyForMotion", false)
+            useErgonomicKeyForMotion: conf.get<boolean>("useErgonomicKeyForMotion", false),
+            editorKeyBindings: VSCodeEditorKeyBindngs
         };
     }
     loadConfiguration();

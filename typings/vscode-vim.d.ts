@@ -45,14 +45,16 @@ interface IEditor {
 
     GetTabSize(): number;
 
+    CallEditorCommand(argument: string): void;
+
     dispose(): void;
 }
 
 interface ICommandFactory {
+    KeyBindings: IKeyBindings;
     PushKey(key: string, mode: VimMode): IAction;
     Clear(): void;
     GetCommandString(): string;
-    SetKeyBindings(IKeyBindings);
 }
 
 interface IMotion {
@@ -137,7 +139,11 @@ interface IVimStyle {
 interface IVimStyleCommand {
     state?: StateName;
     cmd: VimCommand;
+    argument?: string;
+    callback?: ICommandCallback;
 }
+
+interface ICommandCallback { (editor: IEditor, vimStyle: IVimStyle): void }
 
 interface IKeyBindings {
     AtStart: { [key: string]: IVimStyleCommand };
@@ -152,6 +158,7 @@ interface IKeyBindings {
 
 interface IVimStyleOptions {
     useErgonomicKeyForMotion: boolean;
+    editorKeyBindings?: IKeyBindings;
 }
 
 interface IVisualLineModeSelectionInfo {
@@ -532,7 +539,8 @@ declare const enum VimCommand {
 
     // other
     stackNumber,
-    nothing
+    nothing,
+    editorCommand
 }
 
 declare const enum StateName {

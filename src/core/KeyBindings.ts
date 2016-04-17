@@ -15,7 +15,7 @@ function applyKeyBindingsByEachState(dest: { [key: string]: IVimStyleCommand }, 
         dest[key] = src[key];
     }
 }
-function applyKeyBindings(dest: IKeyBindings, src: IKeyBindings) {
+export function ApplyKeyBindings(dest: IKeyBindings, src: IKeyBindings) {
     if (dest.AtStart) {
         applyKeyBindingsByEachState(dest.AtStart, src.AtStart);
     }
@@ -920,9 +920,12 @@ export function LoadKeyBindings(opts: IVimStyleOptions): IKeyBindings {
         VisualLineMode: {}
     };
     let key: string;
-    applyKeyBindings(bindings, DefaultKeyBindings);
+    ApplyKeyBindings(bindings, DefaultKeyBindings);
     if (opts.useErgonomicKeyForMotion) {
-        applyKeyBindings(bindings, ErgonomicKeyBindings);
+        ApplyKeyBindings(bindings, ErgonomicKeyBindings);
+    }
+    if (opts.editorKeyBindings) {
+        ApplyKeyBindings(bindings, opts.editorKeyBindings);
     }
     return bindings;
 }

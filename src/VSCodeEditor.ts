@@ -272,6 +272,10 @@ export class VSCodeEditor implements IEditor {
             cursorStyle: vscode.TextEditorCursorStyle.Block
         };
     }
+
+    public CallEditorCommand(argument: string) {
+        vscode.commands.executeCommand(argument, null);
+    }
 }
 
 function tranceVimStylePosition(org: vscode.Position): IPosition {

@@ -19,16 +19,18 @@ import {LastCharacterInLineMotion} from "../motion/EndMotion";
 import {CharacterMotion} from "../motion/FindCharacterMotion";
 import {WordMotion} from "../motion/WordMotion";
 import {FirstCharacterMotion} from "../motion/FirstCharacterMotion";
+import {CallEditorCommandAction} from "../action/CallEditorCommandAction";
 
 export class CommandFactory implements ICommandFactory {
 
     private state: StateName;
     private action: IAction;
     private motion: CharacterMotion;
-    private keyBindings: IKeyBindings;
     private stackedKey: string;
     private num: number;
     private commandString: string;
+
+    public KeyBindings: IKeyBindings;
 
     constructor() {
         this.Clear();
@@ -39,54 +41,54 @@ export class CommandFactory implements ICommandFactory {
         if (mode === VimMode.Normal) {
             switch (this.state) {
                 case StateName.AtStart:
-                    command = this.keyBindings.AtStart[keyChar];
+                    command = this.KeyBindings.AtStart[keyChar];
                     break;
                 case StateName.FirstNum:
-                    command = this.keyBindings.FirstNum[keyChar];
+                    command = this.KeyBindings.FirstNum[keyChar];
                     break;
                 case StateName.RequireMotion:
-                    command = this.keyBindings.RequireMotion[keyChar];
+                    command = this.KeyBindings.RequireMotion[keyChar];
                     break;
                 case StateName.RequireMotionNum:
-                    command = this.keyBindings.RequireMotionNum[keyChar];
+                    command = this.KeyBindings.RequireMotionNum[keyChar];
                     break;
                 case StateName.RequireCharForMotion:
                     return this.pushKeyAtRequireCharForMotion(keyChar);
                 case StateName.SmallG:
-                    command = this.keyBindings.SmallG[keyChar];
+                    command = this.KeyBindings.SmallG[keyChar];
                     break;
                 case StateName.SmallGForMotion:
-                    command = this.keyBindings.SmallGForMotion[keyChar];
+                    command = this.KeyBindings.SmallGForMotion[keyChar];
                     break;
             }
         } else if (mode === VimMode.Visual) {
             switch (this.state) {
                 case StateName.AtStart:
                     this.action = new ExpandHighlightedTextAction();
-                    command = this.keyBindings.VisualMode[keyChar];
+                    command = this.KeyBindings.VisualMode[keyChar];
                     break;
                 case StateName.RequireMotionNum:
-                    command = this.keyBindings.RequireMotionNum[keyChar];
+                    command = this.KeyBindings.RequireMotionNum[keyChar];
                     break;
                 case StateName.RequireCharForMotion:
                     return this.pushKeyAtRequireCharForMotion(keyChar);
                 case StateName.SmallGForMotion:
-                    command = this.keyBindings.SmallGForMotion[keyChar];
+                    command = this.KeyBindings.SmallGForMotion[keyChar];
                     break;
             }
         } else if (mode === VimMode.VisualLine) {
             switch (this.state) {
                 case StateName.AtStart:
                     this.action = new ExpandHighlightedLineAction();
-                    command = this.keyBindings.VisualLineMode[keyChar];
+                    command = this.KeyBindings.VisualLineMode[keyChar];
                     break;
                 case StateName.RequireMotionNum:
-                    command = this.keyBindings.RequireMotionNum[keyChar];
+                    command = this.KeyBindings.RequireMotionNum[keyChar];
                     break;
                 case StateName.RequireCharForMotion:
                     return this.pushKeyAtRequireCharForMotion(keyChar);
                 case StateName.SmallGForMotion:
-                    command = this.keyBindings.SmallGForMotion[keyChar];
+                    command = this.KeyBindings.SmallGForMotion[keyChar];
                     break;
             }
         }
@@ -118,10 +120,6 @@ export class CommandFactory implements ICommandFactory {
 
     public GetCommandString(): string {
         return this.commandString;
-    }
-
-    public SetKeyBindings(keyBindings: IKeyBindings) {
-        this.keyBindings = keyBindings;
     }
 
     private createVimStyleCommand(key: string, command: IVimStyleCommand) {
@@ -436,6 +434,8 @@ export class CommandFactory implements ICommandFactory {
                 this.stackNumber(key);
             case VimCommand.nothing:
                 return;
+            case VimCommand.editorCommand:
+                this.editorCommand(command);
         }
     }
 
@@ -1139,6 +1139,13 @@ export class CommandFactory implements ICommandFactory {
         let a = new GoAction();
         a.Motion = motion;
         return a;
+    }
+
+    private editorCommand(command: IVimStyleCommand) {
+        let a = new CallEditorCommandAction();
+        a.Argument = command.argument;
+        a.Callback = command.callback;
+        this.action = a;
     }
 
 }

@@ -1,5 +1,5 @@
 import {CommandFactory} from "./core/CommandFactory";
-import {LoadKeyBindings} from "./core/KeyBindings";
+import {LoadKeyBindings, ApplyKeyBindings} from "./core/KeyBindings";
 import {InsertModeExecute} from "./mode/InsertMode";
 import {InsertTextAction} from "./action/InsertTextAction";
 import * as Utils from "./Utils";
@@ -127,7 +127,7 @@ export class VimStyle implements IVimStyle {
     }
 
     private LoadKeyBinding() {
-        this.commandFactory.SetKeyBindings(LoadKeyBindings(this.Options));
+        this.commandFactory.KeyBindings = LoadKeyBindings(this.Options);
     }
 
     private setInsertText() {
@@ -164,6 +164,11 @@ export class VimStyle implements IVimStyle {
         range.end = cp;
         action.SetInsertText(this.editor.ReadRange(range));
     }
+
+    public SetAdditionalKeyBinds(keyBindings: IKeyBindings) {
+        ApplyKeyBindings(this.commandFactory.KeyBindings, keyBindings)
+    }
+
 }
 
 export class Position implements IPosition {

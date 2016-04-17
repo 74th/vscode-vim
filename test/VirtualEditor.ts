@@ -236,4 +236,7 @@ export class VirtualEditor implements IEditor {
     public dispose() {
         return;
     }
+
+    public CallEditorCommand(argument: string) {
+    }
 }
