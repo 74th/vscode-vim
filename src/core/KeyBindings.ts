@@ -106,11 +106,11 @@ const DefaultKeyBindings: IKeyBindings = {
             cmd: VimCommand.insertTextBeforeFirstNonBlankInLine
         },
         "j": {
-            cmd: VimCommand.gotoDownLine
+            cmd: VimCommand.goDown
         },
         // J
         "k": {
-            cmd: VimCommand.gotoDownLine,
+            cmd: VimCommand.goDown,
             isReverse: true
         },
         // K no function
@@ -276,11 +276,11 @@ const DefaultKeyBindings: IKeyBindings = {
         // Ni low priority
         // NI low priority
         "j": {
-            cmd: VimCommand.gotoDownLine
+            cmd: VimCommand.goDown
         },
         // NJ
         "k": {
-            cmd: VimCommand.gotoDownLine,
+            cmd: VimCommand.goDown,
             isReverse: true
         },
         // K no function
@@ -423,11 +423,11 @@ const DefaultKeyBindings: IKeyBindings = {
         // i
         // I
         "j": {
-            cmd: VimCommand.downLineMotion
+            cmd: VimCommand.downMotion
         },
         // J
         "k": {
-            cmd: VimCommand.downLineMotion,
+            cmd: VimCommand.downMotion,
             isReverse: true
         },
         // K no function
@@ -561,11 +561,11 @@ const DefaultKeyBindings: IKeyBindings = {
         // i
         // I
         "j": {
-            cmd: VimCommand.downLineMotion
+            cmd: VimCommand.downMotion
         },
         // J
         "k": {
-            cmd: VimCommand.downLineMotion,
+            cmd: VimCommand.downMotion,
             isReverse: true
         },
         // K no function
@@ -708,11 +708,11 @@ const DefaultKeyBindings: IKeyBindings = {
         // v..i
         // v..I
         "j": {
-            cmd: VimCommand.downLineMotion
+            cmd: VimCommand.downMotion
         },
         // J?
         "k": {
-            cmd: VimCommand.downLineMotion,
+            cmd: VimCommand.downMotion,
             isReverse: true
         },
         // K no function
@@ -829,11 +829,11 @@ const DefaultKeyBindings: IKeyBindings = {
         // V..i
         // V..I
         "j": {
-            cmd: VimCommand.downLineMotion
+            cmd: VimCommand.downMotion
         },
         // V..J?
         "k": {
-            cmd: VimCommand.downLineMotion,
+            cmd: VimCommand.downMotion,
             isReverse: true
         },
         // V..K no function

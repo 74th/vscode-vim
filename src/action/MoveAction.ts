@@ -1,4 +1,4 @@
-export class MoveAction implements IAction {
+export class GoAction implements IAction {
 
     private motion: IMotion;
 

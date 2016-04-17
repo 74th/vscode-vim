@@ -1,5 +1,5 @@
 import {Range} from "../VimStyle";
-export class ApplyVisualLineModeAction implements IAction {
+export class StartVisualLineModeAction implements IAction {
 
     public GetActionType(): ActionType {
         return ActionType.Other;

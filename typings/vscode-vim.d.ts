@@ -316,7 +316,7 @@ declare const enum VimCommand {
 
     // move action
     gotoRight,
-    gotoDownLine,
+    goDown,
     gotoWordFoward,
     gotoBlankSeparated,
     gotoWordBackword,
@@ -334,7 +334,7 @@ declare const enum VimCommand {
 
     // motion
     rightMotion,
-    downLineMotion,
+    downMotion,
     wordForwardMotion,
     blankSeparatedMotion,
     wordBackwardMotion,

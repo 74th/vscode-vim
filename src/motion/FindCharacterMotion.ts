@@ -1,7 +1,7 @@
 import {AbstractMotion} from "./AbstractMotion";
 import {Position} from "../VimStyle";
 
-export class FindCharacterMotion extends AbstractMotion {
+export class CharacterMotion extends AbstractMotion {
 
     private targetCharCode: number;
     private direction: Direction;

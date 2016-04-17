@@ -1,6 +1,6 @@
 import * as Utils from "../Utils";
 
-export class MoveLineAction implements IAction {
+export class GoDownAction implements IAction {
 
     private motion: IMotion;
 

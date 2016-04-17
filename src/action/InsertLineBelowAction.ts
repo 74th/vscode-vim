@@ -2,7 +2,7 @@ import {AbstractInsertTextAction} from "./AbstractInsertTextAction";
 import {Position} from "../VimStyle";
 import * as Utils from "../Utils";
 
-export class InsertLineBelowAction extends AbstractInsertTextAction {
+export class OpenNewLineAndAppendTextAction extends AbstractInsertTextAction {
 
     private isAbove: boolean;
 

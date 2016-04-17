@@ -1,7 +1,7 @@
 import {Range, Position} from "../VimStyle";
 import {RegisterItem} from "../core/Register";
 
-export class DeleteLineSelectionAction implements IInsertTextAction {
+export class DeleteYankChangeHighlightedLineAction implements IInsertTextAction {
 
     public isInsert: boolean;
     public isOnlyYanc: boolean;

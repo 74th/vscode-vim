@@ -1,6 +1,6 @@
 import {Position} from "../VimStyle";
 
-export class PasteAction implements IAction {
+export class PutRegisterAction implements IAction {
 
     private isPrev: boolean;
     private registerKey: Key;
