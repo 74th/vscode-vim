@@ -138,7 +138,7 @@ interface IVimStyleCommand {
     state?: StateName;
     isReverse?: boolean;
     isEdit?: boolean;
-    cmd: CommandName;
+    cmd: VimCommand;
 }
 
 interface IKeyBindings {
@@ -301,7 +301,7 @@ declare const enum VimMode {
     VisualLine,
 }
 
-declare const enum CommandName {
+declare const enum VimCommand {
 
     // single action
     insertCurrentPositionAction,

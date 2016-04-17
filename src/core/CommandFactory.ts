@@ -128,200 +128,200 @@ export class CommandFactory implements ICommandFactory {
 
         switch (command.cmd) {
             // single action
-            case CommandName.insertCurrentPositionAction:
+            case VimCommand.insertCurrentPositionAction:
                 this.insertCurrentPositionAction();
                 return;
-            case CommandName.appendCurrentPositionAction:
+            case VimCommand.appendCurrentPositionAction:
                 this.appendCurrentPositionAction();
                 return;
-            case CommandName.insertHomeAction:
+            case VimCommand.insertHomeAction:
                 this.insertHomeAction();
                 return;
-            case CommandName.appendEndAction:
+            case VimCommand.appendEndAction:
                 this.appendEndAction();
                 return;
-            case CommandName.insertLineBelowAction:
+            case VimCommand.insertLineBelowAction:
                 this.insertLineBelowAction(command.isReverse);
                 return;
-            case CommandName.deleteCharacterAction:
+            case VimCommand.deleteCharacterAction:
                 this.deleteCharacterAction(command.isReverse);
                 return;
-            case CommandName.changeCharacterAction:
+            case VimCommand.changeCharacterAction:
                 this.changeCharacterAction();
                 return;
-            case CommandName.changeLineAction:
+            case VimCommand.changeLineAction:
                 this.changeLineAction();
                 return;
 
             // move action
-            case CommandName.pasteBelowAction:
+            case VimCommand.pasteBelowAction:
                 this.pasteBelowAction(command.isReverse);
                 return;
-            case CommandName.moveRightAction:
+            case VimCommand.moveRightAction:
                 this.moveRightAction(command.isReverse);
                 return;
-            case CommandName.moveLineAction:
+            case VimCommand.moveLineAction:
                 this.moveLineAction(command.isReverse);
                 return;
-            case CommandName.moveWordAction:
+            case VimCommand.moveWordAction:
                 this.moveWordAction(false, false, false, false);
                 return;
-            case CommandName.moveWORDAction:
+            case VimCommand.moveWORDAction:
                 this.moveWordAction(false, false, true, false);
                 return;
-            case CommandName.moveBackWordAction:
+            case VimCommand.moveBackWordAction:
                 this.moveWordAction(true, true, false, false);
                 return;
-            case CommandName.moveBackWORDAction:
+            case VimCommand.moveBackWORDAction:
                 this.moveWordAction(true, true, true, false);
                 return;
-            case CommandName.moveWordEndAction:
+            case VimCommand.moveWordEndAction:
                 this.moveWordAction(false, true, false, true);
                 return;
-            case CommandName.moveWORDEndAction:
+            case VimCommand.moveWORDEndAction:
                 this.moveWordAction(false, true, true, true);
                 return;
-            case CommandName.moveHomeAction:
+            case VimCommand.moveHomeAction:
                 this.moveHomeAction();
                 return;
-            case CommandName.moveEndAction:
+            case VimCommand.moveEndAction:
                 this.moveEndAction();
                 return;
-            case CommandName.moveFirstNonBlankCharAction:
+            case VimCommand.moveFirstNonBlankCharAction:
                 this.moveFirstNonBlankCharAction();
                 return;
-            case CommandName.moveFindCharacterAction:
+            case VimCommand.moveFindCharacterAction:
                 this.moveFindCharacterAction(command.isReverse);
                 return;
-            case CommandName.moveTillCharacterAction:
+            case VimCommand.moveTillCharacterAction:
                 this.moveTillCharacterAction(command.isReverse);
                 return;
-            case CommandName.moveGotoLineAction:
+            case VimCommand.moveGotoLineAction:
                 this.moveGotoLineAction();
                 return;
-            case CommandName.moveLastLineAction:
+            case VimCommand.moveLastLineAction:
                 this.moveLastLineAction();
                 return;
-            case CommandName.moveFirstLineAction:
+            case VimCommand.moveFirstLineAction:
                 this.moveFirstLineAction();
                 return;
 
             // motion
-            case CommandName.rightMotion:
+            case VimCommand.rightMotion:
                 this.rightMotion(command.isReverse);
                 return;
-            case CommandName.lineMotion:
+            case VimCommand.lineMotion:
                 this.lineMotion(command.isReverse);
                 return;
-            case CommandName.wordMotion:
+            case VimCommand.wordMotion:
                 this.wordMotion(false, false, false, false);
                 return;
-            case CommandName.wordMotion:
+            case VimCommand.wordMotion:
                 this.wordMotion(false, false, true, false);
                 return;
-            case CommandName.backWordMotion:
+            case VimCommand.backWordMotion:
                 this.wordMotion(true, true, false, false);
                 break;
-            case CommandName.backWORDMotion:
+            case VimCommand.backWORDMotion:
                 this.wordMotion(true, true, true, false);
                 break;
-            case CommandName.wordEndMotion:
+            case VimCommand.wordEndMotion:
                 this.wordMotion(false, true, false, true);
                 break;
-            case CommandName.WORDEndMotion:
+            case VimCommand.WORDEndMotion:
                 this.wordMotion(false, true, true, true);
                 break;
-            case CommandName.homeMotion:
+            case VimCommand.homeMotion:
                 this.homeMotion();
                 return;
-            case CommandName.endMotion:
+            case VimCommand.endMotion:
                 this.endMotion();
                 return;
-            case CommandName.firstNonBlankCharMotion:
+            case VimCommand.firstNonBlankCharMotion:
                 this.firstNonBlankCharMotion();
                 return;
-            case CommandName.findCharacterMotion:
+            case VimCommand.findCharacterMotion:
                 this.findCharacterMotion(command.isReverse);
                 return;
-            case CommandName.tillCharacterMotion:
+            case VimCommand.tillCharacterMotion:
                 this.tillCharacterMotion(command.isReverse);
                 return;
-            case CommandName.gotoLineMotion:
+            case VimCommand.gotoLineMotion:
                 this.gotoLineMotion();
                 return;
-            case CommandName.lastLineMotion:
+            case VimCommand.lastLineMotion:
                 this.lastLineMotion();
                 return;
-            case CommandName.firstLineMotion:
+            case VimCommand.firstLineMotion:
                 this.firstLineMotion();
                 return;
 
             // delete, yanc, change action
-            case CommandName.changeAction:
+            case VimCommand.changeAction:
                 this.changeAction();
                 return;
-            case CommandName.deleteAction:
+            case VimCommand.deleteAction:
                 this.deleteAction();
                 return;
-            case CommandName.yancAction:
+            case VimCommand.yancAction:
                 this.yancAction();
                 return;
-            case CommandName.changeToEndAction:
+            case VimCommand.changeToEndAction:
                 this.changeToEndAction();
                 return;
-            case CommandName.deleteToEndAction:
+            case VimCommand.deleteToEndAction:
                 this.deleteToEndAction();
                 return;
-            case CommandName.yancToEndAction:
+            case VimCommand.yancToEndAction:
                 this.yancToEndAction();
                 return;
-            case CommandName.doActionAtCurrentLine:
+            case VimCommand.doActionAtCurrentLine:
                 this.doActionAtCurrentLine(key);
                 return;
 
             // visual mode
-            case CommandName.enterVisualModeAction:
+            case VimCommand.enterVisualModeAction:
                 this.enterVisualModeAction();
                 return;
-            case CommandName.deleteSelectionAction:
+            case VimCommand.deleteSelectionAction:
                 this.deleteSelectionAction();
                 return;
-            case CommandName.changeSelectionAction:
+            case VimCommand.changeSelectionAction:
                 this.changeSelectionAction();
                 return;
-            case CommandName.deleteSelectionAction:
+            case VimCommand.deleteSelectionAction:
                 this.deleteSelectionAction();
                 return;
-            case CommandName.yancSelectionAction:
+            case VimCommand.yancSelectionAction:
                 this.yancSelectionAction();
                 return;
 
             // line visual mode
-            case CommandName.enterVisualLineModeAction:
+            case VimCommand.enterVisualLineModeAction:
                 this.enterVisualLineModeAction();
                 return;
-            case CommandName.deleteLineSelectionAction:
+            case VimCommand.deleteLineSelectionAction:
                 this.deleteLineSelectionAction();
                 return;
-            case CommandName.changeLineSelectionAction:
+            case VimCommand.changeLineSelectionAction:
                 this.changeLineSelectionAction();
                 return;
-            case CommandName.deleteLineSelectionAction:
+            case VimCommand.deleteLineSelectionAction:
                 this.deleteLineSelectionAction();
                 return;
-            case CommandName.yancLineSelectionAction:
+            case VimCommand.yancLineSelectionAction:
                 this.yancLineSelectionAction();
                 return;
 
             // special
-            case CommandName.repeat:
+            case VimCommand.repeat:
                 this.repeatAction();
                 return;
 
             // other
-            case CommandName.stackNumber:
+            case VimCommand.stackNumber:
                 this.stackNumber(key);
-            case CommandName.nothing:
+            case VimCommand.nothing:
                 return;
         }
     }
