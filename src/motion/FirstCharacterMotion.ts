@@ -55,7 +55,7 @@ export class FirstCharacterMotion extends AbstractMotion {
     }
 }
 
-export module FirstCharacterMotion{
+export namespace FirstCharacterMotion {
 
     export enum Target {
         Current,
