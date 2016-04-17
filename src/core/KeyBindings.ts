@@ -51,12 +51,10 @@ const DefaultKeyBindings: IKeyBindings = {
             cmd: VimCommand.appendTextAtEndOfLine
         },
         "b": {
-            cmd: VimCommand.gotoWordBackword,
-            isReverse: true
+            cmd: VimCommand.gotoWordBackword
         },
         "B": {
-            cmd: VimCommand.gotoBlankSeparated,
-            isReverse: true
+            cmd: VimCommand.gotoBlankSeparated
         },
         "c": {
             cmd: VimCommand.changeTextWithMotion,
@@ -369,12 +367,10 @@ const DefaultKeyBindings: IKeyBindings = {
         // da
         // dA
         "b": {
-            cmd: VimCommand.wordForwardMotion,
-            isReverse: true
+            cmd: VimCommand.wordForwardMotion
         },
         "B": {
-            cmd: VimCommand.blankSeparatedMotion,
-            isReverse: true
+            cmd: VimCommand.blankSeparatedMotion
         },
         "c": {
             cmd: VimCommand.doActionAtCurrentLine
@@ -513,8 +509,7 @@ const DefaultKeyBindings: IKeyBindings = {
         // da
         // dA
         "b": {
-            cmd: VimCommand.wordForwardMotion,
-            isReverse: true
+            cmd: VimCommand.wordForwardMotion
         },
         // B
         "c": {
@@ -653,8 +648,7 @@ const DefaultKeyBindings: IKeyBindings = {
         // v..a
         // v..A
         "b": {
-            cmd: VimCommand.wordForwardMotion,
-            isReverse: true
+            cmd: VimCommand.wordForwardMotion
         },
         // v..B
         "c": {
@@ -683,8 +677,7 @@ const DefaultKeyBindings: IKeyBindings = {
             cmd: VimCommand.lastLineMotion,
         },
         "h": {
-            cmd: VimCommand.leftMotion,
-            isReverse: true
+            cmd: VimCommand.leftMotion
         },
         // H no function
         // v..i
@@ -781,8 +774,7 @@ const DefaultKeyBindings: IKeyBindings = {
         // V..a
         // V..A
         "b": {
-            cmd: VimCommand.wordForwardMotion,
-            isReverse: true
+            cmd: VimCommand.wordForwardMotion
         },
         // V..B
         "c": {

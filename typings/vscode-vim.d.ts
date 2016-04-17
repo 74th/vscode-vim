@@ -136,8 +136,6 @@ interface IVimStyle {
 
 interface IVimStyleCommand {
     state?: StateName;
-    isReverse?: boolean;
-    isEdit?: boolean;
     cmd: VimCommand;
 }
 
