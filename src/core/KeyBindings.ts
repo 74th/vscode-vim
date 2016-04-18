@@ -648,7 +648,7 @@ const DefaultKeyBindings: IKeyBindings = {
         // v..a
         // v..A
         "b": {
-            cmd: VimCommand.wordForwardMotion
+            cmd: VimCommand.wordBackwardMotion
         },
         // v..B
         "c": {
@@ -774,7 +774,7 @@ const DefaultKeyBindings: IKeyBindings = {
         // V..a
         // V..A
         "b": {
-            cmd: VimCommand.wordForwardMotion
+            cmd: VimCommand.wordBackwardMotion
         },
         // V..B
         "c": {

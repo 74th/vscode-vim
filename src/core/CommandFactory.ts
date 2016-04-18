@@ -212,7 +212,7 @@ export class CommandFactory implements ICommandFactory {
                 this.goDown();
                 return;
             // cNk
-            case VimCommand.downMotion:
+            case VimCommand.upMotion:
                 this.addUpMotion();
                 return;
             // cNj
