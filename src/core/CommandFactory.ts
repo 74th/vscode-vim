@@ -1005,6 +1005,7 @@ export class CommandFactory implements ICommandFactory {
         m.SetCount(1);
         let a = new DeleteYankChangeAction();
         a.IsLarge = false;
+        a.IsLine = true;
         a.Motion = m;
         a.IsOnlyYanc = true;
         this.action = a;
