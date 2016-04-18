@@ -27,6 +27,10 @@ export const VSCodeEditorKeyBindngs: IKeyBindings = {
         "<": {
             cmd: VimCommand.editorCommand,
             argument:"editor.action.outdentLines"
+        },
+        "%": {
+            cmd: VimCommand.editorCommand,
+            argument:"editor.action.jumpToBracket"
         }
     },
     FirstNum: {
@@ -67,6 +71,10 @@ export const VSCodeEditorKeyBindngs: IKeyBindings = {
         "<": {
             cmd: VimCommand.editorCommand,
             argument:"editor.action.outdentLines"
+        },
+        "%": {
+            cmd: VimCommand.editorCommand,
+            argument:"editor.action.jumpToBracket"
         }
     },
     VisualLineMode: {
@@ -97,6 +105,10 @@ export const VSCodeEditorKeyBindngs: IKeyBindings = {
         "<": {
             cmd: VimCommand.editorCommand,
             argument:"editor.action.outdentLines"
+        },
+        "%": {
+            cmd: VimCommand.editorCommand,
+            argument:"editor.action.jumpToBracket"
         }
     }
 };

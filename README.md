@@ -47,7 +47,7 @@ ext install vimStyle
 
 ## support to call VSCode commands from vim keybind
 
-* u : / n N &gt; &lt;
+* u : / n N &gt; &lt; %
 
 But they do not behave exactly as vim command, and their supports may be changed.
 
@@ -107,6 +107,11 @@ npm run-script build
 ```
 
 ## update
+
+### 0.3.5
+
+* support VSCode commands from vim keybindings %
+* fix some bug
 
 ### 0.3.4
 
