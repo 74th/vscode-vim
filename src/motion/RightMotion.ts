@@ -15,9 +15,9 @@ export class RightMotion extends AbstractMotion {
         let end = new Position();
         end.Line = start.Line;
         if (this.IsLeftDirection) {
-            end.Char = start.Char - this.GetCount();
+            end.Char = start.Char - this.Count;
         } else {
-            end.Char = start.Char + this.GetCount();
+            end.Char = start.Char + this.Count;
         }
         return editor.UpdateValidPosition(end);
     }

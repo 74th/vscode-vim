@@ -448,7 +448,7 @@ export class CommandFactory implements ICommandFactory {
     // Nh
     private gotoRight() {
         let m = new RightMotion();
-        m.SetCount(this.getNumStack());
+        m.Count = this.getNumStack();
         this.action = this.createGotoAction(m);
     }
 
@@ -456,14 +456,14 @@ export class CommandFactory implements ICommandFactory {
     private gotoLeft() {
         let m = new RightMotion();
         m.IsLeftDirection = true;
-        m.SetCount(this.getNumStack());
+        m.Count = this.getNumStack();
         this.action = this.createGotoAction(m);
     }
 
     // ch
     private addRightMotion() {
         let m = new RightMotion();
-        m.SetCount(this.getNumStack());
+        m.Count = this.getNumStack();
         let a = <IRequireMotionAction>this.action;
         a.Motion = m;
     }
@@ -472,7 +472,7 @@ export class CommandFactory implements ICommandFactory {
     private addLeftMotion() {
         let m = new RightMotion();
         m.IsLeftDirection = true;
-        m.SetCount(this.getNumStack());
+        m.Count = this.getNumStack();
         let a = <IRequireMotionAction>this.action;
         a.Motion = m;
     }
@@ -519,7 +519,7 @@ export class CommandFactory implements ICommandFactory {
         let a = new GoAction();
         let m: CharacterMotion;
         m = new CharacterMotion(Direction.Right);
-        m.SetCount(this.getNumStack());
+        m.Count = this.getNumStack();
         a.Motion = m;
         this.action = a;
         this.motion = m;
@@ -530,7 +530,7 @@ export class CommandFactory implements ICommandFactory {
         let a = new GoAction();
         let m: CharacterMotion;
         m = new CharacterMotion(Direction.Left);
-        m.SetCount(this.getNumStack());
+        m.Count = this.getNumStack();
         a.Motion = m;
         this.action = a;
         this.motion = m;
@@ -541,7 +541,7 @@ export class CommandFactory implements ICommandFactory {
         let a = new GoAction();
         let m: CharacterMotion;
         m = new CharacterMotion(Direction.Right);
-        m.SetCount(this.getNumStack());
+        m.Count = this.getNumStack();
         m.IsTill = true;
         a.Motion = m;
         this.action = a;
@@ -553,7 +553,7 @@ export class CommandFactory implements ICommandFactory {
         let a = new GoAction();
         let m: CharacterMotion;
         m = new CharacterMotion(Direction.Left);
-        m.SetCount(this.getNumStack());
+        m.Count = this.getNumStack();
         m.IsTill = true;
         a.Motion = m;
         this.action = a;
@@ -565,7 +565,7 @@ export class CommandFactory implements ICommandFactory {
         let m: CharacterMotion;
         m = new CharacterMotion(Direction.Right);
         m.IsContainTargetChar = true;
-        m.SetCount(this.getNumStack());
+        m.Count = this.getNumStack();
         let a = <IRequireMotionAction>this.action;
         a.Motion = m;
         this.motion = m;
@@ -576,7 +576,7 @@ export class CommandFactory implements ICommandFactory {
     private addCharacterToLeftMotion() {
         let m: CharacterMotion;
         m = new CharacterMotion(Direction.Left);
-        m.SetCount(this.getNumStack());
+        m.Count = this.getNumStack();
         let a = <IRequireMotionAction>this.action;
         a.Motion = m;
         this.motion = m;
@@ -587,7 +587,7 @@ export class CommandFactory implements ICommandFactory {
         let m: CharacterMotion;
         m = new CharacterMotion(Direction.Right);
         m.IsContainTargetChar = true;
-        m.SetCount(this.getNumStack());
+        m.Count = this.getNumStack();
         m.IsTill = true;
         let a = <IRequireMotionAction>this.action;
         a.Motion = m;
@@ -598,7 +598,7 @@ export class CommandFactory implements ICommandFactory {
     private addTillCharacterToLeftMotion() {
         let m: CharacterMotion;
         m = new CharacterMotion(Direction.Left);
-        m.SetCount(this.getNumStack());
+        m.Count = this.getNumStack();
         m.IsTill = true;
         let a = <IRequireMotionAction>this.action;
         a.Motion = m;
@@ -612,7 +612,7 @@ export class CommandFactory implements ICommandFactory {
     // j
     private goDown() {
         let m = new DownMotion();
-        m.SetCount(this.getNumStack());
+        m.Count = this.getNumStack();
         let a = new GoDownAction();
         a.Motion = m;
         this.action = a;
@@ -622,7 +622,7 @@ export class CommandFactory implements ICommandFactory {
     private goUp() {
         let m = new DownMotion();
         m.IsUpDirection = true;
-        m.SetCount(this.getNumStack());
+        m.Count = this.getNumStack();
         let a = new GoDownAction();
         a.Motion = m;
         this.action = a;
@@ -631,7 +631,7 @@ export class CommandFactory implements ICommandFactory {
     // cj
     private addDownMotion() {
         let m = new DownMotion();
-        m.SetCount(this.getNumStack());
+        m.Count = this.getNumStack();
         let a = <IRequireMotionAction>this.action;
         a.Motion = m;
         a.IsLine = true;
@@ -641,7 +641,7 @@ export class CommandFactory implements ICommandFactory {
     private addUpMotion() {
         let m = new DownMotion();
         m.IsUpDirection = true;
-        m.SetCount(this.getNumStack());
+        m.Count = this.getNumStack();
         let a = <IRequireMotionAction>this.action;
         a.Motion = m;
         a.IsLine = true;
@@ -669,7 +669,7 @@ export class CommandFactory implements ICommandFactory {
     private gotoLine() {
         let a = new GoAction();
         let m = new FirstCharacterMotion();
-        m.SetCount(this.getNumStack() - 1);
+        m.Count = this.getNumStack() - 1;
         a.Motion = m;
         this.action = a;
     }
@@ -677,7 +677,7 @@ export class CommandFactory implements ICommandFactory {
     // cNG
     private addLineMotion() {
         let m = new FirstCharacterMotion();
-        m.SetCount(this.getNumStack() - 1);
+        m.Count = this.getNumStack() - 1;
         let a = <IRequireMotionAction>this.action;
         a.Motion = m;
         a.IsLine = true;
@@ -712,7 +712,7 @@ export class CommandFactory implements ICommandFactory {
         m.IsWordEnd = false;
         m.IsWORD = false;
         m.IsSkipBlankLine = false;
-        m.SetCount(this.getNumStack());
+        m.Count = this.getNumStack();
         this.action = this.createGotoAction(m);
     }
 
@@ -724,7 +724,7 @@ export class CommandFactory implements ICommandFactory {
         m.IsWORD = false;
         m.IsSkipBlankLine = false;
         m.IsForRange = true;
-        m.SetCount(this.getNumStack());
+        m.Count = this.getNumStack();
         let a = <IRequireMotionAction>this.action;
         a.Motion = m;
     }
@@ -736,7 +736,7 @@ export class CommandFactory implements ICommandFactory {
         m.IsWordEnd = false;
         m.IsWORD = true;
         m.IsSkipBlankLine = false;
-        m.SetCount(this.getNumStack());
+        m.Count = this.getNumStack();
         this.action = this.createGotoAction(m);
     }
 
@@ -748,7 +748,7 @@ export class CommandFactory implements ICommandFactory {
         m.IsWORD = true;
         m.IsSkipBlankLine = false;
         m.IsForRange = true;
-        m.SetCount(this.getNumStack());
+        m.Count = this.getNumStack();
         let a = <IRequireMotionAction>this.action;
         a.Motion = m;
     }
@@ -760,7 +760,7 @@ export class CommandFactory implements ICommandFactory {
         m.IsWordEnd = true;
         m.IsWORD = false;
         m.IsSkipBlankLine = true;
-        m.SetCount(this.getNumStack());
+        m.Count = this.getNumStack();
         this.action = this.createGotoAction(m);
     }
 
@@ -772,7 +772,7 @@ export class CommandFactory implements ICommandFactory {
         m.IsWORD = false;
         m.IsSkipBlankLine = true;
         m.IsForRange = true;
-        m.SetCount(this.getNumStack());
+        m.Count = this.getNumStack();
         let a = <IRequireMotionAction>this.action;
         a.Motion = m;
     }
@@ -784,7 +784,7 @@ export class CommandFactory implements ICommandFactory {
         m.IsWordEnd = true;
         m.IsWORD = true;
         m.IsSkipBlankLine = true;
-        m.SetCount(this.getNumStack());
+        m.Count = this.getNumStack();
         this.action = this.createGotoAction(m);
     }
 
@@ -796,7 +796,7 @@ export class CommandFactory implements ICommandFactory {
         m.IsWORD = true;
         m.IsSkipBlankLine = true;
         m.IsForRange = true;
-        m.SetCount(this.getNumStack());
+        m.Count = this.getNumStack();
         let a = <IRequireMotionAction>this.action;
         a.Motion = m;
     }
@@ -808,7 +808,7 @@ export class CommandFactory implements ICommandFactory {
         m.IsWordEnd = true;
         m.IsWORD = false;
         m.IsSkipBlankLine = false;
-        m.SetCount(this.getNumStack());
+        m.Count = this.getNumStack();
         this.action = this.createGotoAction(m);
     }
 
@@ -820,7 +820,7 @@ export class CommandFactory implements ICommandFactory {
         m.IsWORD = false;
         m.IsSkipBlankLine = false;
         m.IsForRange = true;
-        m.SetCount(this.getNumStack());
+        m.Count = this.getNumStack();
         let a = <IRequireMotionAction>this.action;
         a.Motion = m;
     }
@@ -832,7 +832,7 @@ export class CommandFactory implements ICommandFactory {
         m.IsWordEnd = true;
         m.IsWORD = true;
         m.IsSkipBlankLine = false;
-        m.SetCount(this.getNumStack());
+        m.Count = this.getNumStack();
         this.action = this.createGotoAction(m);
     }
 
@@ -844,7 +844,7 @@ export class CommandFactory implements ICommandFactory {
         m.IsWORD = true;
         m.IsSkipBlankLine = false;
         m.IsForRange = true;
-        m.SetCount(this.getNumStack());
+        m.Count = this.getNumStack();
         let a = <IRequireMotionAction>this.action;
         a.Motion = m;
     }
@@ -872,7 +872,7 @@ export class CommandFactory implements ICommandFactory {
     // a    
     private appendTextAfterCursor() {
         let m = new RightMotion();
-        m.SetCount(1);
+        m.Count = 1;
         this.action = new InsertTextAction(m);
     }
 
@@ -914,7 +914,7 @@ export class CommandFactory implements ICommandFactory {
     // Nx
     private deleteCharactersUnderCursor() {
         let m = new RightMotion();
-        m.SetCount(this.getNumStack());
+        m.Count = this.getNumStack();
         let a = new DeleteYankChangeAction();
         a.IsLarge = false;
         a.Motion = m;
@@ -925,7 +925,7 @@ export class CommandFactory implements ICommandFactory {
     private deleteCharactersBeforeCursor() {
         let m = new RightMotion();
         m.IsLeftDirection = true;
-        m.SetCount(this.getNumStack());
+        m.Count = this.getNumStack();
         let a = new DeleteYankChangeAction();
         a.IsLarge = false;
         a.Motion = m;
@@ -960,14 +960,14 @@ export class CommandFactory implements ICommandFactory {
             count = this.num - 1;
         }
         let m = new DownMotion();
-        m.SetCount(count);
+        m.Count = count;
         a.Motion = m;
     }
 
     // D
     private deleteTextToEndOfLine() {
         let m = new LastCharacterInLineMotion();
-        m.SetCount(1);
+        m.Count = 1;
         let a = new DeleteYankChangeAction();
         a.IsLarge = false;
         a.Motion = m;
@@ -1002,7 +1002,7 @@ export class CommandFactory implements ICommandFactory {
     // Y
     private yankLine() {
         let m = new LastCharacterInLineMotion();
-        m.SetCount(1);
+        m.Count = 1;
         let a = new DeleteYankChangeAction();
         a.IsLarge = false;
         a.IsLine = true;
@@ -1040,7 +1040,7 @@ export class CommandFactory implements ICommandFactory {
     // S
     private changeLines() {
         let m = new DownMotion();
-        m.SetCount(this.getNumStack() - 1);
+        m.Count = this.getNumStack() - 1;
         let a = new DeleteYankChangeAction();
         a.IsLine = true;
         a.Motion = m;
@@ -1051,7 +1051,7 @@ export class CommandFactory implements ICommandFactory {
     // C
     private changeTextToEndOfLine() {
         let m = new LastCharacterInLineMotion();
-        m.SetCount(1);
+        m.Count = 1;
         let a = new DeleteYankChangeAction();
         a.IsLarge = false;
         a.Motion = m;
@@ -1062,7 +1062,7 @@ export class CommandFactory implements ICommandFactory {
     // s
     private changeCharacters() {
         let m = new RightMotion();
-        m.SetCount(1);
+        m.Count = 1;
         let a = new DeleteYankChangeAction();
         a.IsLarge = false;
         a.Motion = m;
@@ -1123,9 +1123,9 @@ export class CommandFactory implements ICommandFactory {
         this.motion.SetChar(key);
         return this.action;
     }
-    
+
     private pushKeyAtRequireCharForAction(key: string): IAction {
-        var a = this.action as IRequireCharAction;
+        const a = this.action as IRequireCharAction;
         a.SetChar(key);
         return this.action;
     }

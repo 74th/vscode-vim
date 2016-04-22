@@ -58,7 +58,7 @@ interface ICommandFactory {
 }
 
 interface IMotion {
-    SetCount(count: number);
+    Count: number;
     CalculateEnd(editor: IEditor, start: IPosition): IPosition;
 }
 
@@ -115,12 +115,6 @@ interface IRequireMotionAction extends IAction {
     Motion: IMotion;
     IsLine: boolean;
     IsLarge: boolean;
-}
-
-interface IMotion {
-    GetCount(): number;
-    SetCount(count: number);
-    CalculateEnd(editor: IEditor, start: IPosition): IPosition;
 }
 
 interface IVimStyle {

@@ -1,14 +1,6 @@
 export abstract class AbstractMotion implements IMotion {
 
-    private count: number;
-
-    public GetCount(): number {
-        return this.count;
-    }
-
-    public SetCount(count: number) {
-        this.count = count;
-    }
+    public Count: number;
 
     public CalculateEnd(editor: IEditor, start: IPosition): IPosition {
         throw new Error("UnImplemented");

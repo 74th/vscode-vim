@@ -21,7 +21,7 @@ export class WordMotion extends AbstractMotion {
 
     public CalculateEnd(editor: IEditor, start: IPosition): IPosition {
 
-        let count = this.GetCount();
+        let count = this.Count;
 
         let previousCharClass: CharGroup = null;
         let charClass: CharGroup = null;

@@ -31,7 +31,7 @@ export class FirstCharacterMotion extends AbstractMotion {
                 lineDocument = editor.ReadLine(lineNumber);
                 break;
             case FirstCharacterMotion.Target.Number:
-                lineNumber = this.GetCount();
+                lineNumber = this.Count;
                 let lastLineNum = editor.GetLastLineNum();
                 if (lineNumber > lastLineNum) {
                     lineNumber = lastLineNum;

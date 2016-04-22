@@ -24,7 +24,7 @@ export class CharacterMotion extends AbstractMotion {
         let end = new Position();
         end.Line = start.Line;
         let i;
-        let count = this.GetCount();
+        let count = this.Count;
         if (this.Direction === Direction.Right) {
             for (i = start.Char + 1; i < line.length; i++) {
                 if (this.TargetCharCode === line.charCodeAt(i)) {
