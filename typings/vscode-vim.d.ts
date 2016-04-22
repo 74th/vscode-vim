@@ -102,9 +102,11 @@ interface IAction {
     GetActionType(): ActionType;
 }
 
-interface IInsertTextAction {
-    Execute(editor: IEditor, vim: IVimStyle);
-    GetActionType(): ActionType;
+interface IRequireCharAction extends IAction{
+    SetChar(text: string);
+}
+
+interface IInsertTextAction extends IAction{
     SetInsertText(text: string);
     GetInsertModeInfo(): any;
 }
@@ -116,6 +118,7 @@ interface IRequireMotionAction extends IAction {
 }
 
 interface IMotion {
+    GetCount(): number;
     SetCount(count: number);
     CalculateEnd(editor: IEditor, start: IPosition): IPosition;
 }
@@ -549,6 +552,8 @@ declare const enum StateName {
     RequireMotion,
     RequireMotionNum,
     RequireCharForMotion,
+    RequireCharForAction,
+    RequireCharForRegister,
     SmallG,
     SmallGForMotion,
     VisualMode,

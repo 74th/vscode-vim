@@ -1,4 +1,4 @@
-export class AbstractMotion {
+export abstract class AbstractMotion implements IMotion {
 
     private count: number;
 

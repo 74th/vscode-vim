@@ -1123,6 +1123,12 @@ export class CommandFactory implements ICommandFactory {
         this.motion.SetChar(key);
         return this.action;
     }
+    
+    private pushKeyAtRequireCharForAction(key: string): IAction {
+        var a = this.action as IRequireCharAction;
+        a.SetChar(key);
+        return this.action;
+    }
 
     private getNumStack() {
         return this.num === 0 ? 1 : this.num;
