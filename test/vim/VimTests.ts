@@ -1,5 +1,6 @@
 import {MotionTests} from "./MotionTests";
 import {InsertModeTests} from "./InsertModeTests";
+import {ChangingText} from "./ChangingText";
 import {DeleteTests} from "./DeleteTests";
 import {RepeatTests} from "./RepeatTests";
 
@@ -7,6 +8,7 @@ export let VimTests = {};
 let testsets = [
     MotionTests,
     InsertModeTests,
+    ChangingText,
     DeleteTests,
     RepeatTests
 ];

@@ -397,7 +397,7 @@ export class CommandFactory implements ICommandFactory {
             // Ngr{char}
             case VimCommand.replaceCharacterWithoutAffectingLayout:
                 this.replaceCharacterWithoutAffectingLayoutAction();
-                return
+                return;
             // c{motion}
             case VimCommand.changeTextWithMotion:
                 this.changeTextWithMotion();
@@ -1159,11 +1159,11 @@ export class CommandFactory implements ICommandFactory {
         a.CharacterCode = key.charCodeAt(0);
         return this.action;
     }
-    
+
     private pushKeyAtRequireCharForRegister(key: string): IAction {
         // TODO
         this.registerCharCode = key.charCodeAt(0);
-        this.state = StateName.AtStart
+        this.state = StateName.AtStart;
         return null;
     }
 

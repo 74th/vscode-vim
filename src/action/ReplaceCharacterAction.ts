@@ -24,13 +24,13 @@ export class ReplaceCharacterAction implements IRequireCharAction, ICountableAct
 
         let text = "";
         const char = String.fromCharCode(this.CharacterCode);
-        for (let i = 0; i < this.Count; i++){
+        for (let i = 0; i < this.Count; i++) {
             text += char;
         }
-        
+
         let r = new Range();
         r.start = cp;
-        if( cp.Char + this.Count > line.length ) {
+        if (cp.Char + this.Count > line.length) {
             if (this.IsAffectingLayout) {
                 return;
             }
@@ -38,8 +38,11 @@ export class ReplaceCharacterAction implements IRequireCharAction, ICountableAct
         } else {
             r.end = new Position(cp.Line, cp.Char + this.Count);
         }
-        
+        let np: IPosition;
+        np = new Position(cp.Line, cp.Char + this.Count - 1);
+
         editor.ReplaceRange(r, text);
+        editor.SetPosition(np);
         return;
     }
 }
