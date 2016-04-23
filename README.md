@@ -119,7 +119,8 @@ npm run-script build
 
 ### 0.3.6
 
-* support r
+* support r gr v..r
+* fix visual mode move bug
 
 ### 0.3.5
 
