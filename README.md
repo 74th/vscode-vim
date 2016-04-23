@@ -82,7 +82,6 @@ If you want to use `ctrl+[` instead of `escape`, please add blong setting to you
 
 ## future suppprt
 
-* r
 * ; ,
 * J
 * { }
