@@ -18,24 +18,24 @@ export class ReplaceCharacterOfSelectedTextAction implements IRequireCharAction 
 
         let text = "";
         if (s.start.Line == s.end.Line) {
-            for (let i = s.start.Char; i < s.end.Char; i++){
+            for (let i = s.start.Char; i < s.end.Char; i++) {
                 text += char;
             }
         } else {
             let line = editor.ReadLine(s.start.Line);
-            for (let c = s.start.Char; c < line.length; c++){
+            for (let c = s.start.Char; c < line.length; c++) {
                 text += char;
             }
             text += "\n";
-            for (let l = s.start.Line + 1; l < s.end.Line; l++){
+            for (let l = s.start.Line + 1; l < s.end.Line; l++) {
                 line = editor.ReadLine(l);
-                for (let c = 0; c < line.length; c++){
+                for (let c = 0; c < line.length; c++) {
                     text += char;
                 }
                 text += "\n";
             }
             line = editor.ReadLine(s.end.Line);
-            for (let c = 0; c < s.end.Char; c++){
+            for (let c = 0; c < s.end.Char; c++) {
                 text += char;
             }
         }
