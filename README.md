@@ -62,6 +62,16 @@ If you needs optional settings, please copy belong json and paste to your `setti
 "vimStyle.useErgonomicKeyForMotion": true,
 ```
 
+If you want to use `ctrl+[` instead of `escape`, please add blong setting to your `keybindings.json`.
+
+```
+{
+	"key": "ctrl+[",
+	"command": "vim.Esc",
+	"when": "editorTextFocus"
+}
+```
+
 ## never support
 
 * : (you should get use to command palette)
