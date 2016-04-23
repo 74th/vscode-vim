@@ -17,7 +17,7 @@ export class ReplaceCharacterOfSelectedTextAction implements IRequireCharAction 
         let char = String.fromCharCode(this.CharacterCode);
 
         let text = "";
-        if (s.start.Line == s.end.Line) {
+        if (s.start.Line === s.end.Line) {
             for (let i = s.start.Char; i < s.end.Char; i++) {
                 text += char;
             }

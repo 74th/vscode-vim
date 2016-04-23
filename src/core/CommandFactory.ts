@@ -1074,7 +1074,7 @@ export class CommandFactory implements ICommandFactory {
         const a = new ReplaceCharacterOfSelectedTextAction();
         this.action = a;
     }
-    
+
     // c{motion}
     private changeTextWithMotion() {
         let a = new DeleteYankChangeAction();
