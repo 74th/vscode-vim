@@ -36,11 +36,11 @@ ext install vimStyle
 
 * h j k l 0 $ ^ w W b B e E tx fx Tx Fx gg G
 * Nh Nj Nk Nl Nw NW Nb NB Ne NE Ntx Nfx NTx NFx NG
-* i a s o x I A S O X
-* Nx
+* i a s o x r I A S O X gr
+* Nx Nr Ngr
 * d y c dd yy cc D C p P d$ y$ c$ ...
 * Ndd Nyy Ncc
-* v V
+* v V v..d v..c v..r
 * .
 
 [quickref function list is here.](https://github.com/74th/vscode-vim/blob/master/quickref.md)
@@ -117,6 +117,10 @@ npm run-script build
 ```
 
 ## update
+
+### 0.3.6
+
+* support r
 
 ### 0.3.5
 

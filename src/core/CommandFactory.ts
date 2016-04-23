@@ -12,6 +12,7 @@ import {StartVisualLineModeAction} from "../action/StartVisualLineModeAction";
 import {ExpandHighlightedLineAction} from "../action/ExpandHighlightedLineAction";
 import {DeleteYankChangeHighlightedLineAction} from "../action/DeleteYankChangeHighlightedLineAction";
 import {ReplaceCharacterAction} from "../action/ReplaceCharacterAction";
+import {ReplaceCharacterOfSelectedTextAction} from "../action/ReplaceCharacterOfSelecetdTextAction";
 import {RepeatLastChangeAction} from "../action/RepeatLastChangeAction";
 import {RightMotion} from "../motion/RightMotion";
 import {DownMotion} from "../motion/DownMotion";
@@ -78,6 +79,10 @@ export class CommandFactory implements ICommandFactory {
                     break;
                 case StateName.RequireCharForMotion:
                     return this.pushKeyAtRequireCharForMotion(keyChar);
+                case StateName.RequireCharForAction:
+                    return this.pushKeyAtRequireCharForAction(keyChar);
+                case StateName.RequireCharForRegister:
+                    return this.pushKeyAtRequireCharForRegister(keyChar);
                 case StateName.SmallGForMotion:
                     command = this.KeyBindings.SmallGForMotion[keyChar];
                     break;
@@ -397,6 +402,10 @@ export class CommandFactory implements ICommandFactory {
             // Ngr{char}
             case VimCommand.replaceCharacterWithoutAffectingLayout:
                 this.replaceCharacterWithoutAffectingLayoutAction();
+                return;
+            // {Visual}r{char}
+            case VimCommand.replaceCharacterOfSelectedText:
+                this.replaceCharacterOfSelectedTextAction();
                 return;
             // c{motion}
             case VimCommand.changeTextWithMotion:
@@ -1059,6 +1068,13 @@ export class CommandFactory implements ICommandFactory {
         a.IsAffectingLayout = false;
         this.action = a;
     }
+
+    // {Visual}c{char}
+    private replaceCharacterOfSelectedTextAction() {
+        const a = new ReplaceCharacterOfSelectedTextAction();
+        this.action = a;
+    }
+    
     // c{motion}
     private changeTextWithMotion() {
         let a = new DeleteYankChangeAction();

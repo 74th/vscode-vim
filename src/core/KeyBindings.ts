@@ -713,7 +713,10 @@ const DefaultKeyBindings: IKeyBindings = {
         // P no function
         // q no function
         // Q no function
-        // r no function
+        "r": {
+            cmd: VimCommand.replaceCharacterOfSelectedText,
+            state: StateName.RequireCharForAction
+        },
         // R low priority
         // s ?
         // S ?

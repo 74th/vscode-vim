@@ -521,6 +521,8 @@ declare const enum VimCommand {
     replaceCharacter,
     // Ngr
     replaceCharacterWithoutAffectingLayout,
+    // V...rc
+    replaceCharacterOfSelectedText,
     // c{motion}
     changeTextWithMotion,
     // C
