@@ -176,6 +176,7 @@ export class VSCodeEditor implements IEditor {
             let r = new vscode.Range(p, p);
             vscode.window.activeTextEditor.revealRange(r, vscode.TextEditorRevealType.Default);
         }
+        this.showLineCursor();
     }
 
     public GetCurrentVisualModeSelection(): IRange {
