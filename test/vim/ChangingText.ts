@@ -26,4 +26,9 @@ ChangingText["replace character"] = {
         "key": "5grb",
         "out": ["abbbb|b"],
     },
+    "v..r:replace character": {
+        "in": ["a|aaaa"],
+        "key": "v2lrb",
+        "out": ["a|bbba"],
+    },
 };
