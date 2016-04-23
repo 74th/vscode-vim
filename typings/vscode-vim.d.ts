@@ -57,10 +57,6 @@ interface ICommandFactory {
     GetCommandString(): string;
 }
 
-interface IMotion {
-    Count: number;
-    CalculateEnd(editor: IEditor, start: IPosition): IPosition;
-}
 
 interface IRegisterItem {
     Type: RegisterType;
@@ -102,11 +98,15 @@ interface IAction {
     GetActionType(): ActionType;
 }
 
-interface IRequireCharAction extends IAction{
-    SetChar(text: string);
+interface IRequireCharAction extends IAction {
+    CharacterCode: number;
 }
 
-interface IInsertTextAction extends IAction{
+interface ICountableAction extends IAction {
+    Count: number;
+}
+
+interface IInsertTextAction extends IAction {
     SetInsertText(text: string);
     GetInsertModeInfo(): any;
 }
@@ -115,6 +115,15 @@ interface IRequireMotionAction extends IAction {
     Motion: IMotion;
     IsLine: boolean;
     IsLarge: boolean;
+}
+
+interface IMotion {
+    Count: number;
+    CalculateEnd(editor: IEditor, start: IPosition): IPosition;
+}
+
+interface IRequireCharacterMotion extends IMotion {
+    CharacterCode: number;
 }
 
 interface IVimStyle {
@@ -508,6 +517,10 @@ declare const enum VimCommand {
     putRegisterBeforeCursorPosition,
 
     // ** Changing text **
+    // Nr
+    replaceCharacter,
+    // Ngr
+    replaceCharacterWithoutAffectingLayout,
     // c{motion}
     changeTextWithMotion,
     // C

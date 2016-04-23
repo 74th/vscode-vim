@@ -127,7 +127,10 @@ const DefaultKeyBindings: IKeyBindings = {
         },
         // q low priority
         // Q never support
-        // r
+        "r": {
+            cmd: VimCommand.replaceCharacter,
+            state: StateName.RequireCharForAction
+        },
         // R low priority
         "s": {
             cmd: VimCommand.changeCharacters
@@ -254,7 +257,10 @@ const DefaultKeyBindings: IKeyBindings = {
             cmd: VimCommand.gotoCharacterToLeft,
             state: StateName.RequireCharForMotion
         },
-        // Ng
+        "g": {
+            cmd: VimCommand.nothing,
+            state: StateName.SmallG
+        },
         "G": {
             cmd: VimCommand.gotoLine
         },
@@ -282,7 +288,10 @@ const DefaultKeyBindings: IKeyBindings = {
         // NP low priotity
         // Nq low priority
         // NQ never support
-        // Nr
+        "r": {
+            cmd: VimCommand.replaceCharacter,
+            state: StateName.RequireCharForAction
+        },
         // NR low priority
         // Ns low priority
         // NS low priority
@@ -633,6 +642,10 @@ const DefaultKeyBindings: IKeyBindings = {
     SmallG: {
         "g": {
             cmd: VimCommand.gotoFirstLineOnFirstNonBlankCharacter
+        },
+        "r": {
+            cmd: VimCommand.replaceCharacterWithoutAffectingLayout,
+            state: StateName.RequireCharForAction
         }
     },
 

@@ -1,9 +1,9 @@
 import {AbstractMotion} from "./AbstractMotion";
 import {Position} from "../VimStyle";
 
-export class CharacterMotion extends AbstractMotion {
+export class CharacterMotion extends AbstractMotion implements IRequireCharacterMotion {
 
-    private TargetCharCode: number;
+    public CharacterCode: number;
     public Direction: Direction;
     public IsTill: boolean;
     public IsContainTargetChar: boolean;
@@ -16,7 +16,7 @@ export class CharacterMotion extends AbstractMotion {
     }
 
     public SetChar(c: string) {
-        this.TargetCharCode = c.charCodeAt(0);
+        this.CharacterCode = c.charCodeAt(0);
     }
 
     public CalculateEnd(editor: IEditor, start: IPosition): IPosition {
@@ -27,7 +27,7 @@ export class CharacterMotion extends AbstractMotion {
         let count = this.Count;
         if (this.Direction === Direction.Right) {
             for (i = start.Char + 1; i < line.length; i++) {
-                if (this.TargetCharCode === line.charCodeAt(i)) {
+                if (this.CharacterCode === line.charCodeAt(i)) {
                     count--;
                     if (count === 0) {
                         end.Char = i;
@@ -37,7 +37,7 @@ export class CharacterMotion extends AbstractMotion {
             }
         } else {
             for (i = start.Char - 1; i >= 0; i--) {
-                if (this.TargetCharCode === line.charCodeAt(i)) {
+                if (this.CharacterCode === line.charCodeAt(i)) {
                     count--;
                     if (count === 0) {
                         end.Char = i;

@@ -11,6 +11,7 @@ import {DeleteYankChangeHighlightedTextAction} from "../action/DeleteYankChangeH
 import {StartVisualLineModeAction} from "../action/StartVisualLineModeAction";
 import {ExpandHighlightedLineAction} from "../action/ExpandHighlightedLineAction";
 import {DeleteYankChangeHighlightedLineAction} from "../action/DeleteYankChangeHighlightedLineAction";
+import {ReplaceCharacterAction} from "../action/ReplaceCharacterAction";
 import {RepeatLastChangeAction} from "../action/RepeatLastChangeAction";
 import {RightMotion} from "../motion/RightMotion";
 import {DownMotion} from "../motion/DownMotion";
@@ -25,9 +26,10 @@ export class CommandFactory implements ICommandFactory {
 
     private state: StateName;
     private action: IAction;
-    private motion: CharacterMotion;
+    private motion: IRequireCharacterMotion;
     private stackedKey: string;
     private num: number;
+    private registerCharCode: number;
     private commandString: string;
 
     public KeyBindings: IKeyBindings;
@@ -54,6 +56,10 @@ export class CommandFactory implements ICommandFactory {
                     break;
                 case StateName.RequireCharForMotion:
                     return this.pushKeyAtRequireCharForMotion(keyChar);
+                case StateName.RequireCharForAction:
+                    return this.pushKeyAtRequireCharForAction(keyChar);
+                case StateName.RequireCharForRegister:
+                    return this.pushKeyAtRequireCharForRegister(keyChar);
                 case StateName.SmallG:
                     command = this.KeyBindings.SmallG[keyChar];
                     break;
@@ -384,6 +390,14 @@ export class CommandFactory implements ICommandFactory {
                 return;
 
             // ** Changing text **
+            // Nr{char}
+            case VimCommand.replaceCharacter:
+                this.replaceCharacterAction();
+                return;
+            // Ngr{char}
+            case VimCommand.replaceCharacterWithoutAffectingLayout:
+                this.replaceCharacterWithoutAffectingLayoutAction();
+                return
             // c{motion}
             case VimCommand.changeTextWithMotion:
                 this.changeTextWithMotion();
@@ -1030,6 +1044,21 @@ export class CommandFactory implements ICommandFactory {
     // Changing text
     // -----
 
+    // Nr{char}
+    private replaceCharacterAction() {
+        const a = new ReplaceCharacterAction();
+        a.Count = this.getNumStack();
+        a.IsAffectingLayout = true;
+        this.action = a;
+    }
+
+    // Ngr{char}
+    private replaceCharacterWithoutAffectingLayoutAction() {
+        const a = new ReplaceCharacterAction();
+        a.Count = this.getNumStack();
+        a.IsAffectingLayout = false;
+        this.action = a;
+    }
     // c{motion}
     private changeTextWithMotion() {
         let a = new DeleteYankChangeAction();
@@ -1120,15 +1149,24 @@ export class CommandFactory implements ICommandFactory {
     // -----
 
     private pushKeyAtRequireCharForMotion(key: string): IAction {
-        this.motion.SetChar(key);
+        const m = this.motion as IRequireCharacterMotion;
+        m.CharacterCode = key.charCodeAt(0);
         return this.action;
     }
 
     private pushKeyAtRequireCharForAction(key: string): IAction {
         const a = this.action as IRequireCharAction;
-        a.SetChar(key);
+        a.CharacterCode = key.charCodeAt(0);
         return this.action;
     }
+    
+    private pushKeyAtRequireCharForRegister(key: string): IAction {
+        // TODO
+        this.registerCharCode = key.charCodeAt(0);
+        this.state = StateName.AtStart
+        return null;
+    }
+
 
     private getNumStack() {
         return this.num === 0 ? 1 : this.num;
