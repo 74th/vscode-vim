@@ -28,6 +28,9 @@ export class VSCodeEditor implements IEditor {
     private visualLineModeEndLine: number;
     private visualLineModeFocusPosition: IPosition;
 
+    private latestPosition: IPosition;
+    private latestPositionTimestamp: number;
+    
     public Options: IVSCodeEditorOptions;
 
     public constructor(options: IVSCodeEditorOptions) {
@@ -106,6 +109,12 @@ export class VSCodeEditor implements IEditor {
 
     // Position
     public GetCurrentPosition(): IPosition {
+        if( this.latestPosition ){
+            let now = new Date().getTime();
+            if (now < this.latestPositionTimestamp + 400) {
+                return this.latestPosition;
+            }
+        }
         return tranceVimStylePosition(vscode.window.activeTextEditor.selection.active);
     }
     public SetPosition(p: IPosition) {
@@ -113,6 +122,8 @@ export class VSCodeEditor implements IEditor {
         vscode.window.activeTextEditor.selection = new vscode.Selection(cp, cp);
         vscode.window.activeTextEditor.revealRange(vscode.window.activeTextEditor.selection, vscode.TextEditorRevealType.Default);
         this.showBlockCursor();
+        this.latestPositionTimestamp = new Date().getTime();
+        this.latestPosition = p;
     }
     public GetLastPosition(): IPosition {
         let end = vscode.window.activeTextEditor.document.lineAt(vscode.window.activeTextEditor.document.lineCount - 1).range.end;
