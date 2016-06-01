@@ -100,6 +100,11 @@ MotionTests["word motion"] = {
             "|abc abc"
         ]
     },
+    "w:word start at space": {
+        "in": ["| abc abc"],
+        "key": "3w",
+        "out": [" |abc ab|c"]
+    },
     "2w:move to next word(not skip marks)": {
         "in": ["ab|c abc(abc) abc"],
         "key": "2w",
