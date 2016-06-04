@@ -58,6 +58,8 @@ If you needs optional settings, please copy belong json and paste to your `setti
 ```
 // Show mode in status bar (default: true)
 "vimStyle.showMode": false,
+// changing cursor by mode (default: true)
+"vimStyle.changeCursorStyle": false,
 // motion with jkl;(default: false)
 "vimStyle.useErgonomicKeyForMotion": true,
 ```
@@ -118,14 +120,12 @@ npm run-script build
 
 ## update
 
-### 0.3.8
-
-* fix #38
-
-### 0.3.7
+### 0.3.9
 
 * support ; ,
-* [https://github.com/74th/vscode-vim/issues/32](test to fix #32)
+* [fix #38](https://github.com/74th/vscode-vim/issues/38)
+* [support #31](https://github.com/74th/vscode-vim/issues/31)
+* [test to fix #32](https://github.com/74th/vscode-vim/issues/32)
 
 ### 0.3.6
 
