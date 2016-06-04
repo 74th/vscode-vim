@@ -70,7 +70,7 @@ const DefaultKeyBindings: IKeyBindings = {
         "D": {
             cmd: VimCommand.deleteTextToEndOfLine
         },
-        "e" : {
+        "e": {
             cmd: VimCommand.gotoForwardToEndOfWold
         },
         "E": {
@@ -521,10 +521,10 @@ const DefaultKeyBindings: IKeyBindings = {
             cmd: VimCommand.lastCharacterInLineMotion
         },
         ",": {
-            cmd: VimCommand.repeartCharacterMotion
+            cmd: VimCommand.repeartCharacterMotionOppositeDirection
         },
         ";": {
-            cmd: VimCommand.repeartCharacterMotionOppositeDirection
+            cmd: VimCommand.repeartCharacterMotion
         },
         "^": {
             cmd: VimCommand.firstNonBlankCharacterInLineMotion
@@ -654,10 +654,10 @@ const DefaultKeyBindings: IKeyBindings = {
             state: StateName.RequireMotionNum
         },
         ",": {
-            cmd: VimCommand.repeartCharacterMotion
+            cmd: VimCommand.repeartCharacterMotionOppositeDirection
         },
         ";": {
-            cmd: VimCommand.repeartCharacterMotionOppositeDirection
+            cmd: VimCommand.repeartCharacterMotion
         },
         // $?
     },
@@ -808,10 +808,10 @@ const DefaultKeyBindings: IKeyBindings = {
             cmd: VimCommand.lastCharacterInLineMotion
         },
         ",": {
-            cmd: VimCommand.repeartCharacterMotion
+            cmd: VimCommand.repeartCharacterMotionOppositeDirection
         },
         ";": {
-            cmd: VimCommand.repeartCharacterMotionOppositeDirection
+            cmd: VimCommand.repeartCharacterMotion
         },
     },
 

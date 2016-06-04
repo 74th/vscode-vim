@@ -218,15 +218,15 @@ export class CommandFactory implements ICommandFactory {
                 return;
             // cN;
             case VimCommand.repeartCharacterMotion:
-                this.addRepeartCharacterMotionaddCharacter;
+                this.addRepeartCharacterMotionaddCharacter();
                 return;
             // N,
             case VimCommand.gotoRepeatCharacterOppositeDirection:
-                this.gotoRepeatCharacterOppositeDirection;
+                this.gotoRepeatCharacterOppositeDirection();
                 return;
             // cN,
             case VimCommand.repeartCharacterMotionOppositeDirection:
-                this.addRepeartCharacterMotionOppositeDirection;
+                this.addRepeartCharacterMotionOppositeDirection();
                 return;
 
             // ** Up-down motions **

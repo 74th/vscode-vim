@@ -58,7 +58,7 @@ LeftRightMotion["till before the Nth occurrence of {char} to the right"] = {
         ]
     }
 };
-LeftRightMotion["	till before the Nth occurrence of {char} to the left"] = {
+LeftRightMotion["till before the Nth occurrence of {char} to the left"] = {
     "Tx:": {
         "in": [
             "abcdefg|hi"
@@ -70,7 +70,7 @@ LeftRightMotion["	till before the Nth occurrence of {char} to the left"] = {
     }
 };
 LeftRightMotion["repeat the last \"f\", \"F\", \"t\", or \"T\" N times"] = {
-    "fx;:": {
+    "fx;": {
         "in": [
             "ab|cdefghiadbcdefghi"
         ],
@@ -79,7 +79,7 @@ LeftRightMotion["repeat the last \"f\", \"F\", \"t\", or \"T\" N times"] = {
             "abcdefghiadbcde|fghi"
         ]
     },
-    "Fx;:": {
+    "Fx;": {
         "in": [
             "abcdefghiabcdefg|hi"
         ],
@@ -88,7 +88,7 @@ LeftRightMotion["repeat the last \"f\", \"F\", \"t\", or \"T\" N times"] = {
             "ab|cdefghiabcdefghi"
         ]
     },
-    "tx;:": {
+    "tx;": {
         "in": [
             "ab|cdefghiabcdefghi"
         ],
@@ -97,13 +97,51 @@ LeftRightMotion["repeat the last \"f\", \"F\", \"t\", or \"T\" N times"] = {
             "abcd|efghiabcdefghi"
         ]
     },
-    "Tx;:": {
+    "Tx;": {
         "in": [
             "abcdefghiabcdefg|hi"
         ],
         "key": "Tc;",
         "out": [
             "abcdefghiabc|defghi"
+        ]
+    }
+};
+LeftRightMotion["repeat the last \"f\", \"F\", \"t\", or \"T\" N times in opposite direction"] = {
+    "fx,": {
+        "in": [
+            "abcdef|ghiabcdefghi"
+        ],
+        "key": "fc,",
+        "out": [
+            "ab|cdefghiabcdefghi"
+        ]
+    },
+    "Fx,": {
+        "in": [
+            "abcdefghia|dbcdefghi"
+        ],
+        "key": "Ff,",
+        "out": [
+            "abcdefghiadbcde|fghi"
+        ]
+    },
+    "tx,": {
+        "in": [
+            "abcdef|ghiabcdefghi"
+        ],
+        "key": "tc,",
+        "out": [
+            "abc|defghiabcdefghi"
+        ]
+    },
+    "Tx,": {
+        "in": [
+            "abcdefghi|abcdefghi"
+        ],
+        "key": "Tf,",
+        "out": [
+            "abcdefghiabcd|efghi"
         ]
     }
 };
