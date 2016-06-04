@@ -1,3 +1,4 @@
+import {LeftRightMotion} from "./LeftRightMotion";
 import {MotionTests} from "./MotionTests";
 import {InsertModeTests} from "./InsertModeTests";
 import {ChangingText} from "./ChangingText";
@@ -6,6 +7,7 @@ import {RepeatTests} from "./RepeatTests";
 
 export let VimTests = {};
 let testsets = [
+    LeftRightMotion,
     MotionTests,
     InsertModeTests,
     ChangingText,
