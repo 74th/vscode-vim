@@ -212,6 +212,22 @@ export class CommandFactory implements ICommandFactory {
             case VimCommand.tillBeforeCharToLeftMotion:
                 this.addTillCharacterToLeftMotion();
                 return;
+            // N;
+            case VimCommand.gotoRepeatCharacter:
+                this.gotoRepeatCharacter();
+                return;
+            // cN;
+            case VimCommand.repeartCharacterMotion:
+                this.addRepeartCharacterMotionaddCharacter;
+                return;
+            // N,
+            case VimCommand.gotoRepeatCharacterOppositeDirection:
+                this.gotoRepeatCharacterOppositeDirection;
+                return;
+            // cN,
+            case VimCommand.repeartCharacterMotionOppositeDirection:
+                this.addRepeartCharacterMotionOppositeDirection;
+                return;
 
             // ** Up-down motions **
             // Nk
@@ -628,6 +644,51 @@ export class CommandFactory implements ICommandFactory {
         this.motion = m;
     }
 
+    // N;
+    private gotoRepeatCharacter() {
+        let a = new GoAction();
+        let m: CharacterMotion;
+        m = new CharacterMotion(Direction.Right);
+        m.Count = this.getNumStack();
+        a.Motion = m;
+        this.action = a;
+        this.motion = m;
+    }
+
+    // c;
+    private addRepeartCharacterMotionaddCharacter() {
+        let m: CharacterMotion;
+        m = new CharacterMotion(null);
+        m.IsContainTargetChar = true;
+        m.Count = this.getNumStack();
+        let a = <IRequireMotionAction>this.action;
+        a.Motion = m;
+        this.motion = m;
+    }
+
+    // N,
+    private gotoRepeatCharacterOppositeDirection() {
+        let a = new GoAction();
+        let m: CharacterMotion;
+        m = new CharacterMotion(null);
+        m.OppositeDirection = true;
+        m.Count = this.getNumStack();
+        a.Motion = m;
+        this.action = a;
+        this.motion = m;
+    }
+
+    // c,
+    private addRepeartCharacterMotionOppositeDirection() {
+        let m: CharacterMotion;
+        m = new CharacterMotion(null);
+        m.OppositeDirection = true;
+        m.IsContainTargetChar = true;
+        m.Count = this.getNumStack();
+        let a = <IRequireMotionAction>this.action;
+        a.Motion = m;
+        this.motion = m;
+    }
     // -----
     // Up-down motions
     // -----

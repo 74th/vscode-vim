@@ -119,7 +119,7 @@ interface IRequireMotionAction extends IAction {
 
 interface IMotion {
     Count: number;
-    CalculateEnd(editor: IEditor, start: IPosition): IPosition;
+    CalculateEnd(editor: IEditor, vim: IVimStyle, start: IPosition): IPosition;
 }
 
 interface IRequireCharacterMotion extends IMotion {
@@ -132,6 +132,8 @@ interface IVimStyle {
     LastAction: IAction;
     LastEditAction: IAction;
     LastMoveCharPosition: number;
+    LastFindCharactorCode: number;
+    LastFindCharactorDirection: Direction;
 
     PushKey(key: string): void;
     PushEscKey(): void;

@@ -16,6 +16,8 @@ export class VimStyle implements IVimStyle {
     public LastAction: IAction;
     public LastEditAction: IAction;
     public LastMoveCharPosition: number;
+    public LastFindCharactorCode: number;
+    public LastFindCharactorDirection: Direction;
 
     constructor(editor: IEditor, conf: IVimStyleOptions) {
         this.editor = editor;
@@ -27,6 +29,7 @@ export class VimStyle implements IVimStyle {
         this.LastAction = null;
         this.LastEditAction = null;
         this.LastMoveCharPosition = null;
+        this.LastFindCharactorCode = null;
 
         this.ApplyOptions(conf);
     }

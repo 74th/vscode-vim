@@ -13,7 +13,7 @@ export class FirstCharacterMotion extends AbstractMotion {
         this.IsSkipSpaces = false;
     }
 
-    public CalculateEnd(editor: IEditor, start: IPosition): IPosition {
+    public CalculateEnd(editor: IEditor, vim: IVimStyle, start: IPosition): IPosition {
 
         let lineDocument: string;
         let lineNumber: number;
