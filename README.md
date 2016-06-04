@@ -34,8 +34,8 @@ ext install vimStyle
 
 ## support vim commands
 
-* h j k l 0 $ ^ w W b B e E tx fx Tx Fx gg G
-* Nh Nj Nk Nl Nw NW Nb NB Ne NE Ntx Nfx NTx NFx NG
+* h j k l 0 $ ^ w W b B e E tx fx Tx Fx ; , gg G
+* Nh Nj Nk Nl Nw NW Nb NB Ne NE Ntx Nfx NTx NFx N; N, NG
 * i a s o x r I A S O X gr
 * Nx Nr Ngr
 * d y c dd yy cc D C p P d$ y$ c$ ...
@@ -72,6 +72,8 @@ If you want to use `ctrl+[` instead of `escape`, please add blong setting to you
 }
 ```
 
+If you need Ctrl-D and Ctrl-U, I released [https://marketplace.visualstudio.com/items?itemName=74th.scrollkey](additional scroll key entention).
+
 ## never support
 
 * : (you should get use to command palette)
@@ -82,7 +84,6 @@ If you want to use `ctrl+[` instead of `escape`, please add blong setting to you
 
 ## future suppprt
 
-* ; ,
 * J
 * { }
 * "xd "xy "xc "xp
@@ -116,6 +117,11 @@ npm run-script build
 ```
 
 ## update
+
+### 0.3.7
+
+* support ; ,
+* [https://github.com/74th/vscode-vim/issues/32](test to fix #32)
 
 ### 0.3.6
 

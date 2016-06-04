@@ -18,8 +18,8 @@ This is imported from [quickref.txt](https://github.com/vim/vim/blob/master/runt
 |FindCharacterMotion||`NF{char}`|to the Nth occurrence of {char} to the left|
 |FindCharacterMotion||`Nt{char}`|till before the Nth occurrence of {char} to the right|
 |FindCharacterMotion||`NT{char}`|till before the Nth occurrence of {char} to the left|
-|||`N;`|repeat the last "f", "F", "t", or "T" N times|
-|||`N,`|repeat the last "f", "F", "t", or "T" N times in opposite direction|
+|FindCharacterMotion||`N;`|repeat the last "f", "F", "t", or "T" N times|
+|FindCharacterMotion||`N,`|repeat the last "f", "F", "t", or "T" N times in opposite direction|
 
 ## Up-down motions
 
