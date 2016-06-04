@@ -45,6 +45,11 @@
                     "type": "boolean",
                     "default": false,
                     "description": "move a cursor by `jkl;` keys"
+                },
+                "vimStyle.changeCursorStyle": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "change cursor by mode"
                 }
             }
         },

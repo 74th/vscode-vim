@@ -17,6 +17,7 @@ class EditorAction {
 
 export interface IVSCodeEditorOptions {
     showMode: boolean;
+    changeCursorStyle: boolean;
 }
 
 export class VSCodeEditor implements IEditor {
@@ -274,15 +275,19 @@ export class VSCodeEditor implements IEditor {
     }
 
     private showLineCursor() {
-        let opt = vscode.window.activeTextEditor.options;
-        opt.cursorStyle = vscode.TextEditorCursorStyle.Line;
-        vscode.window.activeTextEditor.options = opt;
+        if (this.Options.changeCursorStyle) {
+            let opt = vscode.window.activeTextEditor.options;
+            opt.cursorStyle = vscode.TextEditorCursorStyle.Line;
+            vscode.window.activeTextEditor.options = opt;
+        }
     }
 
     private showBlockCursor() {
-        let opt = vscode.window.activeTextEditor.options;
-        opt.cursorStyle = vscode.TextEditorCursorStyle.Block;
-        vscode.window.activeTextEditor.options = opt;
+        if (this.Options.changeCursorStyle) {
+            let opt = vscode.window.activeTextEditor.options;
+            opt.cursorStyle = vscode.TextEditorCursorStyle.Block;
+            vscode.window.activeTextEditor.options = opt;
+        }
     }
 
     public CallEditorCommand(argument: string) {
