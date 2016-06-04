@@ -32,7 +32,7 @@ export class DeleteYankChangeAction extends AbstractInsertTextAction implements 
 
         let range = new Range();
         range.start = editor.GetCurrentPosition();
-        let p = this.Motion.CalculateEnd(editor, range.start);
+        let p = this.Motion.CalculateEnd(editor, vim, range.start);
         if (p == null) {
             // cancel
             return;

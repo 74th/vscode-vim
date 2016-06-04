@@ -70,7 +70,7 @@ const DefaultKeyBindings: IKeyBindings = {
         "D": {
             cmd: VimCommand.deleteTextToEndOfLine
         },
-        "e" : {
+        "e": {
             cmd: VimCommand.gotoForwardToEndOfWold
         },
         "E": {
@@ -217,11 +217,17 @@ const DefaultKeyBindings: IKeyBindings = {
         "$": {
             cmd: VimCommand.gotoLastCharacterInLine
         },
-        "^": {
-            cmd: VimCommand.gotoFirstNonBlankCharacterInLine
-        },
         ".": {
             cmd: VimCommand.repeatLastChange
+        },
+        ",": {
+            cmd: VimCommand.gotoRepeatCharacterOppositeDirection
+        },
+        ";": {
+            cmd: VimCommand.gotoRepeatCharacter
+        },
+        "^": {
+            cmd: VimCommand.gotoFirstNonBlankCharacterInLine
         }
     },
 
@@ -369,6 +375,12 @@ const DefaultKeyBindings: IKeyBindings = {
             state: StateName.FirstNum
         },
         // $ ?
+        ",": {
+            cmd: VimCommand.gotoRepeatCharacterOppositeDirection
+        },
+        ";": {
+            cmd: VimCommand.gotoRepeatCharacter
+        }
     },
 
     // cm
@@ -508,6 +520,12 @@ const DefaultKeyBindings: IKeyBindings = {
         "$": {
             cmd: VimCommand.lastCharacterInLineMotion
         },
+        ",": {
+            cmd: VimCommand.repeartCharacterMotionOppositeDirection
+        },
+        ";": {
+            cmd: VimCommand.repeartCharacterMotion
+        },
         "^": {
             cmd: VimCommand.firstNonBlankCharacterInLineMotion
         }
@@ -634,6 +652,12 @@ const DefaultKeyBindings: IKeyBindings = {
         "9": {
             cmd: VimCommand.stackNumber,
             state: StateName.RequireMotionNum
+        },
+        ",": {
+            cmd: VimCommand.repeartCharacterMotionOppositeDirection
+        },
+        ";": {
+            cmd: VimCommand.repeartCharacterMotion
         },
         // $?
     },
@@ -782,7 +806,13 @@ const DefaultKeyBindings: IKeyBindings = {
         },
         "$": {
             cmd: VimCommand.lastCharacterInLineMotion
-        }
+        },
+        ",": {
+            cmd: VimCommand.repeartCharacterMotionOppositeDirection
+        },
+        ";": {
+            cmd: VimCommand.repeartCharacterMotion
+        },
     },
 
     // V

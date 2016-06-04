@@ -19,7 +19,7 @@ export class WordMotion extends AbstractMotion {
         this.IsForRange = false;
     };
 
-    public CalculateEnd(editor: IEditor, start: IPosition): IPosition {
+    public CalculateEnd(editor: IEditor, vim: IVimStyle, start: IPosition): IPosition {
 
         let count = this.Count;
 
