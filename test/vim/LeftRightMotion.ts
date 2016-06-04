@@ -69,3 +69,41 @@ LeftRightMotion["	till before the Nth occurrence of {char} to the left"] = {
         ]
     }
 };
+LeftRightMotion["repeat the last \"f\", \"F\", \"t\", or \"T\" N times"] = {
+    "fx;:": {
+        "in": [
+            "ab|cdefghiadbcdefghi"
+        ],
+        "key": "ff;",
+        "out": [
+            "abcdefghiadbcde|fghi"
+        ]
+    },
+    "Fx;:": {
+        "in": [
+            "abcdefghiabcdefg|hi"
+        ],
+        "key": "Fc;",
+        "out": [
+            "ab|cdefghiabcdefghi"
+        ]
+    },
+    "tx;:": {
+        "in": [
+            "ab|cdefghiabcdefghi"
+        ],
+        "key": "tf;",
+        "out": [
+            "abcd|efghiabcdefghi"
+        ]
+    },
+    "Tx;:": {
+        "in": [
+            "abcdefghiabcdefg|hi"
+        ],
+        "key": "Tc;",
+        "out": [
+            "abcdefghiabc|defghi"
+        ]
+    }
+};
