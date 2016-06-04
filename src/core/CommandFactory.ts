@@ -18,7 +18,7 @@ import {RightMotion} from "../motion/RightMotion";
 import {DownMotion} from "../motion/DownMotion";
 import {FirstCharacterInLineMotion} from "../motion/FirstCharacterInLineMotion";
 import {LastCharacterInLineMotion} from "../motion/EndMotion";
-import {CharacterMotion} from "../motion/FindCharacterMotion";
+import {FindCharacterMotion} from "../motion/FindCharacterMotion";
 import {WordMotion} from "../motion/WordMotion";
 import {FirstCharacterMotion} from "../motion/FirstCharacterMotion";
 import {CallEditorCommandAction} from "../action/CallEditorCommandAction";
@@ -556,8 +556,8 @@ export class CommandFactory implements ICommandFactory {
     // fx
     private gotoCharacterToRight() {
         let a = new GoAction();
-        let m: CharacterMotion;
-        m = new CharacterMotion(Direction.Right);
+        let m: FindCharacterMotion;
+        m = new FindCharacterMotion(Direction.Right);
         m.Count = this.getNumStack();
         a.Motion = m;
         this.action = a;
@@ -567,8 +567,8 @@ export class CommandFactory implements ICommandFactory {
     // Fx
     private gotoCharacterToLeft() {
         let a = new GoAction();
-        let m: CharacterMotion;
-        m = new CharacterMotion(Direction.Left);
+        let m: FindCharacterMotion;
+        m = new FindCharacterMotion(Direction.Left);
         m.Count = this.getNumStack();
         a.Motion = m;
         this.action = a;
@@ -578,8 +578,8 @@ export class CommandFactory implements ICommandFactory {
     // tx
     private goTillBeforeCharacterToRight() {
         let a = new GoAction();
-        let m: CharacterMotion;
-        m = new CharacterMotion(Direction.Right);
+        let m: FindCharacterMotion;
+        m = new FindCharacterMotion(Direction.Right);
         m.Count = this.getNumStack();
         m.IsTill = true;
         a.Motion = m;
@@ -590,8 +590,8 @@ export class CommandFactory implements ICommandFactory {
     // Tx
     private goTillBeforeCharacterToLeft() {
         let a = new GoAction();
-        let m: CharacterMotion;
-        m = new CharacterMotion(Direction.Left);
+        let m: FindCharacterMotion;
+        m = new FindCharacterMotion(Direction.Left);
         m.Count = this.getNumStack();
         m.IsTill = true;
         a.Motion = m;
@@ -601,8 +601,8 @@ export class CommandFactory implements ICommandFactory {
 
     // cfx
     private addCharacterToRightMotion() {
-        let m: CharacterMotion;
-        m = new CharacterMotion(Direction.Right);
+        let m: FindCharacterMotion;
+        m = new FindCharacterMotion(Direction.Right);
         m.IsContainTargetChar = true;
         m.Count = this.getNumStack();
         let a = <IRequireMotionAction>this.action;
@@ -613,8 +613,8 @@ export class CommandFactory implements ICommandFactory {
 
     // cFx
     private addCharacterToLeftMotion() {
-        let m: CharacterMotion;
-        m = new CharacterMotion(Direction.Left);
+        let m: FindCharacterMotion;
+        m = new FindCharacterMotion(Direction.Left);
         m.Count = this.getNumStack();
         let a = <IRequireMotionAction>this.action;
         a.Motion = m;
@@ -623,8 +623,8 @@ export class CommandFactory implements ICommandFactory {
 
     // ctx
     private addTillCharacterToRightMotion() {
-        let m: CharacterMotion;
-        m = new CharacterMotion(Direction.Right);
+        let m: FindCharacterMotion;
+        m = new FindCharacterMotion(Direction.Right);
         m.IsContainTargetChar = true;
         m.Count = this.getNumStack();
         m.IsTill = true;
@@ -635,8 +635,8 @@ export class CommandFactory implements ICommandFactory {
 
     // cTx
     private addTillCharacterToLeftMotion() {
-        let m: CharacterMotion;
-        m = new CharacterMotion(Direction.Left);
+        let m: FindCharacterMotion;
+        m = new FindCharacterMotion(Direction.Left);
         m.Count = this.getNumStack();
         m.IsTill = true;
         let a = <IRequireMotionAction>this.action;
@@ -647,8 +647,8 @@ export class CommandFactory implements ICommandFactory {
     // N;
     private gotoRepeatCharacter() {
         let a = new GoAction();
-        let m: CharacterMotion;
-        m = new CharacterMotion(Direction.Right);
+        let m: FindCharacterMotion;
+        m = new FindCharacterMotion(Direction.Right);
         m.Count = this.getNumStack();
         a.Motion = m;
         this.action = a;
@@ -657,8 +657,8 @@ export class CommandFactory implements ICommandFactory {
 
     // c;
     private addRepeartCharacterMotionaddCharacter() {
-        let m: CharacterMotion;
-        m = new CharacterMotion(null);
+        let m: FindCharacterMotion;
+        m = new FindCharacterMotion(null);
         m.IsContainTargetChar = true;
         m.Count = this.getNumStack();
         let a = <IRequireMotionAction>this.action;
@@ -669,8 +669,8 @@ export class CommandFactory implements ICommandFactory {
     // N,
     private gotoRepeatCharacterOppositeDirection() {
         let a = new GoAction();
-        let m: CharacterMotion;
-        m = new CharacterMotion(null);
+        let m: FindCharacterMotion;
+        m = new FindCharacterMotion(null);
         m.OppositeDirection = true;
         m.Count = this.getNumStack();
         a.Motion = m;
@@ -680,8 +680,8 @@ export class CommandFactory implements ICommandFactory {
 
     // c,
     private addRepeartCharacterMotionOppositeDirection() {
-        let m: CharacterMotion;
-        m = new CharacterMotion(null);
+        let m: FindCharacterMotion;
+        m = new FindCharacterMotion(null);
         m.OppositeDirection = true;
         m.IsContainTargetChar = true;
         m.Count = this.getNumStack();

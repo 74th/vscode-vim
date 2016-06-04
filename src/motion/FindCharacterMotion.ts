@@ -1,7 +1,7 @@
 import {AbstractMotion} from "./AbstractMotion";
 import {Position} from "../VimStyle";
 
-export class CharacterMotion extends AbstractMotion implements IRequireCharacterMotion {
+export class FindCharacterMotion extends AbstractMotion implements IRequireCharacterMotion {
 
     public CharacterCode: number;
     public Direction: Direction;
@@ -34,7 +34,7 @@ export class CharacterMotion extends AbstractMotion implements IRequireCharacter
                 return null;
             }
 
-            let last: CharacterMotion;
+            let last: FindCharacterMotion;
             // let last = vim.LastFindCharacterMotion;
             this.CharacterCode = last.CharacterCode;
 
