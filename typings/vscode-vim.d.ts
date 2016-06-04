@@ -132,7 +132,7 @@ interface IVimStyle {
     LastAction: IAction;
     LastEditAction: IAction;
     LastMoveCharPosition: number;
-    LastFindCharacterMotion: IMotion;
+    LastFindCharacterMotion: any;
 
     PushKey(key: string): void;
     PushEscKey(): void;

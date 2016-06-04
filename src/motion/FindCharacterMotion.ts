@@ -34,9 +34,8 @@ export class FindCharacterMotion extends AbstractMotion implements IRequireChara
                 return null;
             }
 
-            let last: FindCharacterMotion;
-            // let last = vim.LastFindCharacterMotion;
-            this.CharacterCode = last.CharacterCode;
+            let last: any;
+            last = vim.LastFindCharacterMotion;
 
             if (this.OppositeDirection) {
                 if (last.Direction === Direction.Left) {
@@ -48,6 +47,7 @@ export class FindCharacterMotion extends AbstractMotion implements IRequireChara
                 this.Direction = last.Direction;
             }
             this.IsTill = last.IsTill;
+            this.CharacterCode = last.CharacterCode;
 
         } else {
 
