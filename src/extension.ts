@@ -10,7 +10,8 @@ export function activate(context: vscode.ExtensionContext) {
     function loadConfiguration() {
         let conf = vscode.workspace.getConfiguration("vimStyle");
         editorOpt = {
-            showMode: conf.get<boolean>("showMode", false)
+            showMode: conf.get<boolean>("showMode", false),
+            changeCursorStyle: conf.get<boolean>("changeCursorStyle", true)
         };
         vimOpt = {
             useErgonomicKeyForMotion: conf.get<boolean>("useErgonomicKeyForMotion", false),
