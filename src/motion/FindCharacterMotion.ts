@@ -30,27 +30,29 @@ export class CharacterMotion extends AbstractMotion implements IRequireCharacter
         let count = this.Count;
         if (this.CharacterCode === null) {
 
-            if (vim.LastFindCharactorCode === null) {
+            if (vim.LastFindCharacterMotion === null) {
                 return null;
             }
 
-            this.CharacterCode = vim.LastFindCharactorCode;
+            let last: CharacterMotion;
+            // let last = vim.LastFindCharacterMotion;
+            this.CharacterCode = last.CharacterCode;
 
             if (this.OppositeDirection) {
-                if (vim.LastFindCharactorDirection === Direction.Left) {
+                if (last.Direction === Direction.Left) {
                     this.Direction = Direction.Right;
                 } else {
                     this.Direction = Direction.Left;
                 }
             } else {
-                this.Direction = vim.LastFindCharactorDirection;
+                this.Direction = last.Direction;
             }
+            this.IsTill = last.IsTill;
 
         } else {
 
             // save direction for ; ,
-            vim.LastFindCharactorCode = this.CharacterCode;
-            vim.LastFindCharactorDirection = this.Direction;
+            vim.LastFindCharacterMotion = this;
 
         }
         if (this.CharacterCode === null) {
