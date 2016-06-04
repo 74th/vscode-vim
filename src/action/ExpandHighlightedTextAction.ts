@@ -23,7 +23,7 @@ export class ExpandHighlightedTextAction implements IAction {
             currentPosition = new Position(currentPosition.Line, currentPosition.Char - 1);
         }
 
-        let nextPosition = this.Motion.CalculateEnd(editor, currentPosition);
+        let nextPosition = this.Motion.CalculateEnd(editor, vim, currentPosition);
         let after = new Range();
         if (nextPosition.IsAfterOrEqual(startPosition)) {
             after.start = startPosition;

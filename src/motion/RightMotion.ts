@@ -10,7 +10,7 @@ export class RightMotion extends AbstractMotion {
         this.IsLeftDirection = false;
     }
 
-    public CalculateEnd(editor: IEditor, start: IPosition): IPosition {
+    public CalculateEnd(editor: IEditor, vim: IVimStyle, start: IPosition): IPosition {
         let line = editor.ReadLineAtCurrentPosition();
         let end = new Position();
         end.Line = start.Line;

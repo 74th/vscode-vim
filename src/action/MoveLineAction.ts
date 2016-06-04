@@ -17,7 +17,7 @@ export class GoDownAction implements IAction {
         let tabSize = editor.GetTabSize();
 
         let from = editor.GetCurrentPosition();
-        let to = this.Motion.CalculateEnd(editor, from);
+        let to = this.Motion.CalculateEnd(editor, vim, from);
         if (to == null) {
             // cancel
             return;

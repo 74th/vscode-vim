@@ -18,7 +18,7 @@ export class InsertTextAction extends AbstractInsertTextAction {
     public Execute(editor: IEditor, vim: IVimStyle) {
         let p = editor.GetCurrentPosition();
         if (this.Motion != null) {
-            p = this.Motion.CalculateEnd(editor, p);
+            p = this.Motion.CalculateEnd(editor, vim, p);
         }
         if (this.insertText !== null) {
             editor.Insert(p, this.insertText);

@@ -2,6 +2,7 @@ import {CommandFactory} from "./core/CommandFactory";
 import {LoadKeyBindings, ApplyKeyBindings} from "./core/KeyBindings";
 import {InsertModeExecute} from "./mode/InsertMode";
 import {InsertTextAction} from "./action/InsertTextAction";
+import {FindCharacterMotion} from "./motion/FindCharacterMotion";
 import * as Utils from "./Utils";
 import {Register} from "./core/Register";
 
@@ -16,6 +17,7 @@ export class VimStyle implements IVimStyle {
     public LastAction: IAction;
     public LastEditAction: IAction;
     public LastMoveCharPosition: number;
+    public LastFindCharacterMotion: FindCharacterMotion;
 
     constructor(editor: IEditor, conf: IVimStyleOptions) {
         this.editor = editor;

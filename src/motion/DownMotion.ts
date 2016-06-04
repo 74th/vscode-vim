@@ -11,7 +11,7 @@ export class DownMotion extends AbstractMotion {
         this.IsUpDirection = false;
     }
 
-    public CalculateEnd(editor: IEditor, start: IPosition): IPosition {
+    public CalculateEnd(editor: IEditor, vim: IVimStyle, start: IPosition): IPosition {
 
         let tabSize = editor.GetTabSize();
 

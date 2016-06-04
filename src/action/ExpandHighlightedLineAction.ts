@@ -14,7 +14,7 @@ export class ExpandHighlightedLineAction implements IAction {
     public Execute(editor: IEditor, vim: IVimStyle) {
         let before = editor.GetCurrentVisualLineModeSelection();
         let cp = before.focusPosition;
-        let np = this.Motion.CalculateEnd(editor, cp);
+        let np = this.Motion.CalculateEnd(editor, vim, cp);
         editor.ShowVisualLineMode(before.startLine, np.Line, np);
     }
 }

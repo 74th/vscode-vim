@@ -12,7 +12,7 @@ export class GoAction implements IAction {
 
     public Execute(editor: IEditor, vim: IVimStyle) {
         let from = editor.GetCurrentPosition();
-        let to = this.Motion.CalculateEnd(editor, from);
+        let to = this.Motion.CalculateEnd(editor, vim, from);
         if (to == null) {
             // cancel
             return;
