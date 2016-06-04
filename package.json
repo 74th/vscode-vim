@@ -16,7 +16,7 @@
         "type": "git",
         "url": "https://github.com/74th/vscode-vim.git"
     },
-    "version": "0.3.7",
+    "version": "0.3.9",
     "publisher": "74th",
     "engines": {
         "vscode": "^1.0.0"
@@ -45,6 +45,11 @@
                     "type": "boolean",
                     "default": false,
                     "description": "move a cursor by `jkl;` keys"
+                },
+                "vimStyle.changeCursorStyle": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "change cursor by mode"
                 }
             }
         },
