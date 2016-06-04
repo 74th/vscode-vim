@@ -118,6 +118,10 @@ npm run-script build
 
 ## update
 
+### 0.3.8
+
+* fix #38
+
 ### 0.3.7
 
 * support ; ,
