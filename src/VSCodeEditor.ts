@@ -30,7 +30,7 @@ export class VSCodeEditor implements IEditor {
 
     private latestPosition: IPosition;
     private latestPositionTimestamp: number;
-    
+
     public Options: IVSCodeEditorOptions;
 
     public constructor(options: IVSCodeEditorOptions) {
@@ -109,7 +109,7 @@ export class VSCodeEditor implements IEditor {
 
     // Position
     public GetCurrentPosition(): IPosition {
-        if( this.latestPosition ){
+        if (this.latestPosition) {
             let now = new Date().getTime();
             if (now < this.latestPositionTimestamp + 400) {
                 return this.latestPosition;
@@ -274,15 +274,15 @@ export class VSCodeEditor implements IEditor {
     }
 
     private showLineCursor() {
-        vscode.window.activeTextEditor.options = {
-            cursorStyle: vscode.TextEditorCursorStyle.Line
-        };
+        let opt = vscode.window.activeTextEditor.options;
+        opt.cursorStyle = vscode.TextEditorCursorStyle.Line;
+        vscode.window.activeTextEditor.options = opt;
     }
 
     private showBlockCursor() {
-        vscode.window.activeTextEditor.options = {
-            cursorStyle: vscode.TextEditorCursorStyle.Block
-        };
+        let opt = vscode.window.activeTextEditor.options;
+        opt.cursorStyle = vscode.TextEditorCursorStyle.Block;
+        vscode.window.activeTextEditor.options = opt;
     }
 
     public CallEditorCommand(argument: string) {

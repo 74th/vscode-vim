@@ -22,6 +22,10 @@ tslint: build
 release: test
 	vsce package
 	vsce publish
+
+release-avoid-tests: build tslint
+	vsce package
+	vsce publish
 	
 install:node_modules
 
