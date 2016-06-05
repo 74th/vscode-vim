@@ -24,7 +24,7 @@
 			"sourceMaps": true,
 			"args": [
 				"-g",
-				"VimStyle"
+				"VimStyle.*word start at spac.*"
 			],
 			"outDir": "${workspaceRoot}/out",
 			"cwd": "${workspaceRoot}/out",

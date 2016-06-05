@@ -1,6 +1,6 @@
-export let LeftRightMotion = {};
+export let LeftRightMotions = {};
 
-LeftRightMotion["left"] = {
+LeftRightMotions["h: left"] = {
     "h:": {
         "in": ["abc| def"],
         "key": "h",
@@ -12,7 +12,7 @@ LeftRightMotion["left"] = {
         "out": ["abc|defg"]
     },
 };
-LeftRightMotion["right"] = {
+LeftRightMotions["l: right"] = {
     "l:": {
         "in": ["abc| def"],
         "key": "l",
@@ -25,7 +25,7 @@ LeftRightMotion["right"] = {
     }
 };
 
-LeftRightMotion["to the Nth occurrence of {char} to the right"] = {
+LeftRightMotions["f: to the Nth occurrence of {char} to the right"] = {
     "fx:": {
         "in": [
             "ab|cdefghi"
@@ -36,7 +36,7 @@ LeftRightMotion["to the Nth occurrence of {char} to the right"] = {
         ]
     }
 };
-LeftRightMotion["to the Nth occurrence of {char} to the left"] = {
+LeftRightMotions["F: to the Nth occurrence of {char} to the left"] = {
     "Fx:": {
         "in": [
             "abcdefg|hi"
@@ -47,7 +47,7 @@ LeftRightMotion["to the Nth occurrence of {char} to the left"] = {
         ]
     }
 };
-LeftRightMotion["till before the Nth occurrence of {char} to the right"] = {
+LeftRightMotions["t: till before the Nth occurrence of {char} to the right"] = {
     "tx:": {
         "in": [
             "ab|cdefghi"
@@ -58,7 +58,7 @@ LeftRightMotion["till before the Nth occurrence of {char} to the right"] = {
         ]
     }
 };
-LeftRightMotion["till before the Nth occurrence of {char} to the left"] = {
+LeftRightMotions["T: till before the Nth occurrence of {char} to the left"] = {
     "Tx:": {
         "in": [
             "abcdefg|hi"
@@ -69,7 +69,7 @@ LeftRightMotion["till before the Nth occurrence of {char} to the left"] = {
         ]
     }
 };
-LeftRightMotion["repeat the last \"f\", \"F\", \"t\", or \"T\" N times"] = {
+LeftRightMotions[";: repeat the last \"f\", \"F\", \"t\", or \"T\" N times"] = {
     "fx;": {
         "in": [
             "ab|cdefghiadbcdefghi"
@@ -107,7 +107,7 @@ LeftRightMotion["repeat the last \"f\", \"F\", \"t\", or \"T\" N times"] = {
         ]
     }
 };
-LeftRightMotion["repeat the last \"f\", \"F\", \"t\", or \"T\" N times in opposite direction"] = {
+LeftRightMotions[",: repeat the last \"f\", \"F\", \"t\", or \"T\" N times in opposite direction"] = {
     "fx,": {
         "in": [
             "abcdef|ghiabcdefghi"

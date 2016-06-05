@@ -5,18 +5,22 @@ import {Position} from "../VimStyle";
 export class WordMotion extends AbstractMotion {
 
     public Direction: Direction;
+    // public IsCW: boolean;
     public IsSkipBlankLine: boolean;
+    public IsStopLineEnd: boolean;
     public IsWordEnd: boolean;
     public IsWORD: boolean;
-    public IsForRange: boolean;
+    // public IsForRange: boolean;
 
     constructor(direction: Direction) {
         super();
         this.Direction = direction;
+        // this.IsCW = false;
         this.IsSkipBlankLine = false;
+        this.IsStopLineEnd = false;
         this.IsWordEnd = false;
         this.IsWORD = false;
-        this.IsForRange = false;
+        // this.IsForRange = false;
     };
 
     public CalculateEnd(editor: IEditor, vim: IVimStyle, start: IPosition): IPosition {
@@ -34,12 +38,38 @@ export class WordMotion extends AbstractMotion {
         let line = editor.ReadLine(nextPosition.Line);
         let lineLength = line.length;
         let documentLength = editor.GetLastLineNum() + 1;
-        previousCharClass = Utils.GetCharClass(line.charCodeAt(nextPosition.Char));
+
+        if (this.Direction === Direction.Right) {
+            if (nextPosition.Char === 0) {
+                charClass = CharGroup.Spaces;
+                nextCharClass = CharGroup.Spaces;
+                nextPosition.Char = -1;
+                count += 1;
+            } else if (nextPosition.Char === 1) {
+                nextCharClass = CharGroup.Spaces;
+                nextPosition.Char = -1;
+            } else {
+                nextPosition.Char -= 3;
+            }
+        } else {
+            if (lineLength - 1 === nextPosition.Char) {
+                charClass = CharGroup.Spaces;
+                nextCharClass = CharGroup.Spaces;
+                nextPosition.Char = lineLength;
+            } else if (lineLength - 2 === nextPosition.Char) {
+                nextCharClass = CharGroup.Spaces;
+                nextPosition.Char = lineLength;
+            } else {
+                nextPosition.Char += 3;
+            }
+        }
 
         let isReachLast = false;
         let charCode: number;
-        while (count > 0) {
+        let lineEnd: boolean;
+        while (count > -1) {
 
+            lineEnd = false;
             previousPosition = position;
             previousCharClass = charClass;
             position = nextPosition;
@@ -76,6 +106,7 @@ export class WordMotion extends AbstractMotion {
                 nextPosition.Char++;
                 if (lineLength <= nextPosition.Char) {
                     // End of line
+                    lineEnd = true;
                     nextPosition.Line++;
                     if (nextPosition.Line === documentLength) {
                         // End of document
@@ -95,56 +126,57 @@ export class WordMotion extends AbstractMotion {
                 }
             }
 
-            if (charClass === null) {
+            if (previousCharClass === null || charClass === null) {
                 continue;
             }
 
             // handle
-            if (charClass === CharGroup.Spaces) {
-                if (this.Direction === Direction.Left) {
-                    if (position.Char === 0 && previousPosition.Char === 0) {
-                        // blankline
+            let newWord = false;
+            if (charClass !== CharGroup.Spaces) {
+                if (this.IsWORD) {
+                    if (previousCharClass === CharGroup.Spaces) {
+                        newWord = true;
+                        count--;
+                    }
+                } else {
+                    if (previousCharClass !== charClass) {
+                        newWord = true;
+                        count--;
+                    }
+                }
+            } else if (!newWord && !this.IsSkipBlankLine) {
+                if (this.Direction === Direction.Right) {
+                    if (previousPosition !== null &&
+                        previousPosition.Char === -1) {
+                        count--;
+                    }
+                } else {
+                    if (nextPosition.Char === -1) {
+                        count--;
+                    }
+                }
+            }
 
-                        if (!this.IsSkipBlankLine) {
-                            count--;
+            if (count === 0) {
+                if (this.IsWordEnd) {
+                    if (this.IsWORD) {
+                        // E B cW
+                        if (nextCharClass === CharGroup.Spaces) {
+                            break;
+                        }
+                        if (lineEnd) {
+                            break;
+                        }
+                    } else {
+                        // e b cw
+                        if (charClass !== nextCharClass) {
+                            break;
                         }
                     }
                 } else {
-                    if (position.Char === -1 && nextPosition.Char === -1) {
-                        // blankline
-
-                        if (!this.IsSkipBlankLine) {
-                            count--;
-                        }
-                    }
-                }
-                continue;
-            }
-            if (this.IsWORD) {
-                if (nextCharClass === CharGroup.Spaces) {
-                    // end of word
-                    if (this.IsWordEnd) {
-                        count--;
-                    }
-                } else if (previousCharClass === CharGroup.Spaces) {
-                    // first of word
-                    if (!this.IsWordEnd) {
-                        count--;
-                    }
-                }
-            } else {
-                if (nextCharClass !== charClass) {
-                    // end of word
-                    if (this.IsWordEnd) {
-                        count--;
-                    }
-                }
-                if (previousCharClass !== null &&
-                    previousCharClass !== charClass) {
-                    // end of word
-                    if (!this.IsWordEnd) {
-                        count--;
-                    }
+                    // W gE dW yW
+                    // e ge dw yw
+                    break;
                 }
             }
         }
@@ -156,17 +188,17 @@ export class WordMotion extends AbstractMotion {
                 return new Position(0, 0);
             } else {
                 // last position
-                if (this.IsForRange) {
-                    position.Char += 1;
-                }
+                // if (this.IsForRange) {
+                //     position.Char += 1;
+                // }
                 return position;
             }
         }
-        if (this.IsForRange && previousPosition.Char === -1) {
-            // Stop end of line
-            line = editor.ReadLine(previousPosition.Line - 1);
-            return new Position(previousPosition.Line - 1, line.length);
-        }
+        // if (this.IsForRange && previousPosition.Char === -1) {
+        //     // Stop end of line
+        //     line = editor.ReadLine(previousPosition.Line - 1);
+        //     return new Position(previousPosition.Line - 1, line.length);
+        // }
 
         return position;
     }
