@@ -43,7 +43,8 @@ ext install vimStyle
 * v V v..d v..c v..r
 * .
 
-[quickref function list is here.](https://github.com/74th/vscode-vim/blob/master/quickref.md)
+* [quickref function list is here.](https://github.com/74th/vscode-vim/blob/master/quickref.md)
+* If you need Ctrl-D and Ctrl-U for scrolling, you can use [additional scroll key entention](https://marketplace.visualstudio.com/items?itemName=74th.scrollkey).
 
 ## support to call VSCode commands from vim keybind
 
@@ -74,7 +75,6 @@ If you want to use `ctrl+[` instead of `escape`, please add blong setting to you
 }
 ```
 
-If you need Ctrl-D and Ctrl-U, I released [https://marketplace.visualstudio.com/items?itemName=74th.scrollkey](additional scroll key entention).
 
 ## never support
 
