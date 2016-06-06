@@ -807,7 +807,7 @@ export class CommandFactory implements ICommandFactory {
         m.IsWordEnd = false;
         m.IsWORD = false;
         m.IsSkipBlankLine = false;
-        // m.IsForRange = true;
+        m.IsForRange = true;
         m.Count = this.getNumStack();
         let a = <IRequireMotionAction>this.action;
         a.Motion = m;

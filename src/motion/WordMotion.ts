@@ -10,7 +10,7 @@ export class WordMotion extends AbstractMotion {
     public IsStopLineEnd: boolean;
     public IsWordEnd: boolean;
     public IsWORD: boolean;
-    // public IsForRange: boolean;
+    public IsForRange: boolean;
 
     constructor(direction: Direction) {
         super();
@@ -20,7 +20,7 @@ export class WordMotion extends AbstractMotion {
         this.IsStopLineEnd = false;
         this.IsWordEnd = false;
         this.IsWORD = false;
-        // this.IsForRange = false;
+        this.IsForRange = false;
     };
 
     public CalculateEnd(editor: IEditor, vim: IVimStyle, start: IPosition): IPosition {
@@ -68,6 +68,9 @@ export class WordMotion extends AbstractMotion {
             } else {
                 loop = -2;
             }
+        }
+        if (this.IsForRange && nextCharClass !== CharGroup.Spaces) {
+            count--;
         }
 
         let isReachLast = false;
@@ -182,6 +185,14 @@ export class WordMotion extends AbstractMotion {
                             break;
                         }
                     }
+                } else if (this.IsForRange) {
+                    if (this.Direction === Direction.Right) {
+                        // dw yw
+                        if (position.Char === -1) {
+                            break;
+                        }
+                    }
+
                 } else {
                     // W gE dW yW
                     // e ge dw yw
@@ -197,17 +208,17 @@ export class WordMotion extends AbstractMotion {
                 return new Position(0, 0);
             } else {
                 // last position
-                // if (this.IsForRange) {
-                //     position.Char += 1;
-                // }
+                if (this.IsForRange) {
+                    position.Char += 1;
+                }
                 return position;
             }
         }
-        // if (this.IsForRange && previousPosition.Char === -1) {
-        //     // Stop end of line
-        //     line = editor.ReadLine(previousPosition.Line - 1);
-        //     return new Position(previousPosition.Line - 1, line.length);
-        // }
+        if (this.IsForRange && position.Char === -1) {
+            // Stop end of line
+            line = editor.ReadLine(position.Line - 1);
+            return new Position(position.Line - 1, line.length);
+        }
 
         return position;
     }
