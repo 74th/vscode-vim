@@ -36,4 +36,24 @@ DeleteTests["delete word"] = {
             "ccc| ",
         ],
     },
+    "dw:delete spaces tailled the word": {
+        "in": [
+            "aaa |bbb   ",
+            "ccc ddd",
+        ],
+        "key": "dw",
+        "out": [
+            "aaa| ",
+            "ccc ddd",
+        ],
+    },
+    "cw:do not cut spaces tailled the word": {
+        "in": [
+            "aaa |bbb ccc",
+        ],
+        "key": "cw",
+        "out": [
+            "aaa|  ccc",
+        ],
+    },
 };
