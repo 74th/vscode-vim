@@ -35,6 +35,9 @@ export class WordMotion extends AbstractMotion {
         let position: Position = null;
         let nextPosition: Position = editor.GetCurrentPosition();
 
+        // this count use for skip to stop current position
+        let loop: number;
+
         let line = editor.ReadLine(nextPosition.Line);
         let lineLength = line.length;
         let documentLength = editor.GetLastLineNum() + 1;
@@ -45,11 +48,13 @@ export class WordMotion extends AbstractMotion {
                 nextCharClass = CharGroup.Spaces;
                 nextPosition.Char = -1;
                 count += 1;
+                loop = -1;
             } else if (nextPosition.Char === 1) {
                 nextCharClass = CharGroup.Spaces;
                 nextPosition.Char = -1;
+                loop = -2;
             } else {
-                nextPosition.Char -= 3;
+                loop = -3;
             }
         } else {
             if (lineLength - 1 === nextPosition.Char) {
@@ -59,8 +64,9 @@ export class WordMotion extends AbstractMotion {
             } else if (lineLength - 2 === nextPosition.Char) {
                 nextCharClass = CharGroup.Spaces;
                 nextPosition.Char = lineLength;
+                loop = -1;
             } else {
-                nextPosition.Char += 3;
+                loop = -2;
             }
         }
 
@@ -81,7 +87,9 @@ export class WordMotion extends AbstractMotion {
             if (this.Direction === Direction.Left) {
 
                 nextPosition.Char--;
-                if (nextPosition.Char < 0) {
+                if (nextPosition.Char === -1) {
+                    nextCharClass = CharGroup.Spaces;
+                } else if (nextPosition.Char < -1) {
                     // First of line
                     nextPosition.Line--;
                     if (nextPosition.Line < 0) {
@@ -92,7 +100,7 @@ export class WordMotion extends AbstractMotion {
                         // before line
                         line = editor.ReadLine(nextPosition.Line);
                         lineLength = line.length;
-                        nextPosition.Char = lineLength;
+                        nextPosition.Char = lineLength - 1;
                         nextCharClass = CharGroup.Spaces;
                     }
                 } else {
@@ -126,7 +134,8 @@ export class WordMotion extends AbstractMotion {
                 }
             }
 
-            if (previousCharClass === null || charClass === null) {
+            loop++;
+            if (loop < 0) {
                 continue;
             }
 
@@ -151,7 +160,7 @@ export class WordMotion extends AbstractMotion {
                         count--;
                     }
                 } else {
-                    if (nextPosition.Char === -1) {
+                    if (position.Char === -1 && previousPosition.Char === -1) {
                         count--;
                     }
                 }
