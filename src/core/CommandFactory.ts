@@ -802,14 +802,17 @@ export class CommandFactory implements ICommandFactory {
 
     // cNw
     private addWordForwordMotion() {
+        let a = <IRequireMotionAction>this.action;
         let m: WordMotion;
         m = new WordMotion(Direction.Right);
-        m.IsWordEnd = false;
+        if (a.IsChange) {
+            m.IsWordEnd = true;
+            m.Command = "cw";
+        }
         m.IsWORD = false;
         m.IsSkipBlankLine = false;
         m.IsForRange = true;
         m.Count = this.getNumStack();
-        let a = <IRequireMotionAction>this.action;
         a.Motion = m;
     }
 

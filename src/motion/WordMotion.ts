@@ -9,6 +9,7 @@ export class WordMotion extends AbstractMotion {
     public IsSkipBlankLine: boolean;
     public IsStopLineEnd: boolean;
     public IsWordEnd: boolean;
+    public Command: string;
     public IsWORD: boolean;
     public IsForRange: boolean;
 
@@ -218,6 +219,11 @@ export class WordMotion extends AbstractMotion {
             // Stop end of line
             line = editor.ReadLine(position.Line - 1);
             return new Position(position.Line - 1, line.length);
+        }
+        if (this.Command === "cw") {
+            if (line.length - 1 > position.Char) {
+                position.Char++;
+            }
         }
 
         return position;

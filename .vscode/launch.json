@@ -24,7 +24,7 @@
 			"sourceMaps": true,
 			"args": [
 				"-g",
-				"VimStyle.*b:stop line start.*"
+				"VimStyle.*cw:.*"
 			],
 			"outDir": "${workspaceRoot}/out",
 			"cwd": "${workspaceRoot}/out",
@@ -40,7 +40,7 @@
 			"sourceMaps": true,
 			"args": [
 				"-g",
-				"VimStyle repeat insert cw.:repeat cut command"
+				"VimStyle delete word cw:do not cut spaces tailled the word:"
 			],
 			"outDir": "${workspaceRoot}/out",
 			"cwd": "${workspaceRoot}/out",

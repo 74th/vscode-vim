@@ -51,9 +51,9 @@ DeleteTests["delete word"] = {
         "in": [
             "aaa |bbb ccc",
         ],
-        "key": "cw",
+        "key": "cweee_",
         "out": [
-            "aaa|  ccc",
+            "aaa ee|e ccc",
         ],
     },
 };
