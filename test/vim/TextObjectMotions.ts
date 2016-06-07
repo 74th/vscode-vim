@@ -27,6 +27,11 @@ TextObjectMotions["w: N words forward"] = {
         "key": "w",
         "out": [" |abc abc"]
     },
+    "w:word start at 2 spaces": {
+        "in": [" | abc abc"],
+        "key": "w",
+        "out": ["  |abc abc"]
+    },
     "2w:move to next word(not skip marks)": {
         "in": ["ab|c abc(abc) abc"],
         "key": "2w",
@@ -118,6 +123,16 @@ TextObjectMotions["Nb: N words backward"] = {
         "in": ["abc a|bc"],
         "key": "3b",
         "out": ["|abc abc"]
+    },
+    "b:start at 2 space": {
+        "in": ["abc abc| "],
+        "key": "b",
+        "out": ["abc |abc "]
+    },
+    "b:start at space": {
+        "in": ["abc abc|  "],
+        "key": "b",
+        "out": ["abc |abc  "]
     },
     "3b:stop line start": {
         "in": [
