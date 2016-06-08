@@ -24,7 +24,7 @@
 			"sourceMaps": true,
 			"args": [
 				"-g",
-				"VimStyle.*cw:.*"
+				"VimStyle w: N words forward w:word start at 2 spaces"
 			],
 			"outDir": "${workspaceRoot}/out",
 			"cwd": "${workspaceRoot}/out",
@@ -40,7 +40,7 @@
 			"sourceMaps": true,
 			"args": [
 				"-g",
-				"VimStyle delete word cw:do not cut spaces tailled the word:"
+				"VimStyle w: N words forward w:word start at 2 spaces"
 			],
 			"outDir": "${workspaceRoot}/out",
 			"cwd": "${workspaceRoot}/out",

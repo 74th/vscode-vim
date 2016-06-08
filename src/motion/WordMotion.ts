@@ -52,7 +52,6 @@ export class WordMotion extends AbstractMotion {
                 loop = -1;
             } else if (nextPosition.Char === 1) {
                 nextCharClass = CharGroup.Spaces;
-                nextPosition.Char = -1;
                 loop = -2;
             } else {
                 loop = -3;
