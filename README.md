@@ -76,24 +76,21 @@ If you want to use `ctrl+[` instead of `escape`, please add blong setting to you
 }
 ```
 
-
 ## never support
 
-* : (you should get use to command palette)
 * / ? (you shoud use default search function)
 * Ctrl-x Cmd-x Alt-x Meta-x
-* `vimrc`(all settings available in `settings.json`)
 * q @ (can't use with IntelliSence)
 
 ## future suppprt
 
+* additional key-binding from settings.json
 * J
 * { }
 * "xd "xy "xc "xp
 * ~
 * % [ ]
 * + -
-* additional key-binding from settings.json
 * ...
 
 ## low priority
@@ -120,6 +117,11 @@ npm run-script build
 ```
 
 ## update
+
+### 0.3.10
+
+* [default mode stting #34](https://github.com/74th/vscode-vim/issues/34)
+* [fix word motion bug](https://github.com/74th/vscode-vim/issues/35)
 
 ### 0.3.9
 
@@ -192,4 +194,4 @@ npm run-script build
 
 ### 0.1.1
 
-release!
+pre release!
