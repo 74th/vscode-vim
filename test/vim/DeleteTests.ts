@@ -9,14 +9,14 @@ DeleteTests["delete charactor"] = {
 };
 
 DeleteTests["delete word"] = {
-    "dw:delete one wrod": {
+    "dw:delete one word": {
         "in": ["aaa |bbb ccc"],
         "key": "dw",
         "out": ["aaa |ccc"],
     },
-    "dw:delete a wrod at end of line": {
+    "dw:delete a word at end of line": {
         "in": [
-            "aaa |bbb",
+            "aaa |BCD",
             "ccc ddd",
         ],
         "key": "dw",
@@ -25,7 +25,7 @@ DeleteTests["delete word"] = {
             "ccc ddd",
         ],
     },
-    "dw:delete a wrod at end of document": {
+    "dw:delete a word at end of document": {
         "in": [
             "aaa bbb",
             "ccc |ddd",
@@ -34,6 +34,26 @@ DeleteTests["delete word"] = {
         "out": [
             "aaa bbb",
             "ccc| ",
+        ],
+    },
+    "dw:delete spaces tailled the word": {
+        "in": [
+            "aaa |bbb   ",
+            "ccc ddd",
+        ],
+        "key": "dw",
+        "out": [
+            "aaa| ",
+            "ccc ddd",
+        ],
+    },
+    "cw:do not cut spaces tailled the word": {
+        "in": [
+            "aaa |bbb ccc",
+        ],
+        "key": "cweee_",
+        "out": [
+            "aaa ee|e ccc",
         ],
     },
 };

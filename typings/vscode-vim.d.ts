@@ -114,6 +114,7 @@ interface IInsertTextAction extends IAction {
 interface IRequireMotionAction extends IAction {
     Motion: IMotion;
     IsLine: boolean;
+    IsChange: boolean;
     IsLarge: boolean;
 }
 

@@ -802,14 +802,17 @@ export class CommandFactory implements ICommandFactory {
 
     // cNw
     private addWordForwordMotion() {
+        let a = <IRequireMotionAction>this.action;
         let m: WordMotion;
         m = new WordMotion(Direction.Right);
-        m.IsWordEnd = false;
+        if (a.IsChange) {
+            m.IsWordEnd = true;
+            m.Command = "cw";
+        }
         m.IsWORD = false;
         m.IsSkipBlankLine = false;
         m.IsForRange = true;
         m.Count = this.getNumStack();
-        let a = <IRequireMotionAction>this.action;
         a.Motion = m;
     }
 
@@ -831,7 +834,8 @@ export class CommandFactory implements ICommandFactory {
         m.IsWordEnd = false;
         m.IsWORD = true;
         m.IsSkipBlankLine = false;
-        m.IsForRange = true;
+        // m.IsForRange = true;
+        // TODO cw dwywで処理を変える
         m.Count = this.getNumStack();
         let a = <IRequireMotionAction>this.action;
         a.Motion = m;
@@ -855,7 +859,7 @@ export class CommandFactory implements ICommandFactory {
         m.IsWordEnd = true;
         m.IsWORD = false;
         m.IsSkipBlankLine = true;
-        m.IsForRange = true;
+        // m.IsForRange = true;
         m.Count = this.getNumStack();
         let a = <IRequireMotionAction>this.action;
         a.Motion = m;
@@ -868,6 +872,7 @@ export class CommandFactory implements ICommandFactory {
         m.IsWordEnd = true;
         m.IsWORD = true;
         m.IsSkipBlankLine = true;
+        // m.IsStopLineEnd = true;
         m.Count = this.getNumStack();
         this.action = this.createGotoAction(m);
     }
@@ -879,7 +884,7 @@ export class CommandFactory implements ICommandFactory {
         m.IsWordEnd = true;
         m.IsWORD = true;
         m.IsSkipBlankLine = true;
-        m.IsForRange = true;
+        // m.IsForRange = true;
         m.Count = this.getNumStack();
         let a = <IRequireMotionAction>this.action;
         a.Motion = m;
@@ -903,7 +908,7 @@ export class CommandFactory implements ICommandFactory {
         m.IsWordEnd = true;
         m.IsWORD = false;
         m.IsSkipBlankLine = false;
-        m.IsForRange = true;
+        // m.IsForRange = true;
         m.Count = this.getNumStack();
         let a = <IRequireMotionAction>this.action;
         a.Motion = m;
@@ -927,7 +932,7 @@ export class CommandFactory implements ICommandFactory {
         m.IsWordEnd = true;
         m.IsWORD = true;
         m.IsSkipBlankLine = false;
-        m.IsForRange = true;
+        // m.IsForRange = true;
         m.Count = this.getNumStack();
         let a = <IRequireMotionAction>this.action;
         a.Motion = m;
