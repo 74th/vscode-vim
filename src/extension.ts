@@ -11,7 +11,8 @@ export function activate(context: vscode.ExtensionContext) {
         let conf = vscode.workspace.getConfiguration("vimStyle");
         editorOpt = {
             showMode: conf.get<boolean>("showMode", true),
-            changeCursorStyle: conf.get<boolean>("changeCursorStyle", true)
+            changeCursorStyle: conf.get<boolean>("changeCursorStyle", true),
+            defaultMode: conf.get<string>("defaultMode", "normal")
         };
         vimOpt = {
             useErgonomicKeyForMotion: conf.get<boolean>("useErgonomicKeyForMotion", false),
@@ -52,5 +53,9 @@ export function activate(context: vscode.ExtensionContext) {
         vim.PushEscKey();
     }));
 
-    vim.PushEscKey();
+    if (editorOpt.defaultMode === "insert") {
+        vim.PushKey("i")
+    } else {
+        vim.PushEscKey();
+    }
 }

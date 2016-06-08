@@ -18,6 +18,7 @@ class EditorAction {
 export interface IVSCodeEditorOptions {
     showMode: boolean;
     changeCursorStyle: boolean;
+    defaultMode: string;
 }
 
 export class VSCodeEditor implements IEditor {

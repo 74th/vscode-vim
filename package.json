@@ -16,7 +16,7 @@
         "type": "git",
         "url": "https://github.com/74th/vscode-vim.git"
     },
-    "version": "0.3.9",
+    "version": "0.3.10",
     "publisher": "74th",
     "engines": {
         "vscode": "^1.0.0"
@@ -50,6 +50,15 @@
                     "type": "boolean",
                     "default": true,
                     "description": "change cursor by mode"
+                },
+                "vimStyle.defaultMode": {
+                    "type": "string",
+                    "default":"normal",
+                    "description": "default mode",
+                    "enum": [
+                        "normal",
+                        "insert"
+                    ]
                 }
             }
         },
