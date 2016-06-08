@@ -130,9 +130,9 @@ TextObjectMotions["Nb: N words backward"] = {
         "out": ["abc |abc "]
     },
     "b:start at space": {
-        "in": ["abc abc|  "],
+        "in": ["abc abc|$ "],
         "key": "b",
-        "out": ["abc |abc  "]
+        "out": ["abc |abc$ "]
     },
     "3b:stop line start": {
         "in": [
