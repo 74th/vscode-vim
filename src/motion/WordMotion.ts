@@ -34,7 +34,7 @@ export class WordMotion extends AbstractMotion {
 
         let previousPosition: Position = null;
         let position: Position = null;
-        let nextPosition: Position = editor.GetCurrentPosition();
+        let nextPosition: Position = editor.GetCurrentPosition().Copy();
 
         // this count use for skip to stop current position
         let loop: number;
@@ -54,6 +54,7 @@ export class WordMotion extends AbstractMotion {
                 nextCharClass = CharGroup.Spaces;
                 loop = -2;
             } else {
+                nextPosition.Char--;
                 loop = -3;
             }
         } else {

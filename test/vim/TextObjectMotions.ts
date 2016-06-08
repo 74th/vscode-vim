@@ -51,7 +51,12 @@ TextObjectMotions["w: N words forward"] = {
             "",
             "|abd abd"
         ],
-    }
+    },
+    "w:move from mark": {
+        "in": ["tree|.Len()"],
+        "key": "w",
+        "out": ["tree.|Len()"]
+    },
 }
 
 TextObjectMotions["NW:N blank-separated"] = {
