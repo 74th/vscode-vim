@@ -14,6 +14,16 @@ DeleteTests["delete word"] = {
         "key": "dw",
         "out": ["aaa |ccc"],
     },
+    "dw:delete first word": {
+        "in": ["|aaa bbb ccc"],
+        "key": "dw",
+        "out": ["|bbb ccc"],
+    },
+    "dw:delete last word": {
+        "in": ["aaa bbb |ccc"],
+        "key": "dw",
+        "out": ["aaa bbb| "],
+    },
     "dw:delete a word at end of line": {
         "in": [
             "aaa |BCD",

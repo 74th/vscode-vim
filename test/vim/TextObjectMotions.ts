@@ -22,6 +22,11 @@ TextObjectMotions["w: N words forward"] = {
             "|abc abc"
         ]
     },
+    "w:word start at first charactor": {
+        "in": ["|abc abc"],
+        "key": "w",
+        "out": ["abc |abc"]
+    },
     "w:word start at space": {
         "in": ["| abc abc"],
         "key": "w",

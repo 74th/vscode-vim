@@ -24,7 +24,7 @@
 			"sourceMaps": true,
 			"args": [
 				"-g",
-				"VimStyle w: N words forward w:move from mark"
+				"VimStyle delete word dw:delete first word"
 			],
 			"outDir": "${workspaceRoot}/out",
 			"cwd": "${workspaceRoot}/out",

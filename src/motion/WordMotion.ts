@@ -48,7 +48,13 @@ export class WordMotion extends AbstractMotion {
                 charClass = CharGroup.Spaces;
                 nextCharClass = CharGroup.Spaces;
                 nextPosition.Char = -1;
-                count += 1;
+                if (this.Command !== "dw" && line.length > 0 ) {
+                    let charCode = line.charCodeAt(nextPosition.Char);
+                    charClass = Utils.GetCharClass(charCode);
+                    if (charClass !== CharGroup.Spaces) {
+                        count += 1;
+                    }
+                }
                 loop = -1;
             } else if (nextPosition.Char === 1) {
                 nextCharClass = CharGroup.Spaces;
