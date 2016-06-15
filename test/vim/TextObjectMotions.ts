@@ -62,6 +62,76 @@ TextObjectMotions["w: N words forward"] = {
         "key": "w",
         "out": ["tree.|Len()"]
     },
+    "dw:delete one word": {
+        "in": ["aaa |bbb ccc"],
+        "key": "dw",
+        "out": ["aaa |ccc"],
+    },
+    "dw:delete first word": {
+        "in": ["|aaa bbb ccc"],
+        "key": "dw",
+        "out": ["|bbb ccc"],
+    },
+    "dw:delete last word": {
+        "in": ["aaa bbb |ccc"],
+        "key": "dw",
+        "out": ["aaa bbb| "],
+    },
+    "dw:delete a word at end of line": {
+        "in": [
+            "aaa |BCD",
+            "ccc ddd",
+        ],
+        "key": "dw",
+        "out": [
+            "aaa| ",
+            "ccc ddd",
+        ],
+    },
+    "dw:delete a word at end of document": {
+        "in": [
+            "aaa bbb",
+            "ccc |ddd",
+        ],
+        "key": "dw",
+        "out": [
+            "aaa bbb",
+            "ccc| ",
+        ],
+    },
+    "dw:delete spaces tailled the word": {
+        "in": [
+            "aaa |bbb   ",
+            "ccc ddd",
+        ],
+        "key": "dw",
+        "out": [
+            "aaa| ",
+            "ccc ddd",
+        ],
+    },
+    "dw:delete only one word in line": {
+        "in": [
+            "aaa",
+            "|bbb",
+            "ccc"
+        ],
+        "key": "dw",
+        "out": [
+            "aaa",
+            "|",
+            "ccc"
+        ],
+    },
+    "cw:do not cut spaces tailled the word": {
+        "in": [
+            "aaa |bbb ccc",
+        ],
+        "key": "cweee_",
+        "out": [
+            "aaa ee|e ccc",
+        ],
+    },
 }
 
 TextObjectMotions["NW:N blank-separated"] = {
@@ -173,6 +243,19 @@ TextObjectMotions["Nb: N words backward"] = {
             "",
             "",
             "abd abd"
+        ],
+    },
+    "db:delete before a word if sursor in first character of a word": {
+        "in": [
+            "zzz",
+            "aaa |bbb ccc",
+            "zzz",
+        ],
+        "key": "db",
+        "out": [
+            "zzz",
+            "|bbb ccc",
+            "zzz",
         ],
     }
 };
