@@ -37,7 +37,7 @@ export class WordMotion extends AbstractMotion {
         let nextPosition: Position = editor.GetCurrentPosition().Copy();
 
         // this count use for skip to stop current position
-        let loop: number;
+        let beforeCountLoop: number;
 
         let line = editor.ReadLine(nextPosition.Line);
         let lineLength = line.length;
@@ -48,20 +48,20 @@ export class WordMotion extends AbstractMotion {
                 charClass = CharGroup.Spaces;
                 nextCharClass = CharGroup.Spaces;
                 nextPosition.Char = -1;
-                if (this.Command !== "dw" && line.length > 0 ) {
+                if (this.Command !== "dw" && line.length > 0) {
                     let charCode = line.charCodeAt(nextPosition.Char);
                     charClass = Utils.GetCharClass(charCode);
                     if (charClass !== CharGroup.Spaces) {
                         count += 1;
                     }
                 }
-                loop = -1;
+                beforeCountLoop = -1;
             } else if (nextPosition.Char === 1) {
                 nextCharClass = CharGroup.Spaces;
-                loop = -2;
+                beforeCountLoop = -2;
             } else {
                 nextPosition.Char--;
-                loop = -3;
+                beforeCountLoop = -3;
             }
         } else {
             if (lineLength - 1 === nextPosition.Char) {
@@ -69,9 +69,9 @@ export class WordMotion extends AbstractMotion {
                 nextCharClass = CharGroup.Spaces;
             } else if (lineLength - 2 === nextPosition.Char) {
                 nextCharClass = CharGroup.Spaces;
-                loop = -1;
+                beforeCountLoop = -1;
             } else {
-                loop = -2;
+                beforeCountLoop = -2;
             }
         }
         if (this.IsForRange && nextCharClass !== CharGroup.Spaces) {
@@ -142,9 +142,16 @@ export class WordMotion extends AbstractMotion {
                 }
             }
 
-            loop++;
-            if (loop < 0) {
+            beforeCountLoop++;
+            if (beforeCountLoop < 0) {
                 continue;
+            } else if (beforeCountLoop === 0 && this.IsWordEnd) {
+                if (charClass !== CharGroup.Spaces && nextCharClass !== CharGroup.Spaces) {
+                    if (this.IsWORD || charClass !== nextCharClass) {
+                        // e start at a charactor at not end of word
+                        count--;
+                    }
+                }
             }
 
             // handle
