@@ -168,13 +168,6 @@ TextObjectMotions["Ne: forward to the end of the Nth word"] = {
         "in": ["a|bc abc(abc) abc"],
         "key": "4e",
         "out": ["abc abc(ab|c) abc"]
-    }
-};
-TextObjectMotions["NE: forward to the end of the Nth blank-separated"] = {
-    "E:move to before word(skip marks)": {
-        "in": ["a|bc abc(abc) abc"],
-        "key": "2E",
-        "out": ["abc abc(abc|) abc"]
     },
     "2e:move to next wordend(skip blank line)": {
         "in": [
@@ -190,7 +183,19 @@ TextObjectMotions["NE: forward to the end of the Nth blank-separated"] = {
             "",
             "ab|d abd"
         ],
+    },
+    "e:cursor is in word": {
+        "in": ["aaaa bbb|bbbbb cccc dddd"],
+        "key": "e",
+        "out": ["aaaa bbbbbbb|b cccc dddd"]
     }
+};
+TextObjectMotions["NE: forward to the end of the Nth blank-separated"] = {
+    "E:move to before word(skip marks)": {
+        "in": ["a|bc abc(abc) abc"],
+        "key": "2E",
+        "out": ["abc abc(abc|) abc"]
+    },
 };
 
 TextObjectMotions["Nb: N words backward"] = {
