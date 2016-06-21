@@ -64,14 +64,16 @@ export class WordMotion extends AbstractMotion {
                 beforeCountLoop = -3;
             }
         } else {
-            if (lineLength - 1 === nextPosition.Char) {
+            if (lineLength - 2 === nextPosition.Char) {
                 charClass = CharGroup.Spaces;
                 nextCharClass = CharGroup.Spaces;
-            } else if (lineLength - 2 === nextPosition.Char) {
-                nextCharClass = CharGroup.Spaces;
                 beforeCountLoop = -1;
-            } else {
+            } else if (lineLength - 1 === nextPosition.Char) {
+                nextCharClass = CharGroup.Spaces;
                 beforeCountLoop = -2;
+            } else {
+                nextPosition.Char++;
+                beforeCountLoop = -3;
             }
         }
         if (this.IsForRange && nextCharClass !== CharGroup.Spaces) {
@@ -145,9 +147,11 @@ export class WordMotion extends AbstractMotion {
             beforeCountLoop++;
             if (beforeCountLoop < 0) {
                 continue;
-            } else if (beforeCountLoop === 0 && this.IsWordEnd) {
+            } else if (beforeCountLoop === 0 &&
+                this.IsWordEnd &&
+                this.Command !== "cw") {
                 if (charClass !== CharGroup.Spaces && nextCharClass !== CharGroup.Spaces) {
-                    if (this.IsWORD || charClass !== nextCharClass) {
+                    if (this.IsWORD || charClass === nextCharClass) {
                         // e start at a charactor at not end of word
                         count--;
                     }
