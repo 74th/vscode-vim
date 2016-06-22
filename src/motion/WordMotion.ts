@@ -83,8 +83,10 @@ export class WordMotion extends AbstractMotion {
         let isReachLast = false;
         let charCode: number;
         let lineEnd: boolean;
+        let skipCountDown: boolean;
         while (count > -1) {
 
+            skipCountDown = false;
             lineEnd = false;
             previousPosition = position;
             previousCharClass = charClass;
@@ -154,38 +156,41 @@ export class WordMotion extends AbstractMotion {
                     if (this.IsWORD || charClass === nextCharClass) {
                         // e start at a charactor at not end of word
                         count--;
+                        skipCountDown = true;
                     }
                 }
             }
 
             // handle
             let newWord = false;
-            if (charClass !== CharGroup.Spaces) {
-                if (this.IsWORD) {
-                    if (previousCharClass === CharGroup.Spaces) {
-                        newWord = true;
-                        count--;
+            if (!skipCountDown) {
+                if (charClass !== CharGroup.Spaces) {
+                    if (this.IsWORD) {
+                        if (previousCharClass === CharGroup.Spaces) {
+                            newWord = true;
+                            count--;
+                        }
+                    } else {
+                        if (previousCharClass !== charClass) {
+                            newWord = true;
+                            count--;
+                        }
                     }
-                } else {
-                    if (previousCharClass !== charClass) {
-                        newWord = true;
-                        count--;
-                    }
-                }
-            } else if (!newWord && !this.IsSkipBlankLine) {
-                if (this.Direction === Direction.Right) {
-                    if (previousPosition !== null &&
-                        previousPosition.Char === -1) {
-                        count--;
-                    }
-                } else {
-                    if (position.Char === -1 && previousPosition.Char === -1) {
-                        count--;
+                } else if (!newWord && !this.IsSkipBlankLine) {
+                    if (this.Direction === Direction.Right) {
+                        if (previousPosition !== null &&
+                            previousPosition.Char === -1) {
+                            count--;
+                        }
+                    } else {
+                        if (position.Char === -1 && previousPosition.Char === -1) {
+                            count--;
+                        }
                     }
                 }
             }
 
-            if (count === 0) {
+            if (count <= 0) {
                 if (this.IsWordEnd) {
                     if (this.IsWORD) {
                         // E B cW
