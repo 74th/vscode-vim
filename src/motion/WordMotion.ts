@@ -190,7 +190,7 @@ export class WordMotion extends AbstractMotion {
                 }
             }
 
-            if (count == 0) {
+            if (count === 0) {
                 if (this.IsWordEnd) {
                     if (this.IsWORD) {
                         // E B cW
