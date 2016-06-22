@@ -24,7 +24,7 @@
 			"sourceMaps": true,
 			"args": [
 				"-g",
-				"VimStyle delete word dw:delete first word"
+				"VimStyle Nb: N words backward b:start at 2 space"
 			],
 			"outDir": "${workspaceRoot}/out",
 			"cwd": "${workspaceRoot}/out",

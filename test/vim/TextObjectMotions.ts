@@ -62,6 +62,76 @@ TextObjectMotions["w: N words forward"] = {
         "key": "w",
         "out": ["tree.|Len()"]
     },
+    "dw:delete one word": {
+        "in": ["aaa |bbb ccc"],
+        "key": "dw",
+        "out": ["aaa |ccc"],
+    },
+    "dw:delete first word": {
+        "in": ["|aaa bbb ccc"],
+        "key": "dw",
+        "out": ["|bbb ccc"],
+    },
+    "dw:delete last word": {
+        "in": ["aaa bbb |ccc"],
+        "key": "dw",
+        "out": ["aaa bbb| "],
+    },
+    "dw:delete a word at end of line": {
+        "in": [
+            "aaa |BCD",
+            "ccc ddd",
+        ],
+        "key": "dw",
+        "out": [
+            "aaa| ",
+            "ccc ddd",
+        ],
+    },
+    "dw:delete a word at end of document": {
+        "in": [
+            "aaa bbb",
+            "ccc |ddd",
+        ],
+        "key": "dw",
+        "out": [
+            "aaa bbb",
+            "ccc| ",
+        ],
+    },
+    "dw:delete spaces tailled the word": {
+        "in": [
+            "aaa |bbb   ",
+            "ccc ddd",
+        ],
+        "key": "dw",
+        "out": [
+            "aaa| ",
+            "ccc ddd",
+        ],
+    },
+    "dw:delete only one word in line": {
+        "in": [
+            "aaa",
+            "|bbb",
+            "ccc"
+        ],
+        "key": "dw",
+        "out": [
+            "aaa",
+            "|",
+            "ccc"
+        ],
+    },
+    "cw:do not cut spaces tailled the word": {
+        "in": [
+            "aaa |bbb ccc",
+        ],
+        "key": "cweee_",
+        "out": [
+            "aaa ee|e ccc",
+        ],
+    },
 }
 
 TextObjectMotions["NW:N blank-separated"] = {
@@ -98,13 +168,6 @@ TextObjectMotions["Ne: forward to the end of the Nth word"] = {
         "in": ["a|bc abc(abc) abc"],
         "key": "4e",
         "out": ["abc abc(ab|c) abc"]
-    }
-};
-TextObjectMotions["NE: forward to the end of the Nth blank-separated"] = {
-    "E:move to before word(skip marks)": {
-        "in": ["a|bc abc(abc) abc"],
-        "key": "2E",
-        "out": ["abc abc(abc|) abc"]
     },
     "2e:move to next wordend(skip blank line)": {
         "in": [
@@ -120,7 +183,19 @@ TextObjectMotions["NE: forward to the end of the Nth blank-separated"] = {
             "",
             "ab|d abd"
         ],
+    },
+    "e:cursor is in word": {
+        "in": ["aaaa bbb|bbbbb cccc dddd"],
+        "key": "e",
+        "out": ["aaaa bbbbbbb|b cccc dddd"]
     }
+};
+TextObjectMotions["NE: forward to the end of the Nth blank-separated"] = {
+    "E:move to before word(skip marks)": {
+        "in": ["a|bc abc(abc) abc"],
+        "key": "2E",
+        "out": ["abc abc(abc|) abc"]
+    },
 };
 
 TextObjectMotions["Nb: N words backward"] = {
@@ -173,6 +248,19 @@ TextObjectMotions["Nb: N words backward"] = {
             "",
             "",
             "abd abd"
+        ],
+    },
+    "db:delete before a word if sursor in first character of a word": {
+        "in": [
+            "zzz",
+            "aaa |bbb ccc",
+            "zzz",
+        ],
+        "key": "db",
+        "out": [
+            "zzz",
+            "|bbb ccc",
+            "zzz",
         ],
     }
 };
