@@ -808,6 +808,8 @@ export class CommandFactory implements ICommandFactory {
         if (a.IsChange) {
             m.IsWordEnd = true;
             m.Command = "cw";
+        } else {
+            m.Command = "dw";
         }
         m.IsWORD = false;
         m.IsSkipBlankLine = false;
@@ -829,15 +831,17 @@ export class CommandFactory implements ICommandFactory {
 
     // cNW
     private addBlankSparatedMotion() {
+        let a = <IRequireMotionAction>this.action;
         let m: WordMotion;
         m = new WordMotion(Direction.Right);
         m.IsWordEnd = false;
         m.IsWORD = true;
         m.IsSkipBlankLine = false;
-        // m.IsForRange = true;
-        // TODO cw dwywで処理を変える
+        if (a.IsChange) {
+            m.IsWordEnd = true;
+            m.Command = "cw";
+        }
         m.Count = this.getNumStack();
-        let a = <IRequireMotionAction>this.action;
         a.Motion = m;
     }
 

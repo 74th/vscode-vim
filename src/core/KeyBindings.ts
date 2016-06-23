@@ -54,7 +54,7 @@ const DefaultKeyBindings: IKeyBindings = {
             cmd: VimCommand.gotoWordBackword
         },
         "B": {
-            cmd: VimCommand.gotoBlankSeparated
+            cmd: VimCommand.gotoBlankSeparatedBackword
         },
         "c": {
             cmd: VimCommand.changeTextWithMotion,
@@ -388,10 +388,10 @@ const DefaultKeyBindings: IKeyBindings = {
         // da
         // dA
         "b": {
-            cmd: VimCommand.wordForwardMotion
+            cmd: VimCommand.wordBackwardMotion
         },
         "B": {
-            cmd: VimCommand.blankSeparatedMotion
+            cmd: VimCommand.blankSeparatedBackwordMotion
         },
         "c": {
             cmd: VimCommand.doActionAtCurrentLine
@@ -536,9 +536,11 @@ const DefaultKeyBindings: IKeyBindings = {
         // da
         // dA
         "b": {
-            cmd: VimCommand.wordForwardMotion
+            cmd: VimCommand.wordBackwardMotion
         },
-        // B
+        "B": {
+            cmd: VimCommand.blankSeparatedBackwordMotion
+        },
         "c": {
             cmd: VimCommand.doActionAtCurrentLine
         },
@@ -687,7 +689,9 @@ const DefaultKeyBindings: IKeyBindings = {
         "b": {
             cmd: VimCommand.wordBackwardMotion
         },
-        // v..B
+        "B": {
+            cmd: VimCommand.blankSeparatedBackwordMotion
+        },
         "c": {
             cmd: VimCommand.changeHighlightedText
         },
@@ -822,7 +826,9 @@ const DefaultKeyBindings: IKeyBindings = {
         "b": {
             cmd: VimCommand.wordBackwardMotion
         },
-        // V..B
+        "B": {
+            cmd: VimCommand.blankSeparatedBackwordMotion
+        },
         "c": {
             cmd: VimCommand.changeHighligtedLine
         },
