@@ -40,11 +40,27 @@ export function activate(context: vscode.ExtensionContext) {
     });
     context.subscriptions.push(disposable);
 
+    let normalModeBackKey = "j";
+    let isPushedNormalModeBackKeyOnce = false;
+    let stockedNormalModeBackKeyAction :any;
     context.subscriptions.push(vscode.commands.registerCommand("type", (args) => {
         if (!vscode.window.activeTextEditor) {
             return;
         }
         if (vim.GetMode() === VimMode.Insert) {
+            if (args.text === normalModeBackKey) {
+                if (isPushedNormalModeBackKeyOnce) {
+                    isPushedNormalModeBackKeyOnce = false;
+                    vim.PushEscKey();
+                    return;
+                }
+                isPushedNormalModeBackKeyOnce = true;
+                stockedNormalModeBackKeyAction = args;
+                return;
+            } else if(isPushedNormalModeBackKeyOnce) {
+                vscode.commands.executeCommand("default:type", stockedNormalModeBackKeyAction);
+            }
+            isPushedNormalModeBackKeyOnce = false;
             vscode.commands.executeCommand("default:type", args);
         }
         vim.PushKey(args.text);
