@@ -4,7 +4,12 @@ import {VSCodeEditor, IVSCodeEditorOptions} from "./VSCodeEditor";
 import {VSCodeEditorKeyBindngs} from "./VSCodeEditorKeyBindings";
 
 export function activate(context: vscode.ExtensionContext) {
+    if (vscode.workspace.getConfiguration("vimStyle").get<boolean>("enabled", true)) {
+        activateVimStyle(context);
+    }
+}
 
+function activateVimStyle(context: vscode.ExtensionContext) {
     let editorOpt: IVSCodeEditorOptions;
     let vimOpt: IVimStyleOptions;
     function loadConfiguration() {

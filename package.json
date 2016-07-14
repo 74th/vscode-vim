@@ -59,6 +59,10 @@
                         "normal",
                         "insert"
                     ]
+                },
+                "vimStyle.enabled": {
+                    "type":"boolean",
+                    "default": true
                 }
             }
         },
