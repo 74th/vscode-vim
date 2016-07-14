@@ -171,6 +171,7 @@ export class VSCodeEditor implements IEditor {
             vscode.window.activeTextEditor.selection = new vscode.Selection(vp, vp);
         }
         this.showBlockCursor();
+        vscode.commands.executeCommand('setContext', "vim.inInsertMode", false);
     }
 
     public ApplyInsertMode(p?: Position) {
@@ -179,6 +180,7 @@ export class VSCodeEditor implements IEditor {
             vscode.window.activeTextEditor.selection = new vscode.Selection(c, c);
         }
         this.showLineCursor();
+        vscode.commands.executeCommand('setContext', "vim.inInsertMode", true);
     }
 
     public ShowVisualMode(range: IRange, focusPosition?: IPosition) {
