@@ -16,7 +16,7 @@
         "type": "git",
         "url": "https://github.com/74th/vscode-vim.git"
     },
-    "version": "0.3.11",
+    "version": "0.3.12",
     "publisher": "74th",
     "engines": {
         "vscode": "^1.0.0"
@@ -53,7 +53,7 @@
                 },
                 "vimStyle.defaultMode": {
                     "type": "string",
-                    "default":"normal",
+                    "default": "normal",
                     "description": "default mode",
                     "enum": [
                         "normal",
@@ -61,15 +61,21 @@
                     ]
                 },
                 "vimStyle.enabled": {
-                    "type":"boolean",
+                    "type": "boolean",
                     "default": true
+                },
+                "vimStyle.imapEsc": {
+                    "type": "string",
+                    "default": "",
+                    "description": "keys go to normal mode from insert mode"
                 }
             }
         },
-        "keybindings": [{
-            "command": "vim.Esc",
-            "key": "escape",
-            "when": "editorTextFocus"
+        "keybindings": [
+            {
+                "command": "vim.Esc",
+                "key": "escape",
+                "when": "editorTextFocus"
             }
         ]
     },

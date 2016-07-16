@@ -5,14 +5,14 @@ vim emulator for VSCode
 * GitHub https://github.com/74th/vscode-vim
 * Visual Studio Marketplace https://marketplace.visualstudio.com/items/74th.vimStyle
 
-[![Build Status](https://travis-ci.org/74th/vscode-vim.svg?branch=master)](https://travis-ci.org/74th/vscode-vim) 
+[![Build Status](https://travis-ci.org/74th/vscode-vim.svg?branch=master)](https://travis-ci.org/74th/vscode-vim)
 [![Version](http://vsmarketplacebadge.apphb.com/version/74th.vimStyle.svg)](https://marketplace.visualstudio.com/items?itemName=74th.vimStyle)
 [![Installs](http://vsmarketplacebadge.apphb.com/installs/74th.vimStyle.svg)](https://marketplace.visualstudio.com/items?itemName=74th.vimStyle)
 [![Rating](https://vsmarketplacebadge.apphb.com/rating/74th.vimStyle.svg)](https://marketplace.visualstudio.com/items/74th.vimStyle)
 
 ## Require
 
-* v0.3 : Visual Studio Code 1.0.0 
+* v0.3 : Visual Studio Code 1.0.0
 
 ## feature
 
@@ -66,6 +66,10 @@ If you needs optional settings, please copy belong json and paste to your `setti
 "vimStyle.useErgonomicKeyForMotion": true,
 // default mode (default: "normal")
 "vimStyle.defaultMode": "insert",
+// disable without to uninstall (default: "true")
+"vimStyle.enabled": "false",
+// keys go to normal mode from insert mode (default: "" disable)
+"vimStyle.imapEsc": "jj"
 ```
 
 If you want to use `ctrl+[` instead of `escape`, please add blong setting to your `keybindings.json`.
@@ -119,6 +123,11 @@ npm run-script build
 ```
 
 ## update
+
+### 0.3.12
+
+* support imap ESC keybinding
+* support enable setting
 
 ### 0.3.11
 
