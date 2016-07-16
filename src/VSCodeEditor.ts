@@ -19,6 +19,7 @@ export interface IVSCodeEditorOptions {
     showMode: boolean;
     changeCursorStyle: boolean;
     defaultMode: string;
+    imapEsc: string;
 }
 
 export class VSCodeEditor implements IEditor {
