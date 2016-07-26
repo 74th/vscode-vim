@@ -107,6 +107,17 @@ If you want to use `ctrl+[` instead of `escape`, please add blong setting to you
 * m `
 * ...
 
+## VimStyle Loadmap
+
+the vim emulator written type script
+
+* [+] basic vim keybinds
+* [ ] fix word motion bugs
+* [ ] ver1.0 : user keybindings ( nmap )
+* [ ] text object ( diw, di{ ... )
+* [ ] vim style plugin for chrome browser
+* [ ] complete quickref list
+
 ## License
 
 MIT License
