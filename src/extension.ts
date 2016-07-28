@@ -118,9 +118,11 @@ function activateVimStyle(context: vscode.ExtensionContext) {
 
     vscode.commands.executeCommand('setContext', "vim.enabled", true);
 
-    if (editorOpt.defaultMode === "insert") {
-        vim.PushKey("i")
-    } else {
-        vim.PushEscKey();
-    }
+    setTimeout(() => {
+        if (editorOpt.defaultMode === "insert") {
+            vim.PushKey("i")
+        } else {
+            vim.PushEscKey();
+        }
+    }, 1000);
 }
