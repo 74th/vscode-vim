@@ -106,6 +106,16 @@ function activateVimStyle(context: vscode.ExtensionContext) {
         vim.PushEscKey();
     }));
 
+    let chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890`~!@#$%^&*()-=_+[]\\{}|,./<>?";
+    let addTypeVim = (c: string) => {
+        context.subscriptions.push(vscode.commands.registerCommand("vim.type-" + c, () => {
+            vim.PushKey(c);
+        }));
+    }
+    for (let i = 0; i < chars.length; i++) {
+        addTypeVim(chars[i]);
+    }
+
     if (editorOpt.defaultMode === "insert") {
         vim.PushKey("i")
     } else {
