@@ -82,30 +82,46 @@ If you want to use `ctrl+[` instead of `escape`, please add blong setting to you
 }
 ```
 
+If you want a more vim flavor, you can use `vim.inNormalMode`, `vim.inInsertMode` and `vim.inVisualMode` to your keyboard shortcuts. For example,
+
+```
+// in insert mode
+{
+	// Ctrl-h : BackSpace
+	"key": "ctrl+h", "command": "deleteLeft",
+	"when": "editorTextFocus && vim.inInsertMode"
+},
+{
+	// Ctrl-w : delete word
+	"key": "ctrl+w", "command": "deleteWordLeft",
+	"when": "editorTextFocus && vim.inInsertMode"
+},
+// in visual mode
+{
+	// arrow up
+	"key": "up", command": "vim.type-k",
+	"when": "editorTextFocus && vim.inVisualMode"
+},
+{
+	// arrow down
+	"key": "down", "command": "vim.type-j",
+	"when": "editorTextFocus && vim.inVisualMode"
+},
+{
+	// arrow right
+	"key": "down", "command": "vim.type-l",
+	"when": "editorTextFocus && vim.inVisualMode"
+},
+{
+	// arrow left
+	"key": "down", "command": "vim.type-h",
+	"when": "editorTextFocus && vim.inVisualMode"
+},
+```
+
 ## never support
 
-* / ? (you shoud use default search function)
 * Ctrl-x Cmd-x Alt-x Meta-x
-* q @ (can't use with IntelliSence)
-
-## future suppprt
-
-* additional key-binding from settings.json
-* J
-* { }
-* "xd "xy "xc "xp
-* ~
-* % [ ]
-* + -
-* ...
-
-## low priority
-
-* = (`>Format Code`)
-* > <(can use `Tab` and  `Shift-Tab`)
-* *
-* m `
-* ...
 
 ## VimStyle Loadmap
 
@@ -115,6 +131,7 @@ the vim emulator written type script
 * [ ] fix word motion bugs
 * [ ] ver1.0 : user keybindings ( nmap )
 * [ ] text object ( diw, di{ ... )
+* [ ] resister
 * [ ] vim style plugin for chrome browser
 * [ ] complete quickref list
 
@@ -134,6 +151,10 @@ npm run-script build
 ```
 
 ## update
+
+### 0.3.13
+
+* support vim mode contexts for keyboard shortcuts
 
 ### 0.3.12
 
