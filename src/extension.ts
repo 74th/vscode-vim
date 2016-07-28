@@ -111,4 +111,5 @@ function activateVimStyle(context: vscode.ExtensionContext) {
     } else {
         vim.PushEscKey();
     }
+    vscode.commands.executeCommand('setContext', "vim.enabled", true);
 }

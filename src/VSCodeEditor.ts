@@ -27,9 +27,14 @@ export class VSCodeEditor implements IEditor {
     private commandStatusBarItem: vscode.StatusBarItem;
     private vimStyle: IVimStyle;
 
+    private
+
     private visualLineModeStartLine: number;
     private visualLineModeEndLine: number;
     private visualLineModeFocusPosition: IPosition;
+    private inNormalModeContext: ContextKey;
+    private inInsertModeContext: ContextKey;
+    private inVisualModeContext: ContextKey;
 
     private latestPosition: IPosition;
     private latestPositionTimestamp: number;
@@ -41,6 +46,10 @@ export class VSCodeEditor implements IEditor {
         this.commandStatusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
         this.commandStatusBarItem.show();
         this.ApplyOptions(options);
+
+        this.inNormalModeContext = new ContextKey('vim.inNormalMode');
+        this.inInsertModeContext = new ContextKey('vim.inInsertMode');
+        this.inVisualModeContext = new ContextKey('vim.inVisualMode');
     }
 
     public SetVimStyle(vim: IVimStyle) {
@@ -172,7 +181,10 @@ export class VSCodeEditor implements IEditor {
             vscode.window.activeTextEditor.selection = new vscode.Selection(vp, vp);
         }
         this.showBlockCursor();
-        vscode.commands.executeCommand('setContext', "vim.inInsertMode", false);
+
+        this.inInsertModeContext.set(false);
+        this.inNormalModeContext.set(true);
+        this.inVisualModeContext.set(false);
     }
 
     public ApplyInsertMode(p?: Position) {
@@ -181,7 +193,10 @@ export class VSCodeEditor implements IEditor {
             vscode.window.activeTextEditor.selection = new vscode.Selection(c, c);
         }
         this.showLineCursor();
-        vscode.commands.executeCommand('setContext', "vim.inInsertMode", true);
+
+        this.inInsertModeContext.set(true);
+        this.inNormalModeContext.set(false);
+        this.inVisualModeContext.set(false);
     }
 
     public ShowVisualMode(range: IRange, focusPosition?: IPosition) {
@@ -193,6 +208,10 @@ export class VSCodeEditor implements IEditor {
             vscode.window.activeTextEditor.revealRange(r, vscode.TextEditorRevealType.Default);
         }
         this.showLineCursor();
+
+        this.inInsertModeContext.set(false);
+        this.inNormalModeContext.set(false);
+        this.inVisualModeContext.set(true);
     }
 
     public GetCurrentVisualModeSelection(): IRange {
@@ -224,6 +243,10 @@ export class VSCodeEditor implements IEditor {
         vscode.window.activeTextEditor.revealRange(rc);
 
         this.showBlockCursor();
+
+        this.inInsertModeContext.set(false);
+        this.inNormalModeContext.set(false);
+        this.inVisualModeContext.set(true);
     }
     public GetCurrentVisualLineModeSelection(): IVisualLineModeSelectionInfo {
         return {
@@ -318,4 +341,21 @@ function tranceVSCodeRange(org: IRange): vscode.Range {
     let start = tranceVSCodePosition(org.start);
     let end = tranceVSCodePosition(org.end);
     return new vscode.Range(start, end);
+}
+
+class ContextKey {
+    private _name: string;
+    private _lastValue: boolean;
+
+    constructor(name: string) {
+        this._name = name;
+    }
+
+    public set(value: boolean): void {
+        if (this._lastValue === value) {
+            return;
+        }
+        this._lastValue = value;
+        vscode.commands.executeCommand('setContext', this._name, this._lastValue);
+    }
 }

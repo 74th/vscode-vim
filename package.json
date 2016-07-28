@@ -75,7 +75,7 @@
             {
                 "command": "vim.Esc",
                 "key": "escape",
-                "when": "editorTextFocus"
+                "when": "editorTextFocus && vim.enabled"
             }
         ]
     },
