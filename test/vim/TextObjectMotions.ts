@@ -123,6 +123,15 @@ TextObjectMotions["w: N words forward"] = {
             "ccc"
         ],
     },
+    "dw:delete start space line": {
+        "in": [
+            " |   aaa"
+        ],
+        "key": "dw",
+        "out": [
+            " |aaa"
+        ],
+    },
     "cw:do not cut spaces tailled the word": {
         "in": [
             "aaa |bbb ccc",
@@ -130,6 +139,17 @@ TextObjectMotions["w: N words forward"] = {
         "key": "cweee_",
         "out": [
             "aaa ee|e ccc",
+        ],
+    },
+    "cw:delete two words at a first position": {
+        "in": [
+            "|aaa",
+            "bbb"
+        ],
+        "key": "cwccc_",
+        "out": [
+            "cc|c",
+            "bbb"
         ],
     },
 }
@@ -188,6 +208,11 @@ TextObjectMotions["Ne: forward to the end of the Nth word"] = {
         "in": ["aaaa bbb|bbbbb cccc dddd"],
         "key": "e",
         "out": ["aaaa bbbbbbb|b cccc dddd"]
+    },
+    "de:delete word without following space": {
+        "in": ["aaa b|bb ccc"],
+        "key": "de",
+        "out": ["aaa b| ccc"]
     }
 };
 TextObjectMotions["NE: forward to the end of the Nth blank-separated"] = {
