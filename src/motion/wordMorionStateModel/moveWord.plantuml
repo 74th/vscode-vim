@@ -10,4 +10,11 @@ space -down-> [character] "count --"
 space -> [space] space
 "count --" -up-> [if count > 0 ] character
 "count --" --> [if count = 0 ] (*)
+note left
+TODO
+* count end of line
+* stop at blank line
+* stop at end of document
+end note
 @enduml
+
