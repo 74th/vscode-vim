@@ -1,20 +1,36 @@
 @startuml
-(*) --> [count] first
+(*) --> first
+
+note left
+"blank" means the end of a blank line
+"end" means the end of a non blank line
+end note
+
 note right: first character does not count
 first --> [character] character
-first --> [space] space
-character --> [same type character] character
+first --> [space, end, blank] space
+character --> [same character type] character
 character --> [space] space
-character -down-> [different type character] "count --"
-space -down-> [character] "count --"
-space -> [space] space
-"count --" -up-> [if count > 0 ] character
-"count --" --> [if count = 0 ] (*)
+character -down-> [different character type] "count --"
+
+if "" then
+--> [count=0] (*)
 note left
 TODO
-* count end of line
-* stop at blank line
 * stop at end of document
 end note
-@enduml
+else
+-up-> [count > 0]character
+end if
 
+character --> [blank] "blank count --"
+if "" then
+--> [count=0] (*)
+else
+-up-> [count > 0] space
+end if
+
+space -down-> [character] "count --"
+space -> [space, end] space
+space --> [blank] "blank count --"
+@enduml
