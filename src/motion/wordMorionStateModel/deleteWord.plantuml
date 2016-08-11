@@ -6,9 +6,11 @@ note left
 "end" means the end of a non blank line
 end note
 
-note right: first character does not count
+note right: do not count first character
+
 first --> [character] character
 first --> [space, end, blank] space
+
 character --> [same character type] character
 character --> [space] space
 character -down-> [different character type] "count --"
@@ -16,9 +18,6 @@ character -down-> [different character type] "count --"
 if "" then
 --> [count=0] (*)
 note left
-TODO
-* stop at end of document
-end note
 else
 -up-> [count > 0]character
 end if
@@ -34,3 +33,4 @@ space -down-> [character] "count --"
 space -> [space, end] space
 space --> [blank] "blank count --"
 @enduml
+

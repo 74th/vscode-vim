@@ -1,0 +1,38 @@
+@startuml
+(*) --> first
+
+note left
+"end" means the end of a line
+end note
+
+note right: need count a first character
+
+first --> [character] "count --"
+first --> [space, end, blank] space
+character --> [same character type] character
+character --> [space] space
+character -down-> [different character type] "count --"
+
+if "" then
+--> [count=0] "searching last character of the word"
+else
+-up-> [count > 0]character
+end if
+
+character --> [blank] "blank count --"
+if "" then
+--> [count=0] "searching last character of the word"
+else
+-up-> [count > 0] space
+end if
+
+space -down-> [character] "count --"
+space -> [space, end] space
+space --> [blank] "blank count --"
+
+"searching last character of the word" --> [same character type] "searching last character of the word"
+"searching last character of the word" --> [different character type, space, blank, end] (*)
+
+
+@enduml
+
