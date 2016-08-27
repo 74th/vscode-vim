@@ -1,0 +1,36 @@
+@startuml
+(*) --> first
+
+note right: do not count a first character
+
+first -down-> [character] character
+first -down-> [space] space
+first -down-> [linefeed] "linefeed"
+
+character --> [same character type] character
+character -right-> [space] space
+character -right-> [linefeed] linefeed
+character -down-> [different character type] "count --"
+
+if "" then
+--> [count=0] (*)
+else
+-up-> [count > 0]character
+end if
+
+space -down-> [character] "count --"
+space --> [space] space
+space --> [linefeed] linefeed
+
+"linefeed" --> [linefeed] "count -- at blnkline"
+note right: need count blank line
+if "" then
+--> [count=0] (*)
+else
+-up-> [count > 0] space
+end if
+
+"linefeed" --> [character] "count --"
+"linefeed" --> [space] space
+
+@enduml
