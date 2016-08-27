@@ -1,4 +1,5 @@
 @startuml
+title delete N words ( dNw )
 
 (*) --> first
 if "count" then

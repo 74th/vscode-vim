@@ -1,4 +1,6 @@
 @startuml
+title move N words ( Nw )
+
 (*) --> first
 
 note right: do not count a first character
