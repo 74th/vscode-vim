@@ -1,38 +1,44 @@
 @startuml
+
 (*) --> first
-
-note left
-"end" means the end of a line
-end note
-
-note right: need count a first character
-
-first --> [character] "count --"
-first --> [space, end, blank] space
-character --> [same character type] character
-character --> [space] space
-character -down-> [different character type] "count --"
-
-if "" then
---> [count=0] "searching last character of the word"
+if "count" then
+--> [ =1] "first count=1"
 else
--up-> [count > 0]character
+--> [>1] "first count>1"
+note right :do not count first character
 end if
 
-character --> [blank] "blank count --"
-if "" then
---> [count=0] "searching last character of the word"
+"first count=1" --> [character] "character count=1"
+"first count=1" --> [space] "space count=1"
+"first count=1" --> [linefeed] "delete until just before"
+"character count=1" --> [defference type character,linefeed,space] "delete until just before"
+"character count=1" -> [same type character] "character count=1"
+"space count=1" -> [space] "space count=1"
+"space count=1" --> [linefeed, character] "delete until just before"
+"delete until just before" --> (*)
+
+"first count>1" --> [character] "character"
+"first count>1" --> [space] "space"
+"first count>1" --> [linefeed] "linefeed"
+"character" --> [defferece type character] "count--"
+if "count" then
+-up-> [ =1] "character count=1"
 else
--up-> [count > 0] space
+-up-> [>1] "character"
 end if
-
-space -down-> [character] "count --"
-space -> [space, end] space
-space --> [blank] "blank count --"
-
-"searching last character of the word" --> [same character type] "searching last character of the word"
-"searching last character of the word" --> [different character type, space, blank, end] (*)
-
+"character" -> [same type character] "character"
+"character" -> [space] "space"
+"character" -> [linefeed] "linefeed"
+"space" --> [character] "count--"
+"space" -> [space] "space"
+"space" -> [linefeed] linefeed
+"linefeed" -down-> [linefeed] "count-- at linefeed"
+if "count" then
+-up-> [ =1] "first count=1"
+else
+-up-> [>1] "linefeed"
+end if
+"linefeed" --> [character] "count--"
+"linefeed" -> [space] "space"
 
 @enduml
-

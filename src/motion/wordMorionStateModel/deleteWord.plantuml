@@ -1,36 +1,47 @@
 @startuml
+
 (*) --> first
-
-note left
-"blank" means the end of a blank line
-"end" means the end of a non blank line
-end note
-
-note right: do not count first character
-
-first --> [character] character
-first --> [space, end, blank] space
-
-character --> [same character type] character
-character --> [space] space
-character -down-> [different character type] "count --"
-
-if "" then
---> [count=0] (*)
-note left
+if "count" then
+--> [ =1] "first count=1"
 else
--up-> [count > 0]character
+--> [>1] "first count>1"
+note right :do not count first character
 end if
 
-character --> [blank] "blank count --"
-if "" then
---> [count=0] (*)
-else
--up-> [count > 0] space
-end if
+"first count=1" --> [character] "character count=1"
+"first count=1" --> [space] "space count=1"
+"first count=1" --> [linefeed] "delete until linefeed"
+"delete until linefeed" --> (*)
+"character count=1" --> [defference type character,linefeed] "delete until just before"
+"character count=1" -> [same type character] "character count=1"
+"character count=1" -> [space] "space count=1"
+"space count=1" -> [space] "space count=1"
+"space count=1" --> [linefeed, character] "delete until just before"
+"delete until just before" --> (*)
 
-space -down-> [character] "count --"
-space -> [space, end] space
-space --> [blank] "blank count --"
+"first count>1" --> [character] "character"
+"first count>1" --> [space] "space"
+"first count>1" --> [linefeed] "linefeed"
+"character" --> [defferece type character] "count--"
+if "count" then
+-up-> [ =1] "character count=1"
+else
+-up-> [>1] "character"
+end if
+"character" -> [same type character] "character"
+"character" -> [space] "space"
+"character" -> [linefeed] "linefeed"
+"space" --> [character] "count--"
+"space" -> [space] "space"
+"space" -> [linefeed] linefeed
+"linefeed" -down-> [linefeed] "count-- at linefeed"
+if "count" then
+-up-> [ =1] "first count=1"
+else
+-up-> [>1] "linefeed"
+end if
+"linefeed" --> [character] "count--"
+"linefeed" -> [space] "space"
+
 @enduml
 
