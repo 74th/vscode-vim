@@ -20,6 +20,7 @@ import {FirstCharacterInLineMotion} from "../motion/FirstCharacterInLineMotion";
 import {LastCharacterInLineMotion} from "../motion/EndMotion";
 import {FindCharacterMotion} from "../motion/FindCharacterMotion";
 import {WordMotion} from "../motion/WordMotion";
+import {DeleteWordMotion} from "../motion/DeleteWordMotion";
 import {FirstCharacterMotion} from "../motion/FirstCharacterMotion";
 import {CallEditorCommandAction} from "../action/CallEditorCommandAction";
 
@@ -803,19 +804,21 @@ export class CommandFactory implements ICommandFactory {
     // cNw
     private addWordForwordMotion() {
         let a = <IRequireMotionAction>this.action;
-        let m: WordMotion;
-        m = new WordMotion(Direction.Right);
         if (a.IsChange) {
+            let m = new WordMotion(Direction.Right);
             m.IsWordEnd = true;
+            m.IsWORD = false;
+            m.IsSkipBlankLine = false;
+            m.IsForRange = true;
+            m.Count = this.getNumStack();
             m.Command = "cw";
+            a.Motion = m;
         } else {
-            m.Command = "dw";
+            let dm = new DeleteWordMotion();
+            dm.Count = this.getNumStack();
+            dm.IsWORD = false;
+            a.Motion = dm;
         }
-        m.IsWORD = false;
-        m.IsSkipBlankLine = false;
-        m.IsForRange = true;
-        m.Count = this.getNumStack();
-        a.Motion = m;
     }
 
     // NW
@@ -832,17 +835,21 @@ export class CommandFactory implements ICommandFactory {
     // cNW
     private addBlankSparatedMotion() {
         let a = <IRequireMotionAction>this.action;
-        let m: WordMotion;
-        m = new WordMotion(Direction.Right);
-        m.IsWordEnd = false;
-        m.IsWORD = true;
-        m.IsSkipBlankLine = false;
         if (a.IsChange) {
+            let m = new WordMotion(Direction.Right);
             m.IsWordEnd = true;
+            m.IsWORD = true;
+            m.IsSkipBlankLine = false;
+            m.IsForRange = true;
+            m.Count = this.getNumStack();
             m.Command = "cw";
+            a.Motion = m;
+        } else {
+            let dm = new DeleteWordMotion();
+            dm.Count = this.getNumStack();
+            dm.IsWORD = true;
+            a.Motion = dm;
         }
-        m.Count = this.getNumStack();
-        a.Motion = m;
     }
 
     // Ne
@@ -962,20 +969,20 @@ export class CommandFactory implements ICommandFactory {
     // Inserting text
     // -----
 
-    // a    
+    // a
     private appendTextAfterCursor() {
         let m = new RightMotion();
         m.Count = 1;
         this.action = new InsertTextAction(m);
     }
 
-    // A    
+    // A
     private appendTextAtEndOfLine() {
         let m = new LastCharacterInLineMotion();
         this.action = new InsertTextAction(m);
     }
 
-    // i    
+    // i
     private insertTextBeforeCursor() {
         this.action = new InsertTextAction();
     }
@@ -987,7 +994,7 @@ export class CommandFactory implements ICommandFactory {
         this.action = new InsertTextAction(m);
     }
 
-    // o    
+    // o
     private openNewLineBelowCurrentLineAndAppendText() {
         let a = new OpenNewLineAndAppendTextAction();
         this.action = a;
@@ -1040,7 +1047,7 @@ export class CommandFactory implements ICommandFactory {
         this.action = new DeleteYankChangeHighlightedLineAction();
     }
 
-    // dd, yy, cc    
+    // dd, yy, cc
     private doActionAtCurrentLine(key: String) {
         if (this.stackedKey !== key) {
             this.Clear();
