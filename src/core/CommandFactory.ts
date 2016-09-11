@@ -21,6 +21,7 @@ import {LastCharacterInLineMotion} from "../motion/EndMotion";
 import {FindCharacterMotion} from "../motion/FindCharacterMotion";
 import {WordMotion} from "../motion/WordMotion";
 import {DeleteWordMotion} from "../motion/DeleteWordMotion";
+import {ChangeWordMotion} from "../motion/ChangeWordMotion";
 import {FirstCharacterMotion} from "../motion/FirstCharacterMotion";
 import {CallEditorCommandAction} from "../action/CallEditorCommandAction";
 
@@ -805,14 +806,10 @@ export class CommandFactory implements ICommandFactory {
     private addWordForwordMotion() {
         let a = <IRequireMotionAction>this.action;
         if (a.IsChange) {
-            let m = new WordMotion(Direction.Right);
-            m.IsWordEnd = true;
-            m.IsWORD = false;
-            m.IsSkipBlankLine = false;
-            m.IsForRange = true;
-            m.Count = this.getNumStack();
-            m.Command = "cw";
-            a.Motion = m;
+            let cm = new ChangeWordMotion();
+            cm.IsWORD = false;
+            cm.Count = this.getNumStack();
+            a.Motion = cm;
         } else {
             let dm = new DeleteWordMotion();
             dm.Count = this.getNumStack();
@@ -836,14 +833,10 @@ export class CommandFactory implements ICommandFactory {
     private addBlankSparatedMotion() {
         let a = <IRequireMotionAction>this.action;
         if (a.IsChange) {
-            let m = new WordMotion(Direction.Right);
-            m.IsWordEnd = true;
-            m.IsWORD = true;
-            m.IsSkipBlankLine = false;
-            m.IsForRange = true;
-            m.Count = this.getNumStack();
-            m.Command = "cw";
-            a.Motion = m;
+            let cm = new ChangeWordMotion();
+            cm.IsWORD = true;
+            cm.Count = this.getNumStack();
+            a.Motion = cm;
         } else {
             let dm = new DeleteWordMotion();
             dm.Count = this.getNumStack();

@@ -3,4 +3,4 @@
 .plantuml.png:
 	plantuml -charset UTF-8 $<
 
-umlbuild: moveWord.png cutWord.png deleteWord.png
+umlbuild: moveWord.png changeWord.png deleteWord.png

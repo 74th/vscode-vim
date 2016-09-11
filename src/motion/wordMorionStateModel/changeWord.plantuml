@@ -1,5 +1,5 @@
 @startuml
-title cut N words ( cNw )
+title change N words ( cNw )
 
 (*) --> first
 if "count" then
