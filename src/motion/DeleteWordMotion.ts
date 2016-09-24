@@ -239,7 +239,7 @@ class Calculater {
                     state = this.doAtFirst();
                     break;
                 case State.firstWhenCountGreaterThan1:
-                    state = this.doAtFirstWhenCountEq1();
+                    state = this.doAtFirstWhenCountGreaterThan1();
                     break;
                 case State.character:
                     state = this.doAtCharacter();
