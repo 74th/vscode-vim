@@ -55,6 +55,7 @@ class Calculater {
         this.pos = start.Copy();
         this.pos.Char--;
         this.line = editor.ReadLine(start.Line);
+        this.editor = editor;
         this.documentLines = editor.GetLastLineNum();
         this.count = count;
         this.beforeCharacterGroup = null;
@@ -65,13 +66,12 @@ class Calculater {
         if (this.pos.Char > this.line.length) {
             this.pos.Line++;
             this.pos.Char = 0;
-            if (this.pos.Line > this.documentLines) {
-                return null;
-            }
             this.line = this.editor.ReadLine(this.pos.Line);
-            this.line.length = this.line.length;
         }
         if (this.pos.Char === this.line.length) {
+            if (this.pos.Line === this.documentLines) {
+                return null;
+            }
             this.beforeCharacterGroup = null;
             return NextCharacter.lineFeed;
         }

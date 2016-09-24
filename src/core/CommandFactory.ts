@@ -20,6 +20,7 @@ import {FirstCharacterInLineMotion} from "../motion/FirstCharacterInLineMotion";
 import {LastCharacterInLineMotion} from "../motion/EndMotion";
 import {FindCharacterMotion} from "../motion/FindCharacterMotion";
 import {WordMotion} from "../motion/WordMotion";
+import {MoveWordMotion} from "../motion/MoveWordMotion";
 import {DeleteWordMotion} from "../motion/DeleteWordMotion";
 import {ChangeWordMotion} from "../motion/ChangeWordMotion";
 import {FirstCharacterMotion} from "../motion/FirstCharacterMotion";
@@ -793,11 +794,7 @@ export class CommandFactory implements ICommandFactory {
 
     // Nw
     private gotoWordFoword() {
-        let m: WordMotion;
-        m = new WordMotion(Direction.Right);
-        m.IsWordEnd = false;
-        m.IsWORD = false;
-        m.IsSkipBlankLine = false;
+        let m = new MoveWordMotion();
         m.Count = this.getNumStack();
         this.action = this.createGotoAction(m);
     }
