@@ -23,6 +23,7 @@ import {WordMotion} from "../motion/WordMotion";
 import {MoveWordMotion} from "../motion/MoveWordMotion";
 import {DeleteWordMotion} from "../motion/DeleteWordMotion";
 import {ChangeWordMotion} from "../motion/ChangeWordMotion";
+import {DeleteEndOfWordMotion} from "../motion/DeleteEndOfWordMotion";
 import {FirstCharacterMotion} from "../motion/FirstCharacterMotion";
 import {CallEditorCommandAction} from "../action/CallEditorCommandAction";
 
@@ -841,23 +842,18 @@ export class CommandFactory implements ICommandFactory {
 
     // Ne
     private gotoForwardToEndOfWold() {
-        let m: WordMotion;
-        m = new WordMotion(Direction.Right);
-        m.IsWordEnd = true;
+        let m = new DeleteEndOfWordMotion();
         m.IsWORD = false;
-        m.IsSkipBlankLine = true;
+        m.IsMove = true;
         m.Count = this.getNumStack();
         this.action = this.createGotoAction(m);
     }
 
     // cNe
     private addEndOfWordMotion() {
-        let m: WordMotion;
-        m = new WordMotion(Direction.Right);
-        m.IsWordEnd = true;
+        let m = new DeleteEndOfWordMotion();
         m.IsWORD = false;
-        m.IsSkipBlankLine = true;
-        // m.IsForRange = true;
+        m.IsMove = false;
         m.Count = this.getNumStack();
         let a = <IRequireMotionAction>this.action;
         a.Motion = m;
@@ -865,24 +861,18 @@ export class CommandFactory implements ICommandFactory {
 
     // NE
     private gotoForwardToEndOfBlankSeparated() {
-        let m: WordMotion;
-        m = new WordMotion(Direction.Right);
-        m.IsWordEnd = true;
+        let m = new DeleteEndOfWordMotion();
         m.IsWORD = true;
-        m.IsSkipBlankLine = true;
-        // m.IsStopLineEnd = true;
+        m.IsMove = true;
         m.Count = this.getNumStack();
         this.action = this.createGotoAction(m);
     }
 
     // cWE
     private addEndOfBlankSeparatedMotion() {
-        let m: WordMotion;
-        m = new WordMotion(Direction.Right);
-        m.IsWordEnd = true;
+        let m = new DeleteEndOfWordMotion();
         m.IsWORD = true;
-        m.IsSkipBlankLine = true;
-        // m.IsForRange = true;
+        m.IsMove = false;
         m.Count = this.getNumStack();
         let a = <IRequireMotionAction>this.action;
         a.Motion = m;

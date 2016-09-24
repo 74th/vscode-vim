@@ -1,0 +1,45 @@
+@startuml
+title change N words ( cNw )
+
+(*) --> first
+if "count" then
+--> [ =1] "first count=1"
+else
+--> [>1] "first count>1"
+note right :do not count first character
+end if
+
+"first count=1" --> [character] "character count=1"
+"first count=1" --> [space] "space count=1"
+"first count=1" --> [linefeed] "delete until just before"
+"character count=1" --> [defference type character,linefeed,space] "delete until just before"
+"character count=1" -> [same type character] "character count=1"
+"space count=1" -> [space] "space count=1"
+"space count=1" --> [linefeed, character] "delete until just before"
+"delete until just before" --> (*)
+
+"first count>1" --> [character] "character"
+"first count>1" --> [space] "space"
+"first count>1" --> [linefeed] "linefeed"
+"character" --> [defferece type character] "count--"
+if "count" then
+-up-> [ =1] "character count=1"
+else
+-up-> [>1] "character"
+end if
+"character" -> [same type character] "character"
+"character" -> [space] "space"
+"character" -> [linefeed] "linefeed"
+"space" --> [character] "count--"
+"space" -> [space] "space"
+"space" -> [linefeed] linefeed
+"linefeed" -down-> [linefeed] "count-- at linefeed"
+if "count" then
+-up-> [ =1] "first count=1"
+else
+-up-> [>1] "linefeed"
+end if
+"linefeed" --> [character] "count--"
+"linefeed" -> [space] "space"
+
+@enduml

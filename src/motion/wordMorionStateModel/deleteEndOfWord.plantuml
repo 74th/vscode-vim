@@ -1,0 +1,34 @@
+@startuml
+title delete until end of N words ( dNe, cNe, Ne )
+
+(*) --> first
+
+"first" --> [character] "first character"
+"first" --> [space,linefeed] "space or linefeed"
+"first character" --> [character] "count--"
+if "count" then
+-down-> [ =0] "final word"
+else
+-up-> [>0] "character"
+end if
+"first character" --> [space,linefeed] "space or linefeed"
+
+"final word" --> [same type character] "final word"
+"final word" --> [defferece type character,space,linefeed] "stop"
+if then
+-down-> [move action] "move to previous character"
+else
+-down-> [cut or delete action] "delete until just before"
+end if
+
+"character" -> [same type character] "character"
+"character" --> [defference type character] "count--"
+"character" -> [space,linefeed] "space or linefeed"
+
+"space or linefeed" --> [character] "count--"
+"space or linefeed" -down-> [space,linefeed] "space or linefeed"
+"move to previous character" --> (*)
+"delete until just before" --> (*)
+
+@enduml
+
