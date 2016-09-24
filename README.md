@@ -127,8 +127,8 @@ If you want a more vim flavor, you can use `vim.inNormalMode`, `vim.inInsertMode
 
 the vim emulator written type script
 
-* [+] basic vim keybinds
-* [ ] fix word motion bugs
+* [x] basic vim keybinds
+* [x] fix word motion bugs
 * [ ] ver1.0 : user keybindings ( nmap )
 * [ ] text object ( diw, di{ ... )
 * [ ] resister
@@ -154,7 +154,8 @@ npm run-script build
 
 ### 0.3.13
 
-* support vim mode contexts for keyboard shortcuts
+* support vim mode contexts for keyboard shortcuts #45
+* fix word motion bugs #38
 
 ### 0.3.12
 
