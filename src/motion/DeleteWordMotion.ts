@@ -60,6 +60,7 @@ class Calculater {
         this.documentLines = editor.GetLastLineNum();
         this.count = count;
         this.beforeCharacterGroup = null;
+        this.IsWORD = isWord;
     };
 
     getNextCharacter(): NextCharacter {
