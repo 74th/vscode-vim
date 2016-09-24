@@ -817,11 +817,8 @@ export class CommandFactory implements ICommandFactory {
 
     // NW
     private gotoBlankSeparated() {
-        let m: WordMotion;
-        m = new WordMotion(Direction.Right);
-        m.IsWordEnd = false;
+        let m = new MoveWordMotion();
         m.IsWORD = true;
-        m.IsSkipBlankLine = false;
         m.Count = this.getNumStack();
         this.action = this.createGotoAction(m);
     }
