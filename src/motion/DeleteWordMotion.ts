@@ -56,9 +56,11 @@ class Calculater {
         this.pos = start.Copy();
         this.pos.Char--;
         this.line = editor.ReadLine(start.Line);
+        this.editor = editor;
         this.documentLines = editor.GetLastLineNum();
         this.count = count;
         this.beforeCharacterGroup = null;
+        this.IsWORD = isWord;
     };
 
     getNextCharacter(): NextCharacter {
@@ -66,13 +68,12 @@ class Calculater {
         if (this.pos.Char > this.line.length) {
             this.pos.Line++;
             this.pos.Char = 0;
-            if (this.pos.Line > this.documentLines) {
-                return null;
-            }
             this.line = this.editor.ReadLine(this.pos.Line);
-            this.line.length = this.line.length;
         }
         if (this.pos.Char === this.line.length) {
+            if (this.pos.Line === this.documentLines) {
+                return null;
+            }
             this.beforeCharacterGroup = null;
             return NextCharacter.lineFeed;
         }
@@ -239,7 +240,7 @@ class Calculater {
                     state = this.doAtFirst();
                     break;
                 case State.firstWhenCountGreaterThan1:
-                    state = this.doAtFirstWhenCountEq1();
+                    state = this.doAtFirstWhenCountGreaterThan1();
                     break;
                 case State.character:
                     state = this.doAtCharacter();

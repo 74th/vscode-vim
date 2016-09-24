@@ -2,33 +2,32 @@ import {AbstractMotion} from "./AbstractMotion";
 import * as Utils from "../Utils";
 import {Position} from "../VimStyle";
 
-// please see wordMotionStateModel/changeWord.png
-export class ChangeWordMotion extends AbstractMotion {
+// please see wordMotionStateModel/deleteEndOfWord.png
+export class DeleteEndOfWordMotion extends AbstractMotion {
 
     public IsWORD: boolean;
+    public IsMove: boolean;
 
     constructor() {
         super();
     };
 
     public CalculateEnd(editor: IEditor, vim: IVimStyle, start: IPosition): IPosition {
-        let cal = new Calculater(start, this.Count, this.IsWORD, editor);
+        let cal = new Calculater(start, this.Count, this.IsWORD, this.IsMove, editor);
         return cal.CalculateEnd();
     }
 }
 
 enum State {
     first = 1,
-    firstWhenCountGreaterThan1,
+    firstCharacter,
     character,
-    space,
-    linefeed,
+    spaceOrLinefeed,
     decreaseCount,
-    decreaseCountAtLinefeed,
-    characterWhenCountEq1,
-    firstWhenCountEq1,
-    spaceWhenCountEq1,
+    finalWord,
+    stop,
     deleteUntilJustBefore,
+    moveToPreviousCharacter,
     reachDocumentEnd
 }
 
@@ -46,12 +45,13 @@ class Calculater {
     documentLines: number;
     count: number;
     IsWORD: boolean;
+    IsMove: boolean;
 
     beforeCharacterGroup: CharGroup;
 
     editor: IEditor;
 
-    constructor(start: IPosition, count: number, isWord: boolean, editor: IEditor) {
+    constructor(start: IPosition, count: number, isWord: boolean, isMove: boolean, editor: IEditor) {
         this.pos = start.Copy();
         this.pos.Char--;
         this.line = editor.ReadLine(start.Line);
@@ -60,6 +60,7 @@ class Calculater {
         this.count = count;
         this.beforeCharacterGroup = null;
         this.IsWORD = isWord;
+        this.IsMove = isMove;
     };
 
     getNextCharacter(): NextCharacter {
@@ -98,24 +99,31 @@ class Calculater {
     }
 
     doAtFirst(): State {
-        if (this.count === 1) {
-            return State.firstWhenCountEq1;
-        }
-        return State.firstWhenCountGreaterThan1;
-    };
-
-    doAtFirstWhenCountGreaterThan1(): State {
         let nextCharacterGroup: NextCharacter = this.getNextCharacter();
         if (nextCharacterGroup === null) {
             return State.reachDocumentEnd;
         }
         switch (nextCharacterGroup) {
             case NextCharacter.character:
-                return State.character;
+                return State.firstCharacter;
             case NextCharacter.lineFeed:
-                return State.linefeed;
             case NextCharacter.space:
-                return State.space;
+                return State.spaceOrLinefeed;
+        }
+    };
+
+    doAtFirstCharacter(): State {
+        let nextCharacterGroup: NextCharacter = this.getNextCharacter();
+        if (nextCharacterGroup === null) {
+            return State.reachDocumentEnd;
+        }
+        switch (nextCharacterGroup) {
+            case NextCharacter.sameTypeCharacter:
+            case NextCharacter.differenceTypeCharacter:
+                return State.decreaseCount;
+            case NextCharacter.lineFeed:
+            case NextCharacter.space:
+                return State.spaceOrLinefeed;
         }
     }
 
@@ -130,13 +138,12 @@ class Calculater {
             case NextCharacter.sameTypeCharacter:
                 return State.character;
             case NextCharacter.lineFeed:
-                return State.linefeed;
             case NextCharacter.space:
-                return State.space;
+                return State.spaceOrLinefeed;
         }
     }
 
-    doAtLinefeed(): State {
+    doAtSpaceOrLinefeed(): State {
         let nextCharacterGroup: NextCharacter = this.getNextCharacter();
         if (nextCharacterGroup === null) {
             return State.reachDocumentEnd;
@@ -145,84 +152,44 @@ class Calculater {
             case NextCharacter.character:
                 return State.decreaseCount;
             case NextCharacter.lineFeed:
-                return State.decreaseCountAtLinefeed;
             case NextCharacter.space:
-                return State.space;
-        }
-    }
-
-    doAtSpace(): State {
-        let nextCharacterGroup: NextCharacter = this.getNextCharacter();
-        if (nextCharacterGroup === null) {
-            return State.reachDocumentEnd;
-        }
-        switch (nextCharacterGroup) {
-            case NextCharacter.character:
-                return State.decreaseCount;
-            case NextCharacter.lineFeed:
-                return State.linefeed;
-            case NextCharacter.space:
-                return State.space;
+                return State.spaceOrLinefeed;
         }
     }
 
     decreaseCount(): State {
         this.count--;
-        if (this.count === 1) {
-            return State.characterWhenCountEq1;
+        if (this.count === 0) {
+            return State.finalWord;
         }
         return State.character;
     }
 
-    decreaseCountAtLinefeed(): State {
-        this.count--;
-        if (this.count === 1) {
-            return State.firstWhenCountEq1;
-        }
-        return State.firstWhenCountEq1;
-    }
-
-    doAtFirstWhenCountEq1(): State {
+    doAtFinalWord(): State {
         let nextCharacterGroup: NextCharacter = this.getNextCharacter();
         if (nextCharacterGroup === null) {
             return State.reachDocumentEnd;
         }
         switch (nextCharacterGroup) {
-            case NextCharacter.character:
-                return State.characterWhenCountEq1;
-            case NextCharacter.lineFeed:
-                return State.deleteUntilJustBefore;
-            case NextCharacter.space:
-                return State.spaceWhenCountEq1;
-        }
-    }
-
-    doAtCharacterWhenCountEq1(): State {
-        let nextCharacterGroup: NextCharacter = this.getNextCharacter();
-        if (nextCharacterGroup === null) {
-            return State.reachDocumentEnd;
-        }
-        switch (nextCharacterGroup) {
+            case NextCharacter.sameTypeCharacter:
+                return State.finalWord;
             case NextCharacter.differenceTypeCharacter:
             case NextCharacter.lineFeed:
             case NextCharacter.space:
-                return State.deleteUntilJustBefore;
-            case NextCharacter.sameTypeCharacter:
-                return State.characterWhenCountEq1;
+                return State.stop;
         }
     }
 
-    doAtSpaceWhenCountEq1(): State {
-        let nextCharacterGroup: NextCharacter = this.getNextCharacter();
-        if (nextCharacterGroup === null) {
-            return State.reachDocumentEnd;
+    doAtStoppedPos(): State {
+        if (this.IsMove) {
+            return State.moveToPreviousCharacter;
         }
-        switch (nextCharacterGroup) {
-            case NextCharacter.character:
-            case NextCharacter.lineFeed:
-                return State.deleteUntilJustBefore;
-            case NextCharacter.space:
-                return State.spaceWhenCountEq1;
+        return State.deleteUntilJustBefore;
+    }
+
+    moveToPreviousCharacter() {
+        if (this.pos.Char > 0) {
+            this.pos.Char--;
         }
     }
 
@@ -237,34 +204,29 @@ class Calculater {
                 case State.first:
                     state = this.doAtFirst();
                     break;
-                case State.firstWhenCountGreaterThan1:
-                    state = this.doAtFirstWhenCountGreaterThan1();
+                case State.firstCharacter:
+                    state = this.doAtFirstCharacter();
                     break;
                 case State.character:
                     state = this.doAtCharacter();
                     break;
-                case State.linefeed:
-                    state = this.doAtLinefeed();
-                    break;
-                case State.space:
-                    state = this.doAtSpace();
+                case State.spaceOrLinefeed:
+                    state = this.doAtSpaceOrLinefeed();
                     break;
                 case State.decreaseCount:
                     state = this.decreaseCount();
                     break;
-                case State.decreaseCountAtLinefeed:
-                    state = this.decreaseCountAtLinefeed();
+                case State.finalWord:
+                    state = this.doAtFinalWord();
                     break;
-                case State.firstWhenCountEq1:
-                    state = this.doAtFirstWhenCountEq1();
-                    break;
-                case State.characterWhenCountEq1:
-                    state = this.doAtCharacterWhenCountEq1();
-                    break;
-                case State.spaceWhenCountEq1:
-                    state = this.doAtSpaceWhenCountEq1();
+                case State.stop:
+                    state = this.doAtStoppedPos();
                     break;
                 case State.deleteUntilJustBefore:
+                    whileContinue = false;
+                    break;
+                case State.moveToPreviousCharacter:
+                    this.moveToPreviousCharacter();
                     whileContinue = false;
                     break;
             }
