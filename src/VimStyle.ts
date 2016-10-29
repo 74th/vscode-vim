@@ -96,25 +96,28 @@ export class VimStyle implements IVimStyle {
 
     private readCommand(key: string) {
 
-        let action = this.commandFactory.PushKey(key, this.mode);
+        let actionList = this.commandFactory.PushKey(key, this.mode);
 
-        if (action == null) {
+        if (actionList.length == 0) {
             this.showCommand();
             return;
         }
 
         this.editor.CloseCommandStatus();
 
-        action.Execute(this.editor, this);
+        for (let i = 0; i < actionList.length; i++) {
+            let action = actionList[i];
+            action.Execute(this.editor, this);
 
-        let type = action.GetActionType();
-        switch (type) {
-            case ActionType.Edit:
-            case ActionType.Insert:
-                this.LastEditAction = action;
-                break;
+            let type = action.GetActionType();
+            switch (type) {
+                case ActionType.Edit:
+                case ActionType.Insert:
+                    this.LastEditAction = action;
+                    break;
+            }
+            this.LastAction = action;
         }
-        this.LastAction = action;
 
         this.commandFactory.Clear();
     }

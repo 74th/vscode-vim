@@ -52,7 +52,7 @@ interface IEditor {
 
 interface ICommandFactory {
     KeyBindings: IKeyBindings;
-    PushKey(key: string, mode: VimMode): IAction;
+    PushKey(key: string, mode: VimMode): IAction[];
     Clear(): void;
     GetCommandString(): string;
 }
@@ -371,7 +371,7 @@ declare const enum VimCommand {
     repeartCharacterMotionOppositeDirection,
 
     // ** Up-down motions **
-    // Nk 
+    // Nk
     goUp,
     // Nj
     goDown,

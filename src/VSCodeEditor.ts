@@ -27,8 +27,6 @@ export class VSCodeEditor implements IEditor {
     private commandStatusBarItem: vscode.StatusBarItem;
     private vimStyle: IVimStyle;
 
-    private
-
     private visualLineModeStartLine: number;
     private visualLineModeEndLine: number;
     private visualLineModeFocusPosition: IPosition;

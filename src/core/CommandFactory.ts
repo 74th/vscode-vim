@@ -36,6 +36,7 @@ export class CommandFactory implements ICommandFactory {
     private num: number;
     private registerCharCode: number;
     private commandString: string;
+    private keyStroke: string[];
 
     public KeyBindings: IKeyBindings;
 
@@ -43,7 +44,19 @@ export class CommandFactory implements ICommandFactory {
         this.Clear();
     }
 
-    public PushKey(keyChar: string, mode: VimMode): IAction {
+    public PushKey(keyChar: string, mode: VimMode): IAction[] {
+        this.keyStroke = [keyChar];
+        let actionList: IAction[] = [];
+        while (this.keyStroke.length > 0){
+            let keyChar = this.keyStroke.shift();
+            let action = this.pushKey(keyChar, mode);
+            if (action !== null) {
+                actionList.push(action)
+            }
+        }
+        return actionList;
+    }
+    public pushKey(keyChar: string, mode: VimMode): IAction {
         let command: IVimStyleCommand;
         if (mode === VimMode.Normal) {
             switch (this.state) {
