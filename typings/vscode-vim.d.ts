@@ -52,7 +52,7 @@ interface IEditor {
 
 interface ICommandFactory {
     KeyBindings: IKeyBindings;
-    PushKey(key: string, mode: VimMode): IAction[];
+    PushKey(key: string, mode: VimMode, remap: boolean): IAction[];
     Clear(): void;
     GetCommandString(): string;
 }
@@ -551,10 +551,15 @@ declare const enum VimCommand {
     // .
     repeatLastChange,
 
+    // maping
+    nmap,
+    noremap,
+
     // other
     stackNumber,
     nothing,
-    editorCommand
+    editorCommand,
+
 }
 
 declare const enum StateName {

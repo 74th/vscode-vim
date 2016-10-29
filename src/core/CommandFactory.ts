@@ -36,22 +36,40 @@ export class CommandFactory implements ICommandFactory {
     private num: number;
     private registerCharCode: number;
     private commandString: string;
-    private keyStroke: string[];
+    private nmap: {[key:string]:string };
+    private nnoremap: {[key:string]:string };
 
     public KeyBindings: IKeyBindings;
 
     constructor() {
         this.Clear();
+        this.nmap = {};
+        this.nnoremap = {"dw":"db"};
     }
 
-    public PushKey(keyChar: string, mode: VimMode): IAction[] {
-        this.keyStroke = [keyChar];
+    public PushKey(orgKeyStroke: string, mode: VimMode, remap: boolean): IAction[] {
+        let keyStroke = orgKeyStroke;
         let actionList: IAction[] = [];
-        while (this.keyStroke.length > 0){
-            let keyChar = this.keyStroke.shift();
-            let action = this.pushKey(keyChar, mode);
-            if (action !== null) {
-                actionList.push(action)
+        while (keyStroke.length > 0){
+            let keyChar = keyStroke.substring(0, 1);
+            keyStroke = keyStroke.substring(1);
+            this.commandString += keyChar;
+
+            if (remap && mode == VimMode.Normal && this.nmap[this.commandString] !== undefined) {
+                keyStroke += this.nmap[this.commandString];
+                this.ClearState()
+                continue;
+            }
+
+            if (remap && mode == VimMode.Normal && this.nnoremap[this.commandString] !== undefined) {
+                let newCommandString = this.nnoremap[this.commandString];
+                this.ClearState();
+                actionList = actionList.concat(this.PushKey(newCommandString, mode, false));
+            } else {
+                let action = this.pushKey(keyChar, mode);
+                if (action !== null) {
+                    actionList.push(action)
+                }
             }
         }
         return actionList;
@@ -133,17 +151,20 @@ export class CommandFactory implements ICommandFactory {
             return this.action;
         }
         this.stackedKey = keyChar;
-        this.commandString += keyChar;
         this.state = command.state;
         return null;
     }
 
     public Clear() {
+        this.ClearState();
+        this.commandString = "";
+    }
+
+    public ClearState() {
         this.state = StateName.AtStart;
         this.action = null;
         this.stackedKey = null;
         this.num = 0;
-        this.commandString = "";
     }
 
     public GetCommandString(): string {

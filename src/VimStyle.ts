@@ -96,7 +96,7 @@ export class VimStyle implements IVimStyle {
 
     private readCommand(key: string) {
 
-        let actionList = this.commandFactory.PushKey(key, this.mode);
+        let actionList = this.commandFactory.PushKey(key, this.mode, true);
 
         if (actionList.length == 0) {
             this.showCommand();
