@@ -68,6 +68,11 @@
                     "type": "string",
                     "default": "",
                     "description": "keys go to normal mode from insert mode"
+                },
+                "vimStyle.vimrc": {
+                    "type": "array",
+                    "default": [""],
+                    "description": "some vim style settings"
                 }
             }
         },

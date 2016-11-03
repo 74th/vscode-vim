@@ -52,6 +52,8 @@ interface IEditor {
 
 interface ICommandFactory {
     KeyBindings: IKeyBindings;
+    Nmap: { [key:string]: string };
+    Nnoremap: { [key:string]: string };
     PushKey(key: string, mode: VimMode, remap: boolean): IAction[];
     Clear(): void;
     GetCommandString(): string;
@@ -130,6 +132,7 @@ interface IRequireCharacterMotion extends IMotion {
 interface IVimStyle {
     Register: IRegister;
     Options: IVimStyleOptions;
+    CommandFactory: ICommandFactory;
     LastAction: IAction;
     LastEditAction: IAction;
     LastMoveCharPosition: number;
@@ -167,12 +170,17 @@ interface IKeyBindings {
 interface IVimStyleOptions {
     useErgonomicKeyForMotion: boolean;
     editorKeyBindings?: IKeyBindings;
+    vimrc: string[];
 }
 
 interface IVisualLineModeSelectionInfo {
     startLine: number;
     endLine: number;
     focusPosition: IPosition;
+}
+
+interface IExCommand {
+    Execute(line: string, vimStyle: IVimStyle, editor: IEditor);
 }
 
 declare const enum Key {

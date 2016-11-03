@@ -46,7 +46,8 @@ function activateVimStyle(context: vscode.ExtensionContext) {
         };
         vimOpt = {
             useErgonomicKeyForMotion: conf.get<boolean>("useErgonomicKeyForMotion", false),
-            editorKeyBindings: VSCodeEditorKeyBindngs
+            editorKeyBindings: VSCodeEditorKeyBindngs,
+            vimrc: conf.get<string[]>("vimrc", null),
         };
     }
     loadConfiguration();

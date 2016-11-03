@@ -4,7 +4,8 @@ import {VimTests} from "./vim/VimTests";
 let assert = require("assert");
 
 let opt: IVimStyleOptions = {
-    useErgonomicKeyForMotion: false
+    useErgonomicKeyForMotion: false,
+    vimrc: []
 };
 
 let target;

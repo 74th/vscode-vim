@@ -3,6 +3,7 @@ import {LoadKeyBindings, ApplyKeyBindings} from "./core/KeyBindings";
 import {InsertModeExecute} from "./mode/InsertMode";
 import {InsertTextAction} from "./action/InsertTextAction";
 import {FindCharacterMotion} from "./motion/FindCharacterMotion";
+import {ExecExCommand} from "./core/ExMode";
 import * as Utils from "./Utils";
 import {Register} from "./core/Register";
 
@@ -10,7 +11,7 @@ export class VimStyle implements IVimStyle {
 
     private mode: VimMode;
     private editor: IEditor;
-    private commandFactory: ICommandFactory;
+    public CommandFactory: ICommandFactory;
     public Options: IVimStyleOptions;
     public Register: IRegister;
 
@@ -23,7 +24,7 @@ export class VimStyle implements IVimStyle {
         this.editor = editor;
         editor.SetVimStyle(this);
         this.setMode(VimMode.Normal);
-        this.commandFactory = new CommandFactory();
+        this.CommandFactory = new CommandFactory();
         this.Register = new Register();
 
         this.LastAction = null;
@@ -31,6 +32,8 @@ export class VimStyle implements IVimStyle {
         this.LastMoveCharPosition = null;
 
         this.ApplyOptions(conf);
+
+        this.ExecuteVimrc(conf);
     }
 
     public PushKey(key: string) {
@@ -63,7 +66,7 @@ export class VimStyle implements IVimStyle {
 
         this.setMode(VimMode.Normal);
 
-        this.commandFactory.Clear();
+        this.CommandFactory.Clear();
         this.editor.CloseCommandStatus();
         this.editor.ApplyNormalMode(p);
     }
@@ -94,9 +97,18 @@ export class VimStyle implements IVimStyle {
         this.LoadKeyBinding();
     }
 
+    public ExecuteVimrc(conf: IVimStyleOptions) {
+        if (conf.vimrc == null || conf.vimrc.length == 0) {
+            return;
+        }
+        for (let i = 0; i < conf.vimrc.length; i++) {
+            ExecExCommand(conf.vimrc[i], this, this.editor);
+        }
+    }
+
     private readCommand(key: string) {
 
-        let actionList = this.commandFactory.PushKey(key, this.mode, true);
+        let actionList = this.CommandFactory.PushKey(key, this.mode, true);
 
         if (actionList.length == 0) {
             this.showCommand();
@@ -119,11 +131,11 @@ export class VimStyle implements IVimStyle {
             this.LastAction = action;
         }
 
-        this.commandFactory.Clear();
+        this.CommandFactory.Clear();
     }
 
     private showCommand() {
-        this.editor.ShowCommandStatus(this.commandFactory.GetCommandString());
+        this.editor.ShowCommandStatus(this.CommandFactory.GetCommandString());
     }
 
     private setMode(mode: VimMode) {
@@ -132,7 +144,7 @@ export class VimStyle implements IVimStyle {
     }
 
     private LoadKeyBinding() {
-        this.commandFactory.KeyBindings = LoadKeyBindings(this.Options);
+        this.CommandFactory.KeyBindings = LoadKeyBindings(this.Options);
     }
 
     private setInsertText() {
@@ -171,7 +183,7 @@ export class VimStyle implements IVimStyle {
     }
 
     public SetAdditionalKeyBinds(keyBindings: IKeyBindings) {
-        ApplyKeyBindings(this.commandFactory.KeyBindings, keyBindings)
+        ApplyKeyBindings(this.CommandFactory.KeyBindings, keyBindings)
     }
 
 }
