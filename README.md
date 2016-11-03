@@ -69,10 +69,15 @@ If you needs optional settings, please copy belong json and paste to your `setti
 // disable without to uninstall (default: "true")
 "vimStyle.enabled": "false",
 // keys go to normal mode from insert mode (default: "" disable)
-"vimStyle.imapEsc": "jj"
+"vimStyle.imapEsc": "jj",
+// some vimrc like settings
+"vimStyle.vimrc": [
+	"nmap Y y$", //
+	"nnoremapmap Y y$", //
+]
 ```
 
-If you want to use `ctrl+[` instead of `escape`, please add blong setting to your `keybindings.json`.
+If you would like to use `ctrl+[` instead of `escape`, please add blong setting to your `keybindings.json`.
 
 ```
 {
@@ -82,7 +87,7 @@ If you want to use `ctrl+[` instead of `escape`, please add blong setting to you
 }
 ```
 
-If you want a more vim flavor, you can use `vim.inNormalMode`, `vim.inInsertMode` and `vim.inVisualMode` to your keyboard shortcuts. For example,
+If you would like more vim flavor, you can use `vim.inNormalMode`, `vim.inInsertMode` and `vim.inVisualMode` to your keyboard shortcuts. For example,
 
 ```
 // in insert mode
@@ -119,6 +124,11 @@ If you want a more vim flavor, you can use `vim.inNormalMode`, `vim.inInsertMode
 },
 ```
 
+## support vimrc settings
+
+* `nmap Y y$`
+* `nnoremap Y y$`
+
 ## never support
 
 * Ctrl-x Cmd-x Alt-x Meta-x
@@ -129,7 +139,8 @@ the vim emulator written type script
 
 * [x] basic vim keybinds
 * [x] fix word motion bugs
-* [ ] ver1.0 : user keybindings ( nmap )
+* [x] user keybindings ( nmap )
+* [ ] user keybindings ( call vscode function )
 * [ ] text object ( diw, di{ ... )
 * [ ] resister
 * [ ] vim style plugin for chrome browser
@@ -151,6 +162,10 @@ npm run-script build
 ```
 
 ## update
+
+### 0.4.0
+
+* support nmap nnoremap (use like vimrc setting)
 
 ### 0.3.13
 
