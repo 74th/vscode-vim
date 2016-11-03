@@ -1,6 +1,6 @@
 export class Nmap implements IExCommand {
 	public Execute(arg: string, vimStyle: IVimStyle, editor: IEditor) {
-		if (arg != null || arg.length == 0) {
+		if (arg == null || arg.length == 0) {
 			showCurrentMap();
 			return;
 		}
@@ -14,7 +14,7 @@ export class Nmap implements IExCommand {
 
 export class Nnoremap implements IExCommand {
 	public Execute(arg: string, vimStyle: IVimStyle, editor: IEditor) {
-		if (arg != null || arg.length == 0) {
+		if (arg == null || arg.length == 0) {
 			showCurrentMap();
 			return;
 		}
