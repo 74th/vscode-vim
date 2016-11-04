@@ -104,7 +104,7 @@ If you would like more vim flavor, you can use `vim.inNormalMode`, `vim.inInsert
 // in visual mode
 {
 	// arrow up
-	"key": "up", command": "vim.type-k",
+	"key": "up", "command": "vim.type-k",
 	"when": "editorTextFocus && vim.inVisualMode"
 },
 {
