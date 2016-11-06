@@ -44,7 +44,7 @@ export class CommandFactory implements ICommandFactory {
     constructor() {
         this.Clear();
         this.Nmap = {};
-        this.Nnoremap = {"dw":"db"};
+        this.Nnoremap = {};
     }
 
     public PushKey(orgKeyStroke: string, mode: VimMode, remap: boolean): IAction[] {
