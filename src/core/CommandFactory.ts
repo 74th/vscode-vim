@@ -36,8 +36,8 @@ export class CommandFactory implements ICommandFactory {
     private num: number;
     private registerCharCode: number;
     private commandString: string;
-    public Nmap: {[key:string]:string };
-    public Nnoremap: {[key:string]:string };
+    public Nmap: { [key: string]: string };
+    public Nnoremap: { [key: string]: string };
 
     public KeyBindings: IKeyBindings;
 
@@ -50,25 +50,25 @@ export class CommandFactory implements ICommandFactory {
     public PushKey(orgKeyStroke: string, mode: VimMode, remap: boolean): IAction[] {
         let keyStroke = orgKeyStroke;
         let actionList: IAction[] = [];
-        while (keyStroke.length > 0){
+        while (keyStroke.length > 0) {
             let keyChar = keyStroke.substring(0, 1);
             keyStroke = keyStroke.substring(1);
             this.commandString += keyChar;
 
-            if (remap && mode == VimMode.Normal && this.Nmap[this.commandString] !== undefined) {
+            if (remap && mode === VimMode.Normal && this.Nmap[this.commandString] !== undefined) {
                 keyStroke += this.Nmap[this.commandString];
-                this.ClearState()
+                this.ClearState();
                 continue;
             }
 
-            if (remap && mode == VimMode.Normal && this.Nnoremap[this.commandString] !== undefined) {
+            if (remap && mode === VimMode.Normal && this.Nnoremap[this.commandString] !== undefined) {
                 let newCommandString = this.Nnoremap[this.commandString];
                 this.ClearState();
                 actionList = actionList.concat(this.PushKey(newCommandString, mode, false));
             } else {
                 let action = this.pushKey(keyChar, mode);
                 if (action !== null) {
-                    actionList.push(action)
+                    actionList.push(action);
                 }
             }
         }
