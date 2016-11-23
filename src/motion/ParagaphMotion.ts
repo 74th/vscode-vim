@@ -21,7 +21,7 @@ export class ParagraphMotion extends AbstractMotion {
         let lastLine = editor.GetLastLineNum();
         let count = this.Count;
 
-        for (count > 0){
+        while (count > 0){
 
             if (this.IsUpDirection) {
                 line--;
