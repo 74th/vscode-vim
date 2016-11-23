@@ -50,8 +50,8 @@ This is imported from [quickref.txt](https://github.com/vim/vim/blob/master/runt
 |||`NgE`|backward to the end of the Nth blank-separated |WORD||
 |||`N)`|N sentences forward|
 |||`N(`|N sentences backward|
-|||`N}`|N paragraphs forward|
-|||`N{`|N paragraphs backward|
+|ParagraphMotion||`N}`|N paragraphs forward|
+|ParagraphMotion||`N{`|N paragraphs backward|
 |||`N]]`|N sections forward, at start of section|
 |||`N[[`|N sections backward, at start of section|
 |||`N][`|N sections forward, at end of section|

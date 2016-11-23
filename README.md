@@ -35,8 +35,8 @@ ext install vimStyle
 
 ## support vim commands
 
-* h j k l 0 $ ^ w W b B e E tx fx Tx Fx ; , gg G
-* Nh Nj Nk Nl Nw NW Nb NB Ne NE Ntx Nfx NTx NFx N; N, NG
+* h j k l 0 $ ^ w W b B e E { } tx fx Tx Fx ; , gg G
+* Nh Nj Nk Nl Nw NW Nb NB Ne NE N{ N} Ntx Nfx NTx NFx N; N, NG
 * i a s o x r I A S O X gr
 * Nx Nr Ngr
 * d y c dd yy cc D C p P d$ y$ c$ ...
@@ -162,6 +162,10 @@ npm run-script build
 ```
 
 ## update
+
+### 0.4.1
+
+* support `{`,`}`
 
 ### 0.4.0
 
