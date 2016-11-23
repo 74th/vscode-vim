@@ -228,6 +228,12 @@ const DefaultKeyBindings: IKeyBindings = {
         },
         "^": {
             cmd: VimCommand.gotoFirstNonBlankCharacterInLine
+        },
+        "{": {
+            cmd: VimCommand.gotoParagraphBackword
+        },
+        "}": {
+            cmd: VimCommand.gotoParagraphFoword
         }
     },
 
@@ -380,6 +386,12 @@ const DefaultKeyBindings: IKeyBindings = {
         },
         ";": {
             cmd: VimCommand.gotoRepeatCharacter
+        },
+        "{": {
+            cmd: VimCommand.gotoParagraphBackword
+        },
+        "}": {
+            cmd: VimCommand.gotoParagraphFoword
         }
     },
 
@@ -528,6 +540,12 @@ const DefaultKeyBindings: IKeyBindings = {
         },
         "^": {
             cmd: VimCommand.firstNonBlankCharacterInLineMotion
+        },
+        "{": {
+            cmd: VimCommand.paragraphBackwordMotion
+        },
+        "}": {
+            cmd: VimCommand.paragraphFowordMotion
         }
     },
 
@@ -661,6 +679,12 @@ const DefaultKeyBindings: IKeyBindings = {
         ";": {
             cmd: VimCommand.repeartCharacterMotion
         },
+        "{": {
+            cmd: VimCommand.paragraphBackwordMotion
+        },
+        "}": {
+            cmd: VimCommand.paragraphFowordMotion
+        }
         // $?
     },
 
@@ -817,6 +841,12 @@ const DefaultKeyBindings: IKeyBindings = {
         ";": {
             cmd: VimCommand.repeartCharacterMotion
         },
+        "{": {
+            cmd: VimCommand.gotoParagraphBackword
+        },
+        "}": {
+            cmd: VimCommand.gotoParagraphFoword
+        }
     },
 
     // V
@@ -925,6 +955,12 @@ const DefaultKeyBindings: IKeyBindings = {
             state: StateName.RequireMotionNum
         },
         // V..$
+        "{": {
+            cmd: VimCommand.gotoParagraphBackword
+        },
+        "}": {
+            cmd: VimCommand.gotoParagraphFoword
+        }
     },
 };
 

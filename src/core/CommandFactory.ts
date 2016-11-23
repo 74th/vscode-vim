@@ -26,6 +26,7 @@ import {ChangeWordMotion} from "../motion/ChangeWordMotion";
 import {DeleteEndOfWordMotion} from "../motion/DeleteEndOfWordMotion";
 import {FirstCharacterMotion} from "../motion/FirstCharacterMotion";
 import {CallEditorCommandAction} from "../action/CallEditorCommandAction";
+import {ParagraphMotion} from "../motion/ParagraphMotion";
 
 export class CommandFactory implements ICommandFactory {
 
@@ -357,6 +358,22 @@ export class CommandFactory implements ICommandFactory {
             case VimCommand.blankSeparatedBackwordMotion:
                 this.addBlankSeparatedBackwordMotion();
                 break;
+            // N{
+            case VimCommand.gotoParagraphBackword:
+                this.gotoParagraphBackword();
+                return;
+            // cN{
+            case VimCommand.paragraphBackwordMotion:
+                this.addParagraphBackwordMotion();
+                return;
+            // N}
+            case VimCommand.gotoParagraphFoword:
+                this.gotoParagraphFoword();
+                return;
+            // cN}
+            case VimCommand.paragraphFowordMotion:
+                this.addParagraphFowordMotion();
+                return;
 
             // ** Pattern searches **
 
@@ -955,6 +972,40 @@ export class CommandFactory implements ICommandFactory {
         m.IsWORD = true;
         m.IsSkipBlankLine = false;
         // m.IsForRange = true;
+        m.Count = this.getNumStack();
+        let a = <IRequireMotionAction>this.action;
+        a.Motion = m;
+    }
+
+    // N{
+    private gotoParagraphBackword() {
+        let m: ParagraphMotion = new ParagraphMotion();
+        m.IsUpDirection = true;
+        m.Count = this.getNumStack();
+        this.action = this.createGotoAction(m);
+    }
+
+    // cN{
+    private addParagraphBackwordMotion() {
+        let m: ParagraphMotion = new ParagraphMotion();
+        m.IsUpDirection = true;
+        m.Count = this.getNumStack();
+        let a = <IRequireMotionAction>this.action;
+        a.Motion = m;
+    }
+
+    // N}
+    private gotoParagraphFoword() {
+        let m: ParagraphMotion = new ParagraphMotion();
+        m.IsUpDirection = false;
+        m.Count = this.getNumStack();
+        this.action = this.createGotoAction(m);
+    }
+
+    // cN}
+    private addParagraphFowordMotion() {
+        let m: ParagraphMotion = new ParagraphMotion();
+        m.IsUpDirection = false;
         m.Count = this.getNumStack();
         let a = <IRequireMotionAction>this.action;
         a.Motion = m;
