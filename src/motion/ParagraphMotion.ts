@@ -17,29 +17,29 @@ export class ParagraphMotion extends AbstractMotion {
 
         let line = start.Line;
         let lineText = editor.ReadLine(start.Line);
-        let previousLineIsBlank: boolean = lineText.length == 0;
+        let previousLineIsBlank: boolean = lineText.length === 0;
         let lastLine = editor.GetLastLineNum();
         let count = this.Count;
 
-        while (count > 0){
+        while (count > 0) {
 
             if (this.IsUpDirection) {
                 line--;
-                if (line == 0) {
+                if (line === 0) {
                     break;
                 }
             } else {
                 line++;
-                if (line == lastLine) {
+                if (line === lastLine) {
                     break;
                 }
             }
 
             lineText = editor.ReadLine(line);
-            if (lineText.length == 0 && !previousLineIsBlank) {
+            if (lineText.length === 0 && !previousLineIsBlank) {
                 count--;
                 previousLineIsBlank = true;
-            }else if(lineText.length > 0 ){
+            } else if (lineText.length > 0) {
                 previousLineIsBlank = false;
             }
 

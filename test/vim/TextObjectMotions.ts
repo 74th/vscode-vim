@@ -297,3 +297,111 @@ TextObjectMotions["NB: N blank-separated"] = {
         "out": ["abc |abc(abc) abc"]
     }
 };
+
+TextObjectMotions["N{: N paragraphs forward"] = {
+    "2{:move to next blank line (start at the blank line)": {
+        "in": [
+            "aaaa",
+            "",
+            "bbbb",
+            "",
+            "cccc",
+            "",
+            "|",
+        ],
+        "key": "2{",
+        "out": [
+            "aaaa",
+            "|",
+            "bbbb",
+            "",
+            "cccc",
+            "",
+            "",
+        ]
+    },
+    "2{:move to next blank line (start at the non blank line)": {
+        "in": [
+            "aaaa",
+            "",
+            "bbbb",
+            "",
+            "cccc|",
+        ],
+        "key": "2{",
+        "out": [
+            "aaaa",
+            "|",
+            "bbbb",
+            "",
+            "cccc",
+        ]
+    },
+    "2{:stop at first line": {
+        "in": [
+            "aaaa",
+            "",
+            "bbbb|",
+        ],
+        "key": "2{",
+        "out": [
+            "|aaaa",
+            "",
+            "bbbb",
+        ]
+    }
+};
+
+TextObjectMotions["N}: N paragraphs backward"] = {
+    "2}:move to next blank line (start at the blank line)": {
+        "in": [
+            "|",
+            "",
+            "aaaa",
+            "",
+            "bbbb",
+            "",
+            "cccc",
+        ],
+        "key": "2}",
+        "out": [
+            "",
+            "",
+            "aaaa",
+            "",
+            "bbbb",
+            "|",
+            "cccc",
+        ]
+    },
+    "2}:move to next blank line (start at the non blank line)": {
+        "in": [
+            "aaaa|",
+            "",
+            "bbbb",
+            "",
+            "cccc",
+        ],
+        "key": "2}",
+        "out": [
+            "aaaa",
+            "",
+            "bbbb",
+            "|",
+            "cccc",
+        ]
+    },
+    "2}:stop at the last line": {
+        "in": [
+            "aaaa|",
+            "",
+            "bbbb",
+        ],
+        "key": "2}",
+        "out": [
+            "aaaa",
+            "",
+            "|bbbb",
+        ]
+    }
+}
