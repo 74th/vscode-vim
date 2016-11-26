@@ -39,6 +39,14 @@ export const VSCodeEditorKeyBindngs: IKeyBindings = {
     },
     RequireMotionNum: {
     },
+    RequireBrancketForLeftBrancket: {
+    },
+    RequireBrancketForLeftBrancketMotion: {
+    },
+    RequireBrancketForRightBrancket: {
+    },
+    RequireBrancketForRightBrancketMotion: {
+    },
     SmallG: {
     },
     SmallGForMotion: {

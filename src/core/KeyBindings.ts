@@ -3,6 +3,10 @@ class KeyBindings implements IKeyBindings {
     FirstNum: { [key: string]: IVimStyleCommand };
     RequireMotion: { [key: string]: IVimStyleCommand };
     RequireMotionNum: { [key: string]: IVimStyleCommand };
+    RequireBrancketForLeftBrancket: { [key: string]: IVimStyleCommand };
+    RequireBrancketForRightBrancket: { [key: string]: IVimStyleCommand };
+    RequireBrancketForLeftBrancketMotion: { [key: string]: IVimStyleCommand };
+    RequireBrancketForRightBrancketMotion: { [key: string]: IVimStyleCommand };
     SmallG: { [key: string]: IVimStyleCommand };
     SmallGForMotion: { [key: string]: IVimStyleCommand };
     VisualMode: { [key: string]: IVimStyleCommand };
@@ -229,6 +233,14 @@ const DefaultKeyBindings: IKeyBindings = {
         "^": {
             cmd: VimCommand.gotoFirstNonBlankCharacterInLine
         },
+        "[": {
+            cmd: VimCommand.nothing,
+            state: StateName.RequireBrancketForLeftBrancket
+        },
+        "]": {
+            cmd: VimCommand.nothing,
+            state: StateName.RequireBrancketForRightBrancket
+        },
         "{": {
             cmd: VimCommand.gotoParagraphBackword
         },
@@ -392,7 +404,15 @@ const DefaultKeyBindings: IKeyBindings = {
         },
         "}": {
             cmd: VimCommand.gotoParagraphFoword
-        }
+        },
+        "[": {
+            cmd: VimCommand.nothing,
+            state: StateName.RequireBrancketForLeftBrancket
+        },
+        "]": {
+            cmd: VimCommand.nothing,
+            state: StateName.RequireBrancketForRightBrancket
+        },
     },
 
     // cm
@@ -546,7 +566,15 @@ const DefaultKeyBindings: IKeyBindings = {
         },
         "}": {
             cmd: VimCommand.paragraphFowordMotion
-        }
+        },
+        "[": {
+            cmd: VimCommand.nothing,
+            state: StateName.RequireBrancketForLeftBrancketMotion
+        },
+        "]": {
+            cmd: VimCommand.nothing,
+            state: StateName.RequireBrancketForRightBrancketMotion
+        },
     },
 
     // cNm
@@ -684,8 +712,92 @@ const DefaultKeyBindings: IKeyBindings = {
         },
         "}": {
             cmd: VimCommand.paragraphFowordMotion
-        }
+        },
+        "[": {
+            cmd: VimCommand.nothing,
+            state: StateName.RequireBrancketForLeftBrancketMotion
+        },
+        "]": {
+            cmd: VimCommand.nothing,
+            state: StateName.RequireBrancketForRightBrancketMotion
+        },
         // $?
+    },
+
+    RequireBrancketForLeftBrancket: {
+        // [(
+        "(": {
+            cmd: VimCommand.goBackToUnclosedLeftParenthesis
+        },
+        // [{
+        "{": {
+            cmd: VimCommand.goBackToUnclosedLeftCurlyBracket
+        },
+        // [)
+        ")": {
+            cmd: VimCommand.goBackToUnclosedRightParenthesis
+        },
+        // [}
+        "}": {
+            cmd: VimCommand.goBackToUnclosedRightCurlyBracket
+        },
+    },
+
+    RequireBrancketForLeftBrancketMotion: {
+        // c[(
+        "(": {
+            cmd: VimCommand.backToUnclosedLeftParenthesisMotion
+        },
+        // c[{
+        "{": {
+            cmd: VimCommand.backToUnclosedLeftCurlyBracketMotion
+        },
+        // c[)
+        ")": {
+            cmd: VimCommand.backToUnclosedRightParenthesisMotion
+        },
+        // c[}
+        "}": {
+            cmd: VimCommand.backToUnclosedRightCurlyBracketMotion
+        },
+    },
+
+    RequireBrancketForRightBrancket: {
+        // ](
+        "(": {
+            cmd: VimCommand.goToUnclosedLeftParenthesis
+        },
+        // ]{
+        "{": {
+            cmd: VimCommand.goToUnclosedLeftCurlyBracket
+        },
+        // ])
+        ")": {
+            cmd: VimCommand.goToUnclosedRightParenthesis
+        },
+        // ]}
+        "}": {
+            cmd: VimCommand.goToUnclosedRightCurlyBracket
+        },
+    },
+
+    RequireBrancketForRightBrancketMotion: {
+        // c](
+        "(": {
+            cmd: VimCommand.toUnclosedLeftParenthesisMotion
+        },
+        // c]{
+        "{": {
+            cmd: VimCommand.toUnclosedLeftCurlyBracketMotion
+        },
+        // c])
+        ")": {
+            cmd: VimCommand.toUnclosedRightParenthesisMotion
+        },
+        // c]}
+        "}": {
+            cmd: VimCommand.toUnclosedRightCurlyBracketMotion
+        },
     },
 
     // g
@@ -846,7 +958,15 @@ const DefaultKeyBindings: IKeyBindings = {
         },
         "}": {
             cmd: VimCommand.gotoParagraphFoword
-        }
+        },
+        "[": {
+            cmd: VimCommand.nothing,
+            state: StateName.RequireBrancketForLeftBrancket
+        },
+        "]": {
+            cmd: VimCommand.nothing,
+            state: StateName.RequireBrancketForRightBrancket
+        },
     },
 
     // V
@@ -960,7 +1080,15 @@ const DefaultKeyBindings: IKeyBindings = {
         },
         "}": {
             cmd: VimCommand.gotoParagraphFoword
-        }
+        },
+        "[": {
+            cmd: VimCommand.nothing,
+            state: StateName.RequireBrancketForLeftBrancket
+        },
+        "]": {
+            cmd: VimCommand.nothing,
+            state: StateName.RequireBrancketForRightBrancket
+        },
     },
 };
 
@@ -980,6 +1108,10 @@ const ErgonomicKeyBindings: IKeyBindings = {
         ";": DefaultKeyBindings.RequireMotion["l"]
     },
     RequireMotionNum: null,
+    RequireBrancketForLeftBrancket: null,
+    RequireBrancketForLeftBrancketMotion: null,
+    RequireBrancketForRightBrancket: null,
+    RequireBrancketForRightBrancketMotion: null,
     SmallG: null,
     SmallGForMotion: null,
     VisualMode: {
@@ -1002,6 +1134,10 @@ export function LoadKeyBindings(opts: IVimStyleOptions): IKeyBindings {
         FirstNum: {},
         RequireMotion: {},
         RequireMotionNum: {},
+        RequireBrancketForLeftBrancket: {},
+        RequireBrancketForLeftBrancketMotion: {},
+        RequireBrancketForRightBrancket: {},
+        RequireBrancketForRightBrancketMotion: {},
         SmallG: {},
         SmallGForMotion: {},
         VisualMode: {},

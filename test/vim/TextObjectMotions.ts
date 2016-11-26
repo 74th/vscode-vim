@@ -405,3 +405,15 @@ TextObjectMotions["N}: N paragraphs backward"] = {
         ]
     }
 }
+
+TextObjectMotions["xx:N times back to unclosed x"] = {
+    "hit first brancket": {
+        "in": [
+            "func( func( me| ) )"
+        ],
+        "key": "[(",
+        "out": [
+            "func( func|( me ) )"
+        ]
+    },
+}
