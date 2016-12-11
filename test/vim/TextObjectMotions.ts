@@ -407,13 +407,119 @@ TextObjectMotions["N}: N paragraphs backward"] = {
 }
 
 TextObjectMotions["xx:N times back to unclosed x"] = {
-    "hit first brancket": {
+    "hit first left brancket": {
         "in": [
-            "func( func( me| ) )"
+            "func( func( me| ) );;"
         ],
         "key": "[(",
         "out": [
-            "func( func|( me ) )"
+            "func( func|( me ) );;"
+        ]
+    },
+    "hit second left brancket": {
+        "in": [
+            "func( func( me| ) );;"
+        ],
+        "key": "2[(",
+        "out": [
+            "func|( func( me ) );;"
+        ]
+    },
+    "go to first character": {
+        "in": [
+            "func( func( me| ) );;"
+        ],
+        "key": "3[(",
+        "out": [
+            "|func( func( me ) );;"
+        ]
+    },
+    "hit second left brancket include an other brancket pair": {
+        "in": [
+            "func( func( two ) func( me| ) );;"
+        ],
+        "key": "2[(",
+        "out": [
+            "func|( func( two ) func( me ) );;"
+        ]
+    },
+    "hit second left brancket include lines": {
+        "in": [
+            "func(",
+            "  func(",
+            "    me|",
+            "  )",
+            ");;"
+        ],
+        "key": "2[(",
+        "out": [
+            "func|(",
+            "  func(",
+            "    me",
+            "  )",
+            ");;"
+        ]
+    },
+    "hit first right brancket": {
+        "in": [
+            "func( func( me| ) );;"
+        ],
+        "key": "])",
+        "out": [
+            "func( func( me |) );;"
+        ]
+    },
+    "hit second right brancket": {
+        "in": [
+            "func( func( me| ) );;"
+        ],
+        "key": "2])",
+        "out": [
+            "func( func( me ) |);;"
+        ]
+    },
+    "go to last character": {
+        "in": [
+            "func( func( me| ) );;"
+        ],
+        "key": "3])",
+        "out": [
+            "func( func( me ) );|;"
+        ]
+    },
+    "hit second right brancket include lines": {
+        "in": [
+            "func(",
+            "  func(",
+            "    |me",
+            "  )",
+            ");;"
+        ],
+        "key": "2])",
+        "out": [
+            "func(",
+            "  func(",
+            "    me",
+            "  )",
+            "|);;"
+        ]
+    },
+    "hit first left curly brancket": {
+        "in": [
+            "func{ func{ me| } };;"
+        ],
+        "key": "[{",
+        "out": [
+            "func{ func|{ me } };;"
+        ]
+    },
+    "hit first right curly brancket": {
+        "in": [
+            "func{ func{ me| } };;"
+        ],
+        "key": "]}",
+        "out": [
+            "func{ func{ me |} };;"
         ]
     },
 }

@@ -17,7 +17,6 @@ export class BackToBrancketMotion extends AbstractMotion {
         let p: IPosition = editor.GetCurrentPosition();
         let line: string = editor.ReadLineAtCurrentPosition();
         let lastLine: number = editor.GetLastLineNum();
-        console.log("line:" + line);
         while (this.Count > 0) {
 
             // read 1 char
@@ -75,7 +74,7 @@ export class ToBrancketMotion extends AbstractMotion {
             p.Char++;
             if (p.Char >= line.length) {
                 p.Line++;
-                if (p.Line >= lastLine) {
+                if (p.Line > lastLine) {
                     p = editor.GetLastPosition();
                     break;
                 }
@@ -88,6 +87,17 @@ export class ToBrancketMotion extends AbstractMotion {
             }
 
             let c: string = line[p.Char];
+
+            if (c === this.LeftBrancket) {
+                this.Count++;
+            }
+            if (c === this.RightBrancket) {
+                this.Count--;
+            }
+
+            if (this.Count === 0 && c === this.TargetBrancket) {
+                break;
+            }
 
         }
         return p;

@@ -157,18 +157,18 @@ interface IVimStyleCommand {
 interface ICommandCallback { (editor: IEditor, vimStyle: IVimStyle): void }
 
 interface IKeyBindings {
-    AtStart: { [key: string]: IVimStyleCommand };
-    FirstNum: { [key: string]: IVimStyleCommand };
-    RequireMotion: { [key: string]: IVimStyleCommand };
-    RequireMotionNum: { [key: string]: IVimStyleCommand };
-    RequireBrancketForLeftBrancket: { [key: string]: IVimStyleCommand };
-    RequireBrancketForRightBrancket: { [key: string]: IVimStyleCommand };
-    RequireBrancketForLeftBrancketMotion: { [key: string]: IVimStyleCommand };
-    RequireBrancketForRightBrancketMotion: { [key: string]: IVimStyleCommand };
-    SmallG: { [key: string]: IVimStyleCommand };
-    SmallGForMotion: { [key: string]: IVimStyleCommand };
-    VisualMode: { [key: string]: IVimStyleCommand };
-    VisualLineMode: { [key: string]: IVimStyleCommand };
+    AtStart?: { [key: string]: IVimStyleCommand };
+    FirstNum?: { [key: string]: IVimStyleCommand };
+    RequireMotion?: { [key: string]: IVimStyleCommand };
+    RequireMotionNum?: { [key: string]: IVimStyleCommand };
+    RequireBrancketForLeftBrancket?: { [key: string]: IVimStyleCommand };
+    RequireBrancketForRightBrancket?: { [key: string]: IVimStyleCommand };
+    RequireBrancketForLeftBrancketMotion?: { [key: string]: IVimStyleCommand };
+    RequireBrancketForRightBrancketMotion?: { [key: string]: IVimStyleCommand };
+    SmallG?: { [key: string]: IVimStyleCommand };
+    SmallGForMotion?: { [key: string]: IVimStyleCommand };
+    VisualMode?: { [key: string]: IVimStyleCommand };
+    VisualLineMode?: { [key: string]: IVimStyleCommand };
 }
 
 interface IVimStyleOptions {
@@ -466,22 +466,6 @@ declare const enum VimCommand {
     goBackToUnclosedLeftCurlyBracket,
     // c[{
     backToUnclosedLeftCurlyBracketMotion,
-    // [)
-    goBackToUnclosedRightParenthesis,
-    // c[)
-    backToUnclosedRightParenthesisMotion,
-    // [}
-    goBackToUnclosedRightCurlyBracket,
-    // c[}
-    backToUnclosedRightCurlyBracketMotion,
-    // ](
-    goToUnclosedLeftParenthesis,
-    // c](
-    toUnclosedLeftParenthesisMotion,
-    // ]{
-    goToUnclosedLeftCurlyBracket,
-    // c]{
-    toUnclosedLeftCurlyBracketMotion,
     // ])
     goToUnclosedRightParenthesis,
     // c])

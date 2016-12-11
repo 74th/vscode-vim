@@ -32,6 +32,18 @@ export function ApplyKeyBindings(dest: IKeyBindings, src: IKeyBindings) {
     if (dest.RequireMotionNum) {
         applyKeyBindingsByEachState(dest.RequireMotionNum, src.RequireMotionNum);
     }
+    if (dest.RequireBrancketForLeftBrancket) {
+        applyKeyBindingsByEachState(dest.RequireBrancketForLeftBrancket, src.RequireBrancketForLeftBrancket);
+    }
+    if (dest.RequireBrancketForRightBrancket) {
+        applyKeyBindingsByEachState(dest.RequireBrancketForRightBrancket, src.RequireBrancketForRightBrancket);
+    }
+    if (dest.RequireBrancketForLeftBrancketMotion) {
+        applyKeyBindingsByEachState(dest.RequireBrancketForLeftBrancketMotion, src.RequireBrancketForLeftBrancketMotion);
+    }
+    if (dest.RequireBrancketForRightBrancketMotion) {
+        applyKeyBindingsByEachState(dest.RequireBrancketForRightBrancketMotion, src.RequireBrancketForRightBrancketMotion);
+    }
     if (dest.SmallG) {
         applyKeyBindingsByEachState(dest.SmallG, src.SmallG);
     }
@@ -733,14 +745,6 @@ const DefaultKeyBindings: IKeyBindings = {
         "{": {
             cmd: VimCommand.goBackToUnclosedLeftCurlyBracket
         },
-        // [)
-        ")": {
-            cmd: VimCommand.goBackToUnclosedRightParenthesis
-        },
-        // [}
-        "}": {
-            cmd: VimCommand.goBackToUnclosedRightCurlyBracket
-        },
     },
 
     RequireBrancketForLeftBrancketMotion: {
@@ -752,25 +756,9 @@ const DefaultKeyBindings: IKeyBindings = {
         "{": {
             cmd: VimCommand.backToUnclosedLeftCurlyBracketMotion
         },
-        // c[)
-        ")": {
-            cmd: VimCommand.backToUnclosedRightParenthesisMotion
-        },
-        // c[}
-        "}": {
-            cmd: VimCommand.backToUnclosedRightCurlyBracketMotion
-        },
     },
 
     RequireBrancketForRightBrancket: {
-        // ](
-        "(": {
-            cmd: VimCommand.goToUnclosedLeftParenthesis
-        },
-        // ]{
-        "{": {
-            cmd: VimCommand.goToUnclosedLeftCurlyBracket
-        },
         // ])
         ")": {
             cmd: VimCommand.goToUnclosedRightParenthesis
@@ -782,14 +770,6 @@ const DefaultKeyBindings: IKeyBindings = {
     },
 
     RequireBrancketForRightBrancketMotion: {
-        // c](
-        "(": {
-            cmd: VimCommand.toUnclosedLeftParenthesisMotion
-        },
-        // c]{
-        "{": {
-            cmd: VimCommand.toUnclosedLeftCurlyBracketMotion
-        },
         // c])
         ")": {
             cmd: VimCommand.toUnclosedRightParenthesisMotion
@@ -1100,20 +1080,12 @@ const ErgonomicKeyBindings: IKeyBindings = {
         "l": DefaultKeyBindings.AtStart["k"],
         ";": DefaultKeyBindings.AtStart["l"]
     },
-    FirstNum: null,
     RequireMotion: {
         "j": DefaultKeyBindings.RequireMotion["h"],
         "k": DefaultKeyBindings.RequireMotion["j"],
         "l": DefaultKeyBindings.RequireMotion["k"],
         ";": DefaultKeyBindings.RequireMotion["l"]
     },
-    RequireMotionNum: null,
-    RequireBrancketForLeftBrancket: null,
-    RequireBrancketForLeftBrancketMotion: null,
-    RequireBrancketForRightBrancket: null,
-    RequireBrancketForRightBrancketMotion: null,
-    SmallG: null,
-    SmallGForMotion: null,
     VisualMode: {
         "j": DefaultKeyBindings.VisualMode["h"],
         "k": DefaultKeyBindings.VisualMode["j"],

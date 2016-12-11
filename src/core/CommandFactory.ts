@@ -415,52 +415,20 @@ export class CommandFactory implements ICommandFactory {
             case VimCommand.backToUnclosedLeftCurlyBracketMotion:
                 this.addBackToUnclosedLeftCurlyBracketMotion();
                 return;
-            // N[)
-            case VimCommand.goBackToUnclosedRightParenthesis:
-                this.goBackToUnclosedRightParenthesis();
-                return;
-            // cN[)
-            case VimCommand.backToUnclosedRightParenthesisMotion:
-                this.addBackToUnclosedRightParenthesis();
-                return;
-            // N[}
-            case VimCommand.goBackToUnclosedRightCurlyBracket:
-                this.goBackToUnclosedRightCurlyBracket();
-                return;
-            // cN[}
-            case VimCommand.backToUnclosedRightCurlyBracketMotion:
-                this.addBackToUnclosedRightCurlyBracketMotion();
-                return;
-            // N](
-            case VimCommand.goBackToUnclosedLeftParenthesis:
-                this.goToUnclosedLeftParenthesis();
-                return;
-            // cN](
-            case VimCommand.backToUnclosedLeftParenthesisMotion:
-                this.addToUnclosedLeftParenthesis();
-                return;
-            // N]{
-            case VimCommand.goBackToUnclosedLeftCurlyBracket:
-                this.goToUnclosedLeftCurlyBracket();
-                return;
-            // cN]{
-            case VimCommand.backToUnclosedLeftCurlyBracketMotion:
-                this.addToUnclosedLeftCurlyBracketMotion();
-                return;
             // N])
-            case VimCommand.goBackToUnclosedRightParenthesis:
+            case VimCommand.goToUnclosedRightParenthesis:
                 this.goToUnclosedRightParenthesis();
                 return;
             // cN])
-            case VimCommand.backToUnclosedRightParenthesisMotion:
+            case VimCommand.toUnclosedRightParenthesisMotion:
                 this.addToUnclosedRightParenthesis();
                 return;
             // N]}
-            case VimCommand.goBackToUnclosedRightCurlyBracket:
+            case VimCommand.goToUnclosedRightCurlyBracket:
                 this.goToUnclosedRightCurlyBracket();
                 return;
             // cN]}
-            case VimCommand.backToUnclosedRightCurlyBracketMotion:
+            case VimCommand.toUnclosedRightCurlyBracketMotion:
                 this.addToUnclosedRightCurlyBracketMotion();
                 return;
 
@@ -1101,11 +1069,12 @@ export class CommandFactory implements ICommandFactory {
     }
 
     // N[(
-    private goBackToUnclosedRightParenthesis() {
+    private goBackToUnclosedLeftParenthesis() {
         let m = new BackToBrancketMotion();
         m.LeftBrancket = "(";
         m.RightBrancket = ")";
         m.TargetBrancket = "(";
+        m.Count = this.getNumStack();
         this.action = this.createGotoAction(m);
     }
 
@@ -1115,6 +1084,7 @@ export class CommandFactory implements ICommandFactory {
         m.LeftBrancket = "(";
         m.RightBrancket = ")";
         m.TargetBrancket = "(";
+        m.Count = this.getNumStack();
         let a = <IRequireMotionAction>this.action;
         a.Motion = m;
     }
@@ -1125,6 +1095,7 @@ export class CommandFactory implements ICommandFactory {
         m.LeftBrancket = "{";
         m.RightBrancket = "}";
         m.TargetBrancket = "{";
+        m.Count = this.getNumStack();
         this.action = this.createGotoAction(m);
     }
 
@@ -1134,92 +1105,18 @@ export class CommandFactory implements ICommandFactory {
         m.LeftBrancket = "{";
         m.RightBrancket = "}";
         m.TargetBrancket = "{";
-        let a = <IRequireMotionAction>this.action;
-        a.Motion = m;
-    }
-
-    // N[)
-    private goBackToUnclosedLeftParenthesis() {
-        let m = new BackToBrancketMotion();
-        m.LeftBrancket = "(";
-        m.RightBrancket = ")";
-        m.TargetBrancket = ")";
-        this.action = this.createGotoAction(m);
-    }
-
-    // cN[)
-    private addBackToUnclosedRightParenthesis() {
-        let m = new BackToBrancketMotion();
-        m.LeftBrancket = "(";
-        m.RightBrancket = ")";
-        m.TargetBrancket = ")";
-        let a = <IRequireMotionAction>this.action;
-        a.Motion = m;
-    }
-
-    // N[}
-    private goBackToUnclosedRightCurlyBracket() {
-        let m = new BackToBrancketMotion();
-        m.LeftBrancket = "{";
-        m.RightBrancket = "}";
-        m.TargetBrancket = "}";
-        this.action = this.createGotoAction(m);
-    }
-
-    // cN[}
-    private addBackToUnclosedRightCurlyBracketMotion() {
-        let m = new BackToBrancketMotion();
-        m.LeftBrancket = "{";
-        m.RightBrancket = "}";
-        m.TargetBrancket = "}";
-        let a = <IRequireMotionAction>this.action;
-        a.Motion = m;
-    }
-
-    // N](
-    private goToUnclosedRightParenthesis() {
-        let m = new ToBrancketMotion();
-        m.LeftBrancket = "(";
-        m.RightBrancket = ")";
-        m.TargetBrancket = "(";
-        this.action = this.createGotoAction(m);
-    }
-
-    // cN](
-    private addToUnclosedLeftParenthesis() {
-        let m = new ToBrancketMotion();
-        m.LeftBrancket = "(";
-        m.RightBrancket = ")";
-        m.TargetBrancket = "(";
-        let a = <IRequireMotionAction>this.action;
-        a.Motion = m;
-    }
-
-    // N]{
-    private goToUnclosedLeftCurlyBracket() {
-        let m = new ToBrancketMotion();
-        m.LeftBrancket = "{";
-        m.RightBrancket = "}";
-        m.TargetBrancket = "{";
-        this.action = this.createGotoAction(m);
-    }
-
-    // cN]{
-    private addToUnclosedLeftCurlyBracketMotion() {
-        let m = new ToBrancketMotion();
-        m.LeftBrancket = "{";
-        m.RightBrancket = "}";
-        m.TargetBrancket = "{";
+        m.Count = this.getNumStack();
         let a = <IRequireMotionAction>this.action;
         a.Motion = m;
     }
 
     // N])
-    private goToUnclosedLeftParenthesis() {
+    private goToUnclosedRightParenthesis() {
         let m = new ToBrancketMotion();
         m.LeftBrancket = "(";
         m.RightBrancket = ")";
         m.TargetBrancket = ")";
+        m.Count = this.getNumStack();
         this.action = this.createGotoAction(m);
     }
 
@@ -1229,6 +1126,7 @@ export class CommandFactory implements ICommandFactory {
         m.LeftBrancket = "(";
         m.RightBrancket = ")";
         m.TargetBrancket = ")";
+        m.Count = this.getNumStack();
         let a = <IRequireMotionAction>this.action;
         a.Motion = m;
     }
@@ -1239,6 +1137,7 @@ export class CommandFactory implements ICommandFactory {
         m.LeftBrancket = "{";
         m.RightBrancket = "}";
         m.TargetBrancket = "}";
+        m.Count = this.getNumStack();
         this.action = this.createGotoAction(m);
     }
 
@@ -1248,6 +1147,7 @@ export class CommandFactory implements ICommandFactory {
         m.LeftBrancket = "{";
         m.RightBrancket = "}";
         m.TargetBrancket = "}";
+        m.Count = this.getNumStack();
         let a = <IRequireMotionAction>this.action;
         a.Motion = m;
     }
