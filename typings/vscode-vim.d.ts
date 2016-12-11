@@ -161,6 +161,10 @@ interface IKeyBindings {
     FirstNum: { [key: string]: IVimStyleCommand };
     RequireMotion: { [key: string]: IVimStyleCommand };
     RequireMotionNum: { [key: string]: IVimStyleCommand };
+    RequireBrancketForLeftBrancket: { [key: string]: IVimStyleCommand };
+    RequireBrancketForRightBrancket: { [key: string]: IVimStyleCommand };
+    RequireBrancketForLeftBrancketMotion: { [key: string]: IVimStyleCommand };
+    RequireBrancketForRightBrancketMotion: { [key: string]: IVimStyleCommand };
     SmallG: { [key: string]: IVimStyleCommand };
     SmallGForMotion: { [key: string]: IVimStyleCommand };
     VisualMode: { [key: string]: IVimStyleCommand };
@@ -454,6 +458,40 @@ declare const enum VimCommand {
     gotoParagraphFoword,
     // cN}
     paragraphFowordMotion,
+    // [(
+    goBackToUnclosedLeftParenthesis,
+    // c[(
+    backToUnclosedLeftParenthesisMotion,
+    // [{
+    goBackToUnclosedLeftCurlyBracket,
+    // c[{
+    backToUnclosedLeftCurlyBracketMotion,
+    // [)
+    goBackToUnclosedRightParenthesis,
+    // c[)
+    backToUnclosedRightParenthesisMotion,
+    // [}
+    goBackToUnclosedRightCurlyBracket,
+    // c[}
+    backToUnclosedRightCurlyBracketMotion,
+    // ](
+    goToUnclosedLeftParenthesis,
+    // c](
+    toUnclosedLeftParenthesisMotion,
+    // ]{
+    goToUnclosedLeftCurlyBracket,
+    // c]{
+    toUnclosedLeftCurlyBracketMotion,
+    // ])
+    goToUnclosedRightParenthesis,
+    // c])
+    toUnclosedRightParenthesisMotion,
+    // ]}
+    goToUnclosedRightCurlyBracket,
+    // c]}
+    toUnclosedRightCurlyBracketMotion,
+
+
     // N{
     gotoParagraphBackword,
     // cN{
@@ -578,6 +616,10 @@ declare const enum StateName {
     RequireCharForMotion,
     RequireCharForAction,
     RequireCharForRegister,
+    RequireBrancketForLeftBrancket,
+    RequireBrancketForRightBrancket,
+    RequireBrancketForLeftBrancketMotion,
+    RequireBrancketForRightBrancketMotion,
     SmallG,
     SmallGForMotion,
     VisualMode,
