@@ -1,100 +1,104 @@
 {
-    "name": "vimStyle",
-    "displayname": "Vim Style",
-    "description": "Vim emulator for VSCode",
-    "icon": "vim.png",
-    "galleryBanner": {
-        "color": "#229932",
-        "theme": "dark"
-    },
-    "license": "MIT License",
-    "bugs": {
-        "url": "https://github.com/74th/vscode-vim/issues"
-    },
-    "homepage": "https://github.com/74th/vscode-vim",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/74th/vscode-vim.git"
-    },
-    "version": "0.4.0",
-    "publisher": "74th",
-    "engines": {
-        "vscode": "^1.0.0"
-    },
-    "keywords": [
-        "vim"
-    ],
-    "categories": [
-        "Other"
-    ],
-    "activationEvents": [
-        "*"
-    ],
-    "main": "./out/src/extension",
-    "contributes": {
-        "configuration": {
-            "type": "object",
-            "title": "vim style configuration",
-            "properties": {
-                "vimStyle.showMode": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Show mode in status bar"
-                },
-                "vimStyle.useErgonomicKeyForMotion": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "move a cursor by `jkl;` keys"
-                },
-                "vimStyle.changeCursorStyle": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "change cursor by mode"
-                },
-                "vimStyle.defaultMode": {
-                    "type": "string",
-                    "default": "normal",
-                    "description": "default mode",
-                    "enum": [
-                        "normal",
-                        "insert"
-                    ]
-                },
-                "vimStyle.enabled": {
-                    "type": "boolean",
-                    "default": true
-                },
-                "vimStyle.imapEsc": {
-                    "type": "string",
-                    "default": "",
-                    "description": "keys go to normal mode from insert mode"
-                },
-                "vimStyle.vimrc": {
-                    "type": "array",
-                    "default": [""],
-                    "description": "some vim style settings"
-                }
-            }
+  "name": "vimStyle",
+  "displayname": "Vim Style",
+  "description": "Vim emulator for VSCode",
+  "icon": "vim.png",
+  "galleryBanner": {
+    "color": "#229932",
+    "theme": "dark"
+  },
+  "license": "MIT License",
+  "bugs": {
+    "url": "https://github.com/74th/vscode-vim/issues"
+  },
+  "homepage": "https://github.com/74th/vscode-vim",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/74th/vscode-vim.git"
+  },
+  "version": "0.4.1",
+  "publisher": "74th",
+  "engines": {
+    "vscode": "^1.0.0"
+  },
+  "keywords": [
+    "vim"
+  ],
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "*"
+  ],
+  "main": "./out/src/extension",
+  "contributes": {
+    "configuration": {
+      "type": "object",
+      "title": "vim style configuration",
+      "properties": {
+        "vimStyle.showMode": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show mode in status bar"
         },
-        "keybindings": [
-            {
-                "command": "vim.Esc",
-                "key": "escape",
-                "when": "editorTextFocus && vim.enabled"
-            }
-        ]
+        "vimStyle.useErgonomicKeyForMotion": {
+          "type": "boolean",
+          "default": false,
+          "description": "move a cursor by `jkl;` keys"
+        },
+        "vimStyle.changeCursorStyle": {
+          "type": "boolean",
+          "default": true,
+          "description": "change cursor by mode"
+        },
+        "vimStyle.defaultMode": {
+          "type": "string",
+          "default": "normal",
+          "description": "default mode",
+          "enum": [
+            "normal",
+            "insert"
+          ]
+        },
+        "vimStyle.enabled": {
+          "type": "boolean",
+          "default": true
+        },
+        "vimStyle.imapEsc": {
+          "type": "string",
+          "default": "",
+          "description": "keys go to normal mode from insert mode"
+        },
+        "vimStyle.vimrc": {
+          "type": "array",
+          "default": [
+            ""
+          ],
+          "description": "some vim style settings"
+        }
+      }
     },
-    "scripts": {
-        "vscode:prepublish": "node ./node_modules/vscode/bin/compile",
-        "compile": "node ./node_modules/vscode/bin/compile -watch -p ./",
-        "build": "node ./node_modules/vscode/bin/compile -p ./",
-        "test": "node ./node_modules/mocha/bin/mocha -g VimStyle out/test/",
-        "postinstall": "node ./node_modules/vscode/bin/install"
-    },
-    "devDependencies": {
-        "mocha": "^2.3.4",
-        "typescript": "^1.8.5",
-        "vscode": "^0.11.10",
-        "tslint": "^3.6.0"
-    }
+    "keybindings": [
+      {
+        "command": "vim.Esc",
+        "key": "escape",
+        "when": "editorTextFocus && vim.enabled"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "node ./node_modules/vscode/bin/compile",
+    "compile": "node ./node_modules/vscode/bin/compile -watch -p ./",
+    "build": "node ./node_modules/vscode/bin/compile -p ./",
+    "test": "node ./node_modules/mocha/bin/mocha -g VimStyle out/test/",
+    "postinstall": "node ./node_modules/vscode/bin/install"
+  },
+  "devDependencies": {
+    "@types/mocha": "^2.2.33",
+    "@types/node": "0.0.2",
+    "mocha": "~3.2",
+    "tslint": "~4.0",
+    "typescript": "~2.1",
+    "vscode": "~1.0"
+  }
 }
