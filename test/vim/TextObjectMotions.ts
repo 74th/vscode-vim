@@ -401,7 +401,7 @@ TextObjectMotions["N}: N paragraphs backward"] = {
         "out": [
             "aaaa",
             "",
-            "|bbbb",
+            "bbb|b",
         ]
     }
 }
@@ -425,13 +425,13 @@ TextObjectMotions["xx:N times back to unclosed x"] = {
             "func|( func( me ) );;"
         ]
     },
-    "go to first character": {
+    "go to first brancket": {
         "in": [
             "func( func( me| ) );;"
         ],
         "key": "3[(",
         "out": [
-            "|func( func( me ) );;"
+            "func|( func( me ) );;"
         ]
     },
     "hit second left brancket include an other brancket pair": {
@@ -478,13 +478,13 @@ TextObjectMotions["xx:N times back to unclosed x"] = {
             "func( func( me ) |);;"
         ]
     },
-    "go to last character": {
+    "go to last brancket": {
         "in": [
             "func( func( me| ) );;"
         ],
-        "key": "3])",
+        "key": "100])",
         "out": [
-            "func( func( me ) );|;"
+            "func( func( me ) |);;"
         ]
     },
     "hit second right brancket include lines": {
