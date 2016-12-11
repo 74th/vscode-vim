@@ -286,7 +286,7 @@ declare const enum Key {
     Esc
 }
 
-declare const enum KeyType {
+declare const enum VimKeyType {
     Number,
     Charactor,
     Mark

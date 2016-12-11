@@ -38,9 +38,9 @@ export class Register implements IRegister {
                 return this.unName;
         }
         switch (Utils.GetKeyType(key)) {
-            case KeyType.Charactor:
+            case VimKeyType.Charactor:
                 return this.GetCharactorRegister(key);
-            case KeyType.Number:
+            case VimKeyType.Number:
                 return this.GetRollRegister(key);
         }
         return null;
