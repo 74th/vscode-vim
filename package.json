@@ -98,7 +98,7 @@
     "@types/node": "0.0.2",
     "mocha": "~3.2",
     "tslint": "~4.0",
-    "typescript": "~2.1",
+    "typescript": "~2.0",
     "vscode": "~1.0"
   }
 }

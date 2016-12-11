@@ -246,7 +246,7 @@ export function KeyToChar(key: Key): string {
     }
 }
 
-export function GetKeyType(key: Key): KeyType {
+export function GetKeyType(key: Key): VimKeyType {
     switch (key) {
         case Key.n0:
         case Key.n1:
@@ -258,7 +258,7 @@ export function GetKeyType(key: Key): KeyType {
         case Key.n7:
         case Key.n8:
         case Key.n9:
-            return KeyType.Number;
+            return VimKeyType.Number;
         case Key.a:
         case Key.b:
         case Key.c:
@@ -311,9 +311,9 @@ export function GetKeyType(key: Key): KeyType {
         case Key.X:
         case Key.Y:
         case Key.Z:
-            return KeyType.Charactor;
+            return VimKeyType.Charactor;
         default:
-            return KeyType.Mark;
+            return VimKeyType.Mark;
     }
 }
 
