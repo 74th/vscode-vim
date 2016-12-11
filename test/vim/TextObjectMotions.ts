@@ -522,4 +522,22 @@ TextObjectMotions["xx:N times back to unclosed x"] = {
             "func{ func{ me |} };;"
         ]
     },
+    "delete to first left brancket": {
+        "in": [
+            "func( func( me| ) );;"
+        ],
+        "key": "d[(",
+        "out": [
+            "func( func| ) );;"
+        ]
+    },
+    "delete to first righy brancket": {
+        "in": [
+            "func( func( me| ) );;"
+        ],
+        "key": "d])",
+        "out": [
+            "func( func( me|) );;"
+        ]
+    },
 }

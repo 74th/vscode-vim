@@ -14,7 +14,7 @@ export class BackToBrancketMotion extends AbstractMotion {
 
     public CalculateEnd(editor: IEditor, vim: IVimStyle, start: IPosition): IPosition {
 
-        let p: IPosition = editor.GetCurrentPosition();
+        let p: IPosition = start.Copy();
         let line: string = editor.ReadLineAtCurrentPosition();
         let lastLine: number = editor.GetLastLineNum();
         while (this.Count > 0) {
@@ -65,7 +65,7 @@ export class ToBrancketMotion extends AbstractMotion {
 
     public CalculateEnd(editor: IEditor, vim: IVimStyle, start: IPosition): IPosition {
 
-        let p: IPosition = editor.GetCurrentPosition();
+        let p: IPosition = start.Copy();
         let line: string = editor.ReadLineAtCurrentPosition();
         let lastLine: number = editor.GetLastLineNum();
         while (this.Count > 0) {
