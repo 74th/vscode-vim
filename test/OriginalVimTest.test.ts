@@ -1,23 +1,23 @@
-import {VirtualEditor} from "./VirtualEditor";
-import {Position, VimStyle} from "../src/VimStyle";
-import {VimTests} from "./vim/VimTests";
-let assert = require("assert");
-let exec = require("child_process").exec;
-let fs = require("fs");
+import { VirtualEditor } from "./VirtualEditor";
+import { Position, VimStyle } from "../src/VimStyle";
+import { VimTests } from "./vim/VimTests";
+import { exec } from "child_process";
+import * as fs from 'async-file';
+import * as assert from "assert";
 
 for (let target in VimTests) {
-    describe("OriginalVim " + target, function() {
+    describe("OriginalVim " + target, function () {
         this.timeout(500);
         let test = VimTests[target];
         for (let specName in test) {
-            (function(specName) {
-                it(specName, function(done) {
+            (function (specName) {
+                it(specName, async function () {
                     let spec = test[specName];
                     let text = spec["in"][0];
                     for (let i = 1; i < spec["in"].length; i++) {
                         text += "\n" + spec["in"][i];
                     }
-                    fs.writeFile("OriginalVimInput", text);
+                    await fs.writeFile("OriginalVimInput", text);
                     text = "/|\n";
                     text += ":normal x\n";
                     let list = spec["key"].split("_");
@@ -27,24 +27,29 @@ for (let target in VimTests) {
                     text += ":normal i|\n";
                     text += ":w! OriginalVimOutput\n";
                     text += ":q!\n";
-                    fs.writeFile("OriginalVimKey", text);
-                    let child = exec("vim -u NONE -s OriginalVimKey OriginalVimInput");
-                    child.on("exit", function() {
-                        let i = 0;
-                        fs.readFile("OriginalVimOutput", function(err, text) {
-                            let out = text.toString().split("\n");
-                            let outText = out[0];
-                            let specText = spec.out[0];
-                            for (let i = 1; i < spec["out"].length; i++) {
-                                outText += "\n" + out[i];
-                                specText += "\n" + spec.out[i];
-                            }
-                            assert.equal(outText, specText);
-                            done();
-                        });
-                    });
+                    await fs.writeFile("OriginalVimKey", text);
+                    await execAsync("vim -u NONE -s OriginalVimKey OriginalVimInput");
+                    text = await fs.readFile("OriginalVimOutput");
+                    let out = text.toString().split("\n");
+                    let outText = out[0];
+                    let specText = spec.out[0];
+                    for (let i = 1; i < spec["out"].length; i++) {
+                        outText += "\n" + out[i];
+                        specText += "\n" + spec.out[i];
+                    }
+                    assert.equal(outText, specText);
                 });
             })(specName);
         }
     });
-} 
+}
+
+function execAsync(cmd: string): Promise<void> {
+    return new Promise<null>((resolve, reject) => {
+        exec(cmd).on("exit", (code, signal) => {
+            resolve(null);
+        }).on("error", (err) => {
+            reject(null);
+        });
+    });
+}
