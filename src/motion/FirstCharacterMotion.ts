@@ -1,6 +1,7 @@
-import {AbstractMotion} from "./AbstractMotion";
+import { AbstractMotion } from "./AbstractMotion";
+import { GoAction } from "../action/GoAction";
 import * as Utils from "../Utils";
-import {Position} from "../VimStyle";
+import { Position } from "../VimStyle";
 
 export class FirstCharacterMotion extends AbstractMotion {
 
@@ -63,4 +64,80 @@ export namespace FirstCharacterMotion {
         Last,
         Number
     }
+}
+
+// ^
+export function GotoFirstNonBlankCharacterInLine(num: number): IAction {
+    let a = new GoAction();
+    let m = new FirstCharacterMotion();
+    a.Motion = m;
+    m.Target = FirstCharacterMotion.Target.Current;
+    return a;
+}
+
+// c^
+export function AddFirstNonBlankCharacterInLineMotion(action: IAction, num: number): IAction {
+    let a = <IRequireMotionAction>action;
+    let m = new FirstCharacterMotion();
+    m.Target = FirstCharacterMotion.Target.Current;
+    a.Motion = m;
+    return a;
+}
+
+// G
+export function GotoLastLine(num: number): IAction {
+    let a = new GoAction();
+    let m = new FirstCharacterMotion();
+    m.Target = FirstCharacterMotion.Target.Last;
+    a.Motion = m;
+    return a;
+}
+
+// cG
+export function AddLastLineMotion(action: IAction, num: number): IAction {
+    let m = new FirstCharacterMotion();
+    m.Target = FirstCharacterMotion.Target.Last;
+    let a = <IRequireMotionAction>action;
+    a.Motion = m;
+    a.IsLine = true;
+    return a;
+}
+
+// NG
+export function GotoLine(num: number): IAction {
+    let a = new GoAction();
+    let m = new FirstCharacterMotion();
+    m.Count = this.getNumStack() - 1;
+    a.Motion = m;
+    return a;
+}
+
+// cNG
+export function AddLineMotion(action: IAction, num: number): IAction {
+    let m = new FirstCharacterMotion();
+    m.Count = this.getNumStack() - 1;
+    let a = <IRequireMotionAction>action;
+    a.Motion = m;
+    a.IsLine = true;
+    return a;
+}
+
+// gg
+export function GotoFirstLineOnFirstNonBlankCharacter(num: number): IAction {
+    let a = new GoAction();
+    let m = new FirstCharacterMotion();
+    m.Target = FirstCharacterMotion.Target.First;
+    a.Motion = m;
+    this.action = a;
+    return a;
+}
+
+// cgg
+export function AddFirstLineMotion(action: IAction, num: number): IAction {
+    let m = new FirstCharacterMotion();
+    m.Target = FirstCharacterMotion.Target.First;
+    let a = <IRequireMotionAction>action;
+    a.Motion = m;
+    a.IsLine = true;
+    return a;
 }

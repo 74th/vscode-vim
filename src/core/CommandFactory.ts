@@ -1,33 +1,32 @@
 import * as Utils from "../Utils";
-import {InsertTextAction} from "../action/InsertTextAction";
-import {OpenNewLineAndAppendTextAction} from "../action/OpenNewLineAndAppendTextAction";
-import {PutRegisterAction} from "../action/PutRegisterAction";
-import {DeleteYankChangeAction} from "../action/DeleteYankChangeAction";
-import {GoAction} from "../action/GoAction";
-import {GoDownAction} from "../action/MoveLineAction";
-import {StartVisualModeAction} from "../action/StartVisualModeAction";
-import {ExpandHighlightedTextAction} from "../action/ExpandHighlightedTextAction";
-import {DeleteYankChangeHighlightedTextAction} from "../action/DeleteYankChangeHighlightedTextAction";
-import {StartVisualLineModeAction} from "../action/StartVisualLineModeAction";
-import {ExpandHighlightedLineAction} from "../action/ExpandHighlightedLineAction";
-import {DeleteYankChangeHighlightedLineAction} from "../action/DeleteYankChangeHighlightedLineAction";
-import {ReplaceCharacterAction} from "../action/ReplaceCharacterAction";
-import {ReplaceCharacterOfSelectedTextAction} from "../action/ReplaceCharacterOfSelecetdTextAction";
-import {RepeatLastChangeAction} from "../action/RepeatLastChangeAction";
-import {RightMotion} from "../motion/RightMotion";
-import {DownMotion} from "../motion/DownMotion";
-import {FirstCharacterInLineMotion} from "../motion/FirstCharacterInLineMotion";
-import {LastCharacterInLineMotion} from "../motion/EndMotion";
-import {FindCharacterMotion} from "../motion/FindCharacterMotion";
-import {WordMotion} from "../motion/WordMotion";
-import {MoveWordMotion} from "../motion/MoveWordMotion";
-import {DeleteWordMotion} from "../motion/DeleteWordMotion";
-import {ChangeWordMotion} from "../motion/ChangeWordMotion";
-import {DeleteEndOfWordMotion} from "../motion/DeleteEndOfWordMotion";
-import {FirstCharacterMotion} from "../motion/FirstCharacterMotion";
-import {CallEditorCommandAction} from "../action/CallEditorCommandAction";
-import {ParagraphMotion} from "../motion/ParagraphMotion";
-import {BackToBrancketMotion, ToBrancketMotion } from "../motion/BrancketMotion";
+import { InsertTextAction } from "../action/InsertTextAction";
+import { OpenNewLineAndAppendTextAction } from "../action/OpenNewLineAndAppendTextAction";
+import { PutRegisterAction } from "../action/PutRegisterAction";
+import { DeleteYankChangeAction } from "../action/DeleteYankChangeAction";
+import { GoAction } from "../action/GoAction";
+import { GoDownAction } from "../action/MoveLineAction";
+import { StartVisualModeAction } from "../action/StartVisualModeAction";
+import { ExpandHighlightedTextAction } from "../action/ExpandHighlightedTextAction";
+import { DeleteYankChangeHighlightedTextAction } from "../action/DeleteYankChangeHighlightedTextAction";
+import { StartVisualLineModeAction } from "../action/StartVisualLineModeAction";
+import { ExpandHighlightedLineAction } from "../action/ExpandHighlightedLineAction";
+import { DeleteYankChangeHighlightedLineAction } from "../action/DeleteYankChangeHighlightedLineAction";
+import { ReplaceCharacterAction } from "../action/ReplaceCharacterAction";
+import { ReplaceCharacterOfSelectedTextAction } from "../action/ReplaceCharacterOfSelecetdTextAction";
+import { RepeatLastChangeAction } from "../action/RepeatLastChangeAction";
+import { RightMotion } from "../motion/RightMotion";
+import { DownMotion } from "../motion/DownMotion";
+import { LastCharacterInLineMotion } from "../motion/EndMotion";
+import { FindCharacterMotion } from "../motion/FindCharacterMotion";
+import { WordMotion } from "../motion/WordMotion";
+import { MoveWordMotion } from "../motion/MoveWordMotion";
+import { DeleteWordMotion } from "../motion/DeleteWordMotion";
+import { ChangeWordMotion } from "../motion/ChangeWordMotion";
+import { DeleteEndOfWordMotion } from "../motion/DeleteEndOfWordMotion";
+import { FirstCharacterMotion } from "../motion/FirstCharacterMotion";
+import { CallEditorCommandAction } from "../action/CallEditorCommandAction";
+import { ParagraphMotion } from "../motion/ParagraphMotion";
+import { BackToBrancketMotion, ToBrancketMotion } from "../motion/BrancketMotion";
 
 export class CommandFactory implements ICommandFactory {
 
@@ -213,22 +212,6 @@ export class CommandFactory implements ICommandFactory {
             // sorted and categorised by quickref.md
 
             // ** Left-right motions **
-            // 0
-            case VimCommand.gotoFirstCharacterInLine:
-                this.gotoFirstCharacterInLine();
-                return;
-            // c0
-            case VimCommand.firstCharacterInLineMotion:
-                this.addFirstCharacterInLineMotion();
-                return;
-            // ^
-            case VimCommand.gotoFirstLineOnFirstNonBlankCharacter:
-                this.gotoFirstLineOnFirstNonBlankCharacter();
-                return;
-            // c^
-            case VimCommand.firstNonBlankCharacterInLineMotion:
-                this.addFirstNonBlankCharacterInLineMotion();
-                return;
             // $
             case VimCommand.gotoLastCharacterInLine:
                 this.gotoLastCharacterInLine();
@@ -302,30 +285,6 @@ export class CommandFactory implements ICommandFactory {
             // cNj
             case VimCommand.downMotion:
                 this.addDownMotion();
-                return;
-            // G
-            case VimCommand.gotoLastLine:
-                this.gotoLastLine();
-                return;
-            // cG
-            case VimCommand.lastLineMotion:
-                this.addLastLineMotion();
-                return;
-            // NG
-            case VimCommand.gotoLine:
-                this.gotoLine();
-                return;
-            // cNG
-            case VimCommand.lineMotion:
-                this.addLineMotion();
-                return;
-            // gg
-            case VimCommand.gotoFirstNonBlankCharacterInLine:
-                this.gotoFirstNonBlankCharacterInLine();
-                return;
-            // cgg
-            case VimCommand.firstLineMotion:
-                this.addFirstLineMotion();
                 return;
             // ** Text object motions **
             // Nw
@@ -583,32 +542,6 @@ export class CommandFactory implements ICommandFactory {
         }
     }
 
-    // 0
-    private gotoFirstCharacterInLine() {
-        this.action = this.createGotoAction(new FirstCharacterInLineMotion());
-    }
-
-    // c0
-    private addFirstCharacterInLineMotion() {
-        let a = <IRequireMotionAction>this.action;
-        a.Motion = new FirstCharacterInLineMotion();
-    }
-
-    // ^
-    private gotoFirstNonBlankCharacterInLine() {
-        let m = new FirstCharacterMotion();
-        m.Target = FirstCharacterMotion.Target.Current;
-        this.action = this.createGotoAction(m);
-    }
-
-    // c^
-    private addFirstNonBlankCharacterInLineMotion() {
-        let a = <IRequireMotionAction>this.action;
-        let m = new FirstCharacterMotion();
-        m.Target = FirstCharacterMotion.Target.Current;
-        a.Motion = m;
-    }
-
     // c$
     private addLastCharacterInLineMotion() {
         let a = <IRequireMotionAction>this.action;
@@ -793,60 +726,6 @@ export class CommandFactory implements ICommandFactory {
         let m = new DownMotion();
         m.IsUpDirection = true;
         m.Count = this.getNumStack();
-        let a = <IRequireMotionAction>this.action;
-        a.Motion = m;
-        a.IsLine = true;
-    }
-
-    // G
-    private gotoLastLine() {
-        let a = new GoAction();
-        let m = new FirstCharacterMotion();
-        m.Target = FirstCharacterMotion.Target.Last;
-        a.Motion = m;
-        this.action = a;
-    }
-
-    // cG
-    private addLastLineMotion() {
-        let m = new FirstCharacterMotion();
-        m.Target = FirstCharacterMotion.Target.Last;
-        let a = <IRequireMotionAction>this.action;
-        a.Motion = m;
-        a.IsLine = true;
-    }
-
-    // NG
-    private gotoLine() {
-        let a = new GoAction();
-        let m = new FirstCharacterMotion();
-        m.Count = this.getNumStack() - 1;
-        a.Motion = m;
-        this.action = a;
-    }
-
-    // cNG
-    private addLineMotion() {
-        let m = new FirstCharacterMotion();
-        m.Count = this.getNumStack() - 1;
-        let a = <IRequireMotionAction>this.action;
-        a.Motion = m;
-        a.IsLine = true;
-    }
-
-    // gg
-    private gotoFirstLineOnFirstNonBlankCharacter() {
-        let a = new GoAction();
-        let m = new FirstCharacterMotion();
-        m.Target = FirstCharacterMotion.Target.First;
-        a.Motion = m;
-        this.action = a;
-    }
-
-    // cgg
-    private addFirstLineMotion() {
-        let m = new FirstCharacterMotion();
-        m.Target = FirstCharacterMotion.Target.First;
         let a = <IRequireMotionAction>this.action;
         a.Motion = m;
         a.IsLine = true;

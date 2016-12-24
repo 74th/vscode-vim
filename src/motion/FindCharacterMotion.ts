@@ -1,5 +1,6 @@
-import {AbstractMotion} from "./AbstractMotion";
-import {Position} from "../VimStyle";
+import { AbstractMotion } from "./AbstractMotion";
+import { GoAction } from "../action/GoAction";
+import { Position } from "../VimStyle";
 
 export class FindCharacterMotion extends AbstractMotion implements IRequireCharacterMotion {
 

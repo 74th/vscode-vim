@@ -1,4 +1,6 @@
 import * as RightMotion from "../motion/RightMotion";
+import * as FirstCharacterInLineMotion from "../motion/FirstCharacterInLineMotion";
+import * as FirstCharacterMotion from "../motion/FirstCharacterMotion";
 
 class KeyBindings implements IKeyBindings {
     AtStart: { [key: string]: IVimStyleCommand };
@@ -107,7 +109,7 @@ const DefaultKeyBindings: IKeyBindings = {
             state: StateName.SmallG
         },
         "G": {
-            cmd: VimCommand.gotoLastLine,
+            CreateAction: FirstCharacterMotion.GotoLastLine
         },
         "h": {
             CreateAction: RightMotion.GotoLeft
@@ -194,7 +196,7 @@ const DefaultKeyBindings: IKeyBindings = {
         // z never suppoer
         // Z no function
         "0": {
-            cmd: VimCommand.gotoFirstCharacterInLine
+            CreateAction: FirstCharacterInLineMotion.GotoFirstCharacterInLine
         },
         "1": {
             cmd: VimCommand.stackNumber,
@@ -245,7 +247,7 @@ const DefaultKeyBindings: IKeyBindings = {
             cmd: VimCommand.gotoRepeatCharacter
         },
         "^": {
-            cmd: VimCommand.gotoFirstNonBlankCharacterInLine
+            CreateAction: FirstCharacterMotion.GotoFirstNonBlankCharacterInLine
         },
         "[": {
             cmd: VimCommand.nothing,
@@ -300,7 +302,7 @@ const DefaultKeyBindings: IKeyBindings = {
             state: StateName.SmallG
         },
         "G": {
-            cmd: VimCommand.gotoLine
+            CreateAction: FirstCharacterMotion.GotoLine
         },
         "h": {
             CreateAction: RightMotion.GotoLeft
@@ -466,7 +468,7 @@ const DefaultKeyBindings: IKeyBindings = {
             state: StateName.SmallGForMotion
         },
         "G": {
-            cmd: VimCommand.lastLineMotion,
+            CreateMotion: FirstCharacterMotion.AddLastLineMotion
         },
         "h": {
             CreateMotion: RightMotion.AddLeftMotion
@@ -525,7 +527,7 @@ const DefaultKeyBindings: IKeyBindings = {
         // z never suppoer
         // Z no function
         "0": {
-            cmd: VimCommand.firstCharacterInLineMotion
+            CreateMotion: FirstCharacterInLineMotion.AddFirstCharacterInLineMotion
         },
         "1": {
             cmd: VimCommand.stackNumber,
@@ -573,7 +575,7 @@ const DefaultKeyBindings: IKeyBindings = {
             cmd: VimCommand.repeartCharacterMotion
         },
         "^": {
-            cmd: VimCommand.firstNonBlankCharacterInLineMotion
+            CreateMotion: FirstCharacterMotion.AddFirstNonBlankCharacterInLineMotion
         },
         "{": {
             cmd: VimCommand.paragraphBackwordMotion
@@ -621,7 +623,7 @@ const DefaultKeyBindings: IKeyBindings = {
         },
         // g
         "G": {
-            cmd: VimCommand.lineMotion
+            CreateMotion: FirstCharacterMotion.AddLineMotion
         },
         "h": {
             CreateMotion: RightMotion.AddLeftMotion
@@ -785,7 +787,7 @@ const DefaultKeyBindings: IKeyBindings = {
     // g
     SmallG: {
         "g": {
-            cmd: VimCommand.gotoFirstLineOnFirstNonBlankCharacter
+            CreateAction: FirstCharacterMotion.GotoFirstLineOnFirstNonBlankCharacter
         },
         "r": {
             cmd: VimCommand.replaceCharacterWithoutAffectingLayout,
@@ -796,7 +798,7 @@ const DefaultKeyBindings: IKeyBindings = {
     // cg
     SmallGForMotion: {
         "g": {
-            cmd: VimCommand.firstLineMotion
+            CreateMotion: FirstCharacterMotion.AddLineMotion
         }
     },
 
@@ -833,7 +835,7 @@ const DefaultKeyBindings: IKeyBindings = {
             state: StateName.SmallGForMotion
         },
         "G": {
-            cmd: VimCommand.lastLineMotion,
+            CreateMotion: FirstCharacterMotion.AddLastLineMotion
         },
         "h": {
             CreateMotion: RightMotion.AddLeftMotion
@@ -888,7 +890,7 @@ const DefaultKeyBindings: IKeyBindings = {
             cmd: VimCommand.yankHighlightedText
         },
         "0": {
-            cmd: VimCommand.firstCharacterInLineMotion
+            CreateMotion: FirstCharacterInLineMotion.AddFirstCharacterInLineMotion
         },
         "1": {
             cmd: VimCommand.stackNumber,
@@ -978,7 +980,7 @@ const DefaultKeyBindings: IKeyBindings = {
             state: StateName.SmallGForMotion
         },
         "G": {
-            cmd: VimCommand.lastLineMotion,
+            CreateMotion: FirstCharacterMotion.AddLastLineMotion
         },
         // V..h
         // V..H no function
@@ -1018,7 +1020,7 @@ const DefaultKeyBindings: IKeyBindings = {
             cmd: VimCommand.yankHighlightedLine
         },
         "0": {
-            cmd: VimCommand.firstCharacterInLineMotion
+            CreateMotion: FirstCharacterInLineMotion.AddFirstCharacterInLineMotion
         },
         "1": {
             cmd: VimCommand.stackNumber,
