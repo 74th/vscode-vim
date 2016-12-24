@@ -16,8 +16,7 @@ import { ReplaceCharacterOfSelectedTextAction } from "../action/ReplaceCharacter
 import { RepeatLastChangeAction } from "../action/RepeatLastChangeAction";
 import { RightMotion } from "../motion/RightMotion";
 import { DownMotion } from "../motion/DownMotion";
-import { LastCharacterInLineMotion } from "../motion/EndMotion";
-import { FindCharacterMotion } from "../motion/FindCharacterMotion";
+import { LastCharacterInLineMotion } from "../motion/LastCharacterInLineMotion";
 import { WordMotion } from "../motion/WordMotion";
 import { MoveWordMotion } from "../motion/MoveWordMotion";
 import { DeleteWordMotion } from "../motion/DeleteWordMotion";
@@ -210,64 +209,6 @@ export class CommandFactory implements ICommandFactory {
         switch (command.cmd) {
 
             // sorted and categorised by quickref.md
-
-            // ** Left-right motions **
-            // $
-            case VimCommand.gotoLastCharacterInLine:
-                this.gotoLastCharacterInLine();
-                return;
-            // c$
-            case VimCommand.lastCharacterInLineMotion:
-                this.addLastCharacterInLineMotion();
-                return;
-            // Nf{char}
-            case VimCommand.gotoCharacterToRight:
-                this.gotoCharacterToRight();
-                return;
-            // NF{char}
-            case VimCommand.gotoCharacterToLeft:
-                this.gotoCharacterToLeft();
-                return;
-            // cNf{char}
-            case VimCommand.characterToRightMotion:
-                this.addCharacterToRightMotion();
-                return;
-            // cNF{char}
-            case VimCommand.characterToLeftMotion:
-                this.addCharacterToLeftMotion();
-                return;
-            // Nt{char}
-            case VimCommand.goTillBeforeCharacterToRight:
-                this.goTillBeforeCharacterToRight();
-                return;
-            // NT{char}
-            case VimCommand.goTillBeforeCharacterToLeft:
-                this.goTillBeforeCharacterToLeft();
-                return;
-            //  cNt{char}
-            case VimCommand.tillBeforeCharToRightMotion:
-                this.addTillCharacterToRightMotion();
-                return;
-            //  cNT{char}
-            case VimCommand.tillBeforeCharToLeftMotion:
-                this.addTillCharacterToLeftMotion();
-                return;
-            // N;
-            case VimCommand.gotoRepeatCharacter:
-                this.gotoRepeatCharacter();
-                return;
-            // cN;
-            case VimCommand.repeartCharacterMotion:
-                this.addRepeartCharacterMotionaddCharacter();
-                return;
-            // N,
-            case VimCommand.gotoRepeatCharacterOppositeDirection:
-                this.gotoRepeatCharacterOppositeDirection();
-                return;
-            // cN,
-            case VimCommand.repeartCharacterMotionOppositeDirection:
-                this.addRepeartCharacterMotionOppositeDirection();
-                return;
 
             // ** Up-down motions **
             // Nk
@@ -542,153 +483,6 @@ export class CommandFactory implements ICommandFactory {
         }
     }
 
-    // c$
-    private addLastCharacterInLineMotion() {
-        let a = <IRequireMotionAction>this.action;
-        a.Motion = new LastCharacterInLineMotion();
-    }
-
-    // $
-    private gotoLastCharacterInLine() {
-        this.action = this.createGotoAction(new LastCharacterInLineMotion());
-    }
-
-    // fx
-    private gotoCharacterToRight() {
-        let a = new GoAction();
-        let m: FindCharacterMotion;
-        m = new FindCharacterMotion(Direction.Right);
-        m.Count = this.getNumStack();
-        a.Motion = m;
-        this.action = a;
-        this.motion = m;
-    }
-
-    // Fx
-    private gotoCharacterToLeft() {
-        let a = new GoAction();
-        let m: FindCharacterMotion;
-        m = new FindCharacterMotion(Direction.Left);
-        m.Count = this.getNumStack();
-        a.Motion = m;
-        this.action = a;
-        this.motion = m;
-    }
-
-    // tx
-    private goTillBeforeCharacterToRight() {
-        let a = new GoAction();
-        let m: FindCharacterMotion;
-        m = new FindCharacterMotion(Direction.Right);
-        m.Count = this.getNumStack();
-        m.IsTill = true;
-        a.Motion = m;
-        this.action = a;
-        this.motion = m;
-    }
-
-    // Tx
-    private goTillBeforeCharacterToLeft() {
-        let a = new GoAction();
-        let m: FindCharacterMotion;
-        m = new FindCharacterMotion(Direction.Left);
-        m.Count = this.getNumStack();
-        m.IsTill = true;
-        a.Motion = m;
-        this.action = a;
-        this.motion = m;
-    }
-
-    // cfx
-    private addCharacterToRightMotion() {
-        let m: FindCharacterMotion;
-        m = new FindCharacterMotion(Direction.Right);
-        m.IsContainTargetChar = true;
-        m.Count = this.getNumStack();
-        let a = <IRequireMotionAction>this.action;
-        a.Motion = m;
-        this.motion = m;
-    }
-
-
-    // cFx
-    private addCharacterToLeftMotion() {
-        let m: FindCharacterMotion;
-        m = new FindCharacterMotion(Direction.Left);
-        m.Count = this.getNumStack();
-        let a = <IRequireMotionAction>this.action;
-        a.Motion = m;
-        this.motion = m;
-    }
-
-    // ctx
-    private addTillCharacterToRightMotion() {
-        let m: FindCharacterMotion;
-        m = new FindCharacterMotion(Direction.Right);
-        m.IsContainTargetChar = true;
-        m.Count = this.getNumStack();
-        m.IsTill = true;
-        let a = <IRequireMotionAction>this.action;
-        a.Motion = m;
-        this.motion = m;
-    }
-
-    // cTx
-    private addTillCharacterToLeftMotion() {
-        let m: FindCharacterMotion;
-        m = new FindCharacterMotion(Direction.Left);
-        m.Count = this.getNumStack();
-        m.IsTill = true;
-        let a = <IRequireMotionAction>this.action;
-        a.Motion = m;
-        this.motion = m;
-    }
-
-    // N;
-    private gotoRepeatCharacter() {
-        let a = new GoAction();
-        let m: FindCharacterMotion;
-        m = new FindCharacterMotion(Direction.Right);
-        m.Count = this.getNumStack();
-        a.Motion = m;
-        this.action = a;
-        this.motion = m;
-    }
-
-    // c;
-    private addRepeartCharacterMotionaddCharacter() {
-        let m: FindCharacterMotion;
-        m = new FindCharacterMotion(null);
-        m.IsContainTargetChar = true;
-        m.Count = this.getNumStack();
-        let a = <IRequireMotionAction>this.action;
-        a.Motion = m;
-        this.motion = m;
-    }
-
-    // N,
-    private gotoRepeatCharacterOppositeDirection() {
-        let a = new GoAction();
-        let m: FindCharacterMotion;
-        m = new FindCharacterMotion(null);
-        m.OppositeDirection = true;
-        m.Count = this.getNumStack();
-        a.Motion = m;
-        this.action = a;
-        this.motion = m;
-    }
-
-    // c,
-    private addRepeartCharacterMotionOppositeDirection() {
-        let m: FindCharacterMotion;
-        m = new FindCharacterMotion(null);
-        m.OppositeDirection = true;
-        m.IsContainTargetChar = true;
-        m.Count = this.getNumStack();
-        let a = <IRequireMotionAction>this.action;
-        a.Motion = m;
-        this.motion = m;
-    }
     // -----
     // Up-down motions
     // -----
@@ -1279,7 +1073,8 @@ export class CommandFactory implements ICommandFactory {
     // -----
 
     private pushKeyAtRequireCharForMotion(key: string): IAction {
-        const m = this.motion as IRequireCharacterMotion;
+        const a = this.action as IRequireMotionAction;
+        const m = a.Motion as IRequireCharacterMotion;
         m.CharacterCode = key.charCodeAt(0);
         return this.action;
     }

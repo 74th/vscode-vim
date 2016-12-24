@@ -1,4 +1,4 @@
-import {AbstractInsertTextAction} from "./AbstractInsertTextAction";
+import { AbstractInsertTextAction } from "./AbstractInsertTextAction";
 export class InsertTextAction extends AbstractInsertTextAction {
     public Motion: IMotion;
 
@@ -34,6 +34,5 @@ export class InsertTextAction extends AbstractInsertTextAction {
             };
         }
     }
-
 
 }

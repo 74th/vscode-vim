@@ -98,3 +98,130 @@ export class FindCharacterMotion extends AbstractMotion implements IRequireChara
         return end;
     }
 }
+
+// fx
+export function GotoCharacterToRight(num: number): IAction {
+    let a = new GoAction();
+    let m: FindCharacterMotion;
+    m = new FindCharacterMotion(Direction.Right);
+    m.Count = num === 0 ? 1 : num;
+    a.Motion = m;
+    return a;
+}
+
+// Fx
+export function GotoCharacterToLeft(num: number): IAction {
+    let a = new GoAction();
+    let m: FindCharacterMotion;
+    m = new FindCharacterMotion(Direction.Left);
+    m.Count = num === 0 ? 1 : num;
+    a.Motion = m;
+    return a;
+}
+
+// tx
+export function GoTillBeforeCharacterToRight(num: number): IAction {
+    let a = new GoAction();
+    let m: FindCharacterMotion;
+    m = new FindCharacterMotion(Direction.Right);
+    m.Count = num === 0 ? 1 : num;
+    m.IsTill = true;
+    a.Motion = m;
+    return a;
+}
+
+// Tx
+export function GoTillBeforeCharacterToLeft(num: number): IAction {
+    let a = new GoAction();
+    let m: FindCharacterMotion;
+    m = new FindCharacterMotion(Direction.Left);
+    m.Count = num === 0 ? 1 : num;
+    m.IsTill = true;
+    a.Motion = m;
+    return a;
+}
+
+// cfx
+export function AddCharacterToRightMotion(num: number, action: IAction): void {
+    let m: FindCharacterMotion;
+    m = new FindCharacterMotion(Direction.Right);
+    m.IsContainTargetChar = true;
+    m.Count = num === 0 ? 1 : num;
+    let a = <IRequireMotionAction>action;
+    a.Motion = m;
+}
+
+
+// cFx
+export function AddCharacterToLeftMotion(num: number, action: IAction): void {
+    let m: FindCharacterMotion;
+    m = new FindCharacterMotion(Direction.Left);
+    m.Count = num === 0 ? 1 : num;
+    let a = <IRequireMotionAction>action;
+    a.Motion = m;
+}
+
+// ctx
+export function AddTillCharacterToRightMotion(num: number, action: IAction): void {
+    let m: FindCharacterMotion;
+    m = new FindCharacterMotion(Direction.Right);
+    m.IsContainTargetChar = true;
+    m.Count = num === 0 ? 1 : num;
+    m.IsTill = true;
+    let a = <IRequireMotionAction>this.action;
+    a.Motion = m;
+    this.motion = m;
+}
+
+// cTx
+export function AddTillCharacterToLeftMotion(num: number, action: IAction): void {
+    let m: FindCharacterMotion;
+    m = new FindCharacterMotion(Direction.Left);
+    m.Count = num === 0 ? 1 : num;
+    m.IsTill = true;
+    let a = <IRequireMotionAction>action;
+    a.Motion = m;
+}
+
+// N;
+export function GotoRepeatCharacter(num: number): IAction {
+    let a = new GoAction();
+    let m: FindCharacterMotion;
+    m = new FindCharacterMotion(Direction.Right);
+    m.Count = num === 0 ? 1 : num;
+    a.Motion = m;
+    this.action = a;
+    return a;
+}
+
+// c;
+export function AddRepeartCharacterMotion(num: number, action: IAction) {
+    let m: FindCharacterMotion;
+    m = new FindCharacterMotion(null);
+    m.IsContainTargetChar = true;
+    m.Count = num === 0 ? 1 : num;
+    let a = <IRequireMotionAction>action;
+    a.Motion = m;
+}
+
+// N,
+export function GotoRepeatCharacterOppositeDirection(num: number): IAction {
+    let a = new GoAction();
+    let m: FindCharacterMotion;
+    m = new FindCharacterMotion(null);
+    m.OppositeDirection = true;
+    m.Count = num === 0 ? 1 : num;
+    a.Motion = m;
+    return a;
+}
+
+// c,
+export function AddRepeartCharacterMotionOppositeDirection(num: number, action: IAction) {
+    let m: FindCharacterMotion;
+    m = new FindCharacterMotion(null);
+    m.OppositeDirection = true;
+    m.IsContainTargetChar = true;
+    m.Count = num === 0 ? 1 : num;
+    let a = <IRequireMotionAction>action;
+    a.Motion = m;
+}

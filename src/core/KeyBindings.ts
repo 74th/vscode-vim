@@ -1,6 +1,8 @@
 import * as RightMotion from "../motion/RightMotion";
 import * as FirstCharacterInLineMotion from "../motion/FirstCharacterInLineMotion";
 import * as FirstCharacterMotion from "../motion/FirstCharacterMotion";
+import * as LastCharacterInLineMotion from "../motion/LastCharacterInLineMotion";
+import * as FindCharacterMotion from "../motion/FindCharacterMotion";
 
 class KeyBindings implements IKeyBindings {
     AtStart: { [key: string]: IVimStyleCommand };
@@ -97,11 +99,11 @@ const DefaultKeyBindings: IKeyBindings = {
             cmd: VimCommand.gotoForwardToEndOfBlankSeparated
         },
         "f": {
-            cmd: VimCommand.gotoCharacterToRight,
+            CreateAction: FindCharacterMotion.GotoCharacterToRight,
             state: StateName.RequireCharForMotion
         },
         "F": {
-            cmd: VimCommand.gotoCharacterToLeft,
+            CreateAction: FindCharacterMotion.GotoCharacterToLeft,
             state: StateName.RequireCharForMotion
         },
         "g": {
@@ -159,11 +161,11 @@ const DefaultKeyBindings: IKeyBindings = {
             cmd: VimCommand.changeLines
         },
         "t": {
-            cmd: VimCommand.goTillBeforeCharacterToRight,
+            CreateAction: FindCharacterMotion.GoTillBeforeCharacterToRight,
             state: StateName.RequireCharForMotion
         },
         "T": {
-            cmd: VimCommand.goTillBeforeCharacterToLeft,
+            CreateAction: FindCharacterMotion.GoTillBeforeCharacterToLeft,
             state: StateName.RequireCharForMotion
         },
         // u low priority
@@ -235,16 +237,16 @@ const DefaultKeyBindings: IKeyBindings = {
             state: StateName.FirstNum
         },
         "$": {
-            cmd: VimCommand.gotoLastCharacterInLine
+            CreateAction: LastCharacterInLineMotion.GotoLastCharacterInLine
         },
         ".": {
             cmd: VimCommand.repeatLastChange
         },
         ",": {
-            cmd: VimCommand.gotoRepeatCharacterOppositeDirection
+            CreateAction: FindCharacterMotion.GotoRepeatCharacterOppositeDirection,
         },
         ";": {
-            cmd: VimCommand.gotoRepeatCharacter
+            CreateAction: FindCharacterMotion.GotoRepeatCharacter
         },
         "^": {
             CreateAction: FirstCharacterMotion.GotoFirstNonBlankCharacterInLine
@@ -290,11 +292,11 @@ const DefaultKeyBindings: IKeyBindings = {
             cmd: VimCommand.gotoForwardToEndOfBlankSeparated
         },
         "f": {
-            cmd: VimCommand.gotoCharacterToRight,
+            CreateAction: FindCharacterMotion.GotoCharacterToRight,
             state: StateName.RequireCharForMotion
         },
         "F": {
-            cmd: VimCommand.gotoCharacterToLeft,
+            CreateAction: FindCharacterMotion.GotoCharacterToLeft,
             state: StateName.RequireCharForMotion
         },
         "g": {
@@ -336,11 +338,11 @@ const DefaultKeyBindings: IKeyBindings = {
         // Ns low priority
         // NS low priority
         "t": {
-            cmd: VimCommand.goTillBeforeCharacterToRight,
+            CreateAction: FindCharacterMotion.GoTillBeforeCharacterToRight,
             state: StateName.RequireCharForMotion
         },
         "T": {
-            cmd: VimCommand.goTillBeforeCharacterToLeft,
+            CreateAction: FindCharacterMotion.GoTillBeforeCharacterToLeft,
             state: StateName.RequireCharForMotion
         },
         // u low priority
@@ -410,10 +412,10 @@ const DefaultKeyBindings: IKeyBindings = {
         },
         // $ ?
         ",": {
-            cmd: VimCommand.gotoRepeatCharacterOppositeDirection
+            CreateAction: FindCharacterMotion.GotoRepeatCharacterOppositeDirection
         },
         ";": {
-            cmd: VimCommand.gotoRepeatCharacter
+            CreateAction: FindCharacterMotion.GotoRepeatCharacter
         },
         "{": {
             cmd: VimCommand.gotoParagraphBackword
@@ -456,11 +458,11 @@ const DefaultKeyBindings: IKeyBindings = {
             cmd: VimCommand.endOfBlankSeparatedMotion
         },
         "f": {
-            cmd: VimCommand.characterToRightMotion,
+            AddMotion: FindCharacterMotion.AddCharacterToRightMotion,
             state: StateName.RequireCharForMotion
         },
         "F": {
-            cmd: VimCommand.characterToLeftMotion,
+            AddMotion: FindCharacterMotion.AddCharacterToLeftMotion,
             state: StateName.RequireCharForMotion
         },
         "g": {
@@ -499,11 +501,11 @@ const DefaultKeyBindings: IKeyBindings = {
         // s ?
         // S ?
         "t": {
-            cmd: VimCommand.tillBeforeCharToRightMotion,
+            AddMotion: FindCharacterMotion.AddTillCharacterToRightMotion,
             state: StateName.RequireCharForMotion
         },
         "T": {
-            cmd: VimCommand.tillBeforeCharToLeftMotion,
+            AddMotion: FindCharacterMotion.AddTillCharacterToLeftMotion,
             state: StateName.RequireCharForMotion
         },
         // u low priority
@@ -566,13 +568,13 @@ const DefaultKeyBindings: IKeyBindings = {
             state: StateName.RequireMotionNum
         },
         "$": {
-            cmd: VimCommand.lastCharacterInLineMotion
+            AddMotion: LastCharacterInLineMotion.AddLastCharacterInLineMotion
         },
         ",": {
-            cmd: VimCommand.repeartCharacterMotionOppositeDirection
+            AddMotion: FindCharacterMotion.AddRepeartCharacterMotionOppositeDirection
         },
         ";": {
-            cmd: VimCommand.repeartCharacterMotion
+            AddMotion: FindCharacterMotion.AddRepeartCharacterMotion
         },
         "^": {
             AddMotion: FirstCharacterMotion.AddFirstNonBlankCharacterInLineMotion
@@ -614,11 +616,11 @@ const DefaultKeyBindings: IKeyBindings = {
         // e
         // E
         "f": {
-            cmd: VimCommand.characterToRightMotion,
+            AddMotion: FindCharacterMotion.AddCharacterToRightMotion,
             state: StateName.RequireCharForMotion
         },
         "F": {
-            cmd: VimCommand.characterToLeftMotion,
+            AddMotion: FindCharacterMotion.AddCharacterToLeftMotion,
             state: StateName.RequireCharForMotion
         },
         // g
@@ -654,11 +656,11 @@ const DefaultKeyBindings: IKeyBindings = {
         // s ?
         // S ?
         "t": {
-            cmd: VimCommand.characterToRightMotion,
+            AddMotion: FindCharacterMotion.AddCharacterToRightMotion,
             state: StateName.RequireCharForMotion
         },
         "T": {
-            cmd: VimCommand.tillBeforeCharToLeftMotion,
+            AddMotion: FindCharacterMotion.AddTillCharacterToLeftMotion,
             state: StateName.RequireCharForMotion
         },
         // u low priority
@@ -717,11 +719,14 @@ const DefaultKeyBindings: IKeyBindings = {
             cmd: VimCommand.stackNumber,
             state: StateName.RequireMotionNum
         },
+        "$": {
+            AddMotion: LastCharacterInLineMotion.AddLastCharacterInLineMotion
+        },
         ",": {
-            cmd: VimCommand.repeartCharacterMotionOppositeDirection
+            AddMotion: FindCharacterMotion.AddRepeartCharacterMotionOppositeDirection
         },
         ";": {
-            cmd: VimCommand.repeartCharacterMotion
+            AddMotion: FindCharacterMotion.AddRepeartCharacterMotion
         },
         "{": {
             cmd: VimCommand.paragraphBackwordMotion
@@ -823,11 +828,11 @@ const DefaultKeyBindings: IKeyBindings = {
         // v..e
         // V..E
         "f": {
-            cmd: VimCommand.characterToRightMotion,
+            AddMotion: FindCharacterMotion.AddCharacterToRightMotion,
             state: StateName.RequireCharForMotion
         },
         "F": {
-            cmd: VimCommand.characterToLeftMotion,
+            AddMotion: FindCharacterMotion.AddCharacterToLeftMotion,
             state: StateName.RequireCharForMotion
         },
         "g": {
@@ -869,11 +874,11 @@ const DefaultKeyBindings: IKeyBindings = {
         // s ?
         // S ?
         "t": {
-            cmd: VimCommand.tillBeforeCharToRightMotion,
+            AddMotion: FindCharacterMotion.AddTillCharacterToRightMotion,
             state: StateName.RequireCharForMotion
         },
         "T": {
-            cmd: VimCommand.tillBeforeCharToLeftMotion,
+            AddMotion: FindCharacterMotion.AddTillCharacterToLeftMotion,
             state: StateName.RequireCharForMotion
         },
         // u low priority
@@ -929,13 +934,13 @@ const DefaultKeyBindings: IKeyBindings = {
             state: StateName.RequireMotionNum
         },
         "$": {
-            cmd: VimCommand.lastCharacterInLineMotion
+            AddMotion: LastCharacterInLineMotion.AddLastCharacterInLineMotion
         },
         ",": {
-            cmd: VimCommand.repeartCharacterMotionOppositeDirection
+            AddMotion: FindCharacterMotion.AddRepeartCharacterMotionOppositeDirection,
         },
         ";": {
-            cmd: VimCommand.repeartCharacterMotion
+            AddMotion: FindCharacterMotion.AddRepeartCharacterMotion
         },
         "{": {
             cmd: VimCommand.gotoParagraphBackword
@@ -973,8 +978,14 @@ const DefaultKeyBindings: IKeyBindings = {
         // V..D no command
         // V..e
         // V..E
-        // V..f
-        // V..F
+        "f": {
+            AddMotion: FindCharacterMotion.AddCharacterToRightMotion,
+            state: StateName.RequireCharForMotion
+        },
+        "F": {
+            AddMotion: FindCharacterMotion.AddCharacterToLeftMotion,
+            state: StateName.RequireCharForMotion
+        },
         "g": {
             cmd: VimCommand.nothing,
             state: StateName.SmallGForMotion
@@ -1006,8 +1017,14 @@ const DefaultKeyBindings: IKeyBindings = {
         // V..R low priority
         // V..s ?
         // V..S ?
-        // V..t ?
-        // V..T ?
+        "t": {
+            AddMotion: FindCharacterMotion.AddCharacterToRightMotion,
+            state: StateName.RequireCharForMotion
+        },
+        "T": {
+            AddMotion: FindCharacterMotion.AddTillCharacterToLeftMotion,
+            state: StateName.RequireCharForMotion
+        },
         // u low priority
         // U low priority
         // V..v low priority
@@ -1058,7 +1075,15 @@ const DefaultKeyBindings: IKeyBindings = {
             cmd: VimCommand.stackNumber,
             state: StateName.RequireMotionNum
         },
-        // V..$
+        "$": {
+            AddMotion: LastCharacterInLineMotion.AddLastCharacterInLineMotion
+        },
+        ",": {
+            AddMotion: FindCharacterMotion.AddRepeartCharacterMotionOppositeDirection
+        },
+        ";": {
+            AddMotion: FindCharacterMotion.AddRepeartCharacterMotion
+        },
         "{": {
             cmd: VimCommand.gotoParagraphBackword
         },
