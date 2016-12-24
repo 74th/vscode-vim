@@ -54,20 +54,18 @@ export function GotoLeft(num: number): IAction {
 }
 
 // ch
-export function AddRightMotion(action: IAction, num: number): IAction {
+export function AddRightMotion(num: number, action: IAction): void {
     let m = new RightMotion();
     m.Count = num;
     let a = <IRequireMotionAction>action;
     a.Motion = m;
-    return a;
 }
 
 // cl
-export function AddLeftMotion(action: IAction, num: number): IAction {
+export function AddLeftMotion(num: number, action: IAction): void {
     let m = new RightMotion();
     m.IsLeftDirection = true;
     m.Count = num;
     let a = <IRequireMotionAction>action;
     a.Motion = m;
-    return a;
 }

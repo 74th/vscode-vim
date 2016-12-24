@@ -21,8 +21,7 @@ export function GotoFirstCharacterInLine(num: number): IAction {
 }
 
 // c0
-export function AddFirstCharacterInLineMotion(action: IAction, num: number): IAction {
+export function AddFirstCharacterInLineMotion(num: number, action: IAction): void {
     let a = <IRequireMotionAction>action;
     a.Motion = new FirstCharacterInLineMotion();
-    return action;
 }

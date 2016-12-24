@@ -76,12 +76,11 @@ export function GotoFirstNonBlankCharacterInLine(num: number): IAction {
 }
 
 // c^
-export function AddFirstNonBlankCharacterInLineMotion(action: IAction, num: number): IAction {
+export function AddFirstNonBlankCharacterInLineMotion(num: number, action: IAction): void {
     let a = <IRequireMotionAction>action;
     let m = new FirstCharacterMotion();
     m.Target = FirstCharacterMotion.Target.Current;
     a.Motion = m;
-    return a;
 }
 
 // G
@@ -94,13 +93,12 @@ export function GotoLastLine(num: number): IAction {
 }
 
 // cG
-export function AddLastLineMotion(action: IAction, num: number): IAction {
+export function AddLastLineMotion(num: number, action: IAction): void {
     let m = new FirstCharacterMotion();
     m.Target = FirstCharacterMotion.Target.Last;
     let a = <IRequireMotionAction>action;
     a.Motion = m;
     a.IsLine = true;
-    return a;
 }
 
 // NG
@@ -113,13 +111,12 @@ export function GotoLine(num: number): IAction {
 }
 
 // cNG
-export function AddLineMotion(action: IAction, num: number): IAction {
+export function AddLineMotion(num: number, action: IAction): void {
     let m = new FirstCharacterMotion();
     m.Count = this.getNumStack() - 1;
     let a = <IRequireMotionAction>action;
     a.Motion = m;
     a.IsLine = true;
-    return a;
 }
 
 // gg
@@ -133,11 +130,10 @@ export function GotoFirstLineOnFirstNonBlankCharacter(num: number): IAction {
 }
 
 // cgg
-export function AddFirstLineMotion(action: IAction, num: number): IAction {
+export function AddFirstLineMotion(num: number, action: IAction) {
     let m = new FirstCharacterMotion();
     m.Target = FirstCharacterMotion.Target.First;
     let a = <IRequireMotionAction>action;
     a.Motion = m;
     a.IsLine = true;
-    return a;
 }

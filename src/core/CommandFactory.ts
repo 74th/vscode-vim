@@ -202,8 +202,8 @@ export class CommandFactory implements ICommandFactory {
             this.action = command.CreateAction(this.num);
             return;
         }
-        if (command.CreateMotion) {
-            this.action = command.CreateMotion(this.action, this.num);
+        if (command.AddMotion) {
+            command.AddMotion(this.num, this.action);
             return;
         }
 

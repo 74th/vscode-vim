@@ -468,10 +468,10 @@ const DefaultKeyBindings: IKeyBindings = {
             state: StateName.SmallGForMotion
         },
         "G": {
-            CreateMotion: FirstCharacterMotion.AddLastLineMotion
+            AddMotion: FirstCharacterMotion.AddLastLineMotion
         },
         "h": {
-            CreateMotion: RightMotion.AddLeftMotion
+            AddMotion: RightMotion.AddLeftMotion
         },
         // H no function
         // i
@@ -485,7 +485,7 @@ const DefaultKeyBindings: IKeyBindings = {
         },
         // K no function
         "l": {
-            CreateMotion: RightMotion.AddRightMotion
+            AddMotion: RightMotion.AddRightMotion
         },
         // L no function
         // o never support
@@ -527,7 +527,7 @@ const DefaultKeyBindings: IKeyBindings = {
         // z never suppoer
         // Z no function
         "0": {
-            CreateMotion: FirstCharacterInLineMotion.AddFirstCharacterInLineMotion
+            AddMotion: FirstCharacterInLineMotion.AddFirstCharacterInLineMotion
         },
         "1": {
             cmd: VimCommand.stackNumber,
@@ -575,7 +575,7 @@ const DefaultKeyBindings: IKeyBindings = {
             cmd: VimCommand.repeartCharacterMotion
         },
         "^": {
-            CreateMotion: FirstCharacterMotion.AddFirstNonBlankCharacterInLineMotion
+            AddMotion: FirstCharacterMotion.AddFirstNonBlankCharacterInLineMotion
         },
         "{": {
             cmd: VimCommand.paragraphBackwordMotion
@@ -623,10 +623,10 @@ const DefaultKeyBindings: IKeyBindings = {
         },
         // g
         "G": {
-            CreateMotion: FirstCharacterMotion.AddLineMotion
+            AddMotion: FirstCharacterMotion.AddLineMotion
         },
         "h": {
-            CreateMotion: RightMotion.AddLeftMotion
+            AddMotion: RightMotion.AddLeftMotion
         },
         // H no function
         // i
@@ -640,7 +640,7 @@ const DefaultKeyBindings: IKeyBindings = {
         },
         // K no function
         "l": {
-            CreateMotion: RightMotion.AddRightMotion
+            AddMotion: RightMotion.AddRightMotion
         },
         // L no function
         // o never support
@@ -798,7 +798,7 @@ const DefaultKeyBindings: IKeyBindings = {
     // cg
     SmallGForMotion: {
         "g": {
-            CreateMotion: FirstCharacterMotion.AddLineMotion
+            AddMotion: FirstCharacterMotion.AddLineMotion
         }
     },
 
@@ -835,10 +835,10 @@ const DefaultKeyBindings: IKeyBindings = {
             state: StateName.SmallGForMotion
         },
         "G": {
-            CreateMotion: FirstCharacterMotion.AddLastLineMotion
+            AddMotion: FirstCharacterMotion.AddLastLineMotion
         },
         "h": {
-            CreateMotion: RightMotion.AddLeftMotion
+            AddMotion: RightMotion.AddLeftMotion
         },
         // H no function
         // v..i
@@ -852,7 +852,7 @@ const DefaultKeyBindings: IKeyBindings = {
         },
         // K no function
         "l": {
-            CreateMotion: RightMotion.AddRightMotion
+            AddMotion: RightMotion.AddRightMotion
         },
         // l no function
         // o never support
@@ -890,7 +890,7 @@ const DefaultKeyBindings: IKeyBindings = {
             cmd: VimCommand.yankHighlightedText
         },
         "0": {
-            CreateMotion: FirstCharacterInLineMotion.AddFirstCharacterInLineMotion
+            AddMotion: FirstCharacterInLineMotion.AddFirstCharacterInLineMotion
         },
         "1": {
             cmd: VimCommand.stackNumber,
@@ -980,7 +980,7 @@ const DefaultKeyBindings: IKeyBindings = {
             state: StateName.SmallGForMotion
         },
         "G": {
-            CreateMotion: FirstCharacterMotion.AddLastLineMotion
+            AddMotion: FirstCharacterMotion.AddLastLineMotion
         },
         // V..h
         // V..H no function
@@ -1020,7 +1020,7 @@ const DefaultKeyBindings: IKeyBindings = {
             cmd: VimCommand.yankHighlightedLine
         },
         "0": {
-            CreateMotion: FirstCharacterInLineMotion.AddFirstCharacterInLineMotion
+            AddMotion: FirstCharacterInLineMotion.AddFirstCharacterInLineMotion
         },
         "1": {
             cmd: VimCommand.stackNumber,

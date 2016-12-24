@@ -153,7 +153,7 @@ interface IVimStyleCommand {
     argument?: string;
     callback?: ICommandCallback;
     CreateAction?: (num: number) => IAction;
-    CreateMotion?: (action: IAction, num: number) => IAction;
+    AddMotion?: (num: number, action: IAction) => void;
 }
 
 interface ICommandCallback { (editor: IEditor, vimStyle: IVimStyle): void }
