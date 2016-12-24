@@ -1,5 +1,6 @@
-import {AbstractMotion} from "./AbstractMotion";
-import {Position} from "../VimStyle";
+import { AbstractMotion } from "./AbstractMotion";
+import { GoAction } from "../action/GoAction";
+import { Position } from "../VimStyle";
 
 export class RightMotion extends AbstractMotion {
 
@@ -21,4 +22,52 @@ export class RightMotion extends AbstractMotion {
         }
         return editor.UpdateValidPosition(end);
     }
+}
+
+// Nh
+export function GotoRight(num: number): IAction {
+    let m = new RightMotion();
+    if (num === 0) {
+        m.Count = 1;
+    } else {
+        m.Count = num;
+    }
+    let a = new GoAction();
+    a.Motion = new RightMotion();
+    a.Motion = m;
+    return a;
+}
+
+// Nl
+export function GotoLeft(num: number): IAction {
+    let m = new RightMotion();
+    if (num === 0) {
+        m.Count = 1;
+    } else {
+        m.Count = num;
+    }
+    m.IsLeftDirection = true;
+    let a = new GoAction();
+    a.Motion = new RightMotion();
+    a.Motion = m;
+    return a;
+}
+
+// ch
+export function AddRightMotion(action: IAction, num: number): IAction {
+    let m = new RightMotion();
+    m.Count = num;
+    let a = <IRequireMotionAction>action;
+    a.Motion = m;
+    return a;
+}
+
+// cl
+export function AddLeftMotion(action: IAction, num: number): IAction {
+    let m = new RightMotion();
+    m.IsLeftDirection = true;
+    m.Count = num;
+    let a = <IRequireMotionAction>action;
+    a.Motion = m;
+    return a;
 }

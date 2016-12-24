@@ -52,8 +52,8 @@ interface IEditor {
 
 interface ICommandFactory {
     KeyBindings: IKeyBindings;
-    Nmap: { [key:string]: string };
-    Nnoremap: { [key:string]: string };
+    Nmap: { [key: string]: string };
+    Nnoremap: { [key: string]: string };
     PushKey(key: string, mode: VimMode, remap: boolean): IAction[];
     Clear(): void;
     GetCommandString(): string;
@@ -149,9 +149,11 @@ interface IVimStyle {
 
 interface IVimStyleCommand {
     state?: StateName;
-    cmd: VimCommand;
+    cmd?: VimCommand;
     argument?: string;
     callback?: ICommandCallback;
+    CreateAction?: (num: number) => IAction;
+    CreateMotion?: (action: IAction, num: number) => IAction;
 }
 
 interface ICommandCallback { (editor: IEditor, vimStyle: IVimStyle): void }

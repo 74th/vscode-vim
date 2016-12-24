@@ -199,27 +199,20 @@ export class CommandFactory implements ICommandFactory {
 
     private createVimStyleCommand(key: string, command: IVimStyleCommand) {
 
+        if (command.CreateAction) {
+            this.action = command.CreateAction(this.num);
+            return;
+        }
+        if (command.CreateMotion) {
+            this.action = command.CreateMotion(this.action, this.num);
+            return;
+        }
+
         switch (command.cmd) {
 
             // sorted and categorised by quickref.md
 
             // ** Left-right motions **
-            // Nj
-            case VimCommand.gotoRight:
-                this.gotoRight();
-                return;
-            // Nl
-            case VimCommand.gotoLeft:
-                this.gotoLeft();
-                return;
-            // cNj
-            case VimCommand.rightMotion:
-                this.addRightMotion();
-                return;
-            // cNl
-            case VimCommand.leftMotion:
-                this.addLeftMotion();
-                return;
             // 0
             case VimCommand.gotoFirstCharacterInLine:
                 this.gotoFirstCharacterInLine();
@@ -588,44 +581,6 @@ export class CommandFactory implements ICommandFactory {
             case VimCommand.editorCommand:
                 this.editorCommand(command);
         }
-    }
-
-    // sorted and categorised by quickref.md
-
-    // -----
-    // Left-right motions
-    // -----
-
-    // Nh
-    private gotoRight() {
-        let m = new RightMotion();
-        m.Count = this.getNumStack();
-        this.action = this.createGotoAction(m);
-    }
-
-    // Nl
-    private gotoLeft() {
-        let m = new RightMotion();
-        m.IsLeftDirection = true;
-        m.Count = this.getNumStack();
-        this.action = this.createGotoAction(m);
-    }
-
-    // ch
-    private addRightMotion() {
-        let m = new RightMotion();
-        m.Count = this.getNumStack();
-        let a = <IRequireMotionAction>this.action;
-        a.Motion = m;
-    }
-
-    // cl
-    private addLeftMotion() {
-        let m = new RightMotion();
-        m.IsLeftDirection = true;
-        m.Count = this.getNumStack();
-        let a = <IRequireMotionAction>this.action;
-        a.Motion = m;
     }
 
     // 0

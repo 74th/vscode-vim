@@ -1,3 +1,5 @@
+import * as RightMotion from "../motion/RightMotion";
+
 class KeyBindings implements IKeyBindings {
     AtStart: { [key: string]: IVimStyleCommand };
     FirstNum: { [key: string]: IVimStyleCommand };
@@ -108,7 +110,7 @@ const DefaultKeyBindings: IKeyBindings = {
             cmd: VimCommand.gotoLastLine,
         },
         "h": {
-            cmd: VimCommand.gotoLeft
+            CreateAction: RightMotion.GotoLeft
         },
         // H no function
         "i": {
@@ -126,7 +128,7 @@ const DefaultKeyBindings: IKeyBindings = {
         },
         // K no function
         "l": {
-            cmd: VimCommand.gotoRight
+            CreateAction: RightMotion.GotoRight
         },
         // L no function
         "o": {
@@ -301,7 +303,7 @@ const DefaultKeyBindings: IKeyBindings = {
             cmd: VimCommand.gotoLine
         },
         "h": {
-            cmd: VimCommand.gotoLeft
+            CreateAction: RightMotion.GotoLeft
         },
         // NH no function
         // Ni low priority
@@ -315,7 +317,7 @@ const DefaultKeyBindings: IKeyBindings = {
         },
         // K no function
         "l": {
-            cmd: VimCommand.gotoRight
+            CreateAction: RightMotion.GotoRight
         },
         // L no function
         // No low priority
@@ -467,7 +469,7 @@ const DefaultKeyBindings: IKeyBindings = {
             cmd: VimCommand.lastLineMotion,
         },
         "h": {
-            cmd: VimCommand.leftMotion
+            CreateMotion: RightMotion.AddLeftMotion
         },
         // H no function
         // i
@@ -481,7 +483,7 @@ const DefaultKeyBindings: IKeyBindings = {
         },
         // K no function
         "l": {
-            cmd: VimCommand.rightMotion
+            CreateMotion: RightMotion.AddRightMotion
         },
         // L no function
         // o never support
@@ -622,7 +624,7 @@ const DefaultKeyBindings: IKeyBindings = {
             cmd: VimCommand.lineMotion
         },
         "h": {
-            cmd: VimCommand.leftMotion
+            CreateMotion: RightMotion.AddLeftMotion
         },
         // H no function
         // i
@@ -636,7 +638,7 @@ const DefaultKeyBindings: IKeyBindings = {
         },
         // K no function
         "l": {
-            cmd: VimCommand.rightMotion
+            CreateMotion: RightMotion.AddRightMotion
         },
         // L no function
         // o never support
@@ -834,7 +836,7 @@ const DefaultKeyBindings: IKeyBindings = {
             cmd: VimCommand.lastLineMotion,
         },
         "h": {
-            cmd: VimCommand.leftMotion
+            CreateMotion: RightMotion.AddLeftMotion
         },
         // H no function
         // v..i
@@ -848,7 +850,7 @@ const DefaultKeyBindings: IKeyBindings = {
         },
         // K no function
         "l": {
-            cmd: VimCommand.rightMotion
+            CreateMotion: RightMotion.AddRightMotion
         },
         // l no function
         // o never support
