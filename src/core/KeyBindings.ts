@@ -3,6 +3,7 @@ import * as FirstCharacterInLineMotion from "../motion/FirstCharacterInLineMotio
 import * as FirstCharacterMotion from "../motion/FirstCharacterMotion";
 import * as LastCharacterInLineMotion from "../motion/LastCharacterInLineMotion";
 import * as FindCharacterMotion from "../motion/FindCharacterMotion";
+import * as DownMotion from "../motion/DownMotion";
 
 class KeyBindings implements IKeyBindings {
     AtStart: { [key: string]: IVimStyleCommand };
@@ -124,11 +125,11 @@ const DefaultKeyBindings: IKeyBindings = {
             cmd: VimCommand.insertTextBeforeFirstNonBlankInLine
         },
         "j": {
-            cmd: VimCommand.goDown
+            CreateAction: DownMotion.GoDown
         },
         // J
         "k": {
-            cmd: VimCommand.goUp
+            CreateAction: DownMotion.GoUp
         },
         // K no function
         "l": {
@@ -313,11 +314,11 @@ const DefaultKeyBindings: IKeyBindings = {
         // Ni low priority
         // NI low priority
         "j": {
-            cmd: VimCommand.goDown
+            CreateAction: DownMotion.GoDown
         },
         // NJ
         "k": {
-            cmd: VimCommand.goUp
+            CreateAction: DownMotion.GoUp
         },
         // K no function
         "l": {
@@ -479,11 +480,11 @@ const DefaultKeyBindings: IKeyBindings = {
         // i
         // I
         "j": {
-            cmd: VimCommand.downMotion
+            AddMotion: DownMotion.AddDownMotion
         },
         // J
         "k": {
-            cmd: VimCommand.upMotion
+            AddMotion: DownMotion.AddUpMotion
         },
         // K no function
         "l": {
@@ -634,11 +635,11 @@ const DefaultKeyBindings: IKeyBindings = {
         // i
         // I
         "j": {
-            cmd: VimCommand.downMotion
+            AddMotion: DownMotion.AddDownMotion
         },
         // J
         "k": {
-            cmd: VimCommand.upMotion
+            AddMotion: DownMotion.AddUpMotion
         },
         // K no function
         "l": {
@@ -849,11 +850,11 @@ const DefaultKeyBindings: IKeyBindings = {
         // v..i
         // v..I
         "j": {
-            cmd: VimCommand.downMotion
+            AddMotion: DownMotion.AddDownMotion
         },
         // J?
         "k": {
-            cmd: VimCommand.upMotion
+            AddMotion: DownMotion.AddUpMotion
         },
         // K no function
         "l": {
@@ -998,11 +999,11 @@ const DefaultKeyBindings: IKeyBindings = {
         // V..i
         // V..I
         "j": {
-            cmd: VimCommand.downMotion
+            AddMotion: DownMotion.AddDownMotion
         },
         // V..J?
         "k": {
-            cmd: VimCommand.upMotion
+            AddMotion: DownMotion.AddUpMotion
         },
         // V..K no function
         // V..l

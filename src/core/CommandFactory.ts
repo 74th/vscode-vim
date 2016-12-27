@@ -4,7 +4,6 @@ import { OpenNewLineAndAppendTextAction } from "../action/OpenNewLineAndAppendTe
 import { PutRegisterAction } from "../action/PutRegisterAction";
 import { DeleteYankChangeAction } from "../action/DeleteYankChangeAction";
 import { GoAction } from "../action/GoAction";
-import { GoDownAction } from "../action/MoveLineAction";
 import { StartVisualModeAction } from "../action/StartVisualModeAction";
 import { ExpandHighlightedTextAction } from "../action/ExpandHighlightedTextAction";
 import { DeleteYankChangeHighlightedTextAction } from "../action/DeleteYankChangeHighlightedTextAction";
@@ -22,7 +21,7 @@ import { MoveWordMotion } from "../motion/MoveWordMotion";
 import { DeleteWordMotion } from "../motion/DeleteWordMotion";
 import { ChangeWordMotion } from "../motion/ChangeWordMotion";
 import { DeleteEndOfWordMotion } from "../motion/DeleteEndOfWordMotion";
-import { FirstCharacterMotion } from "../motion/FirstCharacterMotion";
+import * as FirstCharacterMotion from "../motion/FirstCharacterMotion";
 import { CallEditorCommandAction } from "../action/CallEditorCommandAction";
 import { ParagraphMotion } from "../motion/ParagraphMotion";
 import { BackToBrancketMotion, ToBrancketMotion } from "../motion/BrancketMotion";
@@ -209,24 +208,6 @@ export class CommandFactory implements ICommandFactory {
         switch (command.cmd) {
 
             // sorted and categorised by quickref.md
-
-            // ** Up-down motions **
-            // Nk
-            case VimCommand.goUp:
-                this.goUp();
-                return;
-            // Nj
-            case VimCommand.goDown:
-                this.goDown();
-                return;
-            // cNk
-            case VimCommand.upMotion:
-                this.addUpMotion();
-                return;
-            // cNj
-            case VimCommand.downMotion:
-                this.addDownMotion();
-                return;
             // ** Text object motions **
             // Nw
             case VimCommand.gotoWordFoward:
@@ -487,43 +468,7 @@ export class CommandFactory implements ICommandFactory {
     // Up-down motions
     // -----
 
-    // j
-    private goDown() {
-        let m = new DownMotion();
-        m.Count = this.getNumStack();
-        let a = new GoDownAction();
-        a.Motion = m;
-        this.action = a;
-    }
 
-    // k
-    private goUp() {
-        let m = new DownMotion();
-        m.IsUpDirection = true;
-        m.Count = this.getNumStack();
-        let a = new GoDownAction();
-        a.Motion = m;
-        this.action = a;
-    }
-
-    // cj
-    private addDownMotion() {
-        let m = new DownMotion();
-        m.Count = this.getNumStack();
-        let a = <IRequireMotionAction>this.action;
-        a.Motion = m;
-        a.IsLine = true;
-    }
-
-    // ck
-    private addUpMotion() {
-        let m = new DownMotion();
-        m.IsUpDirection = true;
-        m.Count = this.getNumStack();
-        let a = <IRequireMotionAction>this.action;
-        a.Motion = m;
-        a.IsLine = true;
-    }
 
     // -----
     // Text object motions
@@ -820,7 +765,7 @@ export class CommandFactory implements ICommandFactory {
 
     // I
     private insertTextBeforeFirstNonBlankInLine() {
-        let m = new FirstCharacterMotion();
+        let m = new FirstCharacterMotion.FirstCharacterMotion();
         m.Target = FirstCharacterMotion.Target.Current;
         this.action = new InsertTextAction(m);
     }

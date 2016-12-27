@@ -1,5 +1,9 @@
 import * as Utils from "../Utils";
 
+/**
+ * j k
+ * this refarenced motion/DownMotion.ts
+ */
 export class GoDownAction implements IAction {
 
     public Motion: IMotion;

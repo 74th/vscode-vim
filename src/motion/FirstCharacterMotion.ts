@@ -60,7 +60,7 @@ export class FirstCharacterMotion extends AbstractMotion {
     }
 }
 
-enum Target {
+export enum Target {
     Current,
     First,
     Last,
