@@ -1,7 +1,12 @@
-import {AbstractMotion} from "./AbstractMotion";
+import { AbstractMotion } from "./AbstractMotion";
 import * as Utils from "../Utils";
-import {Position} from "../VimStyle";
+import { Position } from "../VimStyle";
 
+/**
+ * b B e E
+ * cb cB ce cE
+ * this class will be replaced
+ */
 export class WordMotion extends AbstractMotion {
 
     public Direction: Direction;

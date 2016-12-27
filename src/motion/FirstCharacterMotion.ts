@@ -3,14 +3,18 @@ import { GoAction } from "../action/GoAction";
 import * as Utils from "../Utils";
 import { Position } from "../VimStyle";
 
+/**
+ * ^ G gg
+ * c^ cG cgg
+ */
 export class FirstCharacterMotion extends AbstractMotion {
 
-    public Target: FirstCharacterMotion.Target;
+    public Target: Target;
     public IsSkipSpaces: boolean;
 
     constructor() {
         super();
-        this.Target = FirstCharacterMotion.Target.Number;
+        this.Target = Target.Number;
         this.IsSkipSpaces = false;
     }
 
@@ -19,19 +23,19 @@ export class FirstCharacterMotion extends AbstractMotion {
         let lineDocument: string;
         let lineNumber: number;
         switch (this.Target) {
-            case FirstCharacterMotion.Target.Current:
+            case Target.Current:
                 lineDocument = editor.ReadLineAtCurrentPosition();
                 lineNumber = start.Line;
                 break;
-            case FirstCharacterMotion.Target.First:
+            case Target.First:
                 lineNumber = 0;
                 lineDocument = editor.ReadLine(lineNumber);
                 break;
-            case FirstCharacterMotion.Target.Last:
+            case Target.Last:
                 lineNumber = editor.GetLastLineNum();
                 lineDocument = editor.ReadLine(lineNumber);
                 break;
-            case FirstCharacterMotion.Target.Number:
+            case Target.Number:
                 lineNumber = this.Count;
                 let lastLineNum = editor.GetLastLineNum();
                 if (lineNumber > lastLineNum) {
@@ -56,52 +60,59 @@ export class FirstCharacterMotion extends AbstractMotion {
     }
 }
 
-export namespace FirstCharacterMotion {
-
-    export enum Target {
-        Current,
-        First,
-        Last,
-        Number
-    }
+enum Target {
+    Current,
+    First,
+    Last,
+    Number
 }
 
-// ^
+/**
+ * ^
+ */
 export function GotoFirstNonBlankCharacterInLine(num: number): IAction {
     let a = new GoAction();
     let m = new FirstCharacterMotion();
     a.Motion = m;
-    m.Target = FirstCharacterMotion.Target.Current;
+    m.Target = Target.Current;
     return a;
 }
 
-// c^
+/**
+ * c^
+ */
 export function AddFirstNonBlankCharacterInLineMotion(num: number, action: IAction): void {
     let a = <IRequireMotionAction>action;
     let m = new FirstCharacterMotion();
-    m.Target = FirstCharacterMotion.Target.Current;
+    m.Target = Target.Current;
     a.Motion = m;
 }
 
-// G
+/**
+ * G
+ */
 export function GotoLastLine(num: number): IAction {
     let a = new GoAction();
     let m = new FirstCharacterMotion();
-    m.Target = FirstCharacterMotion.Target.Last;
+    m.Target = Target.Last;
     a.Motion = m;
     return a;
 }
 
-// cG
+/**
+ * cG
+ */
 export function AddLastLineMotion(num: number, action: IAction): void {
     let m = new FirstCharacterMotion();
-    m.Target = FirstCharacterMotion.Target.Last;
+    m.Target = Target.Last;
     let a = <IRequireMotionAction>action;
     a.Motion = m;
     a.IsLine = true;
 }
 
-// NG
+/**
+ * NG
+ */
 export function GotoLine(num: number): IAction {
     let a = new GoAction();
     let m = new FirstCharacterMotion();
@@ -110,7 +121,9 @@ export function GotoLine(num: number): IAction {
     return a;
 }
 
-// cNG
+/**
+ * cNG
+ */
 export function AddLineMotion(num: number, action: IAction): void {
     let m = new FirstCharacterMotion();
     m.Count = this.getNumStack() - 1;
@@ -119,20 +132,24 @@ export function AddLineMotion(num: number, action: IAction): void {
     a.IsLine = true;
 }
 
-// gg
+/**
+ * gg
+ */
 export function GotoFirstLineOnFirstNonBlankCharacter(num: number): IAction {
     let a = new GoAction();
     let m = new FirstCharacterMotion();
-    m.Target = FirstCharacterMotion.Target.First;
+    m.Target = Target.First;
     a.Motion = m;
     this.action = a;
     return a;
 }
 
-// cgg
+/**
+ * cgg
+ */
 export function AddFirstLineMotion(num: number, action: IAction) {
     let m = new FirstCharacterMotion();
-    m.Target = FirstCharacterMotion.Target.First;
+    m.Target = Target.First;
     let a = <IRequireMotionAction>action;
     a.Motion = m;
     a.IsLine = true;

@@ -1,4 +1,4 @@
-import {Range} from "../VimStyle";
+import { Range } from "../VimStyle";
 export class StartVisualLineModeAction implements IAction {
 
     public GetActionType(): ActionType {

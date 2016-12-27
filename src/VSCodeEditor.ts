@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import {Position, Range} from "./VimStyle";
+import { Position, Range } from "./VimStyle";
 import * as Utils from "./Utils";
 
 enum EditorActionType {

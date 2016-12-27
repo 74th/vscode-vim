@@ -2,6 +2,10 @@ import { AbstractMotion } from "./AbstractMotion";
 import { GoAction } from "../action/GoAction";
 import { Position } from "../VimStyle";
 
+/**
+ * fx Fx tx Tx ; ,
+ * cfx cFx ctx cTx c; c,
+ */
 export class FindCharacterMotion extends AbstractMotion implements IRequireCharacterMotion {
 
     public CharacterCode: number;
@@ -99,7 +103,9 @@ export class FindCharacterMotion extends AbstractMotion implements IRequireChara
     }
 }
 
-// fx
+/**
+ * fx
+ */
 export function GotoCharacterToRight(num: number): IAction {
     let a = new GoAction();
     let m: FindCharacterMotion;
@@ -109,7 +115,9 @@ export function GotoCharacterToRight(num: number): IAction {
     return a;
 }
 
-// Fx
+/**
+ * Fx
+ */
 export function GotoCharacterToLeft(num: number): IAction {
     let a = new GoAction();
     let m: FindCharacterMotion;
@@ -119,7 +127,9 @@ export function GotoCharacterToLeft(num: number): IAction {
     return a;
 }
 
-// tx
+/**
+ * tx
+ */
 export function GoTillBeforeCharacterToRight(num: number): IAction {
     let a = new GoAction();
     let m: FindCharacterMotion;
@@ -130,7 +140,9 @@ export function GoTillBeforeCharacterToRight(num: number): IAction {
     return a;
 }
 
-// Tx
+/**
+ * Tx
+ */
 export function GoTillBeforeCharacterToLeft(num: number): IAction {
     let a = new GoAction();
     let m: FindCharacterMotion;
@@ -141,7 +153,9 @@ export function GoTillBeforeCharacterToLeft(num: number): IAction {
     return a;
 }
 
-// cfx
+/**
+ * cfx
+ */
 export function AddCharacterToRightMotion(num: number, action: IAction): void {
     let m: FindCharacterMotion;
     m = new FindCharacterMotion(Direction.Right);
@@ -152,7 +166,9 @@ export function AddCharacterToRightMotion(num: number, action: IAction): void {
 }
 
 
-// cFx
+/**
+ * cFx
+ */
 export function AddCharacterToLeftMotion(num: number, action: IAction): void {
     let m: FindCharacterMotion;
     m = new FindCharacterMotion(Direction.Left);
@@ -161,7 +177,9 @@ export function AddCharacterToLeftMotion(num: number, action: IAction): void {
     a.Motion = m;
 }
 
-// ctx
+/**
+ * ctx
+ */
 export function AddTillCharacterToRightMotion(num: number, action: IAction): void {
     let m: FindCharacterMotion;
     m = new FindCharacterMotion(Direction.Right);
@@ -173,7 +191,9 @@ export function AddTillCharacterToRightMotion(num: number, action: IAction): voi
     this.motion = m;
 }
 
-// cTx
+/**
+ * cTx
+ */
 export function AddTillCharacterToLeftMotion(num: number, action: IAction): void {
     let m: FindCharacterMotion;
     m = new FindCharacterMotion(Direction.Left);
@@ -183,7 +203,9 @@ export function AddTillCharacterToLeftMotion(num: number, action: IAction): void
     a.Motion = m;
 }
 
-// N;
+/**
+ * N;
+ */
 export function GotoRepeatCharacter(num: number): IAction {
     let a = new GoAction();
     let m: FindCharacterMotion;
@@ -194,7 +216,9 @@ export function GotoRepeatCharacter(num: number): IAction {
     return a;
 }
 
-// c;
+/**
+ * c;
+ */
 export function AddRepeartCharacterMotion(num: number, action: IAction) {
     let m: FindCharacterMotion;
     m = new FindCharacterMotion(null);
@@ -204,7 +228,9 @@ export function AddRepeartCharacterMotion(num: number, action: IAction) {
     a.Motion = m;
 }
 
-// N,
+/**
+ * N,
+ */
 export function GotoRepeatCharacterOppositeDirection(num: number): IAction {
     let a = new GoAction();
     let m: FindCharacterMotion;
@@ -215,7 +241,9 @@ export function GotoRepeatCharacterOppositeDirection(num: number): IAction {
     return a;
 }
 
-// c,
+/**
+ * c,
+ */
 export function AddRepeartCharacterMotionOppositeDirection(num: number, action: IAction) {
     let m: FindCharacterMotion;
     m = new FindCharacterMotion(null);

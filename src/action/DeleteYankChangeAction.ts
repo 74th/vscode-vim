@@ -1,6 +1,6 @@
-import {AbstractInsertTextAction} from "./AbstractInsertTextAction";
-import {Range, Position} from "../VimStyle";
-import {RegisterItem} from "../core/Register";
+import { AbstractInsertTextAction } from "./AbstractInsertTextAction";
+import { Range, Position } from "../VimStyle";
+import { RegisterItem } from "../core/Register";
 
 export class DeleteYankChangeAction extends AbstractInsertTextAction implements IRequireMotionAction, IInsertTextAction {
 
@@ -58,7 +58,7 @@ export class DeleteYankChangeAction extends AbstractInsertTextAction implements 
             nextPosition.Char = 0;
         } else {
             if (endLine.length <= range.end.Char) {
-                // delete to end of line 
+                // delete to end of line
                 if (this.IsChange) {
                     nextPosition.Char = range.start.Char;
                 } else {

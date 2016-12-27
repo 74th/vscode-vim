@@ -1,8 +1,11 @@
-import {AbstractMotion} from "./AbstractMotion";
+import { AbstractMotion } from "./AbstractMotion";
 import * as Utils from "../Utils";
-import {Position} from "../VimStyle";
+import { Position } from "../VimStyle";
 
-// please see wordMotionStateModel/deleteWord.png
+/**
+ * dw
+ * please see wordMotionStateModel/deleteWord.png
+ */
 export class DeleteWordMotion extends AbstractMotion {
 
     public IsWORD: boolean;

@@ -1,11 +1,11 @@
-import {CommandFactory} from "./core/CommandFactory";
-import {LoadKeyBindings, ApplyKeyBindings} from "./core/KeyBindings";
-import {InsertModeExecute} from "./mode/InsertMode";
-import {InsertTextAction} from "./action/InsertTextAction";
-import {FindCharacterMotion} from "./motion/FindCharacterMotion";
-import {ExecExCommand} from "./core/ExMode";
+import { CommandFactory } from "./core/CommandFactory";
+import { LoadKeyBindings, ApplyKeyBindings } from "./core/KeyBindings";
+import { InsertModeExecute } from "./mode/InsertMode";
+import { InsertTextAction } from "./action/InsertTextAction";
+import { FindCharacterMotion } from "./motion/FindCharacterMotion";
+import { ExecExCommand } from "./core/ExMode";
 import * as Utils from "./Utils";
-import {Register} from "./core/Register";
+import { Register } from "./core/Register";
 
 export class VimStyle implements IVimStyle {
 

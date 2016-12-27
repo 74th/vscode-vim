@@ -1,5 +1,5 @@
-import {Range, Position} from "../VimStyle";
-import {RegisterItem} from "../core/Register";
+import { Range, Position } from "../VimStyle";
+import { RegisterItem } from "../core/Register";
 
 export class DeleteYankChangeHighlightedLineAction implements IInsertTextAction {
 

@@ -2,6 +2,9 @@ import { AbstractMotion } from "./AbstractMotion";
 import { GoAction } from "../action/GoAction";
 import { Position } from "../VimStyle";
 
+/**
+ * 0 c0
+ */
 class FirstCharacterInLineMotion extends AbstractMotion {
 
     public CalculateEnd(editor: IEditor, vim: IVimStyle, start: IPosition): IPosition {
@@ -12,7 +15,9 @@ class FirstCharacterInLineMotion extends AbstractMotion {
     }
 }
 
-// 0
+/**
+ * 0
+ */
 export function GotoFirstCharacterInLine(num: number): IAction {
 
     let a = new GoAction();
@@ -20,7 +25,9 @@ export function GotoFirstCharacterInLine(num: number): IAction {
     return a;
 }
 
-// c0
+/**
+ * c0
+ */
 export function AddFirstCharacterInLineMotion(num: number, action: IAction): void {
     let a = <IRequireMotionAction>action;
     a.Motion = new FirstCharacterInLineMotion();

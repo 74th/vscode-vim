@@ -1,5 +1,5 @@
-import {AbstractInsertTextAction} from "./AbstractInsertTextAction";
-import {Position} from "../VimStyle";
+import { AbstractInsertTextAction } from "./AbstractInsertTextAction";
+import { Position } from "../VimStyle";
 import * as Utils from "../Utils";
 
 export class OpenNewLineAndAppendTextAction extends AbstractInsertTextAction {

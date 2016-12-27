@@ -1,4 +1,4 @@
-import {Position} from "../VimStyle";
+import { Position } from "../VimStyle";
 
 export class PutRegisterAction implements IAction {
 

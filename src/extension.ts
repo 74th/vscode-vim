@@ -1,7 +1,7 @@
 import * as vscode from "vscode";
-import {VimStyle} from "./VimStyle";
-import {VSCodeEditor, IVSCodeEditorOptions} from "./VSCodeEditor";
-import {VSCodeEditorKeyBindngs} from "./VSCodeEditorKeyBindings";
+import { VimStyle } from "./VimStyle";
+import { VSCodeEditor, IVSCodeEditorOptions } from "./VSCodeEditor";
+import { VSCodeEditorKeyBindngs } from "./VSCodeEditorKeyBindings";
 
 function checkImapAction(bindkey: string): boolean {
     let p = vscode.window.activeTextEditor.selection.active;
@@ -22,7 +22,7 @@ function checkImapAction(bindkey: string): boolean {
         });
     }
     // set position
-    let np = new vscode.Position(p.line,p.character-(bindkey.length-1))
+    let np = new vscode.Position(p.line, p.character - (bindkey.length - 1))
     vscode.window.activeTextEditor.selection = new vscode.Selection(np, np);
     return true;
 }

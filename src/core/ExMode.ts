@@ -1,4 +1,4 @@
-import {Nmap, Nnoremap} from "../ex/Map";
+import { Nmap, Nnoremap } from "../ex/Map";
 
 export function ExecExCommand(line: string, vimStyle: IVimStyle, editor: IEditor) {
     let sp = line.indexOf(" ");

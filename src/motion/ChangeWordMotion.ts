@@ -1,8 +1,11 @@
-import {AbstractMotion} from "./AbstractMotion";
+import { AbstractMotion } from "./AbstractMotion";
 import * as Utils from "../Utils";
-import {Position} from "../VimStyle";
+import { Position } from "../VimStyle";
 
-// please see wordMotionStateModel/changeWord.png
+/**
+ * cw
+ * please see wordMotionStateModel/changeWord.png
+ */
 export class ChangeWordMotion extends AbstractMotion {
 
     public IsWORD: boolean;

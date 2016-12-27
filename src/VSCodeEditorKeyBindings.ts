@@ -18,19 +18,19 @@ export const VSCodeEditorKeyBindngs: IKeyBindings = {
         },
         "N": {
             cmd: VimCommand.editorCommand,
-           argument:"editor.action.previousMatchFindAction"
+            argument: "editor.action.previousMatchFindAction"
         },
         ">": {
             cmd: VimCommand.editorCommand,
-            argument:"editor.action.indentLines"
+            argument: "editor.action.indentLines"
         },
         "<": {
             cmd: VimCommand.editorCommand,
-            argument:"editor.action.outdentLines"
+            argument: "editor.action.outdentLines"
         },
         "%": {
             cmd: VimCommand.editorCommand,
-            argument:"editor.action.jumpToBracket"
+            argument: "editor.action.jumpToBracket"
         }
     },
     FirstNum: {
@@ -70,19 +70,19 @@ export const VSCodeEditorKeyBindngs: IKeyBindings = {
         },
         "N": {
             cmd: VimCommand.editorCommand,
-           argument:"editor.action.previousMatchFindAction"
+            argument: "editor.action.previousMatchFindAction"
         },
         ">": {
             cmd: VimCommand.editorCommand,
-            argument:"editor.action.indentLines"
+            argument: "editor.action.indentLines"
         },
         "<": {
             cmd: VimCommand.editorCommand,
-            argument:"editor.action.outdentLines"
+            argument: "editor.action.outdentLines"
         },
         "%": {
             cmd: VimCommand.editorCommand,
-            argument:"editor.action.jumpToBracket"
+            argument: "editor.action.jumpToBracket"
         }
     },
     VisualLineMode: {
@@ -104,19 +104,19 @@ export const VSCodeEditorKeyBindngs: IKeyBindings = {
         },
         "N": {
             cmd: VimCommand.editorCommand,
-           argument:"editor.action.previousMatchFindAction"
+            argument: "editor.action.previousMatchFindAction"
         },
         ">": {
             cmd: VimCommand.editorCommand,
-            argument:"editor.action.indentLines"
+            argument: "editor.action.indentLines"
         },
         "<": {
             cmd: VimCommand.editorCommand,
-            argument:"editor.action.outdentLines"
+            argument: "editor.action.outdentLines"
         },
         "%": {
             cmd: VimCommand.editorCommand,
-            argument:"editor.action.jumpToBracket"
+            argument: "editor.action.jumpToBracket"
         }
     }
 };

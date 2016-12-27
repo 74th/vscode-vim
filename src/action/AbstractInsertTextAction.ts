@@ -1,3 +1,6 @@
+/**
+ * i I a A cw...
+ */
 export abstract class AbstractInsertTextAction implements IInsertTextAction {
 
     protected insertText: string;

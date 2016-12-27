@@ -1,5 +1,5 @@
 import * as Utils from "../src/Utils";
-import {VimStyle, Position, Range} from "../src/VimStyle";
+import { VimStyle, Position, Range } from "../src/VimStyle";
 
 export class VirtualEditor implements IEditor {
     private contents: string[];
@@ -199,14 +199,14 @@ export class VirtualEditor implements IEditor {
             return this.GetLastPosition();
         }
         if (isBlock) {
-            if (p.Char > this.contents[p.Line].length - 1 ) {
+            if (p.Char > this.contents[p.Line].length - 1) {
                 let np = new Position();
                 np.Line = p.Line;
                 np.Char = this.contents[p.Line].length - 1;
                 return np;
             }
         } else {
-            if (p.Char > this.contents[p.Line].length ) {
+            if (p.Char > this.contents[p.Line].length) {
                 let np = new Position();
                 np.Line = p.Line;
                 np.Char = this.contents[p.Line].length;

@@ -1,7 +1,11 @@
-import {AbstractMotion} from "./AbstractMotion";
-import {Position} from "../VimStyle";
+import { AbstractMotion } from "./AbstractMotion";
+import { Position } from "../VimStyle";
 import * as Utils from "../Utils";
 
+/**
+ * j k
+ * cj ck
+ */
 export class DownMotion extends AbstractMotion {
 
     public IsUpDirection: boolean;

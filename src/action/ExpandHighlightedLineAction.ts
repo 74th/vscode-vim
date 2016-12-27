@@ -1,4 +1,4 @@
-import {Range} from "../VimStyle";
+import { Range } from "../VimStyle";
 export class ExpandHighlightedLineAction implements IAction {
 
     public Motion: IMotion;

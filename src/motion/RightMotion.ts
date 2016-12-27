@@ -2,6 +2,10 @@ import { AbstractMotion } from "./AbstractMotion";
 import { GoAction } from "../action/GoAction";
 import { Position } from "../VimStyle";
 
+/**
+ * h l
+ * ch cl
+ */
 export class RightMotion extends AbstractMotion {
 
     public IsLeftDirection: boolean;

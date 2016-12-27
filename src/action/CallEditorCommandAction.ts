@@ -1,6 +1,6 @@
-import {AbstractInsertTextAction} from "./AbstractInsertTextAction";
-import {Range, Position} from "../VimStyle";
-import {RegisterItem} from "../core/Register";
+import { AbstractInsertTextAction } from "./AbstractInsertTextAction";
+import { Range, Position } from "../VimStyle";
+import { RegisterItem } from "../core/Register";
 
 export class CallEditorCommandAction implements IAction {
 
