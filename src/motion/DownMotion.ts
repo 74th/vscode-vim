@@ -42,11 +42,7 @@ export class DownMotion extends AbstractMotion {
 export function GoDown(num: number): IAction {
     let m = new DownMotion();
     let a = new GoDownAction();
-    if (num === 0) {
-        m.Count = 1;
-    } else {
-        m.Count = num;
-    }
+    m.Count = num > 0 ? num : 1;
     a.Motion = m;
     return a;
 }
@@ -57,11 +53,7 @@ export function GoDown(num: number): IAction {
 export function GoUp(num: number): IAction {
     let m = new DownMotion();
     m.IsUpDirection = true;
-    if (num === 0) {
-        m.Count = 1;
-    } else {
-        m.Count = num;
-    }
+    m.Count = num > 0 ? num : 1;
     let a = new GoDownAction();
     a.Motion = m;
     return a;
@@ -73,11 +65,7 @@ export function GoUp(num: number): IAction {
 export function AddDownMotion(num: number, action: IAction) {
     let m = new DownMotion();
     let a = <IRequireMotionAction>action;
-    if (num === 0) {
-        m.Count = 1;
-    } else {
-        m.Count = num;
-    }
+    m.Count = num > 0 ? num : 1;
     a.Motion = m;
     a.IsLine = true;
 }
@@ -88,11 +76,7 @@ export function AddDownMotion(num: number, action: IAction) {
 export function AddUpMotion(num: number, action: IAction) {
     let m = new DownMotion();
     m.IsUpDirection = true;
-    if (num === 0) {
-        m.Count = 1;
-    } else {
-        m.Count = num;
-    }
+    m.Count = num > 0 ? num : 1;
     let a = <IRequireMotionAction>action;
     a.Motion = m;
     a.IsLine = true;

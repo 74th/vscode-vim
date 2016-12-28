@@ -110,7 +110,7 @@ export function GotoCharacterToRight(num: number): IAction {
     let a = new GoAction();
     let m: FindCharacterMotion;
     m = new FindCharacterMotion(Direction.Right);
-    m.Count = num === 0 ? 1 : num;
+    m.Count = num > 0 ? num : 1;
     a.Motion = m;
     return a;
 }
@@ -122,7 +122,7 @@ export function GotoCharacterToLeft(num: number): IAction {
     let a = new GoAction();
     let m: FindCharacterMotion;
     m = new FindCharacterMotion(Direction.Left);
-    m.Count = num === 0 ? 1 : num;
+    m.Count = num > 0 ? num : 1;
     a.Motion = m;
     return a;
 }
@@ -134,7 +134,7 @@ export function GoTillBeforeCharacterToRight(num: number): IAction {
     let a = new GoAction();
     let m: FindCharacterMotion;
     m = new FindCharacterMotion(Direction.Right);
-    m.Count = num === 0 ? 1 : num;
+    m.Count = num > 0 ? num : 1;
     m.IsTill = true;
     a.Motion = m;
     return a;
@@ -147,7 +147,7 @@ export function GoTillBeforeCharacterToLeft(num: number): IAction {
     let a = new GoAction();
     let m: FindCharacterMotion;
     m = new FindCharacterMotion(Direction.Left);
-    m.Count = num === 0 ? 1 : num;
+    m.Count = num > 0 ? num : 1;
     m.IsTill = true;
     a.Motion = m;
     return a;
@@ -160,7 +160,7 @@ export function AddCharacterToRightMotion(num: number, action: IAction): void {
     let m: FindCharacterMotion;
     m = new FindCharacterMotion(Direction.Right);
     m.IsContainTargetChar = true;
-    m.Count = num === 0 ? 1 : num;
+    m.Count = num > 0 ? num : 1;
     let a = <IRequireMotionAction>action;
     a.Motion = m;
 }
@@ -172,7 +172,7 @@ export function AddCharacterToRightMotion(num: number, action: IAction): void {
 export function AddCharacterToLeftMotion(num: number, action: IAction): void {
     let m: FindCharacterMotion;
     m = new FindCharacterMotion(Direction.Left);
-    m.Count = num === 0 ? 1 : num;
+    m.Count = num > 0 ? num : 1;
     let a = <IRequireMotionAction>action;
     a.Motion = m;
 }
@@ -184,7 +184,7 @@ export function AddTillCharacterToRightMotion(num: number, action: IAction): voi
     let m: FindCharacterMotion;
     m = new FindCharacterMotion(Direction.Right);
     m.IsContainTargetChar = true;
-    m.Count = num === 0 ? 1 : num;
+    m.Count = num > 0 ? num : 1;
     m.IsTill = true;
     let a = <IRequireMotionAction>this.action;
     a.Motion = m;
@@ -197,7 +197,7 @@ export function AddTillCharacterToRightMotion(num: number, action: IAction): voi
 export function AddTillCharacterToLeftMotion(num: number, action: IAction): void {
     let m: FindCharacterMotion;
     m = new FindCharacterMotion(Direction.Left);
-    m.Count = num === 0 ? 1 : num;
+    m.Count = num > 0 ? num : 1;
     m.IsTill = true;
     let a = <IRequireMotionAction>action;
     a.Motion = m;
@@ -210,7 +210,7 @@ export function GotoRepeatCharacter(num: number): IAction {
     let a = new GoAction();
     let m: FindCharacterMotion;
     m = new FindCharacterMotion(Direction.Right);
-    m.Count = num === 0 ? 1 : num;
+    m.Count = num > 0 ? num : 1;
     a.Motion = m;
     this.action = a;
     return a;
@@ -223,7 +223,7 @@ export function AddRepeartCharacterMotion(num: number, action: IAction) {
     let m: FindCharacterMotion;
     m = new FindCharacterMotion(null);
     m.IsContainTargetChar = true;
-    m.Count = num === 0 ? 1 : num;
+    m.Count = num > 0 ? num : 1;
     let a = <IRequireMotionAction>action;
     a.Motion = m;
 }
@@ -236,7 +236,7 @@ export function GotoRepeatCharacterOppositeDirection(num: number): IAction {
     let m: FindCharacterMotion;
     m = new FindCharacterMotion(null);
     m.OppositeDirection = true;
-    m.Count = num === 0 ? 1 : num;
+    m.Count = num > 0 ? num : 1;
     a.Motion = m;
     return a;
 }
@@ -249,7 +249,7 @@ export function AddRepeartCharacterMotionOppositeDirection(num: number, action: 
     m = new FindCharacterMotion(null);
     m.OppositeDirection = true;
     m.IsContainTargetChar = true;
-    m.Count = num === 0 ? 1 : num;
+    m.Count = num > 0 ? num : 1;
     let a = <IRequireMotionAction>action;
     a.Motion = m;
 }

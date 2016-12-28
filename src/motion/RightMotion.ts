@@ -31,11 +31,7 @@ export class RightMotion extends AbstractMotion {
 // Nh
 export function GotoRight(num: number): IAction {
     let m = new RightMotion();
-    if (num === 0) {
-        m.Count = 1;
-    } else {
-        m.Count = num;
-    }
+    m.Count = num > 0 ? num : 1;
     let a = new GoAction();
     a.Motion = new RightMotion();
     a.Motion = m;
@@ -45,11 +41,7 @@ export function GotoRight(num: number): IAction {
 // Nl
 export function GotoLeft(num: number): IAction {
     let m = new RightMotion();
-    if (num === 0) {
-        m.Count = 1;
-    } else {
-        m.Count = num;
-    }
+    m.Count = num > 0 ? num : 1;
     m.IsLeftDirection = true;
     let a = new GoAction();
     a.Motion = new RightMotion();
@@ -60,7 +52,7 @@ export function GotoLeft(num: number): IAction {
 // ch
 export function AddRightMotion(num: number, action: IAction): void {
     let m = new RightMotion();
-    m.Count = num;
+    m.Count = num > 0 ? num : 1;
     let a = <IRequireMotionAction>action;
     a.Motion = m;
 }
@@ -69,7 +61,7 @@ export function AddRightMotion(num: number, action: IAction): void {
 export function AddLeftMotion(num: number, action: IAction): void {
     let m = new RightMotion();
     m.IsLeftDirection = true;
-    m.Count = num;
+    m.Count = num > 0 ? num : 1;
     let a = <IRequireMotionAction>action;
     a.Motion = m;
 }

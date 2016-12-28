@@ -216,7 +216,7 @@ class Calculater {
 export function GotoWordFoword(num: number): IAction {
     let a = new GoAction();
     let m = new MoveWordMotion();
-    m.Count = num === 0 ? 1 : num;
+    m.Count = num > 0 ? num : 1;
     a.Motion = m;
     return a;
 }
@@ -227,7 +227,7 @@ export function GotoBlankSeparated(num: number): IAction {
     let a = new GoAction();
     let m = new MoveWordMotion();
     m.IsWORD = true;
-    m.Count = num === 0 ? 1 : num;
+    m.Count = num > 0 ? num : 1;
     a.Motion = m;
     return a;
 }
