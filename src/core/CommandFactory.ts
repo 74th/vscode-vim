@@ -209,17 +209,9 @@ export class CommandFactory implements ICommandFactory {
 
             // sorted and categorised by quickref.md
             // ** Text object motions **
-            // Nw
-            case VimCommand.gotoWordFoward:
-                this.gotoWordFoword();
-                return;
             // cNw
             case VimCommand.wordForwardMotion:
                 this.addWordForwordMotion();
-                return;
-            // NW
-            case VimCommand.gotoBlankSeparated:
-                this.gotoBlankSeparated();
                 return;
             // cNW
             case VimCommand.blankSeparatedMotion:
@@ -465,21 +457,9 @@ export class CommandFactory implements ICommandFactory {
     }
 
     // -----
-    // Up-down motions
-    // -----
-
-
-
-    // -----
     // Text object motions
     // -----
 
-    // Nw
-    private gotoWordFoword() {
-        let m = new MoveWordMotion();
-        m.Count = this.getNumStack();
-        this.action = this.createGotoAction(m);
-    }
 
     // cNw
     private addWordForwordMotion() {
@@ -497,13 +477,7 @@ export class CommandFactory implements ICommandFactory {
         }
     }
 
-    // NW
-    private gotoBlankSeparated() {
-        let m = new MoveWordMotion();
-        m.IsWORD = true;
-        m.Count = this.getNumStack();
-        this.action = this.createGotoAction(m);
-    }
+
 
     // cNW
     private addBlankSparatedMotion() {

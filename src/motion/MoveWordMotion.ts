@@ -1,9 +1,10 @@
 import { AbstractMotion } from "./AbstractMotion";
+import { GoAction } from "../action/GoAction";
 import * as Utils from "../Utils";
 import { Position } from "../VimStyle";
 
 /**
- * w
+ * Nw
  * please see wordMotionStateModel/moveWord.png
  */
 export class MoveWordMotion extends AbstractMotion {
@@ -207,4 +208,26 @@ class Calculater {
         }
         return this.pos;
     }
+}
+
+/**
+ * Nw
+ */
+export function GotoWordFoword(num: number): IAction {
+    let a = new GoAction();
+    let m = new MoveWordMotion();
+    m.Count = num === 0 ? 1 : num;
+    a.Motion = m;
+    return a;
+}
+/**
+ * NW
+ */
+export function GotoBlankSeparated(num: number): IAction {
+    let a = new GoAction();
+    let m = new MoveWordMotion();
+    m.IsWORD = true;
+    m.Count = num === 0 ? 1 : num;
+    a.Motion = m;
+    return a;
 }

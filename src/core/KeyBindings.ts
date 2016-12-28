@@ -4,6 +4,7 @@ import * as FirstCharacterMotion from "../motion/FirstCharacterMotion";
 import * as LastCharacterInLineMotion from "../motion/LastCharacterInLineMotion";
 import * as FindCharacterMotion from "../motion/FindCharacterMotion";
 import * as DownMotion from "../motion/DownMotion";
+import * as MoveWordMotion from "../motion/MoveWordMotion";
 
 class KeyBindings implements IKeyBindings {
     AtStart: { [key: string]: IVimStyleCommand };
@@ -178,10 +179,10 @@ const DefaultKeyBindings: IKeyBindings = {
             cmd: VimCommand.startVisualLineMode
         },
         "w": {
-            cmd: VimCommand.gotoWordFoward
+            CreateAction: MoveWordMotion.GotoWordFoword
         },
         "W": {
-            cmd: VimCommand.gotoBlankSeparated
+            CreateAction: MoveWordMotion.GotoBlankSeparated
         },
         "x": {
             cmd: VimCommand.deleteCharactersUnderCursor
@@ -351,10 +352,10 @@ const DefaultKeyBindings: IKeyBindings = {
         // Nv?
         // NV?
         "w": {
-            cmd: VimCommand.gotoWordFoward
+            CreateAction: MoveWordMotion.GotoWordFoword
         },
         "W": {
-            cmd: VimCommand.gotoBlankSeparated
+            CreateAction: MoveWordMotion.GotoBlankSeparated
         },
         "x": {
             cmd: VimCommand.deleteCharactersUnderCursor
