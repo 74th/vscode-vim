@@ -209,14 +209,6 @@ export class CommandFactory implements ICommandFactory {
 
             // sorted and categorised by quickref.md
             // ** Text object motions **
-            // cNw
-            case VimCommand.wordForwardMotion:
-                this.addWordForwordMotion();
-                return;
-            // cNW
-            case VimCommand.blankSeparatedMotion:
-                this.addBlankSparatedMotion();
-                return;
             // Ne
             case VimCommand.gotoForwardToEndOfWold:
                 this.gotoForwardToEndOfWold();
@@ -461,39 +453,6 @@ export class CommandFactory implements ICommandFactory {
     // -----
 
 
-    // cNw
-    private addWordForwordMotion() {
-        let a = <IRequireMotionAction>this.action;
-        if (a.IsChange) {
-            let cm = new ChangeWordMotion();
-            cm.IsWORD = false;
-            cm.Count = this.getNumStack();
-            a.Motion = cm;
-        } else {
-            let dm = new DeleteWordMotion();
-            dm.Count = this.getNumStack();
-            dm.IsWORD = false;
-            a.Motion = dm;
-        }
-    }
-
-
-
-    // cNW
-    private addBlankSparatedMotion() {
-        let a = <IRequireMotionAction>this.action;
-        if (a.IsChange) {
-            let cm = new ChangeWordMotion();
-            cm.IsWORD = true;
-            cm.Count = this.getNumStack();
-            a.Motion = cm;
-        } else {
-            let dm = new DeleteWordMotion();
-            dm.Count = this.getNumStack();
-            dm.IsWORD = true;
-            a.Motion = dm;
-        }
-    }
 
     // Ne
     private gotoForwardToEndOfWold() {

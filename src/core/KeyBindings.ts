@@ -5,6 +5,7 @@ import * as LastCharacterInLineMotion from "../motion/LastCharacterInLineMotion"
 import * as FindCharacterMotion from "../motion/FindCharacterMotion";
 import * as DownMotion from "../motion/DownMotion";
 import * as MoveWordMotion from "../motion/MoveWordMotion";
+import * as ChangeWordMotion from "../motion/ChangeWordMotion";
 
 class KeyBindings implements IKeyBindings {
     AtStart: { [key: string]: IVimStyleCommand };
@@ -515,10 +516,10 @@ const DefaultKeyBindings: IKeyBindings = {
         // v low priority
         // V low priority
         "w": {
-            cmd: VimCommand.wordForwardMotion
+            AddMotion: ChangeWordMotion.AddWordForwordMotion
         },
         "W": {
-            cmd: VimCommand.blankSeparatedMotion
+            AddMotion: ChangeWordMotion.AddBlankSparatedMotion
         },
         // x no function
         // X no function
@@ -670,9 +671,11 @@ const DefaultKeyBindings: IKeyBindings = {
         // v low priority
         // V low priority
         "w": {
-            cmd: VimCommand.wordForwardMotion
+            AddMotion: ChangeWordMotion.AddWordForwordMotion
         },
-        // W
+        "W": {
+            AddMotion: ChangeWordMotion.AddBlankSparatedMotion
+        },
         // x no function
         // X no function
         "y": {
@@ -888,9 +891,11 @@ const DefaultKeyBindings: IKeyBindings = {
         // v low priority
         // V low priority
         "w": {
-            cmd: VimCommand.wordForwardMotion
+            AddMotion: ChangeWordMotion.AddWordForwordMotion
         },
-        // W
+        "W": {
+            AddMotion: ChangeWordMotion.AddBlankSparatedMotion
+        },
         // x no function
         // X no function
         "y": {

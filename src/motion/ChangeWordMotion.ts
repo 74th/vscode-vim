@@ -1,4 +1,5 @@
 import { AbstractMotion } from "./AbstractMotion";
+import { DeleteWordMotion } from "./DeleteWordMotion";
 import * as Utils from "../Utils";
 import { Position } from "../VimStyle";
 
@@ -273,5 +274,43 @@ class Calculater {
             }
         }
         return this.pos;
+    }
+}
+
+/**
+ * cNw dNw
+ */
+export function AddWordForwordMotion(num: number, action: IAction) {
+    let a = <IRequireMotionAction>action;
+    if (a.IsChange) {
+        let cm = new ChangeWordMotion();
+        cm.IsWORD = false;
+        cm.Count = num > 0 ? num : 1;
+        a.Motion = cm;
+    } else {
+        let dm = new DeleteWordMotion();
+        dm.Count = num > 0 ? num : 1;
+        dm.IsWORD = false;
+        a.Motion = dm;
+    }
+}
+
+
+
+/**
+ *  cNW dNW
+ */
+export function AddBlankSparatedMotion(num: number, action: IAction) {
+    let a = <IRequireMotionAction>action;
+    if (a.IsChange) {
+        let cm = new ChangeWordMotion();
+        cm.IsWORD = true;
+        cm.Count = num > 0 ? num : 1;
+        a.Motion = cm;
+    } else {
+        let dm = new DeleteWordMotion();
+        dm.Count = num > 0 ? num : 1;
+        dm.IsWORD = true;
+        a.Motion = dm;
     }
 }
