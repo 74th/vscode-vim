@@ -7,6 +7,7 @@ import * as DownMotion from "../motion/DownMotion";
 import * as MoveWordMotion from "../motion/MoveWordMotion";
 import * as ChangeWordMotion from "../motion/ChangeWordMotion";
 import * as DeleteEndOfWordMotion from "../motion/DeleteEndOfWordMotion";
+import * as WordMotion from "../motion/WordMotion";
 
 class KeyBindings implements IKeyBindings {
     AtStart: { [key: string]: IVimStyleCommand };
@@ -77,10 +78,10 @@ const DefaultKeyBindings: IKeyBindings = {
             cmd: VimCommand.appendTextAtEndOfLine
         },
         "b": {
-            cmd: VimCommand.gotoWordBackword
+            CreateAction: WordMotion.GotoWordBackword
         },
         "B": {
-            cmd: VimCommand.gotoBlankSeparatedBackword
+            CreateAction: WordMotion.GotoBlankSeparatedBackwordWord
         },
         "c": {
             cmd: VimCommand.changeTextWithMotion,
@@ -276,10 +277,10 @@ const DefaultKeyBindings: IKeyBindings = {
         // Na low priority
         // NA low priority
         "b": {
-            cmd: VimCommand.gotoWordBackword
+            CreateAction: WordMotion.GotoWordBackword
         },
         "B": {
-            cmd: VimCommand.gotoBlankSeparatedBackword
+            CreateAction: WordMotion.GotoBlankSeparatedBackwordWord
         },
         // B
         // Nc low priority
@@ -442,10 +443,10 @@ const DefaultKeyBindings: IKeyBindings = {
         // da
         // dA
         "b": {
-            cmd: VimCommand.wordBackwardMotion
+            AddMotion: WordMotion.AddWordBackwardMotion
         },
         "B": {
-            cmd: VimCommand.blankSeparatedBackwordMotion
+            AddMotion: WordMotion.AddBlankSeparatedBackwordMotion
         },
         "c": {
             cmd: VimCommand.doActionAtCurrentLine
@@ -604,10 +605,10 @@ const DefaultKeyBindings: IKeyBindings = {
         // da
         // dA
         "b": {
-            cmd: VimCommand.wordBackwardMotion
+            AddMotion: WordMotion.AddWordBackwardMotion
         },
         "B": {
-            cmd: VimCommand.blankSeparatedBackwordMotion
+            AddMotion: WordMotion.AddBlankSeparatedBackwordMotion
         },
         "c": {
             cmd: VimCommand.doActionAtCurrentLine
@@ -822,10 +823,10 @@ const DefaultKeyBindings: IKeyBindings = {
         // v..a
         // v..A
         "b": {
-            cmd: VimCommand.wordBackwardMotion
+            AddMotion: WordMotion.AddWordBackwardMotion
         },
         "B": {
-            cmd: VimCommand.blankSeparatedBackwordMotion
+            AddMotion: WordMotion.AddBlankSeparatedBackwordMotion
         },
         "c": {
             cmd: VimCommand.changeHighlightedText
@@ -979,10 +980,10 @@ const DefaultKeyBindings: IKeyBindings = {
         // V..a
         // V..A
         "b": {
-            cmd: VimCommand.wordBackwardMotion
+            AddMotion: WordMotion.AddWordBackwardMotion
         },
         "B": {
-            cmd: VimCommand.blankSeparatedBackwordMotion
+            AddMotion: WordMotion.AddBlankSeparatedBackwordMotion
         },
         "c": {
             cmd: VimCommand.changeHighligtedLine

@@ -206,22 +206,6 @@ export class CommandFactory implements ICommandFactory {
 
             // sorted and categorised by quickref.md
             // ** Text object motions **
-            // Nb
-            case VimCommand.gotoWordBackword:
-                this.gotoWordBackword();
-                return;
-            // cNb
-            case VimCommand.wordBackwardMotion:
-                this.addWordBackwardMotion();
-                break;
-            // NB
-            case VimCommand.gotoBlankSeparatedBackword:
-                this.gotoBlankSeparatedBackwordWord();
-                return;
-            // cNB
-            case VimCommand.blankSeparatedBackwordMotion:
-                this.addBlankSeparatedBackwordMotion();
-                break;
             // N{
             case VimCommand.gotoParagraphBackword:
                 this.gotoParagraphBackword();
@@ -432,54 +416,6 @@ export class CommandFactory implements ICommandFactory {
     // -----
     // Text object motions
     // -----
-
-    // Nb
-    private gotoWordBackword() {
-        let m: WordMotion;
-        m = new WordMotion(Direction.Left);
-        m.IsWordEnd = true;
-        m.IsWORD = false;
-        m.IsSkipBlankLine = false;
-        m.Count = this.getNumStack();
-        this.action = this.createGotoAction(m);
-    }
-
-    // cNb
-    private addWordBackwardMotion() {
-        let m: WordMotion;
-        m = new WordMotion(Direction.Left);
-        m.IsWordEnd = true;
-        m.IsWORD = false;
-        m.IsSkipBlankLine = false;
-        // m.IsForRange = true;
-        m.Count = this.getNumStack();
-        let a = <IRequireMotionAction>this.action;
-        a.Motion = m;
-    }
-
-    // NB
-    private gotoBlankSeparatedBackwordWord() {
-        let m: WordMotion;
-        m = new WordMotion(Direction.Left);
-        m.IsWordEnd = true;
-        m.IsWORD = true;
-        m.IsSkipBlankLine = false;
-        m.Count = this.getNumStack();
-        this.action = this.createGotoAction(m);
-    }
-
-    // cNB
-    private addBlankSeparatedBackwordMotion() {
-        let m: WordMotion;
-        m = new WordMotion(Direction.Left);
-        m.IsWordEnd = true;
-        m.IsWORD = true;
-        m.IsSkipBlankLine = false;
-        // m.IsForRange = true;
-        m.Count = this.getNumStack();
-        let a = <IRequireMotionAction>this.action;
-        a.Motion = m;
-    }
 
     // N{
     private gotoParagraphBackword() {

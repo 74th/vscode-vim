@@ -1,4 +1,5 @@
 import { AbstractMotion } from "./AbstractMotion";
+import { GoAction } from "../action/GoAction";
 import * as Utils from "../Utils";
 import { Position } from "../VimStyle";
 
@@ -253,4 +254,56 @@ export class WordMotion extends AbstractMotion {
 
         return position;
     }
+}
+
+// Nb
+export function GotoWordBackword(num: number): IAction {
+    let a = new GoAction();
+    let m: WordMotion;
+    m = new WordMotion(Direction.Left);
+    m.IsWordEnd = true;
+    m.IsWORD = false;
+    m.IsSkipBlankLine = false;
+    m.Count = num > 0 ? num : 1;
+    a.Motion = m;
+    return a;
+}
+
+// cNb
+export function AddWordBackwardMotion(num: number, action: IAction) {
+    let m: WordMotion;
+    m = new WordMotion(Direction.Left);
+    m.IsWordEnd = true;
+    m.IsWORD = false;
+    m.IsSkipBlankLine = false;
+    // m.IsForRange = true;
+    m.Count = num > 0 ? num : 1;
+    let a = <IRequireMotionAction>action;
+    a.Motion = m;
+}
+
+// NB
+export function GotoBlankSeparatedBackwordWord(num: number): IAction {
+    let a = new GoAction();
+    let m: WordMotion;
+    m = new WordMotion(Direction.Left);
+    m.IsWordEnd = true;
+    m.IsWORD = true;
+    m.IsSkipBlankLine = false;
+    m.Count = num > 0 ? num : 1;
+    a.Motion = m;
+    return a;
+}
+
+// cNB
+export function AddBlankSeparatedBackwordMotion(num: number, action: IAction) {
+    let m: WordMotion;
+    m = new WordMotion(Direction.Left);
+    m.IsWordEnd = true;
+    m.IsWORD = true;
+    m.IsSkipBlankLine = false;
+    // m.IsForRange = true;
+    m.Count = num > 0 ? num : 1;
+    let a = <IRequireMotionAction>action;
+    a.Motion = m;
 }
