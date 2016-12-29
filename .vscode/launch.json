@@ -24,7 +24,7 @@
 			"sourceMaps": true,
 			"args": [
 				"-g",
-				"VimStyle xx:N times back to unclosed x delete to first left brancket"
+				"VimStyle Ne: forward to the end of the Nth word e:cursor is in word"
 			],
 			"outDir": "${workspaceRoot}/out",
 			"cwd": "${workspaceRoot}/out",

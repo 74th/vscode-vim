@@ -18,9 +18,6 @@ import { DownMotion } from "../motion/DownMotion";
 import { LastCharacterInLineMotion } from "../motion/LastCharacterInLineMotion";
 import { WordMotion } from "../motion/WordMotion";
 import { MoveWordMotion } from "../motion/MoveWordMotion";
-import { DeleteWordMotion } from "../motion/DeleteWordMotion";
-import { ChangeWordMotion } from "../motion/ChangeWordMotion";
-import { DeleteEndOfWordMotion } from "../motion/DeleteEndOfWordMotion";
 import * as FirstCharacterMotion from "../motion/FirstCharacterMotion";
 import { CallEditorCommandAction } from "../action/CallEditorCommandAction";
 import { ParagraphMotion } from "../motion/ParagraphMotion";
@@ -209,22 +206,6 @@ export class CommandFactory implements ICommandFactory {
 
             // sorted and categorised by quickref.md
             // ** Text object motions **
-            // Ne
-            case VimCommand.gotoForwardToEndOfWold:
-                this.gotoForwardToEndOfWold();
-                return;
-            // cNe
-            case VimCommand.endOfWordMotion:
-                this.addEndOfWordMotion();
-                break;
-            // NE
-            case VimCommand.gotoForwardToEndOfBlankSeparated:
-                this.gotoForwardToEndOfBlankSeparated();
-                return;
-            // cNE
-            case VimCommand.endOfBlankSeparatedMotion:
-                this.addEndOfBlankSeparatedMotion();
-                break;
             // Nb
             case VimCommand.gotoWordBackword:
                 this.gotoWordBackword();
@@ -451,46 +432,6 @@ export class CommandFactory implements ICommandFactory {
     // -----
     // Text object motions
     // -----
-
-
-
-    // Ne
-    private gotoForwardToEndOfWold() {
-        let m = new DeleteEndOfWordMotion();
-        m.IsWORD = false;
-        m.IsMove = true;
-        m.Count = this.getNumStack();
-        this.action = this.createGotoAction(m);
-    }
-
-    // cNe
-    private addEndOfWordMotion() {
-        let m = new DeleteEndOfWordMotion();
-        m.IsWORD = false;
-        m.IsMove = false;
-        m.Count = this.getNumStack();
-        let a = <IRequireMotionAction>this.action;
-        a.Motion = m;
-    }
-
-    // NE
-    private gotoForwardToEndOfBlankSeparated() {
-        let m = new DeleteEndOfWordMotion();
-        m.IsWORD = true;
-        m.IsMove = true;
-        m.Count = this.getNumStack();
-        this.action = this.createGotoAction(m);
-    }
-
-    // cWE
-    private addEndOfBlankSeparatedMotion() {
-        let m = new DeleteEndOfWordMotion();
-        m.IsWORD = true;
-        m.IsMove = false;
-        m.Count = this.getNumStack();
-        let a = <IRequireMotionAction>this.action;
-        a.Motion = m;
-    }
 
     // Nb
     private gotoWordBackword() {

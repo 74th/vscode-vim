@@ -1,9 +1,10 @@
 import { AbstractMotion } from "./AbstractMotion";
+import { GoAction } from "../action/GoAction";
 import * as Utils from "../Utils";
 import { Position } from "../VimStyle";
 
 /**
- * de
+ * e ce de E cE dE
  * please see wordMotionStateModel/deleteEndOfWord.png
  */
 export class DeleteEndOfWordMotion extends AbstractMotion {
@@ -236,4 +237,54 @@ class Calculater {
         }
         return this.pos;
     }
+}
+
+/**
+ * Ne
+ */
+export function GotoForwardToEndOfWold(num: number): IAction {
+    let a = new GoAction();
+    let m = new DeleteEndOfWordMotion();
+    m.IsWORD = false;
+    m.IsMove = true;
+    m.Count = num > 0 ? num : 1;
+    a.Motion = m;
+    return a;
+}
+
+/**
+ * cNe
+ */
+export function AddEndOfWordMotion(num: number, action: IAction) {
+    let m = new DeleteEndOfWordMotion();
+    m.IsWORD = false;
+    m.IsMove = false;
+    m.Count = num > 0 ? num : 1;
+    let a = <IRequireMotionAction>action;
+    a.Motion = m;
+}
+
+/**
+ * NE
+ */
+export function GotoForwardToEndOfBlankSeparated(num: number): IAction {
+    let a = new GoAction();
+    let m = new DeleteEndOfWordMotion();
+    m.IsWORD = true;
+    m.IsMove = true;
+    m.Count = num > 0 ? num : 1;
+    a.Motion = m;
+    return a;
+}
+
+/**
+ * cWE
+ */
+export function AddEndOfBlankSeparatedMotion(num: number, action: IAction) {
+    let m = new DeleteEndOfWordMotion();
+    m.IsWORD = true;
+    m.IsMove = false;
+    m.Count = num > 0 ? num : 1;
+    let a = <IRequireMotionAction>action;
+    a.Motion = m;
 }

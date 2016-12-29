@@ -6,6 +6,7 @@ import * as FindCharacterMotion from "../motion/FindCharacterMotion";
 import * as DownMotion from "../motion/DownMotion";
 import * as MoveWordMotion from "../motion/MoveWordMotion";
 import * as ChangeWordMotion from "../motion/ChangeWordMotion";
+import * as DeleteEndOfWordMotion from "../motion/DeleteEndOfWordMotion";
 
 class KeyBindings implements IKeyBindings {
     AtStart: { [key: string]: IVimStyleCommand };
@@ -96,10 +97,10 @@ const DefaultKeyBindings: IKeyBindings = {
             cmd: VimCommand.deleteTextToEndOfLine
         },
         "e": {
-            cmd: VimCommand.gotoForwardToEndOfWold
+            CreateAction: DeleteEndOfWordMotion.GotoForwardToEndOfWold
         },
         "E": {
-            cmd: VimCommand.gotoForwardToEndOfBlankSeparated
+            CreateAction: DeleteEndOfWordMotion.GotoForwardToEndOfBlankSeparated
         },
         "f": {
             CreateAction: FindCharacterMotion.GotoCharacterToRight,
@@ -289,10 +290,10 @@ const DefaultKeyBindings: IKeyBindings = {
         },
         // ND low priority
         "e": {
-            cmd: VimCommand.gotoForwardToEndOfWold
+            CreateAction: DeleteEndOfWordMotion.GotoForwardToEndOfWold
         },
         "E": {
-            cmd: VimCommand.gotoForwardToEndOfBlankSeparated
+            CreateAction: DeleteEndOfWordMotion.GotoForwardToEndOfBlankSeparated
         },
         "f": {
             CreateAction: FindCharacterMotion.GotoCharacterToRight,
@@ -455,10 +456,10 @@ const DefaultKeyBindings: IKeyBindings = {
         },
         // D no command
         "e": {
-            cmd: VimCommand.endOfWordMotion
+            AddMotion: DeleteEndOfWordMotion.AddEndOfWordMotion
         },
         "E": {
-            cmd: VimCommand.endOfBlankSeparatedMotion
+            AddMotion: DeleteEndOfWordMotion.AddEndOfBlankSeparatedMotion
         },
         "f": {
             AddMotion: FindCharacterMotion.AddCharacterToRightMotion,
@@ -616,8 +617,12 @@ const DefaultKeyBindings: IKeyBindings = {
             cmd: VimCommand.doActionAtCurrentLine
         },
         // D no command
-        // e
-        // E
+        "e": {
+            AddMotion: DeleteEndOfWordMotion.AddEndOfWordMotion
+        },
+        "E": {
+            AddMotion: DeleteEndOfWordMotion.AddEndOfBlankSeparatedMotion
+        },
         "f": {
             AddMotion: FindCharacterMotion.AddCharacterToRightMotion,
             state: StateName.RequireCharForMotion
@@ -830,8 +835,12 @@ const DefaultKeyBindings: IKeyBindings = {
             cmd: VimCommand.deleteHighlightedText
         },
         // D no command
-        // v..e
-        // V..E
+        "e": {
+            AddMotion: DeleteEndOfWordMotion.AddEndOfWordMotion
+        },
+        "E": {
+            AddMotion: DeleteEndOfWordMotion.AddEndOfBlankSeparatedMotion
+        },
         "f": {
             AddMotion: FindCharacterMotion.AddCharacterToRightMotion,
             state: StateName.RequireCharForMotion
