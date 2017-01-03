@@ -20,8 +20,6 @@ import { WordMotion } from "../motion/WordMotion";
 import { MoveWordMotion } from "../motion/MoveWordMotion";
 import * as FirstCharacterMotion from "../motion/FirstCharacterMotion";
 import { CallEditorCommandAction } from "../action/CallEditorCommandAction";
-import { ParagraphMotion } from "../motion/ParagraphMotion";
-import { BackToBrancketMotion, ToBrancketMotion } from "../motion/BrancketMotion";
 
 export class CommandFactory implements ICommandFactory {
 
@@ -205,32 +203,6 @@ export class CommandFactory implements ICommandFactory {
         switch (command.cmd) {
 
             // sorted and categorised by quickref.md
-            // ** Inserting text **
-            // Na
-            case VimCommand.appendTextAfterCursor:
-                this.appendTextAfterCursor();
-                return;
-            // NA
-            case VimCommand.appendTextAtEndOfLine:
-                this.appendTextAtEndOfLine();
-                return;
-            // Ni
-            case VimCommand.insertTextBeforeCursor:
-                this.insertTextBeforeCursor();
-                return;
-            // NI
-            case VimCommand.insertTextBeforeFirstNonBlankInLine:
-                this.insertTextBeforeFirstNonBlankInLine();
-                return;
-            // No
-            case VimCommand.openNewLineBelowCurrentLineAndAppnedText:
-                this.openNewLineBelowCurrentLineAndAppendText();
-                return;
-            // NO
-            case VimCommand.openNewLineAboveCurrentLineAndAppnedText:
-                this.openNewLineAboveCurrentLineAndAppendText();
-                return;
-
             // ** Deleting text **
             // Nx
             case VimCommand.deleteCharactersUnderCursor:
@@ -355,68 +327,6 @@ export class CommandFactory implements ICommandFactory {
         }
     }
 
-    // -----
-    // Text object motions
-    // -----
-
-
-    // -----
-    // Pattern searches
-    // -----
-
-    // -----
-    // Marks and motions
-    // -----
-
-    // -----
-    // Various motions
-    // -----
-
-    // -----
-    // Scrolling
-    // -----
-
-    // -----
-    // Inserting text
-    // -----
-
-    // a
-    private appendTextAfterCursor() {
-        let m = new RightMotion();
-        m.Count = 1;
-        this.action = new InsertTextAction(m);
-    }
-
-    // A
-    private appendTextAtEndOfLine() {
-        let m = new LastCharacterInLineMotion();
-        this.action = new InsertTextAction(m);
-    }
-
-    // i
-    private insertTextBeforeCursor() {
-        this.action = new InsertTextAction();
-    }
-
-    // I
-    private insertTextBeforeFirstNonBlankInLine() {
-        let m = new FirstCharacterMotion.FirstCharacterMotion();
-        m.Target = FirstCharacterMotion.Target.Current;
-        this.action = new InsertTextAction(m);
-    }
-
-    // o
-    private openNewLineBelowCurrentLineAndAppendText() {
-        let a = new OpenNewLineAndAppendTextAction();
-        this.action = a;
-    }
-
-    // O
-    private openNewLineAboveCurrentLineAndAppendText() {
-        let a = new OpenNewLineAndAppendTextAction();
-        a.IsAbove = true;
-        this.action = a;
-    }
 
     // -----
     // Deleting text

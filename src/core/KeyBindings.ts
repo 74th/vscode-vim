@@ -10,6 +10,8 @@ import * as DeleteEndOfWordMotion from "../motion/DeleteEndOfWordMotion";
 import * as WordMotion from "../motion/WordMotion";
 import * as ParagraphMotion from "../motion/ParagraphMotion";
 import * as BrancketMotion from "../motion/BrancketMotion";
+import * as InsertTextAction from "../action/InsertTextAction";
+import * as OpenNewLineAndAppendTextAction from "../action/OpenNewLineAndAppendTextAction";
 
 class KeyBindings implements IKeyBindings {
     AtStart: { [key: string]: IVimStyleCommand };
@@ -74,10 +76,10 @@ export function ApplyKeyBindings(dest: IKeyBindings, src: IKeyBindings) {
 const DefaultKeyBindings: IKeyBindings = {
     AtStart: {
         "a": {
-            cmd: VimCommand.appendTextAfterCursor
+            CreateAction: InsertTextAction.AppendTextAfterCursor
         },
         "A": {
-            cmd: VimCommand.appendTextAtEndOfLine
+            CreateAction: InsertTextAction.AppendTextAtEndOfLine
         },
         "b": {
             CreateAction: WordMotion.GotoWordBackword
@@ -125,10 +127,10 @@ const DefaultKeyBindings: IKeyBindings = {
         },
         // H no function
         "i": {
-            cmd: VimCommand.insertTextBeforeCursor
+            CreateAction: InsertTextAction.InsertTextBeforeCursor
         },
         "I": {
-            cmd: VimCommand.insertTextBeforeFirstNonBlankInLine
+            CreateAction: InsertTextAction.InsertTextBeforeFirstNonBlankInLine
         },
         "j": {
             CreateAction: DownMotion.GoDown
@@ -143,10 +145,10 @@ const DefaultKeyBindings: IKeyBindings = {
         },
         // L no function
         "o": {
-            cmd: VimCommand.openNewLineBelowCurrentLineAndAppnedText
+            CreateAction: OpenNewLineAndAppendTextAction.OpenNewLineBelowCurrentLineAndAppendText
         },
         "O": {
-            cmd: VimCommand.openNewLineAboveCurrentLineAndAppnedText
+            CreateAction: OpenNewLineAndAppendTextAction.OpenNewLineAboveCurrentLineAndAppendText
         },
         "p": {
             cmd: VimCommand.putRegisterAfterCursorPosition

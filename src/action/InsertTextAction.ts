@@ -1,4 +1,11 @@
 import { AbstractInsertTextAction } from "./AbstractInsertTextAction";
+import * as RightMotion from "../motion/RightMotion";
+import * as LastCharacterInLineMotion from "../motion/LastCharacterInLineMotion";
+import * as FirstCharacterMotion from "../motion/FirstCharacterMotion";
+
+/**
+ * a A i I
+ */
 export class InsertTextAction extends AbstractInsertTextAction {
     public Motion: IMotion;
 
@@ -35,4 +42,37 @@ export class InsertTextAction extends AbstractInsertTextAction {
         }
     }
 
+}
+
+/**
+ * a
+ */
+export function AppendTextAfterCursor(num: number): IAction {
+    let m = new RightMotion.RightMotion();
+    m.Count = 1;
+    return new InsertTextAction(m);
+}
+
+/**
+ * A
+ */
+export function AppendTextAtEndOfLine(num: number): IAction {
+    let m = new LastCharacterInLineMotion.LastCharacterInLineMotion();
+    return new InsertTextAction(m);
+}
+
+/**
+ * i
+ */
+export function InsertTextBeforeCursor(num: number): IAction {
+    return new InsertTextAction();
+}
+
+/**
+ * I
+ */
+export function InsertTextBeforeFirstNonBlankInLine(num: number): IAction {
+    let m = new FirstCharacterMotion.FirstCharacterMotion();
+    m.Target = FirstCharacterMotion.Target.Current;
+    return new InsertTextAction(m);
 }

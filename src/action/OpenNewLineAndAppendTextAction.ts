@@ -80,3 +80,15 @@ function appendWhiteSpace(prevLine: string) {
     }
     return prevLine.substr(0, i);
 }
+// o
+export function OpenNewLineBelowCurrentLineAndAppendText(num: number): IAction {
+    return new OpenNewLineAndAppendTextAction();
+
+}
+
+// O
+export function OpenNewLineAboveCurrentLineAndAppendText(num: number): IAction {
+    let a = new OpenNewLineAndAppendTextAction();
+    a.IsAbove = true;
+    return a;
+}
