@@ -1,4 +1,5 @@
 import { AbstractMotion } from "./AbstractMotion";
+import { GoAction } from "../action/GoAction";
 import { Position } from "../VimStyle";
 import * as Utils from "../Utils";
 
@@ -105,4 +106,96 @@ export class ToBrancketMotion extends AbstractMotion {
         }
         return p;
     }
+}
+
+// N[(
+export function GoBackToUnclosedLeftParenthesis(num: number): IAction {
+    let a = new GoAction();
+    let m = new BackToBrancketMotion();
+    m.LeftBrancket = "(";
+    m.RightBrancket = ")";
+    m.TargetBrancket = "(";
+    m.Count = num > 0 ? num : 1;
+    a.Motion = m;
+    return a;
+}
+
+// cN[(
+export function AddBackToUnclosedLeftParenthesisMotion(num: number, action: IAction) {
+    let m = new BackToBrancketMotion();
+    m.LeftBrancket = "(";
+    m.RightBrancket = ")";
+    m.TargetBrancket = "(";
+    m.Count = num > 0 ? num : 1;
+    let a = <IRequireMotionAction>action;
+    a.Motion = m;
+}
+
+// N[{
+export function GoBackToUnclosedLeftCurlyBracket(num: number): IAction {
+    let a = new GoAction();
+    let m = new BackToBrancketMotion();
+    m.LeftBrancket = "{";
+    m.RightBrancket = "}";
+    m.TargetBrancket = "{";
+    m.Count = num > 0 ? num : 1;
+    a.Motion = m;
+    return a;
+}
+
+// cN[{
+export function AddBackToUnclosedLeftCurlyBracketMotion(num: number, action: IAction) {
+    let m = new BackToBrancketMotion();
+    m.LeftBrancket = "{";
+    m.RightBrancket = "}";
+    m.TargetBrancket = "{";
+    m.Count = num > 0 ? num : 1;
+    let a = <IRequireMotionAction>this.action;
+    a.Motion = m;
+}
+
+// N])
+export function GoToUnclosedRightParenthesis(num: number): IAction {
+    let a = new GoAction();
+    let m = new ToBrancketMotion();
+    m.LeftBrancket = "(";
+    m.RightBrancket = ")";
+    m.TargetBrancket = ")";
+    m.Count = num > 0 ? num : 1;
+    a.Motion = m;
+    return a;
+}
+
+// cN])
+export function AddToUnclosedRightParenthesisMotion(num: number, action: IAction) {
+    let m = new ToBrancketMotion();
+    m.LeftBrancket = "(";
+    m.RightBrancket = ")";
+    m.TargetBrancket = ")";
+    m.Count = num > 0 ? num : 1;
+    let a = <IRequireMotionAction>action;
+    a.Motion = m;
+}
+
+// N]}
+export function GoToUnclosedRightCurlyBracket(num: number): IAction {
+    let a = new GoAction();
+    let m = new ToBrancketMotion();
+    m.LeftBrancket = "{";
+    m.RightBrancket = "}";
+    m.TargetBrancket = "}";
+    m.Count = num > 0 ? num : 1;
+    a.Motion = m;
+    return a;
+}
+
+// cN]}
+export function AddToUnclosedRightCurlyBracketMotion(num: number, action: IAction) {
+    let m = new ToBrancketMotion();
+    m.LeftBrancket = "{";
+    m.RightBrancket = "}";
+    m.TargetBrancket = "}";
+    m.Count = num > 0 ? num : 1;
+    let a = <IRequireMotionAction>action;
+    a.Motion = m;
 }

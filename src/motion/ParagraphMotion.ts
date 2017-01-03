@@ -1,4 +1,5 @@
 import { AbstractMotion } from "./AbstractMotion";
+import { GoAction } from "../action/GoAction";
 import { Position } from "../VimStyle";
 import * as Utils from "../Utils";
 
@@ -51,4 +52,42 @@ export class ParagraphMotion extends AbstractMotion {
         let end = new Position(line, 0);
         return editor.UpdateValidPosition(end);
     }
+}
+
+// N{
+export function GotoParagraphBackword(num: number): IAction {
+    let a = new GoAction();
+    let m: ParagraphMotion = new ParagraphMotion();
+    m.IsUpDirection = true;
+    m.Count = num > 0 ? num : 1;
+    a.Motion = m;
+    return a;
+}
+
+// cN{
+export function AddParagraphBackwordMotion(num: number, action: IAction) {
+    let m: ParagraphMotion = new ParagraphMotion();
+    m.IsUpDirection = true;
+    m.Count = num > 0 ? num : 1;
+    let a = <IRequireMotionAction>action;
+    a.Motion = m;
+}
+
+// N}
+export function GotoParagraphFoword(num: number): IAction {
+    let a = new GoAction();
+    let m: ParagraphMotion = new ParagraphMotion();
+    m.IsUpDirection = false;
+    m.Count = num > 0 ? num : 1;
+    a.Motion = m;
+    return a;
+}
+
+// cN}
+export function AddParagraphFowordMotion(num: number, action: IAction) {
+    let m: ParagraphMotion = new ParagraphMotion();
+    m.IsUpDirection = false;
+    m.Count = num > 0 ? num : 1;
+    let a = <IRequireMotionAction>action;
+    a.Motion = m;
 }

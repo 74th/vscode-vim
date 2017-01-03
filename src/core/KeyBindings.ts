@@ -8,6 +8,8 @@ import * as MoveWordMotion from "../motion/MoveWordMotion";
 import * as ChangeWordMotion from "../motion/ChangeWordMotion";
 import * as DeleteEndOfWordMotion from "../motion/DeleteEndOfWordMotion";
 import * as WordMotion from "../motion/WordMotion";
+import * as ParagraphMotion from "../motion/ParagraphMotion";
+import * as BrancketMotion from "../motion/BrancketMotion";
 
 class KeyBindings implements IKeyBindings {
     AtStart: { [key: string]: IVimStyleCommand };
@@ -265,10 +267,10 @@ const DefaultKeyBindings: IKeyBindings = {
             state: StateName.RequireBrancketForRightBrancket
         },
         "{": {
-            cmd: VimCommand.gotoParagraphBackword
+            CreateAction: ParagraphMotion.GotoParagraphBackword
         },
         "}": {
-            cmd: VimCommand.gotoParagraphFoword
+            CreateAction: ParagraphMotion.GotoParagraphFoword
         }
     },
 
@@ -423,10 +425,10 @@ const DefaultKeyBindings: IKeyBindings = {
             CreateAction: FindCharacterMotion.GotoRepeatCharacter
         },
         "{": {
-            cmd: VimCommand.gotoParagraphBackword
+            CreateAction: ParagraphMotion.GotoParagraphBackword
         },
         "}": {
-            cmd: VimCommand.gotoParagraphFoword
+            CreateAction: ParagraphMotion.GotoParagraphFoword
         },
         "[": {
             cmd: VimCommand.nothing,
@@ -585,10 +587,10 @@ const DefaultKeyBindings: IKeyBindings = {
             AddMotion: FirstCharacterMotion.AddFirstNonBlankCharacterInLineMotion
         },
         "{": {
-            cmd: VimCommand.paragraphBackwordMotion
+            AddMotion: ParagraphMotion.AddParagraphBackwordMotion
         },
         "}": {
-            cmd: VimCommand.paragraphFowordMotion
+            AddMotion: ParagraphMotion.AddParagraphFowordMotion
         },
         "[": {
             cmd: VimCommand.nothing,
@@ -740,10 +742,10 @@ const DefaultKeyBindings: IKeyBindings = {
             AddMotion: FindCharacterMotion.AddRepeartCharacterMotion
         },
         "{": {
-            cmd: VimCommand.paragraphBackwordMotion
+            AddMotion: ParagraphMotion.AddParagraphBackwordMotion
         },
         "}": {
-            cmd: VimCommand.paragraphFowordMotion
+            AddMotion: ParagraphMotion.AddParagraphFowordMotion
         },
         "[": {
             cmd: VimCommand.nothing,
@@ -759,44 +761,44 @@ const DefaultKeyBindings: IKeyBindings = {
     RequireBrancketForLeftBrancket: {
         // [(
         "(": {
-            cmd: VimCommand.goBackToUnclosedLeftParenthesis
+            CreateAction: BrancketMotion.GoBackToUnclosedLeftParenthesis
         },
         // [{
         "{": {
-            cmd: VimCommand.goBackToUnclosedLeftCurlyBracket
+            CreateAction: BrancketMotion.GoBackToUnclosedLeftCurlyBracket
         },
     },
 
     RequireBrancketForLeftBrancketMotion: {
         // c[(
         "(": {
-            cmd: VimCommand.backToUnclosedLeftParenthesisMotion
+            AddMotion: BrancketMotion.AddBackToUnclosedLeftParenthesisMotion
         },
         // c[{
         "{": {
-            cmd: VimCommand.backToUnclosedLeftCurlyBracketMotion
+            AddMotion: BrancketMotion.AddBackToUnclosedLeftCurlyBracketMotion
         },
     },
 
     RequireBrancketForRightBrancket: {
         // ])
         ")": {
-            cmd: VimCommand.goToUnclosedRightParenthesis
+            CreateAction: BrancketMotion.GoToUnclosedRightParenthesis
         },
         // ]}
         "}": {
-            cmd: VimCommand.goToUnclosedRightCurlyBracket
+            CreateAction: BrancketMotion.GoToUnclosedRightCurlyBracket
         },
     },
 
     RequireBrancketForRightBrancketMotion: {
         // c])
         ")": {
-            cmd: VimCommand.toUnclosedRightParenthesisMotion
+            AddMotion: BrancketMotion.AddToUnclosedRightParenthesisMotion
         },
         // c]}
         "}": {
-            cmd: VimCommand.toUnclosedRightCurlyBracketMotion
+            AddMotion: BrancketMotion.AddToUnclosedRightCurlyBracketMotion
         },
     },
 
@@ -960,10 +962,10 @@ const DefaultKeyBindings: IKeyBindings = {
             AddMotion: FindCharacterMotion.AddRepeartCharacterMotion
         },
         "{": {
-            cmd: VimCommand.gotoParagraphBackword
+            AddMotion: ParagraphMotion.AddParagraphBackwordMotion
         },
         "}": {
-            cmd: VimCommand.gotoParagraphFoword
+            AddMotion: ParagraphMotion.AddParagraphFowordMotion
         },
         "[": {
             cmd: VimCommand.nothing,
@@ -1102,10 +1104,10 @@ const DefaultKeyBindings: IKeyBindings = {
             AddMotion: FindCharacterMotion.AddRepeartCharacterMotion
         },
         "{": {
-            cmd: VimCommand.gotoParagraphBackword
+            AddMotion: ParagraphMotion.AddParagraphBackwordMotion
         },
         "}": {
-            cmd: VimCommand.gotoParagraphFoword
+            AddMotion: ParagraphMotion.AddParagraphFowordMotion
         },
         "[": {
             cmd: VimCommand.nothing,
