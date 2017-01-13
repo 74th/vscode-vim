@@ -12,6 +12,9 @@ import * as ParagraphMotion from "../motion/ParagraphMotion";
 import * as BrancketMotion from "../motion/BrancketMotion";
 import * as InsertTextAction from "../action/InsertTextAction";
 import * as OpenNewLineAndAppendTextAction from "../action/OpenNewLineAndAppendTextAction";
+import * as DeleteYankChangeAction from "../action/DeleteYankChangeAction";
+import * as DeleteYankChangeHighlightedTextAction from "../action/DeleteYankChangeHighlightedTextAction";
+import * as DeleteYankChangeHighlightedLineAction from "../action/DeleteYankChangeHighlightedLineAction";
 
 class KeyBindings implements IKeyBindings {
     AtStart: { [key: string]: IVimStyleCommand };
@@ -88,18 +91,18 @@ const DefaultKeyBindings: IKeyBindings = {
             CreateAction: WordMotion.GotoBlankSeparatedBackwordWord
         },
         "c": {
-            cmd: VimCommand.changeTextWithMotion,
+            CreateAction: DeleteYankChangeAction.ChangeTextWithMotion,
             state: StateName.RequireMotion
         },
         "C": {
-            cmd: VimCommand.changeTextToEndOfLine
+            CreateAction: DeleteYankChangeAction.ChangeTextToEndOfLine
         },
         "d": {
-            cmd: VimCommand.deleteTextWithMotion,
+            CreateAction: DeleteYankChangeAction.DeleteTextWithMotion,
             state: StateName.RequireMotion
         },
         "D": {
-            cmd: VimCommand.deleteTextToEndOfLine
+            CreateAction: DeleteYankChangeAction.DeleteTextToEndOfLine
         },
         "e": {
             CreateAction: DeleteEndOfWordMotion.GotoForwardToEndOfWold
@@ -164,10 +167,10 @@ const DefaultKeyBindings: IKeyBindings = {
         },
         // R low priority
         "s": {
-            cmd: VimCommand.changeCharacters
+            CreateAction: DeleteYankChangeAction.ChangeCharacters
         },
         "S": {
-            cmd: VimCommand.changeLines
+            CreateAction: DeleteYankChangeAction.ChangeLines
         },
         "t": {
             CreateAction: FindCharacterMotion.GoTillBeforeCharacterToRight,
@@ -192,17 +195,17 @@ const DefaultKeyBindings: IKeyBindings = {
             CreateAction: MoveWordMotion.GotoBlankSeparated
         },
         "x": {
-            cmd: VimCommand.deleteCharactersUnderCursor
+            CreateAction: DeleteYankChangeAction.DeleteCharactersUnderCursor
         },
         "X": {
-            cmd: VimCommand.deleteCharactersBeforeCursor
+            CreateAction: DeleteYankChangeAction.DeleteCharactersBeforeCursor
         },
         "y": {
-            cmd: VimCommand.yankTextWithMotion,
+            CreateAction: DeleteYankChangeAction.YankTextWithMotion,
             state: StateName.RequireMotion
         },
         "Y": {
-            cmd: VimCommand.yankLine
+            CreateAction: DeleteYankChangeAction.YankLine
         },
         // z never suppoer
         // Z no function
@@ -287,10 +290,13 @@ const DefaultKeyBindings: IKeyBindings = {
             CreateAction: WordMotion.GotoBlankSeparatedBackwordWord
         },
         // B
-        // Nc low priority
+        "c": {
+            CreateAction: DeleteYankChangeAction.ChangeTextWithMotion,
+            state: StateName.RequireMotion
+        },
         // NC low priority
         "d": {
-            cmd: VimCommand.deleteTextWithMotion,
+            CreateAction: DeleteYankChangeAction.DeleteTextWithMotion,
             state: StateName.RequireMotion
         },
         // ND low priority
@@ -365,13 +371,13 @@ const DefaultKeyBindings: IKeyBindings = {
             CreateAction: MoveWordMotion.GotoBlankSeparated
         },
         "x": {
-            cmd: VimCommand.deleteCharactersUnderCursor
+            CreateAction: DeleteYankChangeAction.DeleteCharactersUnderCursor
         },
         "X": {
-            cmd: VimCommand.deleteCharactersBeforeCursor
+            CreateAction: DeleteYankChangeAction.DeleteCharactersBeforeCursor
         },
         "y": {
-            cmd: VimCommand.yankTextWithMotion,
+            CreateAction: DeleteYankChangeAction.YankTextWithMotion,
             state: StateName.RequireMotion
         },
         "Y": {
@@ -453,11 +459,11 @@ const DefaultKeyBindings: IKeyBindings = {
             AddMotion: WordMotion.AddBlankSeparatedBackwordMotion
         },
         "c": {
-            cmd: VimCommand.doActionAtCurrentLine
+            CreateAction: DeleteYankChangeAction.ChangeCurrentLine
         },
         // C no command
         "d": {
-            cmd: VimCommand.doActionAtCurrentLine
+            CreateAction: DeleteYankChangeAction.DeleteCurrentLine
         },
         // D no command
         "e": {
@@ -530,11 +536,9 @@ const DefaultKeyBindings: IKeyBindings = {
         // x no function
         // X no function
         "y": {
-            cmd: VimCommand.doActionAtCurrentLine
+            CreateAction: DeleteYankChangeAction.YankCurrentLine
         },
-        "Y": {
-            cmd: VimCommand.yankLine
-        },
+        // Y no command
         // z never suppoer
         // Z no function
         "0": {
@@ -615,11 +619,11 @@ const DefaultKeyBindings: IKeyBindings = {
             AddMotion: WordMotion.AddBlankSeparatedBackwordMotion
         },
         "c": {
-            cmd: VimCommand.doActionAtCurrentLine
+            cmd: VimCommand.nothing
         },
         // C no command
         "d": {
-            cmd: VimCommand.doActionAtCurrentLine
+            cmd: VimCommand.nothing
         },
         // D no command
         "e": {
@@ -689,7 +693,7 @@ const DefaultKeyBindings: IKeyBindings = {
         // x no function
         // X no function
         "y": {
-            cmd: VimCommand.doActionAtCurrentLine
+            cmd: VimCommand.nothing
         },
         // Y ?
         // z never suppoer
@@ -833,11 +837,11 @@ const DefaultKeyBindings: IKeyBindings = {
             AddMotion: WordMotion.AddBlankSeparatedBackwordMotion
         },
         "c": {
-            cmd: VimCommand.changeHighlightedText
+            CreateAction: DeleteYankChangeHighlightedTextAction.ChangeHighlightedText
         },
         // C no command
         "d": {
-            cmd: VimCommand.deleteHighlightedText
+            CreateAction: DeleteYankChangeHighlightedTextAction.DeleteHighlightedText
         },
         // D no command
         "e": {
@@ -913,7 +917,7 @@ const DefaultKeyBindings: IKeyBindings = {
         // x no function
         // X no function
         "y": {
-            cmd: VimCommand.yankHighlightedText
+            CreateAction: DeleteYankChangeHighlightedTextAction.YankHighlightedText
         },
         "0": {
             AddMotion: FirstCharacterInLineMotion.AddFirstCharacterInLineMotion
@@ -990,11 +994,11 @@ const DefaultKeyBindings: IKeyBindings = {
             AddMotion: WordMotion.AddBlankSeparatedBackwordMotion
         },
         "c": {
-            cmd: VimCommand.changeHighligtedLine
+            CreateAction: DeleteYankChangeHighlightedLineAction.ChangeHighligtedLine
         },
         // V..C no command
         "d": {
-            cmd: VimCommand.deleteHighlightedLine
+            CreateAction: DeleteYankChangeHighlightedLineAction.DeleteHighlightedLine
         },
         // V..D no command
         // V..e
@@ -1055,7 +1059,7 @@ const DefaultKeyBindings: IKeyBindings = {
         // x no function
         // X no function
         "y": {
-            cmd: VimCommand.yankHighlightedLine
+            CreateAction: DeleteYankChangeHighlightedLineAction.YankHighlightedLine
         },
         "0": {
             AddMotion: FirstCharacterInLineMotion.AddFirstCharacterInLineMotion

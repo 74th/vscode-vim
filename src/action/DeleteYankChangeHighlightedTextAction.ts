@@ -1,6 +1,9 @@
 import { Range, Position } from "../VimStyle";
 import { RegisterItem } from "../core/Register";
 
+/**
+ * {Visual}d {Visual}y {Visual}c
+ */
 export class DeleteYankChangeHighlightedTextAction implements IInsertTextAction {
 
     public isInsert: boolean;
@@ -56,4 +59,27 @@ export class DeleteYankChangeHighlightedTextAction implements IInsertTextAction 
         }
 
     }
+}
+
+/**
+ * {visual}d
+ */
+export function DeleteHighlightedText(num: number): IAction {
+    return new DeleteYankChangeHighlightedTextAction();
+}
+/**
+ * {visual}y
+ */
+export function YankHighlightedText(num: number): IAction {
+    let a = new DeleteYankChangeHighlightedTextAction();
+    a.SetOnlyYancOption();
+    return a;
+}
+/**
+ * {visual}c
+ */
+export function ChangeHighlightedText(num: number): IAction {
+    let a = new DeleteYankChangeHighlightedTextAction();
+    a.SetChangeOption();
+    return a;
 }

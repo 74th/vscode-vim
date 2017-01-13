@@ -1,6 +1,9 @@
 import { Range, Position } from "../VimStyle";
 import { RegisterItem } from "../core/Register";
 
+/**
+ * {VisualLine}d {VisualLine} y {VisualLine}c
+ */
 export class DeleteYankChangeHighlightedLineAction implements IInsertTextAction {
 
     public isInsert: boolean;
@@ -84,4 +87,29 @@ export class DeleteYankChangeHighlightedLineAction implements IInsertTextAction 
             editor.DeleteRange(nrange, nrange.start);
         }
     }
+}
+
+/**
+ * {visualLine}d
+ */
+export function DeleteHighlightedLine(num: number): IAction {
+    return new DeleteYankChangeHighlightedLineAction();
+}
+
+/**
+ * {visualLine}y
+ */
+export function YankHighlightedLine(num: number): IAction {
+    let a = new DeleteYankChangeHighlightedLineAction();
+    a.SetOnlyYancOption();
+    return a;
+}
+
+/**
+ * {visualLine}c
+ */
+export function ChangeHighligtedLine(num: number): IAction {
+    let a = new DeleteYankChangeHighlightedLineAction();
+    a.SetChangeOption();
+    return a;
 }

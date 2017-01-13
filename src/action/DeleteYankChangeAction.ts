@@ -1,7 +1,14 @@
 import { AbstractInsertTextAction } from "./AbstractInsertTextAction";
 import { Range, Position } from "../VimStyle";
 import { RegisterItem } from "../core/Register";
+import { RightMotion } from "../motion/RightMotion";
+import { DownMotion } from "../motion/DownMotion";
+import { LastCharacterInLineMotion } from "../motion/LastCharacterInLineMotion";
 
+/**
+ * dm ym cm D Y M
+ * x X s S
+ */
 export class DeleteYankChangeAction extends AbstractInsertTextAction implements IRequireMotionAction, IInsertTextAction {
 
     public Motion: IMotion;
@@ -193,4 +200,169 @@ export class DeleteYankChangeAction extends AbstractInsertTextAction implements 
         }
 
     }
+}
+
+/**
+ * Nx
+ */
+export function DeleteCharactersUnderCursor(num: number): IAction {
+    let m = new RightMotion();
+    m.Count = num === 0 ? 1 : num;
+    let a = new DeleteYankChangeAction();
+    a.IsLarge = false;
+    a.Motion = m;
+    return a;
+}
+
+/**
+ * NX
+ */
+export function DeleteCharactersBeforeCursor(num: number): IAction {
+    let m = new RightMotion();
+    m.IsLeftDirection = true;
+    m.Count = num === 0 ? 1 : num;
+    let a = new DeleteYankChangeAction();
+    a.IsLarge = false;
+    a.Motion = m;
+    return a;
+}
+
+/**
+ * dm
+ */
+export function DeleteTextWithMotion(num: number): IAction {
+    return new DeleteYankChangeAction();
+}
+
+/**
+ * dd
+ */
+export function DeleteCurrentLine(num: number): IAction {
+    let a = new DeleteYankChangeAction();
+    // let a = <DeleteYankChangeAction>action;
+    // if (!(a.IsOnlyYanc == false && a.IsChange == false)) {
+    //     return null;
+    // }
+    a.IsLine = true;
+    let m = new DownMotion();
+    m.Count = num === 0 ? 1 : num - 1;
+    a.Motion = m;
+    return a;
+}
+
+/**
+ * D
+ */
+export function DeleteTextToEndOfLine(num: number): IAction {
+    let m = new LastCharacterInLineMotion();
+    m.Count = 1;
+    let a = new DeleteYankChangeAction();
+    a.IsLarge = false;
+    a.Motion = m;
+    return a;
+}
+
+/**
+ * ym
+ */
+export function YankTextWithMotion(num: number): IAction {
+    let a = new DeleteYankChangeAction();
+    a.IsOnlyYanc = true;
+    return a;
+}
+
+/**
+ * yy
+ */
+export function YankCurrentLine(num: number): IAction {
+    let a = new DeleteYankChangeAction();
+    // let a = <DeleteYankChangeAction>action;
+    // if (!(a.IsOnlyYanc == true)) {
+    //     this.Clear();
+    //     return null;
+    // }
+    a.IsLine = true;
+    let m = new DownMotion();
+    m.Count = num === 0 ? 1 : num - 1;
+    a.Motion = m;
+    return a;
+}
+
+/**
+ * Y
+ */
+export function YankLine(num: number): IAction {
+    let m = new LastCharacterInLineMotion();
+    m.Count = 1;
+    let a = new DeleteYankChangeAction();
+    a.IsLarge = false;
+    a.IsLine = true;
+    a.Motion = m;
+    a.IsOnlyYanc = true;
+    return a;
+}
+
+/**
+ * c{motion}
+ */
+export function ChangeTextWithMotion(num: number): IAction {
+    let a = new DeleteYankChangeAction();
+    a.IsChange = true;
+    return a;
+}
+
+/**
+ * S
+ */
+export function ChangeLines(num: number): IAction {
+    let m = new DownMotion();
+    m.Count = this.getNumStack() - 1;
+    let a = new DeleteYankChangeAction();
+    a.IsLine = true;
+    a.Motion = m;
+    a.IsChange = true;
+    return a;
+}
+
+/**
+ * cc
+ */
+export function ChangeCurrentLine(num: number): IAction {
+    let a = new DeleteYankChangeAction();
+    // let a = <DeleteYankChangeAction>action;
+    // if (!(a.IsChange == true)) {
+    //     this.Clear();
+    //     return null;
+    // }
+    a.IsLine = true;
+    let m = new DownMotion();
+    m.Count = num === 0 ? 1 : num - 1;
+    a.Motion = m;
+    return a;
+}
+
+/**
+ * C
+ */
+export function ChangeTextToEndOfLine(num: number): IAction {
+    let m = new LastCharacterInLineMotion();
+    m.Count = 1;
+    let a = new DeleteYankChangeAction();
+    a.IsLarge = false;
+    a.Motion = m;
+    a.IsChange = true;
+    return a;
+}
+
+/**
+ * s
+ */
+export function ChangeCharacters(num: number): IAction {
+    let m = new RightMotion();
+    m.Count = 1;
+    let a = new DeleteYankChangeAction();
+    a.IsLarge = false;
+    a.Motion = m;
+    a.IsChange = true;
+    return a;
 }

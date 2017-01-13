@@ -2,14 +2,11 @@ import * as Utils from "../Utils";
 import { InsertTextAction } from "../action/InsertTextAction";
 import { OpenNewLineAndAppendTextAction } from "../action/OpenNewLineAndAppendTextAction";
 import { PutRegisterAction } from "../action/PutRegisterAction";
-import { DeleteYankChangeAction } from "../action/DeleteYankChangeAction";
 import { GoAction } from "../action/GoAction";
 import { StartVisualModeAction } from "../action/StartVisualModeAction";
 import { ExpandHighlightedTextAction } from "../action/ExpandHighlightedTextAction";
-import { DeleteYankChangeHighlightedTextAction } from "../action/DeleteYankChangeHighlightedTextAction";
 import { StartVisualLineModeAction } from "../action/StartVisualLineModeAction";
 import { ExpandHighlightedLineAction } from "../action/ExpandHighlightedLineAction";
-import { DeleteYankChangeHighlightedLineAction } from "../action/DeleteYankChangeHighlightedLineAction";
 import { ReplaceCharacterAction } from "../action/ReplaceCharacterAction";
 import { ReplaceCharacterOfSelectedTextAction } from "../action/ReplaceCharacterOfSelecetdTextAction";
 import { RepeatLastChangeAction } from "../action/RepeatLastChangeAction";
@@ -204,52 +201,6 @@ export class CommandFactory implements ICommandFactory {
 
             // sorted and categorised by quickref.md
             // ** Deleting text **
-            // Nx
-            case VimCommand.deleteCharactersUnderCursor:
-                this.deleteCharactersUnderCursor();
-                return;
-            // Nx
-            case VimCommand.deleteCharactersBeforeCursor:
-                this.deleteCharactersBeforeCursor();
-                return;
-            // Nd{motion}
-            case VimCommand.deleteTextWithMotion:
-                this.deleteTextWithMotion();
-                return;
-            // {visual}d
-            case VimCommand.deleteHighlightedText:
-                this.deleteHighligtedText();
-                return;
-            // {visualLine}d
-            case VimCommand.deleteHighlightedLine:
-                this.deleteHightlightedLineAction();
-                return;
-            // dd cc yy
-            case VimCommand.doActionAtCurrentLine:
-                this.doActionAtCurrentLine(key);
-                return;
-            // D
-            case VimCommand.deleteTextToEndOfLine:
-                this.deleteTextToEndOfLine();
-                return;
-
-            // ** Copying and moving text **
-            // y{motion}
-            case VimCommand.yankTextWithMotion:
-                this.yankTextWithMotion();
-                return;
-            // {visual}y
-            case VimCommand.yankHighlightedText:
-                this.yancSelectionAction();
-                return;
-            // {visualLine}y
-            case VimCommand.yankHighlightedLine:
-                this.yancLineSelectionAction();
-                return;
-            // Nyy
-            case VimCommand.yankLine:
-                this.yankLine();
-                return;
             // Np
             case VimCommand.putRegisterAfterCursorPosition:
                 this.putRegisterAfterCursorPosition();
@@ -272,32 +223,6 @@ export class CommandFactory implements ICommandFactory {
             case VimCommand.replaceCharacterOfSelectedText:
                 this.replaceCharacterOfSelectedTextAction();
                 return;
-            // c{motion}
-            case VimCommand.changeTextWithMotion:
-                this.changeTextWithMotion();
-                return;
-            // C
-            case VimCommand.changeTextToEndOfLine:
-                this.changeTextToEndOfLine();
-                return;
-            // NS
-            case VimCommand.changeLines:
-                this.changeLines();
-                return;
-            // s
-            case VimCommand.changeCharacters:
-                this.changeCharacters();
-                return;
-            // {visual}c
-            case VimCommand.changeHighlightedText:
-                this.changeHighlightedText();
-                return;
-            // {visualLine}c
-            case VimCommand.changeHighligtedLine:
-                this.changeLineSelectionAction();
-                return;
-
-            // ** Complex changes **
 
             // ** Visual mode **
             // v
@@ -332,105 +257,11 @@ export class CommandFactory implements ICommandFactory {
     // Deleting text
     // -----
 
-    // Nx
-    private deleteCharactersUnderCursor() {
-        let m = new RightMotion();
-        m.Count = this.getNumStack();
-        let a = new DeleteYankChangeAction();
-        a.IsLarge = false;
-        a.Motion = m;
-        this.action = a;
-    }
 
-    // NX
-    private deleteCharactersBeforeCursor() {
-        let m = new RightMotion();
-        m.IsLeftDirection = true;
-        m.Count = this.getNumStack();
-        let a = new DeleteYankChangeAction();
-        a.IsLarge = false;
-        a.Motion = m;
-        this.action = a;
-    }
-
-    // dm
-    private deleteTextWithMotion() {
-        this.action = new DeleteYankChangeAction();
-    }
-
-    // {visual}d
-    private deleteHighligtedText() {
-        this.action = new DeleteYankChangeHighlightedTextAction();
-    }
-
-    // {visualLine}d
-    private deleteHightlightedLineAction() {
-        this.action = new DeleteYankChangeHighlightedLineAction();
-    }
-
-    // dd, yy, cc
-    private doActionAtCurrentLine(key: String) {
-        if (this.stackedKey !== key) {
-            this.Clear();
-            return;
-        }
-        let a = <IRequireMotionAction>this.action;
-        a.IsLine = true;
-        let count = 0;
-        if (this.num !== 0) {
-            count = this.num - 1;
-        }
-        let m = new DownMotion();
-        m.Count = count;
-        a.Motion = m;
-    }
-
-    // D
-    private deleteTextToEndOfLine() {
-        let m = new LastCharacterInLineMotion();
-        m.Count = 1;
-        let a = new DeleteYankChangeAction();
-        a.IsLarge = false;
-        a.Motion = m;
-        this.action = a;
-    }
 
     // -----
     // Copying and moving text
     // -----
-
-    // ym
-    private yankTextWithMotion() {
-        let a = new DeleteYankChangeAction();
-        a.IsOnlyYanc = true;
-        this.action = a;
-    }
-
-    // {visual}y
-    private yancSelectionAction() {
-        let a = new DeleteYankChangeHighlightedTextAction();
-        a.SetOnlyYancOption();
-        this.action = a;
-    }
-
-    // {visualLine}y
-    private yancLineSelectionAction() {
-        let a = new DeleteYankChangeHighlightedLineAction();
-        a.SetOnlyYancOption();
-        this.action = a;
-    }
-
-    // Y
-    private yankLine() {
-        let m = new LastCharacterInLineMotion();
-        m.Count = 1;
-        let a = new DeleteYankChangeAction();
-        a.IsLarge = false;
-        a.IsLine = true;
-        a.Motion = m;
-        a.IsOnlyYanc = true;
-        this.action = a;
-    }
 
     // p
     private putRegisterAfterCursorPosition() {
@@ -473,67 +304,6 @@ export class CommandFactory implements ICommandFactory {
         this.action = a;
     }
 
-    // c{motion}
-    private changeTextWithMotion() {
-        let a = new DeleteYankChangeAction();
-        a.IsChange = true;
-        this.action = a;
-    }
-
-    // S
-    private changeLines() {
-        let m = new DownMotion();
-        m.Count = this.getNumStack() - 1;
-        let a = new DeleteYankChangeAction();
-        a.IsLine = true;
-        a.Motion = m;
-        a.IsChange = true;
-        this.action = a;
-    }
-
-    // C
-    private changeTextToEndOfLine() {
-        let m = new LastCharacterInLineMotion();
-        m.Count = 1;
-        let a = new DeleteYankChangeAction();
-        a.IsLarge = false;
-        a.Motion = m;
-        a.IsChange = true;
-        this.action = a;
-    }
-
-    // s
-    private changeCharacters() {
-        let m = new RightMotion();
-        m.Count = 1;
-        let a = new DeleteYankChangeAction();
-        a.IsLarge = false;
-        a.Motion = m;
-        a.IsChange = true;
-        this.action = a;
-    }
-
-    // {visual}c
-    private changeHighlightedText() {
-        let a = new DeleteYankChangeHighlightedTextAction();
-        a.SetChangeOption();
-        this.action = a;
-    }
-
-    // {visualLine}c
-    private changeLineSelectionAction() {
-        let a = new DeleteYankChangeHighlightedLineAction();
-        a.SetChangeOption();
-        this.action = a;
-    }
-
-    // -----
-    // Complex changes
-    // -----
-
-    // -----
-    // Visual mode
-    // -----
 
     // v
     private startVisualMode() {
