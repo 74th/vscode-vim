@@ -44,3 +44,8 @@ export class ReplaceCharacterOfSelectedTextAction implements IRequireCharAction 
         editor.SetPosition(s.start);
     }
 }
+
+// {Visual}c{char}
+export function ReplaceCharacterOfSelectedText(num: number): IAction {
+    return new ReplaceCharacterOfSelectedTextAction();
+}

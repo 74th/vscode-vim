@@ -46,3 +46,19 @@ export class ReplaceCharacterAction implements IRequireCharAction, ICountableAct
         return;
     }
 }
+
+// Nr{char}
+export function ReplaceCharacter(num: number): IAction {
+    const a = new ReplaceCharacterAction();
+    a.Count = num === 0 ? 1 : num;
+    a.IsAffectingLayout = true;
+    return a;
+}
+
+// Ngr{char}
+export function ReplaceCharacterWithoutAffectingLayout(num: number): IAction {
+    const a = new ReplaceCharacterAction();
+    a.Count = num === 0 ? 1 : num;
+    a.IsAffectingLayout = false;
+    return a;
+}

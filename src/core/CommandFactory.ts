@@ -201,20 +201,6 @@ export class CommandFactory implements ICommandFactory {
 
             // sorted and categorised by quickref.md
 
-            // ** Changing text **
-            // Nr{char}
-            case VimCommand.replaceCharacter:
-                this.replaceCharacterAction();
-                return;
-            // Ngr{char}
-            case VimCommand.replaceCharacterWithoutAffectingLayout:
-                this.replaceCharacterWithoutAffectingLayoutAction();
-                return;
-            // {Visual}r{char}
-            case VimCommand.replaceCharacterOfSelectedText:
-                this.replaceCharacterOfSelectedTextAction();
-                return;
-
             // ** Visual mode **
             // v
             case VimCommand.startVisualMode:
@@ -247,27 +233,6 @@ export class CommandFactory implements ICommandFactory {
     // Changing text
     // -----
 
-    // Nr{char}
-    private replaceCharacterAction() {
-        const a = new ReplaceCharacterAction();
-        a.Count = this.getNumStack();
-        a.IsAffectingLayout = true;
-        this.action = a;
-    }
-
-    // Ngr{char}
-    private replaceCharacterWithoutAffectingLayoutAction() {
-        const a = new ReplaceCharacterAction();
-        a.Count = this.getNumStack();
-        a.IsAffectingLayout = false;
-        this.action = a;
-    }
-
-    // {Visual}c{char}
-    private replaceCharacterOfSelectedTextAction() {
-        const a = new ReplaceCharacterOfSelectedTextAction();
-        this.action = a;
-    }
 
 
     // v

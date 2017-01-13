@@ -16,6 +16,8 @@ import * as DeleteYankChangeAction from "../action/DeleteYankChangeAction";
 import * as DeleteYankChangeHighlightedTextAction from "../action/DeleteYankChangeHighlightedTextAction";
 import * as DeleteYankChangeHighlightedLineAction from "../action/DeleteYankChangeHighlightedLineAction";
 import * as PutRegisterAction from "../action/PutRegisterAction";
+import * as ReplaceCharacterAction from "../action/ReplaceCharacterAction";
+import * as ReplaceCharacterOfSelecetdTextAction from "../action/ReplaceCharacterOfSelecetdTextAction";
 
 class KeyBindings implements IKeyBindings {
     AtStart: { [key: string]: IVimStyleCommand };
@@ -163,7 +165,7 @@ const DefaultKeyBindings: IKeyBindings = {
         // q low priority
         // Q never support
         "r": {
-            cmd: VimCommand.replaceCharacter,
+            CreateAction: ReplaceCharacterAction.ReplaceCharacter,
             state: StateName.RequireCharForAction
         },
         // R low priority
@@ -347,7 +349,7 @@ const DefaultKeyBindings: IKeyBindings = {
         // Nq low priority
         // NQ never support
         "r": {
-            cmd: VimCommand.replaceCharacter,
+            CreateAction: ReplaceCharacterAction.ReplaceCharacter,
             state: StateName.RequireCharForAction
         },
         // NR low priority
@@ -815,7 +817,7 @@ const DefaultKeyBindings: IKeyBindings = {
             CreateAction: FirstCharacterMotion.GotoFirstLineOnFirstNonBlankCharacter
         },
         "r": {
-            cmd: VimCommand.replaceCharacterWithoutAffectingLayout,
+            CreateAction: ReplaceCharacterAction.ReplaceCharacterWithoutAffectingLayout,
             state: StateName.RequireCharForAction
         }
     },
@@ -891,7 +893,7 @@ const DefaultKeyBindings: IKeyBindings = {
         // q no function
         // Q no function
         "r": {
-            cmd: VimCommand.replaceCharacterOfSelectedText,
+            CreateAction: ReplaceCharacterOfSelecetdTextAction.ReplaceCharacterOfSelectedText,
             state: StateName.RequireCharForAction
         },
         // R low priority
