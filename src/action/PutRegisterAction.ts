@@ -74,7 +74,7 @@ export class PutRegisterAction implements IAction {
  */
 export function PutRegisterAfterCursorPosition(num: number): IAction {
     let a = new PutRegisterAction();
-    a.Count = num == 0 ? 1 : num;
+    a.Count = num === 0 ? 1 : num;
     return a;
 }
 
@@ -84,6 +84,6 @@ export function PutRegisterAfterCursorPosition(num: number): IAction {
 export function PutRegisterBeforeCursorPosition(num: number): IAction {
     let a = new PutRegisterAction();
     a.IsPrev = true;
-    a.Count = num == 0 ? 1 : num;
+    a.Count = num === 0 ? 1 : num;
     return a;
 }
