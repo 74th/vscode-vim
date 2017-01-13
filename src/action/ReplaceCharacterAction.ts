@@ -2,6 +2,9 @@ import { AbstractInsertTextAction } from "./AbstractInsertTextAction";
 import { Range, Position } from "../VimStyle";
 import { RegisterItem } from "../core/Register";
 
+/**
+ * Nr{char} Ngr{char}
+ */
 export class ReplaceCharacterAction implements IRequireCharAction, ICountableAction {
 
     public Count: number;
@@ -47,7 +50,9 @@ export class ReplaceCharacterAction implements IRequireCharAction, ICountableAct
     }
 }
 
-// Nr{char}
+/**
+ * Nr{char}
+ */
 export function ReplaceCharacter(num: number): IAction {
     const a = new ReplaceCharacterAction();
     a.Count = num === 0 ? 1 : num;
@@ -55,7 +60,9 @@ export function ReplaceCharacter(num: number): IAction {
     return a;
 }
 
-// Ngr{char}
+/**
+ * Ngr{char}
+ */
 export function ReplaceCharacterWithoutAffectingLayout(num: number): IAction {
     const a = new ReplaceCharacterAction();
     a.Count = num === 0 ? 1 : num;

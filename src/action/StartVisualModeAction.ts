@@ -1,4 +1,8 @@
 import { Range, Position } from "../VimStyle";
+
+/**
+ * v
+ */
 export class StartVisualModeAction implements IAction {
 
     public GetActionType(): ActionType {
@@ -13,4 +17,11 @@ export class StartVisualModeAction implements IAction {
         editor.ShowVisualMode(s, cp);
         vim.ApplyVisualMode();
     }
+}
+
+/**
+ * v
+ */
+export function StartVisualMode(num: number): IAction {
+    return new StartVisualModeAction();
 }

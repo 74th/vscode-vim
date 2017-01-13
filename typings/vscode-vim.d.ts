@@ -153,6 +153,7 @@ interface IVimStyleCommand {
     argument?: string;
     callback?: ICommandCallback;
     CreateAction?: (num: number) => IAction;
+    CreateActionWithArguments?: (command: IVimStyleCommand) => IAction;
     AddMotion?: (num: number, action: IAction) => void;
 }
 

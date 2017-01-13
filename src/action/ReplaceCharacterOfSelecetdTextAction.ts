@@ -1,6 +1,9 @@
 import { Range, Position } from "../VimStyle";
 import { RegisterItem } from "../core/Register";
 
+/**
+ * {Visual}c{char}
+ */
 export class ReplaceCharacterOfSelectedTextAction implements IRequireCharAction {
 
     public CharacterCode: number;
@@ -45,7 +48,9 @@ export class ReplaceCharacterOfSelectedTextAction implements IRequireCharAction 
     }
 }
 
-// {Visual}c{char}
+/**
+ * {Visual}c{char}
+ */
 export function ReplaceCharacterOfSelectedText(num: number): IAction {
     return new ReplaceCharacterOfSelectedTextAction();
 }

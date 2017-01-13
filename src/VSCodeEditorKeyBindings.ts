@@ -1,35 +1,36 @@
+import { EditorCommand } from "./action/CallEditorCommandAction";
 export const VSCodeEditorKeyBindngs: IKeyBindings = {
     AtStart: {
         "u": {
-            cmd: VimCommand.editorCommand,
+            CreateActionWithArguments: EditorCommand,
             argument: "undo"
         },
         ":": {
-            cmd: VimCommand.editorCommand,
+            CreateActionWithArguments: EditorCommand,
             argument: "workbench.action.showCommands"
         },
         "/": {
-            cmd: VimCommand.editorCommand,
+            CreateActionWithArguments: EditorCommand,
             argument: "actions.find"
         },
         "n": {
-            cmd: VimCommand.editorCommand,
+            CreateActionWithArguments: EditorCommand,
             argument: "editor.action.nextMatchFindAction"
         },
         "N": {
-            cmd: VimCommand.editorCommand,
+            CreateActionWithArguments: EditorCommand,
             argument: "editor.action.previousMatchFindAction"
         },
         ">": {
-            cmd: VimCommand.editorCommand,
+            CreateActionWithArguments: EditorCommand,
             argument: "editor.action.indentLines"
         },
         "<": {
-            cmd: VimCommand.editorCommand,
+            CreateActionWithArguments: EditorCommand,
             argument: "editor.action.outdentLines"
         },
         "%": {
-            cmd: VimCommand.editorCommand,
+            CreateActionWithArguments: EditorCommand,
             argument: "editor.action.jumpToBracket"
         }
     },
@@ -53,69 +54,69 @@ export const VSCodeEditorKeyBindngs: IKeyBindings = {
     },
     VisualMode: {
         "u": {
-            cmd: VimCommand.editorCommand,
+            CreateActionWithArguments: EditorCommand,
             argument: "undo"
         },
         ":": {
-            cmd: VimCommand.editorCommand,
+            CreateActionWithArguments: EditorCommand,
             argument: "workbench.action.showCommands"
         },
         "/": {
-            cmd: VimCommand.editorCommand,
+            CreateActionWithArguments: EditorCommand,
             argument: "actions.find"
         },
         "n": {
-            cmd: VimCommand.editorCommand,
+            CreateActionWithArguments: EditorCommand,
             argument: "editor.action.nextMatchFindAction"
         },
         "N": {
-            cmd: VimCommand.editorCommand,
+            CreateActionWithArguments: EditorCommand,
             argument: "editor.action.previousMatchFindAction"
         },
         ">": {
-            cmd: VimCommand.editorCommand,
+            CreateActionWithArguments: EditorCommand,
             argument: "editor.action.indentLines"
         },
         "<": {
-            cmd: VimCommand.editorCommand,
+            CreateActionWithArguments: EditorCommand,
             argument: "editor.action.outdentLines"
         },
         "%": {
-            cmd: VimCommand.editorCommand,
+            CreateActionWithArguments: EditorCommand,
             argument: "editor.action.jumpToBracket"
         }
     },
     VisualLineMode: {
         "u": {
-            cmd: VimCommand.editorCommand,
+            CreateActionWithArguments: EditorCommand,
             argument: "undo"
         },
         ":": {
-            cmd: VimCommand.editorCommand,
+            CreateActionWithArguments: EditorCommand,
             argument: "workbench.action.showCommands"
         },
         "/": {
-            cmd: VimCommand.editorCommand,
+            CreateActionWithArguments: EditorCommand,
             argument: "actions.find"
         },
         "n": {
-            cmd: VimCommand.editorCommand,
+            CreateActionWithArguments: EditorCommand,
             argument: "editor.action.nextMatchFindAction"
         },
         "N": {
-            cmd: VimCommand.editorCommand,
+            CreateActionWithArguments: EditorCommand,
             argument: "editor.action.previousMatchFindAction"
         },
         ">": {
-            cmd: VimCommand.editorCommand,
+            CreateActionWithArguments: EditorCommand,
             argument: "editor.action.indentLines"
         },
         "<": {
-            cmd: VimCommand.editorCommand,
+            CreateActionWithArguments: EditorCommand,
             argument: "editor.action.outdentLines"
         },
         "%": {
-            cmd: VimCommand.editorCommand,
+            CreateActionWithArguments: EditorCommand,
             argument: "editor.action.jumpToBracket"
         }
     }

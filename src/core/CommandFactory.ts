@@ -199,33 +199,11 @@ export class CommandFactory implements ICommandFactory {
 
         switch (command.cmd) {
 
-            // sorted and categorised by quickref.md
-
-            // ** Visual mode **
-            // v
-            case VimCommand.startVisualMode:
-                this.startVisualMode();
-                return;
-            // V
-            case VimCommand.startVisualLineMode:
-                this.enterVisualLineModeAction();
-                return;
-
-            // ** Text objects (only in Visual mode or after an operator) **
-
-            // ** Repeating commands **
-            // .
-            case VimCommand.repeatLastChange:
-                this.repeatLastChange();
-                return;
-
             // ** other **
             case VimCommand.stackNumber:
                 this.stackNumber(key);
             case VimCommand.nothing:
                 return;
-            case VimCommand.editorCommand:
-                this.editorCommand(command);
         }
     }
 
@@ -235,15 +213,7 @@ export class CommandFactory implements ICommandFactory {
 
 
 
-    // v
-    private startVisualMode() {
-        this.action = new StartVisualModeAction();
-    }
 
-    // V
-    private enterVisualLineModeAction() {
-        this.action = new StartVisualLineModeAction();
-    }
 
     // -----
     // Text objects (only in Visual mode or after an operator)
@@ -252,11 +222,6 @@ export class CommandFactory implements ICommandFactory {
     // -----
     // Repeating commands
     // -----
-
-    // .
-    private repeatLastChange() {
-        this.action = new RepeatLastChangeAction();
-    }
 
     // -----
     // other
@@ -293,19 +258,6 @@ export class CommandFactory implements ICommandFactory {
         if (this.num > 10000) {
             this.Clear();
         }
-    }
-
-    private createGotoAction(motion: IMotion) {
-        let a = new GoAction();
-        a.Motion = motion;
-        return a;
-    }
-
-    private editorCommand(command: IVimStyleCommand) {
-        let a = new CallEditorCommandAction();
-        a.Argument = command.argument;
-        a.Callback = command.callback;
-        this.action = a;
     }
 
 }

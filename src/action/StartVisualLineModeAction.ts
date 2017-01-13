@@ -1,4 +1,8 @@
 import { Range } from "../VimStyle";
+
+/**
+ * V
+ */
 export class StartVisualLineModeAction implements IAction {
 
     public GetActionType(): ActionType {
@@ -10,4 +14,11 @@ export class StartVisualLineModeAction implements IAction {
         editor.ShowVisualLineMode(cp.Line, cp.Line, cp);
         vim.ApplyVisualLineMode();
     }
+}
+
+/**
+ * V
+ */
+export function StartVisualLineMode(num: number): IAction {
+    return new StartVisualLineModeAction();
 }

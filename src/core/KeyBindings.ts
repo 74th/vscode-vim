@@ -18,6 +18,9 @@ import * as DeleteYankChangeHighlightedLineAction from "../action/DeleteYankChan
 import * as PutRegisterAction from "../action/PutRegisterAction";
 import * as ReplaceCharacterAction from "../action/ReplaceCharacterAction";
 import * as ReplaceCharacterOfSelecetdTextAction from "../action/ReplaceCharacterOfSelecetdTextAction";
+import * as StartVisualModeAction from "../action/StartVisualModeAction";
+import * as StartVisualLineModeAction from "../action/StartVisualLineModeAction";
+import * as RepeatLastChangeAction from "../action/RepeatLastChangeAction";
 
 class KeyBindings implements IKeyBindings {
     AtStart: { [key: string]: IVimStyleCommand };
@@ -186,10 +189,10 @@ const DefaultKeyBindings: IKeyBindings = {
         // u low priority
         // U low priority
         "v": {
-            cmd: VimCommand.startVisualMode
+            CreateAction: StartVisualModeAction.StartVisualMode
         },
         "V": {
-            cmd: VimCommand.startVisualLineMode
+            CreateAction: StartVisualLineModeAction.StartVisualLineMode
         },
         "w": {
             CreateAction: MoveWordMotion.GotoWordFoword
@@ -255,7 +258,7 @@ const DefaultKeyBindings: IKeyBindings = {
             CreateAction: LastCharacterInLineMotion.GotoLastCharacterInLine
         },
         ".": {
-            cmd: VimCommand.repeatLastChange
+            CreateAction: RepeatLastChangeAction.RepeatLastChange
         },
         ",": {
             CreateAction: FindCharacterMotion.GotoRepeatCharacterOppositeDirection,

@@ -20,3 +20,10 @@ export class CallEditorCommandAction implements IAction {
     }
 
 }
+
+export function EditorCommand(command: IVimStyleCommand): IAction {
+    let a = new CallEditorCommandAction();
+    a.Argument = command.argument;
+    a.Callback = command.callback;
+    return a;
+}

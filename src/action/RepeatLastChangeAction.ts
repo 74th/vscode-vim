@@ -1,5 +1,8 @@
 import { Position } from "../VimStyle";
 
+/**
+ * .
+ */
 export class RepeatLastChangeAction implements IAction {
 
     constructor() {
@@ -20,4 +23,11 @@ export class RepeatLastChangeAction implements IAction {
         }
     }
 
+}
+
+/**
+ * .
+ */
+export function RepeatLastChange() {
+    return new RepeatLastChangeAction();
 }
