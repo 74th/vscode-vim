@@ -15,6 +15,7 @@ import * as OpenNewLineAndAppendTextAction from "../action/OpenNewLineAndAppendT
 import * as DeleteYankChangeAction from "../action/DeleteYankChangeAction";
 import * as DeleteYankChangeHighlightedTextAction from "../action/DeleteYankChangeHighlightedTextAction";
 import * as DeleteYankChangeHighlightedLineAction from "../action/DeleteYankChangeHighlightedLineAction";
+import * as PutRegisterAction from "../action/PutRegisterAction";
 
 class KeyBindings implements IKeyBindings {
     AtStart: { [key: string]: IVimStyleCommand };
@@ -154,10 +155,10 @@ const DefaultKeyBindings: IKeyBindings = {
             CreateAction: OpenNewLineAndAppendTextAction.OpenNewLineAboveCurrentLineAndAppendText
         },
         "p": {
-            cmd: VimCommand.putRegisterAfterCursorPosition
+            CreateAction: PutRegisterAction.PutRegisterAfterCursorPosition
         },
         "P": {
-            cmd: VimCommand.putRegisterBeforeCursorPosition
+            CreateAction: PutRegisterAction.PutRegisterBeforeCursorPosition
         },
         // q low priority
         // Q never support

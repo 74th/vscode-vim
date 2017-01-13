@@ -1,5 +1,8 @@
 import { Position } from "../VimStyle";
 
+/**
+ * p P
+ */
 export class PutRegisterAction implements IAction {
 
     public IsPrev: boolean;
@@ -64,4 +67,23 @@ export class PutRegisterAction implements IAction {
             editor.SetPosition(np);
         }
     }
+}
+
+/**
+ * p
+ */
+export function PutRegisterAfterCursorPosition(num: number): IAction {
+    let a = new PutRegisterAction();
+    a.Count = num == 0 ? 1 : num;
+    return a;
+}
+
+/**
+ * P
+ */
+export function PutRegisterBeforeCursorPosition(num: number): IAction {
+    let a = new PutRegisterAction();
+    a.IsPrev = true;
+    a.Count = num == 0 ? 1 : num;
+    return a;
 }

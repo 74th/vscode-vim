@@ -200,15 +200,6 @@ export class CommandFactory implements ICommandFactory {
         switch (command.cmd) {
 
             // sorted and categorised by quickref.md
-            // ** Deleting text **
-            // Np
-            case VimCommand.putRegisterAfterCursorPosition:
-                this.putRegisterAfterCursorPosition();
-                return;
-            // NP
-            case VimCommand.putRegisterBeforeCursorPosition:
-                this.putRegisterBeforeCursorPosition();
-                return;
 
             // ** Changing text **
             // Nr{char}
@@ -250,32 +241,6 @@ export class CommandFactory implements ICommandFactory {
             case VimCommand.editorCommand:
                 this.editorCommand(command);
         }
-    }
-
-
-    // -----
-    // Deleting text
-    // -----
-
-
-
-    // -----
-    // Copying and moving text
-    // -----
-
-    // p
-    private putRegisterAfterCursorPosition() {
-        let a = new PutRegisterAction();
-        a.Count = this.getNumStack();
-        this.action = a;
-    }
-
-    // P
-    private putRegisterBeforeCursorPosition() {
-        let a = new PutRegisterAction();
-        a.IsPrev = true;
-        a.Count = this.getNumStack();
-        this.action = a;
     }
 
     // -----
