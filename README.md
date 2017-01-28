@@ -163,6 +163,10 @@ npm run-script build
 
 ## update
 
+### 0.4.3
+
+* some bugfix
+
 ### 0.4.2
 
 * support `[(`,`[{`,`])`,`]}`
