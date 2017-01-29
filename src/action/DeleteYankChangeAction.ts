@@ -245,7 +245,7 @@ export function DeleteCurrentLine(num: number): IAction {
     // }
     a.IsLine = true;
     let m = new DownMotion();
-    m.Count = num === 0 ? 1 : num - 1;
+    m.Count = num === 0 ? 0 : num - 1;
     a.Motion = m;
     return a;
 }
@@ -282,8 +282,9 @@ export function YankCurrentLine(num: number): IAction {
     //     return null;
     // }
     a.IsLine = true;
+    a.IsOnlyYanc = true;
     let m = new DownMotion();
-    m.Count = num === 0 ? 1 : num - 1;
+    m.Count = num === 0 ? 0 : num - 1;
     a.Motion = m;
     return a;
 }
@@ -335,8 +336,9 @@ export function ChangeCurrentLine(num: number): IAction {
     //     return null;
     // }
     a.IsLine = true;
+    a.IsChange = true;
     let m = new DownMotion();
-    m.Count = num === 0 ? 1 : num - 1;
+    m.Count = num === 0 ? 0 : num - 1;
     a.Motion = m;
     return a;
 }
