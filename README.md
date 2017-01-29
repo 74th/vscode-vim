@@ -163,7 +163,7 @@ npm run-script build
 
 ## update
 
-### 0.4.3
+### 0.4.4
 
 * some bugfix
 
