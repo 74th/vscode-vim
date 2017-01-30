@@ -29,6 +29,17 @@ DeleteTests["NX:delete N characters before the cursor"] = {
 // Nd{motion} dw cw and others are in TextObjectMotion.js
 
 // {visual}d
+DeleteTests["{visual}d:delete the highlighted text"] = {
+    "vwld:delete visual text": {
+        "in": [
+            "a|bc def ghe"
+        ],
+        "key": "vwld",
+        "out": [
+            "a|f ghe"
+        ],
+    }
+};
 
 DeleteTests["Ndd:delete N lines"] = {
     "dd:delete line": {
