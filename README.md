@@ -163,6 +163,10 @@ npm run-script build
 
 ## update
 
+### 0.4.6
+
+revert 0.4.2
+
 ### 0.4.2
 
 * support `[(`,`[{`,`])`,`]}`
