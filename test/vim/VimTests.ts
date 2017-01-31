@@ -3,7 +3,8 @@ import { UpDownMotions } from "./UpDownMotions";
 import { TextObjectMotions } from "./TextObjectMotions";
 import { InsertModeTests } from "./InsertModeTests";
 import { ChangingText } from "./ChangingText";
-import { DeleteTests } from "./DeleteTests";
+import { DeletingText } from "./DeletingTextTests";
+import { CopyAndMovingTextTests } from "./CopyAndMovingTextTests";
 import { RepeatTests } from "./RepeatTests";
 
 export let VimTests = {};
@@ -13,7 +14,8 @@ let testsets = [
     TextObjectMotions,
     InsertModeTests,
     ChangingText,
-    DeleteTests,
+    DeletingText,
+    CopyAndMovingTextTests,
     RepeatTests
 ];
 

@@ -1,6 +1,6 @@
-export let DeleteTests = {};
+export let DeletingText = {};
 
-DeleteTests["Nx:delete N characters under and after the cursor"] = {
+DeletingText["Nx:delete N characters under and after the cursor"] = {
     "x:delete charactor": {
         "in": ["a|bc"],
         "key": "x",
@@ -13,7 +13,7 @@ DeleteTests["Nx:delete N characters under and after the cursor"] = {
     }
 };
 
-DeleteTests["NX:delete N characters before the cursor"] = {
+DeletingText["NX:delete N characters before the cursor"] = {
     "X:delete previous charactor": {
         "in": ["ab|c"],
         "key": "X",
@@ -29,7 +29,7 @@ DeleteTests["NX:delete N characters before the cursor"] = {
 // Nd{motion} dw cw and others are in TextObjectMotion.js
 
 // {visual}d
-DeleteTests["{visual}d:delete the highlighted text"] = {
+DeletingText["{visual}d:delete the highlighted text"] = {
     "vwld:delete visual text": {
         "in": [
             "a|bc def ghe"
@@ -41,7 +41,7 @@ DeleteTests["{visual}d:delete the highlighted text"] = {
     }
 };
 
-DeleteTests["Ndd:delete N lines"] = {
+DeletingText["Ndd:delete N lines"] = {
     "dd:delete line": {
         "in": [
             "abc",
@@ -60,3 +60,6 @@ DeleteTests["Ndd:delete N lines"] = {
         "out": ["a", "|e", "f"],
     }
 };
+
+// ND
+// N3D not support
