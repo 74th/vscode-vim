@@ -5,6 +5,10 @@ export const VSCodeEditorKeyBindngs: IKeyBindings = {
             CreateActionWithArguments: EditorCommand,
             argument: "undo"
         },
+        "J": {
+            CreateActionWithArguments: EditorCommand,
+            argument: "editor.action.joinLine"
+        },
         ":": {
             CreateActionWithArguments: EditorCommand,
             argument: "workbench.action.showCommands"
@@ -32,7 +36,7 @@ export const VSCodeEditorKeyBindngs: IKeyBindings = {
         "%": {
             CreateActionWithArguments: EditorCommand,
             argument: "editor.action.jumpToBracket"
-        }
+        },
     },
     FirstNum: {
     },
@@ -64,6 +68,10 @@ export const VSCodeEditorKeyBindngs: IKeyBindings = {
         "/": {
             CreateActionWithArguments: EditorCommand,
             argument: "actions.find"
+        },
+        "J": {
+            CreateActionWithArguments: EditorCommand,
+            argument: "editor.action.joinLine"
         },
         "n": {
             CreateActionWithArguments: EditorCommand,
