@@ -34,7 +34,16 @@ LeftRightMotions["f: to the Nth occurrence of {char} to the right"] = {
         "out": [
             "abcde|fghi"
         ]
-    }
+    },
+    "d2ff:": {
+        "in": [
+            "ab|cdefghiabcdefghi"
+        ],
+        "key": "d2ff",
+        "out": [
+            "ab|ghi"
+        ]
+    },
 };
 LeftRightMotions["F: to the Nth occurrence of {char} to the left"] = {
     "Fx:": {
