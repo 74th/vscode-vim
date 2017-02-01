@@ -246,7 +246,6 @@ export function AddRepeartCharacterMotionOppositeDirection(num: number, action: 
     let m: FindCharacterMotion;
     m = new FindCharacterMotion(null);
     m.OppositeDirection = true;
-    m.IsContainTargetChar = true;
     m.Count = num > 0 ? num : 1;
     let a = <IRequireMotionAction>action;
     a.Motion = m;
