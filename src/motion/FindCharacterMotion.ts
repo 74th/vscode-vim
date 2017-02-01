@@ -186,9 +186,8 @@ export function AddTillCharacterToRightMotion(num: number, action: IAction): voi
     m.IsContainTargetChar = true;
     m.Count = num > 0 ? num : 1;
     m.IsTill = true;
-    let a = <IRequireMotionAction>this.action;
+    let a = <IRequireMotionAction>action;
     a.Motion = m;
-    this.motion = m;
 }
 
 /**
@@ -212,7 +211,6 @@ export function GotoRepeatCharacter(num: number): IAction {
     m = new FindCharacterMotion(Direction.Right);
     m.Count = num > 0 ? num : 1;
     a.Motion = m;
-    this.action = a;
     return a;
 }
 

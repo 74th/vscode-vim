@@ -10,7 +10,7 @@ let opt: IVimStyleOptions = {
 
 let target;
 for (target in VimTests) {
-    describe("VimStyle " + target, () => {
+    describe("VimStyle " + target + ".", () => {
         let test = VimTests[target];
         for (let specName in test) {
             (function (specName) {

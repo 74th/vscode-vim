@@ -679,7 +679,7 @@ const DefaultKeyBindings: IKeyBindings = {
         // s ?
         // S ?
         "t": {
-            AddMotion: FindCharacterMotion.AddCharacterToRightMotion,
+            AddMotion: FindCharacterMotion.AddTillCharacterToRightMotion,
             state: StateName.RequireCharForMotion
         },
         "T": {

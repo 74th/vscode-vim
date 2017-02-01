@@ -65,7 +65,16 @@ LeftRightMotions["t: till before the Nth occurrence of {char} to the right"] = {
         "out": [
             "abcd|efghi"
         ]
-    }
+    },
+    "d2tf": {
+        "in": [
+            "ab|cdefghiabcdefghi"
+        ],
+        "key": "d2tf",
+        "out": [
+            "ab|fghi"
+        ]
+    },
 };
 LeftRightMotions["T: till before the Nth occurrence of {char} to the left"] = {
     "Tx:": {
