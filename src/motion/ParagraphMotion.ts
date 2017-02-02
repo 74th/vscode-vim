@@ -34,8 +34,8 @@ export class ParagraphMotion extends AbstractMotion {
                 }
             } else {
                 line++;
-                if (line === lastLine) {
-                    break;
+                if (line > lastLine) {
+                    return editor.GetLastPosition();
                 }
             }
 
