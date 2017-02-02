@@ -21,6 +21,7 @@ export class BackToBrancketMotion extends AbstractMotion {
         let p: IPosition = start.Copy();
         let line: string = editor.ReadLineAtCurrentPosition();
         let lastLine: number = editor.GetLastLineNum();
+        let lastBrancket: IPosition = null;
         while (this.Count > 0) {
 
             // read 1 char
@@ -42,6 +43,7 @@ export class BackToBrancketMotion extends AbstractMotion {
             let c: string = line[p.Char];
 
             if (c === this.LeftBrancket) {
+                lastBrancket = p.Copy();
                 this.Count--;
             }
             if (c === this.RightBrancket) {
@@ -53,7 +55,10 @@ export class BackToBrancketMotion extends AbstractMotion {
             }
         }
 
-        return p;
+        if (lastBrancket == null) {
+            return start.Copy();
+        }
+        return lastBrancket;
     }
 }
 
@@ -72,6 +77,7 @@ export class ToBrancketMotion extends AbstractMotion {
         let p: IPosition = start.Copy();
         let line: string = editor.ReadLineAtCurrentPosition();
         let lastLine: number = editor.GetLastLineNum();
+        let lastBrancket: IPosition = null;
         while (this.Count > 0) {
 
             // read 1 char
@@ -79,7 +85,6 @@ export class ToBrancketMotion extends AbstractMotion {
             if (p.Char >= line.length) {
                 p.Line++;
                 if (p.Line > lastLine) {
-                    p = editor.GetLastPosition();
                     break;
                 }
                 line = editor.ReadLine(p.Line);
@@ -96,6 +101,7 @@ export class ToBrancketMotion extends AbstractMotion {
                 this.Count++;
             }
             if (c === this.RightBrancket) {
+                lastBrancket = p.Copy();
                 this.Count--;
             }
 
@@ -104,7 +110,10 @@ export class ToBrancketMotion extends AbstractMotion {
             }
 
         }
-        return p;
+        if (lastBrancket == null) {
+            return start.Copy();
+        }
+        return lastBrancket;
     }
 }
 
