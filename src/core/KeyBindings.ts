@@ -77,6 +77,9 @@ export function ApplyKeyBindings(dest: IKeyBindings, src: IKeyBindings) {
     if (dest.VisualMode) {
         applyKeyBindingsByEachState(dest.VisualMode, src.VisualMode);
     }
+    if (dest.VisualModeNum) {
+        applyKeyBindingsByEachState(dest.VisualModeNum, src.VisualModeNum);
+    }
     if (dest.VisualLineMode) {
         applyKeyBindingsByEachState(dest.VisualLineMode, src.VisualLineMode);
     }
@@ -857,11 +860,11 @@ const DefaultKeyBindings: IKeyBindings = {
             AddMotion: DeleteEndOfWordMotion.AddEndOfBlankSeparatedMotion
         },
         "f": {
-            AddMotion: FindCharacterMotion.AddCharacterToRightMotion,
+            AddMotion: FindCharacterMotion.AddVisualGotoCharacterToRightMotion,
             state: StateName.RequireCharForMotion
         },
         "F": {
-            AddMotion: FindCharacterMotion.AddCharacterToLeftMotion,
+            AddMotion: FindCharacterMotion.AddVisualGotoCharacterToLeftMotion,
             state: StateName.RequireCharForMotion
         },
         "g": {
@@ -903,11 +906,11 @@ const DefaultKeyBindings: IKeyBindings = {
         // s ?
         // S ?
         "t": {
-            AddMotion: FindCharacterMotion.AddTillCharacterToRightMotion,
+            AddMotion: FindCharacterMotion.AddVisualGoTillCharacterToRightMotion,
             state: StateName.RequireCharForMotion
         },
         "T": {
-            AddMotion: FindCharacterMotion.AddTillCharacterToLeftMotion,
+            AddMotion: FindCharacterMotion.AddVisualGoTillCharacterToLeftMotion,
             state: StateName.RequireCharForMotion
         },
         // u low priority
@@ -930,39 +933,197 @@ const DefaultKeyBindings: IKeyBindings = {
         },
         "1": {
             cmd: VimCommand.stackNumber,
-            state: StateName.RequireMotionNum
+            state: StateName.VisualModeNum
         },
         "2": {
             cmd: VimCommand.stackNumber,
-            state: StateName.RequireMotionNum
+            state: StateName.VisualModeNum
         },
         "3": {
             cmd: VimCommand.stackNumber,
-            state: StateName.RequireMotionNum
+            state: StateName.VisualModeNum
         },
         "4": {
             cmd: VimCommand.stackNumber,
-            state: StateName.RequireMotionNum
+            state: StateName.VisualModeNum
         },
         "5": {
             cmd: VimCommand.stackNumber,
-            state: StateName.RequireMotionNum
+            state: StateName.VisualModeNum
         },
         "6": {
             cmd: VimCommand.stackNumber,
-            state: StateName.RequireMotionNum
+            state: StateName.VisualModeNum
         },
         "7": {
             cmd: VimCommand.stackNumber,
-            state: StateName.RequireMotionNum
+            state: StateName.VisualModeNum
         },
         "8": {
             cmd: VimCommand.stackNumber,
-            state: StateName.RequireMotionNum
+            state: StateName.VisualModeNum
         },
         "9": {
             cmd: VimCommand.stackNumber,
-            state: StateName.RequireMotionNum
+            state: StateName.VisualModeNum
+        },
+        "$": {
+            AddMotion: LastCharacterInLineMotion.AddLastCharacterInLineMotion
+        },
+        ",": {
+            AddMotion: FindCharacterMotion.AddRepeartCharacterMotionOppositeDirection,
+        },
+        ";": {
+            AddMotion: FindCharacterMotion.AddRepeartCharacterMotion
+        },
+        "{": {
+            AddMotion: ParagraphMotion.AddParagraphBackwordMotion
+        },
+        "}": {
+            AddMotion: ParagraphMotion.AddParagraphFowordMotion
+        },
+        "[": {
+            cmd: VimCommand.nothing,
+            state: StateName.RequireBrancketForLeftBrancket
+        },
+        "]": {
+            cmd: VimCommand.nothing,
+            state: StateName.RequireBrancketForRightBrancket
+        },
+    },
+
+    // vN
+    VisualModeNum: {
+        // v..a
+        // v..A
+        "b": {
+            AddMotion: WordMotion.AddWordBackwardMotion
+        },
+        "B": {
+            AddMotion: WordMotion.AddBlankSeparatedBackwordMotion
+        },
+        "c": {
+            CreateAction: DeleteYankChangeHighlightedTextAction.ChangeHighlightedText
+        },
+        // C no command
+        "d": {
+            CreateAction: DeleteYankChangeHighlightedTextAction.DeleteHighlightedText
+        },
+        // D no command
+        "e": {
+            AddMotion: DeleteEndOfWordMotion.AddEndOfWordMotion
+        },
+        "E": {
+            AddMotion: DeleteEndOfWordMotion.AddEndOfBlankSeparatedMotion
+        },
+        "f": {
+            AddMotion: FindCharacterMotion.AddVisualGotoCharacterToRightMotion,
+            state: StateName.RequireCharForMotion
+        },
+        "F": {
+            AddMotion: FindCharacterMotion.AddVisualGotoCharacterToLeftMotion,
+            state: StateName.RequireCharForMotion
+        },
+        "g": {
+            cmd: VimCommand.nothing,
+            state: StateName.SmallGForMotion
+        },
+        "G": {
+            AddMotion: FirstCharacterMotion.AddLastLineMotion
+        },
+        "h": {
+            AddMotion: RightMotion.AddLeftMotion
+        },
+        // H no function
+        // v..i
+        // v..I
+        "j": {
+            AddMotion: DownMotion.AddDownMotion
+        },
+        // J?
+        "k": {
+            AddMotion: DownMotion.AddUpMotion
+        },
+        // K no function
+        "l": {
+            AddMotion: RightMotion.AddRightMotion
+        },
+        // l no function
+        // o never support
+        // O no function
+        // p never support
+        // P no function
+        // q no function
+        // Q no function
+        "r": {
+            CreateAction: ReplaceCharacterOfSelecetdTextAction.ReplaceCharacterOfSelectedText,
+            state: StateName.RequireCharForAction
+        },
+        // R low priority
+        // s ?
+        // S ?
+        "t": {
+            AddMotion: FindCharacterMotion.AddVisualGoTillCharacterToRightMotion,
+            state: StateName.RequireCharForMotion
+        },
+        "T": {
+            AddMotion: FindCharacterMotion.AddVisualGoTillCharacterToLeftMotion,
+            state: StateName.RequireCharForMotion
+        },
+        // u low priority
+        // U low priority
+        // v low priority
+        // V low priority
+        "w": {
+            AddMotion: ChangeWordMotion.AddWordForwordMotion
+        },
+        "W": {
+            AddMotion: ChangeWordMotion.AddBlankSparatedMotion
+        },
+        // x no function
+        // X no function
+        "y": {
+            CreateAction: DeleteYankChangeHighlightedTextAction.YankHighlightedText
+        },
+        "0": {
+            cmd: VimCommand.stackNumber,
+            state: StateName.VisualModeNum
+        },
+        "1": {
+            cmd: VimCommand.stackNumber,
+            state: StateName.VisualModeNum
+        },
+        "2": {
+            cmd: VimCommand.stackNumber,
+            state: StateName.VisualModeNum
+        },
+        "3": {
+            cmd: VimCommand.stackNumber,
+            state: StateName.VisualModeNum
+        },
+        "4": {
+            cmd: VimCommand.stackNumber,
+            state: StateName.VisualModeNum
+        },
+        "5": {
+            cmd: VimCommand.stackNumber,
+            state: StateName.VisualModeNum
+        },
+        "6": {
+            cmd: VimCommand.stackNumber,
+            state: StateName.VisualModeNum
+        },
+        "7": {
+            cmd: VimCommand.stackNumber,
+            state: StateName.VisualModeNum
+        },
+        "8": {
+            cmd: VimCommand.stackNumber,
+            state: StateName.VisualModeNum
+        },
+        "9": {
+            cmd: VimCommand.stackNumber,
+            state: StateName.VisualModeNum
         },
         "$": {
             AddMotion: LastCharacterInLineMotion.AddLastCharacterInLineMotion
@@ -1152,6 +1313,12 @@ const ErgonomicKeyBindings: IKeyBindings = {
         "l": DefaultKeyBindings.VisualMode["k"],
         ";": DefaultKeyBindings.VisualMode["l"]
     },
+    VisualModeNum: {
+        "j": DefaultKeyBindings.VisualMode["h"],
+        "k": DefaultKeyBindings.VisualMode["j"],
+        "l": DefaultKeyBindings.VisualMode["k"],
+        ";": DefaultKeyBindings.VisualMode["l"]
+    },
     VisualLineMode: {
         "j": DefaultKeyBindings.VisualMode["h"],
         "k": DefaultKeyBindings.VisualMode["j"],
@@ -1173,6 +1340,7 @@ export function LoadKeyBindings(opts: IVimStyleOptions): IKeyBindings {
         SmallG: {},
         SmallGForMotion: {},
         VisualMode: {},
+        VisualModeNum: {},
         VisualLineMode: {}
     };
     let key: string;

@@ -115,6 +115,7 @@ export function GotoCharacterToRight(num: number): IAction {
     return a;
 }
 
+
 /**
  * Fx
  */
@@ -201,6 +202,43 @@ export function AddTillCharacterToLeftMotion(num: number, action: IAction): void
     let a = <IRequireMotionAction>action;
     a.Motion = m;
 }
+
+/**
+ * vfx
+ */
+export function AddVisualGotoCharacterToRightMotion(num: number, action: IAction): IAction {
+    let a = <IRequireMotionAction>action;
+    let m: FindCharacterMotion;
+    m = new FindCharacterMotion(Direction.Right);
+    m.IsContainTargetChar = false;
+    m.Count = num > 0 ? num : 1;
+    a.Motion = m;
+    return a;
+}
+
+/**
+ * vFx
+ */
+export let AddVisualGotoCharacterToLeftMotion: (num: number, action: IAction) => void = AddCharacterToLeftMotion;
+
+/**
+ * vtx
+ */
+export function AddVisualGoTillCharacterToRightMotion(num: number, action: IAction): IAction {
+    let a = <IRequireMotionAction>action;
+    let m: FindCharacterMotion;
+    m = new FindCharacterMotion(Direction.Right);
+    m.Count = num > 0 ? num : 1;
+    m.IsContainTargetChar = false;
+    m.IsTill = true;
+    a.Motion = m;
+    return a;
+}
+
+/**
+ * vTx
+ */
+export let AddVisualGoTillCharacterToLeftMotion: (num: number, action: IAction) => void = AddTillCharacterToLeftMotion;
 
 /**
  * N;

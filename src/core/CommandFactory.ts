@@ -112,6 +112,10 @@ export class CommandFactory implements ICommandFactory {
                     this.action = new ExpandHighlightedTextAction();
                     command = this.KeyBindings.VisualMode[keyChar];
                     break;
+                case StateName.VisualModeNum:
+                    this.action = new ExpandHighlightedTextAction();
+                    command = this.KeyBindings.VisualModeNum[keyChar];
+                    break;
                 case StateName.RequireMotionNum:
                     command = this.KeyBindings.RequireMotionNum[keyChar];
                     break;

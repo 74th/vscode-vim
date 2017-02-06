@@ -171,6 +171,7 @@ interface IKeyBindings {
     SmallG?: { [key: string]: IVimStyleCommand };
     SmallGForMotion?: { [key: string]: IVimStyleCommand };
     VisualMode?: { [key: string]: IVimStyleCommand };
+    VisualModeNum?: { [key: string]: IVimStyleCommand };
     VisualLineMode?: { [key: string]: IVimStyleCommand };
 }
 
@@ -610,5 +611,6 @@ declare const enum StateName {
     SmallG,
     SmallGForMotion,
     VisualMode,
+    VisualModeNum,
     Panic
 }

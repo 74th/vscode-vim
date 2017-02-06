@@ -44,7 +44,7 @@ LeftRightMotions["f: to the Nth occurrence of {char} to the right"] = {
             "abcdefghi|fghi"
         ]
     },
-    "df": {
+    "dfx": {
         "in": [
             "ab|cdefghiabcdefghi"
         ],
@@ -53,11 +53,29 @@ LeftRightMotions["f: to the Nth occurrence of {char} to the right"] = {
             "ab|ghiabcdefghi"
         ]
     },
-    "d2f": {
+    "d2fx": {
         "in": [
             "ab|cdefghiabcdefghi"
         ],
         "key": "d2ff",
+        "out": [
+            "ab|ghi"
+        ]
+    },
+    "vfxd": {
+        "in": [
+            "ab|cdefghi"
+        ],
+        "key": "vffd",
+        "out": [
+            "ab|ghi"
+        ]
+    },
+    "v2fxd": {
+        "in": [
+            "ab|cdefghiabcdefghi"
+        ],
+        "key": "v2ffd",
         "out": [
             "ab|ghi"
         ]
@@ -99,7 +117,25 @@ LeftRightMotions["F: to the Nth occurrence of {char} to the left"] = {
         "out": [
             "ab|hi"
         ]
-    }
+    },
+    "vFxd": {
+        "in": [
+            "abcdefg|hi"
+        ],
+        "key": "vFcd",
+        "out": [
+            "ab|i"
+        ]
+    },
+    "v2Fxd": {
+        "in": [
+            "abcdefabcdefg|hi"
+        ],
+        "key": "v2Fcd",
+        "out": [
+            "ab|i"
+        ]
+    },
 };
 LeftRightMotions["t: till before the Nth occurrence of {char} to the right"] = {
     "tx": {
@@ -138,6 +174,24 @@ LeftRightMotions["t: till before the Nth occurrence of {char} to the right"] = {
             "ab|fghi"
         ]
     },
+    "vtxd": {
+        "in": [
+            "ab|cdefghi"
+        ],
+        "key": "vtfd",
+        "out": [
+            "ab|fghi"
+        ]
+    },
+    "v2tfd": {
+        "in": [
+            "ab|cdefghiabcdefghi"
+        ],
+        "key": "v2tfd",
+        "out": [
+            "ab|fghi"
+        ]
+    },
 };
 LeftRightMotions["T: till before the Nth occurrence of {char} to the left"] = {
     "Tx": {
@@ -149,15 +203,6 @@ LeftRightMotions["T: till before the Nth occurrence of {char} to the left"] = {
             "abc|defghi"
         ]
     },
-    "dTx": {
-        "in": [
-            "abcdefg|hi"
-        ],
-        "key": "dTc",
-        "out": [
-            "abc|hi"
-        ]
-    },
     "2Tx": {
         "in": [
             "abcdefgabcdefg|hi"
@@ -167,6 +212,15 @@ LeftRightMotions["T: till before the Nth occurrence of {char} to the left"] = {
             "abc|defgabcdefghi"
         ]
     },
+    "dTx": {
+        "in": [
+            "abcdefg|hi"
+        ],
+        "key": "dTc",
+        "out": [
+            "abc|hi"
+        ]
+    },
     "d2Tx": {
         "in": [
             "abcdefgabcdefg|hi"
@@ -174,6 +228,24 @@ LeftRightMotions["T: till before the Nth occurrence of {char} to the left"] = {
         "key": "d2Tc",
         "out": [
             "abc|hi"
+        ]
+    },
+    "vTxd": {
+        "in": [
+            "abcdefg|hi"
+        ],
+        "key": "vTcd",
+        "out": [
+            "abc|i"
+        ]
+    },
+    "v2Txd": {
+        "in": [
+            "abcdefgabcdefg|hi"
+        ],
+        "key": "v2Tcd",
+        "out": [
+            "abc|i"
         ]
     }
 };
@@ -237,6 +309,24 @@ LeftRightMotions[";: repeat the last \"f\", \"F\", \"t\", or \"T\" N times"] = {
             "ab|cdefghiadbcdefghiadbcdefghi"
         ],
         "key": "ffd2;",
+        "out": [
+            "abcde|ghi"
+        ]
+    },
+    "fxv;d": {
+        "in": [
+            "ab|cdefghiadbcdefghi"
+        ],
+        "key": "ffv;d",
+        "out": [
+            "abcde|ghi"
+        ]
+    },
+    "fxv2;d": {
+        "in": [
+            "ab|cdefghiadbcdefghiadbcdefghi"
+        ],
+        "key": "ffv2;d",
         "out": [
             "abcde|ghi"
         ]

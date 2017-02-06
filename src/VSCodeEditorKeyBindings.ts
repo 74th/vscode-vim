@@ -94,6 +94,7 @@ export const VSCodeEditorKeyBindngs: IKeyBindings = {
             argument: "editor.action.jumpToBracket"
         }
     },
+    VisualModeNum: {},
     VisualLineMode: {
         "u": {
             CreateActionWithArguments: EditorCommand,
