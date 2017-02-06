@@ -1,5 +1,5 @@
 import { AbstractMotion } from "./AbstractMotion";
-import { GoAction } from "../Action/GoAction";
+import { GoAction } from "../action/GoAction";
 import { Position } from "../VimStyle";
 
 /**
