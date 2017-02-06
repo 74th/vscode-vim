@@ -971,10 +971,10 @@ const DefaultKeyBindings: IKeyBindings = {
             AddMotion: LastCharacterInLineMotion.AddLastCharacterInLineMotion
         },
         ",": {
-            AddMotion: FindCharacterMotion.AddRepeartCharacterMotionOppositeDirection,
+            AddMotion: FindCharacterMotion.AddVisualGotoRepeartCharacterMotionOppositeDirection,
         },
         ";": {
-            AddMotion: FindCharacterMotion.AddRepeartCharacterMotion
+            AddMotion: FindCharacterMotion.AddVisualGotoRepeartCharacterMotion
         },
         "{": {
             AddMotion: ParagraphMotion.AddParagraphBackwordMotion
@@ -1129,10 +1129,10 @@ const DefaultKeyBindings: IKeyBindings = {
             AddMotion: LastCharacterInLineMotion.AddLastCharacterInLineMotion
         },
         ",": {
-            AddMotion: FindCharacterMotion.AddRepeartCharacterMotionOppositeDirection,
+            AddMotion: FindCharacterMotion.AddVisualGotoRepeartCharacterMotionOppositeDirection,
         },
         ";": {
-            AddMotion: FindCharacterMotion.AddRepeartCharacterMotion
+            AddMotion: FindCharacterMotion.AddVisualGotoRepeartCharacterMotion
         },
         "{": {
             AddMotion: ParagraphMotion.AddParagraphBackwordMotion

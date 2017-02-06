@@ -396,4 +396,22 @@ LeftRightMotions[",: repeat the last \"f\", \"F\", \"t\", or \"T\" N times in op
             "ab|cdefghi"
         ]
     },
+    "vfx,d": {
+        "in": [
+            "abcdefghabcdef|ghiabcdefghi"
+        ],
+        "key": "vfc,d",
+        "out": [
+            "abcdefghab|hiabcdefghi"
+        ]
+    },
+    "vfx2,d": {
+        "in": [
+            "abcdefghabcdef|ghiabcdefghi"
+        ],
+        "key": "vfc2,d",
+        "out": [
+            "ab|hiabcdefghi"
+        ]
+    },
 };

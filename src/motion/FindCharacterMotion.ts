@@ -265,6 +265,18 @@ export function AddRepeartCharacterMotion(num: number, action: IAction) {
 }
 
 /**
+ * vc;
+ */
+export function AddVisualGotoRepeartCharacterMotion(num: number, action: IAction) {
+    let m: FindCharacterMotion;
+    m = new FindCharacterMotion(null);
+    m.IsContainTargetChar = false;
+    m.Count = num > 0 ? num : 1;
+    let a = <IRequireMotionAction>action;
+    a.Motion = m;
+}
+
+/**
  * N,
  */
 export function GotoRepeatCharacterOppositeDirection(num: number): IAction {
@@ -288,3 +300,8 @@ export function AddRepeartCharacterMotionOppositeDirection(num: number, action: 
     let a = <IRequireMotionAction>action;
     a.Motion = m;
 }
+
+/**
+ * vcN,
+ */
+export let AddVisualGotoRepeartCharacterMotionOppositeDirection = AddRepeartCharacterMotionOppositeDirection;
