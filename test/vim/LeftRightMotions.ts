@@ -11,6 +11,26 @@ LeftRightMotions["h: left"] = {
         "key": "3h",
         "out": ["abc|defg"]
     },
+    "ch": {
+        "in": ["abc| def"],
+        "key": "dh",
+        "out": ["ab| def"]
+    },
+    "c3h": {
+        "in": ["abcdef|g"],
+        "key": "d3h",
+        "out": ["abc|g"]
+    },
+    "vh": {
+        "in": ["abc| def"],
+        "key": "vhd",
+        "out": ["ab|def"]
+    },
+    "v3h": {
+        "in": ["abcdef|gh"],
+        "key": "v3hd",
+        "out": ["abc|h"]
+    },
 };
 LeftRightMotions["l: right"] = {
     "l": {
@@ -22,6 +42,26 @@ LeftRightMotions["l: right"] = {
         "in": ["a|bcdefg"],
         "key": "3l",
         "out": ["abcd|efg"]
+    },
+    "cl": {
+        "in": ["abc| def"],
+        "key": "dl",
+        "out": ["abc|def"]
+    },
+    "c3l": {
+        "in": ["a|bcdefg"],
+        "key": "d3l",
+        "out": ["a|efg"]
+    },
+    "vl": {
+        "in": ["abc| def"],
+        "key": "vld",
+        "out": ["abc|ef"]
+    },
+    "v3l": {
+        "in": ["a|bcdefg"],
+        "key": "v3ld",
+        "out": ["a|fg"]
     }
 };
 
