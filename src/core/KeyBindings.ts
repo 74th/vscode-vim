@@ -48,12 +48,14 @@ export function ApplyKeyBindings(dest: IKeyBindings, src: IKeyBindings) {
         applyKeyBindingsByEachState(dest.AtStart, src.AtStart);
     }
     if (dest.FirstNum) {
+        applyKeyBindingsByEachState(dest.FirstNum, src.AtStart);
         applyKeyBindingsByEachState(dest.FirstNum, src.FirstNum);
     }
     if (dest.RequireMotion) {
         applyKeyBindingsByEachState(dest.RequireMotion, src.RequireMotion);
     }
     if (dest.RequireMotionNum) {
+        applyKeyBindingsByEachState(dest.RequireMotionNum, src.RequireMotion);
         applyKeyBindingsByEachState(dest.RequireMotionNum, src.RequireMotionNum);
     }
     if (dest.RequireBrancketForLeftBrancket) {
@@ -78,6 +80,7 @@ export function ApplyKeyBindings(dest: IKeyBindings, src: IKeyBindings) {
         applyKeyBindingsByEachState(dest.VisualMode, src.VisualMode);
     }
     if (dest.VisualModeNum) {
+        applyKeyBindingsByEachState(dest.VisualModeNum, src.VisualMode);
         applyKeyBindingsByEachState(dest.VisualModeNum, src.VisualModeNum);
     }
     if (dest.VisualLineMode) {
@@ -290,170 +293,9 @@ const DefaultKeyBindings: IKeyBindings = {
 
     // Nx
     FirstNum: {
-        // Na low priority
-        // NA low priority
-        "b": {
-            CreateAction: WordMotion.GotoWordBackword
-        },
-        "B": {
-            CreateAction: WordMotion.GotoBlankSeparatedBackwordWord
-        },
-        // B
-        "c": {
-            CreateAction: DeleteYankChangeAction.ChangeTextWithMotion,
-            state: StateName.RequireMotion
-        },
-        // NC low priority
-        "d": {
-            CreateAction: DeleteYankChangeAction.DeleteTextWithMotion,
-            state: StateName.RequireMotion
-        },
-        // ND low priority
-        "e": {
-            CreateAction: DeleteEndOfWordMotion.GotoForwardToEndOfWold
-        },
-        "E": {
-            CreateAction: DeleteEndOfWordMotion.GotoForwardToEndOfBlankSeparated
-        },
-        "f": {
-            CreateAction: FindCharacterMotion.GotoCharacterToRight,
-            state: StateName.RequireCharForMotion
-        },
-        "F": {
-            CreateAction: FindCharacterMotion.GotoCharacterToLeft,
-            state: StateName.RequireCharForMotion
-        },
-        "g": {
-            cmd: VimCommand.nothing,
-            state: StateName.SmallG
-        },
-        "G": {
-            CreateAction: FirstCharacterMotion.GotoLine
-        },
-        "h": {
-            CreateAction: RightMotion.GotoLeft
-        },
-        // NH no function
-        // Ni low priority
-        // NI low priority
-        "j": {
-            CreateAction: DownMotion.GoDown
-        },
-        // NJ
-        "k": {
-            CreateAction: DownMotion.GoUp
-        },
-        // K no function
-        "l": {
-            CreateAction: RightMotion.GotoRight
-        },
-        // L no function
-        // No low priority
-        // NO low priority
-        // Np low priority
-        // NP low priotity
-        // Nq low priority
-        // NQ never support
-        "r": {
-            CreateAction: ReplaceCharacterAction.ReplaceCharacter,
-            state: StateName.RequireCharForAction
-        },
-        // NR low priority
-        // Ns low priority
-        // NS low priority
-        "t": {
-            CreateAction: FindCharacterMotion.GoTillBeforeCharacterToRight,
-            state: StateName.RequireCharForMotion
-        },
-        "T": {
-            CreateAction: FindCharacterMotion.GoTillBeforeCharacterToLeft,
-            state: StateName.RequireCharForMotion
-        },
-        // u low priority
-        // U low priority
-        // Nv?
-        // NV?
-        "w": {
-            CreateAction: MoveWordMotion.GotoWordFoword
-        },
-        "W": {
-            CreateAction: MoveWordMotion.GotoBlankSeparated
-        },
-        "x": {
-            CreateAction: DeleteYankChangeAction.DeleteCharactersUnderCursor
-        },
-        "X": {
-            CreateAction: DeleteYankChangeAction.DeleteCharactersBeforeCursor
-        },
-        "y": {
-            CreateAction: DeleteYankChangeAction.YankTextWithMotion,
-            state: StateName.RequireMotion
-        },
-        "Y": {
-            cmd: VimCommand.yankLine
-        },
-        // Nz never support
-        // NZ no function
         "0": {
             cmd: VimCommand.stackNumber,
             state: StateName.FirstNum
-        },
-        "1": {
-            cmd: VimCommand.stackNumber,
-            state: StateName.FirstNum
-        },
-        "2": {
-            cmd: VimCommand.stackNumber,
-            state: StateName.FirstNum
-        },
-        "3": {
-            cmd: VimCommand.stackNumber,
-            state: StateName.FirstNum
-        },
-        "4": {
-            cmd: VimCommand.stackNumber,
-            state: StateName.FirstNum
-        },
-        "5": {
-            cmd: VimCommand.stackNumber,
-            state: StateName.FirstNum
-        },
-        "6": {
-            cmd: VimCommand.stackNumber,
-            state: StateName.FirstNum
-        },
-        "7": {
-            cmd: VimCommand.stackNumber,
-            state: StateName.FirstNum
-        },
-        "8": {
-            cmd: VimCommand.stackNumber,
-            state: StateName.FirstNum
-        },
-        "9": {
-            cmd: VimCommand.stackNumber,
-            state: StateName.FirstNum
-        },
-        // $ ?
-        ",": {
-            CreateAction: FindCharacterMotion.GotoRepeatCharacterOppositeDirection
-        },
-        ";": {
-            CreateAction: FindCharacterMotion.GotoRepeatCharacter
-        },
-        "{": {
-            CreateAction: ParagraphMotion.GotoParagraphBackword
-        },
-        "}": {
-            CreateAction: ParagraphMotion.GotoParagraphFoword
-        },
-        "[": {
-            cmd: VimCommand.nothing,
-            state: StateName.RequireBrancketForLeftBrancket
-        },
-        "]": {
-            cmd: VimCommand.nothing,
-            state: StateName.RequireBrancketForRightBrancket
         },
     },
 
@@ -619,158 +461,10 @@ const DefaultKeyBindings: IKeyBindings = {
 
     // cNm
     RequireMotionNum: {
-        // da
-        // dA
-        "b": {
-            AddMotion: WordMotion.AddWordBackwardMotion
-        },
-        "B": {
-            AddMotion: WordMotion.AddBlankSeparatedBackwordMotion
-        },
-        "c": {
-            cmd: VimCommand.nothing
-        },
-        // C no command
-        "d": {
-            cmd: VimCommand.nothing
-        },
-        // D no command
-        "e": {
-            AddMotion: DeleteEndOfWordMotion.AddEndOfWordMotion
-        },
-        "E": {
-            AddMotion: DeleteEndOfWordMotion.AddEndOfBlankSeparatedMotion
-        },
-        "f": {
-            AddMotion: FindCharacterMotion.AddCharacterToRightMotion,
-            state: StateName.RequireCharForMotion
-        },
-        "F": {
-            AddMotion: FindCharacterMotion.AddCharacterToLeftMotion,
-            state: StateName.RequireCharForMotion
-        },
-        // g
-        "G": {
-            AddMotion: FirstCharacterMotion.AddLineMotion
-        },
-        "h": {
-            AddMotion: RightMotion.AddLeftMotion
-        },
-        // H no function
-        // i
-        // I
-        "j": {
-            AddMotion: DownMotion.AddDownMotion
-        },
-        // J
-        "k": {
-            AddMotion: DownMotion.AddUpMotion
-        },
-        // K no function
-        "l": {
-            AddMotion: RightMotion.AddRightMotion
-        },
-        // L no function
-        // o never support
-        // O no function
-        // p never support
-        // P no function
-        // q no function
-        // Q no function
-        // r no function
-        // R low priority
-        // s ?
-        // S ?
-        "t": {
-            AddMotion: FindCharacterMotion.AddTillCharacterToRightMotion,
-            state: StateName.RequireCharForMotion
-        },
-        "T": {
-            AddMotion: FindCharacterMotion.AddTillCharacterToLeftMotion,
-            state: StateName.RequireCharForMotion
-        },
-        // u low priority
-        // U low priority
-        // v low priority
-        // V low priority
-        "w": {
-            AddMotion: ChangeWordMotion.AddWordForwordMotion
-        },
-        "W": {
-            AddMotion: ChangeWordMotion.AddBlankSparatedMotion
-        },
-        // x no function
-        // X no function
-        "y": {
-            cmd: VimCommand.nothing
-        },
-        // Y ?
-        // z never suppoer
-        // Z no function
         "0": {
             cmd: VimCommand.stackNumber,
             state: StateName.RequireMotionNum
         },
-        "1": {
-            cmd: VimCommand.stackNumber,
-            state: StateName.RequireMotionNum
-        },
-        "2": {
-            cmd: VimCommand.stackNumber,
-            state: StateName.RequireMotionNum
-        },
-        "3": {
-            cmd: VimCommand.stackNumber,
-            state: StateName.RequireMotionNum
-        },
-        "4": {
-            cmd: VimCommand.stackNumber,
-            state: StateName.RequireMotionNum
-        },
-        "5": {
-            cmd: VimCommand.stackNumber,
-            state: StateName.RequireMotionNum
-        },
-        "6": {
-            cmd: VimCommand.stackNumber,
-            state: StateName.RequireMotionNum
-        },
-        "7": {
-            cmd: VimCommand.stackNumber,
-            state: StateName.RequireMotionNum
-        },
-        "8": {
-            cmd: VimCommand.stackNumber,
-            state: StateName.RequireMotionNum
-        },
-        "9": {
-            cmd: VimCommand.stackNumber,
-            state: StateName.RequireMotionNum
-        },
-        "$": {
-            AddMotion: LastCharacterInLineMotion.AddLastCharacterInLineMotion
-        },
-        ",": {
-            AddMotion: FindCharacterMotion.AddRepeartCharacterMotionOppositeDirection
-        },
-        ";": {
-            AddMotion: FindCharacterMotion.AddRepeartCharacterMotion
-        },
-        "{": {
-            AddMotion: ParagraphMotion.AddParagraphBackwordMotion
-        },
-        "}": {
-            AddMotion: ParagraphMotion.AddParagraphFowordMotion
-        },
-        "[": {
-            cmd: VimCommand.nothing,
-            state: StateName.RequireBrancketForLeftBrancketMotion
-        },
-        "]": {
-            cmd: VimCommand.nothing,
-            state: StateName.RequireBrancketForRightBrancketMotion
-        },
-        // $?
     },
 
     RequireBrancketForLeftBrancket: {
@@ -994,159 +688,9 @@ const DefaultKeyBindings: IKeyBindings = {
 
     // vN
     VisualModeNum: {
-        // v..a
-        // v..A
-        "b": {
-            AddMotion: WordMotion.AddWordBackwardMotion
-        },
-        "B": {
-            AddMotion: WordMotion.AddBlankSeparatedBackwordMotion
-        },
-        "c": {
-            CreateAction: DeleteYankChangeHighlightedTextAction.ChangeHighlightedText
-        },
-        // C no command
-        "d": {
-            CreateAction: DeleteYankChangeHighlightedTextAction.DeleteHighlightedText
-        },
-        // D no command
-        "e": {
-            AddMotion: DeleteEndOfWordMotion.AddEndOfWordMotion
-        },
-        "E": {
-            AddMotion: DeleteEndOfWordMotion.AddEndOfBlankSeparatedMotion
-        },
-        "f": {
-            AddMotion: FindCharacterMotion.AddVisualGotoCharacterToRightMotion,
-            state: StateName.RequireCharForMotion
-        },
-        "F": {
-            AddMotion: FindCharacterMotion.AddVisualGotoCharacterToLeftMotion,
-            state: StateName.RequireCharForMotion
-        },
-        "g": {
-            cmd: VimCommand.nothing,
-            state: StateName.SmallGForMotion
-        },
-        "G": {
-            AddMotion: FirstCharacterMotion.AddLastLineMotion
-        },
-        "h": {
-            AddMotion: RightMotion.AddLeftMotion
-        },
-        // H no function
-        // v..i
-        // v..I
-        "j": {
-            AddMotion: DownMotion.AddDownMotion
-        },
-        // J?
-        "k": {
-            AddMotion: DownMotion.AddUpMotion
-        },
-        // K no function
-        "l": {
-            AddMotion: RightMotion.AddRightMotion
-        },
-        // l no function
-        // o never support
-        // O no function
-        // p never support
-        // P no function
-        // q no function
-        // Q no function
-        "r": {
-            CreateAction: ReplaceCharacterOfSelecetdTextAction.ReplaceCharacterOfSelectedText,
-            state: StateName.RequireCharForAction
-        },
-        // R low priority
-        // s ?
-        // S ?
-        "t": {
-            AddMotion: FindCharacterMotion.AddVisualGoTillCharacterToRightMotion,
-            state: StateName.RequireCharForMotion
-        },
-        "T": {
-            AddMotion: FindCharacterMotion.AddVisualGoTillCharacterToLeftMotion,
-            state: StateName.RequireCharForMotion
-        },
-        // u low priority
-        // U low priority
-        // v low priority
-        // V low priority
-        "w": {
-            AddMotion: ChangeWordMotion.AddWordForwordMotion
-        },
-        "W": {
-            AddMotion: ChangeWordMotion.AddBlankSparatedMotion
-        },
-        // x no function
-        // X no function
-        "y": {
-            CreateAction: DeleteYankChangeHighlightedTextAction.YankHighlightedText
-        },
         "0": {
             cmd: VimCommand.stackNumber,
             state: StateName.VisualModeNum
-        },
-        "1": {
-            cmd: VimCommand.stackNumber,
-            state: StateName.VisualModeNum
-        },
-        "2": {
-            cmd: VimCommand.stackNumber,
-            state: StateName.VisualModeNum
-        },
-        "3": {
-            cmd: VimCommand.stackNumber,
-            state: StateName.VisualModeNum
-        },
-        "4": {
-            cmd: VimCommand.stackNumber,
-            state: StateName.VisualModeNum
-        },
-        "5": {
-            cmd: VimCommand.stackNumber,
-            state: StateName.VisualModeNum
-        },
-        "6": {
-            cmd: VimCommand.stackNumber,
-            state: StateName.VisualModeNum
-        },
-        "7": {
-            cmd: VimCommand.stackNumber,
-            state: StateName.VisualModeNum
-        },
-        "8": {
-            cmd: VimCommand.stackNumber,
-            state: StateName.VisualModeNum
-        },
-        "9": {
-            cmd: VimCommand.stackNumber,
-            state: StateName.VisualModeNum
-        },
-        "$": {
-            AddMotion: LastCharacterInLineMotion.AddLastCharacterInLineMotion
-        },
-        ",": {
-            AddMotion: FindCharacterMotion.AddVisualGotoRepeartCharacterMotionOppositeDirection,
-        },
-        ";": {
-            AddMotion: FindCharacterMotion.AddVisualGotoRepeartCharacterMotion
-        },
-        "{": {
-            AddMotion: ParagraphMotion.AddParagraphBackwordMotion
-        },
-        "}": {
-            AddMotion: ParagraphMotion.AddParagraphFowordMotion
-        },
-        "[": {
-            cmd: VimCommand.nothing,
-            state: StateName.RequireBrancketForLeftBrancket
-        },
-        "]": {
-            cmd: VimCommand.nothing,
-            state: StateName.RequireBrancketForRightBrancket
         },
     },
 
