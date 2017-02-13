@@ -525,7 +525,7 @@ const DefaultKeyBindings: IKeyBindings = {
     // cg
     SmallGForMotion: {
         "g": {
-            AddMotion: FirstCharacterMotion.AddLineMotion
+            AddMotion: FirstCharacterMotion.AddLastLineMotion
         }
     },
 

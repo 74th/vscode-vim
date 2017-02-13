@@ -36,7 +36,7 @@ export class FirstCharacterMotion extends AbstractMotion {
                 lineDocument = editor.ReadLine(lineNumber);
                 break;
             case Target.Number:
-                lineNumber = this.Count;
+                lineNumber = this.Count - 1;
                 let lastLineNum = editor.GetLastLineNum();
                 if (lineNumber > lastLineNum) {
                     lineNumber = lastLineNum;
@@ -94,7 +94,12 @@ export function AddFirstNonBlankCharacterInLineMotion(num: number, action: IActi
 export function GotoLastLine(num: number): IAction {
     let a = new GoAction();
     let m = new FirstCharacterMotion();
-    m.Target = Target.Last;
+    if (num === 0) {
+        m.Target = Target.Last;
+    } else {
+        m.Target = Target.Number;
+        m.Count = num;
+    }
     a.Motion = m;
     return a;
 }
@@ -104,29 +109,12 @@ export function GotoLastLine(num: number): IAction {
  */
 export function AddLastLineMotion(num: number, action: IAction): void {
     let m = new FirstCharacterMotion();
-    m.Target = Target.Last;
-    let a = <IRequireMotionAction>action;
-    a.Motion = m;
-    a.IsLine = true;
-}
-
-/**
- * NG
- */
-export function GotoLine(num: number): IAction {
-    let a = new GoAction();
-    let m = new FirstCharacterMotion();
-    m.Count = this.getNumStack() - 1;
-    a.Motion = m;
-    return a;
-}
-
-/**
- * cNG
- */
-export function AddLineMotion(num: number, action: IAction): void {
-    let m = new FirstCharacterMotion();
-    m.Count = this.getNumStack() - 1;
+    if (num === 0) {
+        m.Target = Target.Last;
+    } else {
+        m.Target = Target.Number;
+        m.Count = num;
+    }
     let a = <IRequireMotionAction>action;
     a.Motion = m;
     a.IsLine = true;
@@ -138,7 +126,12 @@ export function AddLineMotion(num: number, action: IAction): void {
 export function GotoFirstLineOnFirstNonBlankCharacter(num: number): IAction {
     let a = new GoAction();
     let m = new FirstCharacterMotion();
-    m.Target = Target.First;
+    if (num === 0) {
+        m.Target = Target.First;
+    } else {
+        m.Target = Target.Number;
+        m.Count = num;
+    }
     a.Motion = m;
     this.action = a;
     return a;
@@ -149,7 +142,12 @@ export function GotoFirstLineOnFirstNonBlankCharacter(num: number): IAction {
  */
 export function AddFirstLineMotion(num: number, action: IAction) {
     let m = new FirstCharacterMotion();
-    m.Target = Target.First;
+    if (num === 0) {
+        m.Target = Target.First;
+    } else {
+        m.Target = Target.Number;
+        m.Count = num;
+    }
     let a = <IRequireMotionAction>action;
     a.Motion = m;
     a.IsLine = true;
