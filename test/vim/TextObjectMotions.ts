@@ -152,7 +152,7 @@ TextObjectMotions["w: N words forward"] = {
             "bbb"
         ],
     },
-    "vwd:delete a word at end of line": {
+    "vwd:": {
         "in": [
             "aaa |BCD",
             "ccc ddd",
@@ -170,12 +170,12 @@ TextObjectMotions["NW:N blank-separated"] = {
         "key": "2W",
         "out": ["abc abc(abc) |abc"]
     },
-    "d2W:move to next word(skip marks)": {
+    "d2W:": {
         "in": ["ab|c abc(abc) abc"],
         "key": "d2W",
         "out": ["ab|abc"]
     },
-    "v2Wd:move to next word(skip marks)": {
+    "v2Wd:": {
         "in": ["ab|c abc(abc) abc"],
         "key": "v2Wd",
         "out": ["ab|bc"]
@@ -232,6 +232,11 @@ TextObjectMotions["Ne: forward to the end of the Nth word"] = {
     "de:delete word without following space": {
         "in": ["aaa b|bb ccc"],
         "key": "de",
+        "out": ["aaa b| ccc"]
+    },
+    "ved:": {
+        "in": ["aaa b|bb ccc"],
+        "key": "ved",
         "out": ["aaa b| ccc"]
     }
 };

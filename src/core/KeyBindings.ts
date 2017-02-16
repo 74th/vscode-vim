@@ -548,10 +548,10 @@ const DefaultKeyBindings: IKeyBindings = {
         },
         // D no command
         "e": {
-            AddMotion: DeleteEndOfWordMotion.AddEndOfWordMotion
+            AddMotion: DeleteEndOfWordMotion.AddMoveToForwardToEndOfWoldMotion
         },
         "E": {
-            AddMotion: DeleteEndOfWordMotion.AddEndOfBlankSeparatedMotion
+            AddMotion: DeleteEndOfWordMotion.AddMoveToForwardToEndOfBlankSeparatedMotion
         },
         "f": {
             AddMotion: FindCharacterMotion.AddVisualGotoCharacterToRightMotion,

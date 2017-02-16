@@ -265,6 +265,18 @@ export function AddEndOfWordMotion(num: number, action: IAction) {
 }
 
 /**
+ * vNe
+ */
+export function AddMoveToForwardToEndOfWoldMotion(num: number, action: IAction) {
+    let a = <IRequireMotionAction>action;
+    let m = new DeleteEndOfWordMotion();
+    m.IsWORD = false;
+    m.IsMove = true;
+    m.Count = num > 0 ? num : 1;
+    a.Motion = m;
+}
+
+/**
  * NE
  */
 export function GotoForwardToEndOfBlankSeparated(num: number): IAction {
@@ -286,5 +298,17 @@ export function AddEndOfBlankSeparatedMotion(num: number, action: IAction) {
     m.IsMove = false;
     m.Count = num > 0 ? num : 1;
     let a = <IRequireMotionAction>action;
+    a.Motion = m;
+}
+
+/**
+ * vNE
+ */
+export function AddMoveToForwardToEndOfBlankSeparatedMotion(num: number, action: IAction) {
+    let a = <IRequireMotionAction>action;
+    let m = new DeleteEndOfWordMotion();
+    m.IsWORD = true;
+    m.IsMove = true;
+    m.Count = num > 0 ? num : 1;
     a.Motion = m;
 }
