@@ -152,6 +152,16 @@ TextObjectMotions["w: N words forward"] = {
             "bbb"
         ],
     },
+    "vwd:delete a word at end of line": {
+        "in": [
+            "aaa |BCD",
+            "ccc ddd",
+        ],
+        "key": "vwd",
+        "out": [
+            "aaa cc ddd",
+        ],
+    },
 }
 
 TextObjectMotions["NW:N blank-separated"] = {
