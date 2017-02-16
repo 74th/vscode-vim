@@ -110,6 +110,51 @@ UpDownMotions["line motion"] = {
             "     e"
         ],
     },
+    // #56 https://github.com/74th/vscode-vim/issues/56
+    // "dgg:delete line between first and current line": {
+    //     "in": [
+    //         " a",
+    //         "  b",
+    //         "|   c",
+    //         "    d",
+    //         "     e"
+    //     ],
+    //     "key": "dgg",
+    //     "out": [
+    //         "    |d",
+    //         "     e"
+    //     ],
+    // },
+    // "cgg:cut line between first and current line": {
+    //     "in": [
+    //         " a",
+    //         "  b",
+    //         "|   c",
+    //         "    d",
+    //         "     e"
+    //     ],
+    //     "key": "cgg",
+    //     "out": [
+    //         "|",
+    //         "    d",
+    //         "     e"
+    //     ],
+    // },
+    // "d4gg:delete lines between current adn 4": {
+    //     "in": [
+    //         " a",
+    //         "  b",
+    //         "|   c",
+    //         "    d",
+    //         "     e"
+    //     ],
+    //     "key": "d4gg",
+    //     "out": [
+    //         " a",
+    //         "  b",
+    //         "     |e"
+    //     ],
+    // },
     "G:go to final line": {
         "in": [" a", " b", "| c", " d", " e"],
         "key": "G",
@@ -120,4 +165,25 @@ UpDownMotions["line motion"] = {
         "key": "4G",
         "out": [" a", " b", " c", " |d", " e"],
     },
+    // #56 https://github.com/74th/vscode-vim/issues/56
+    // "dG:delete lines between first and final line": {
+    //     "in": [" a", " b", "| c", " d", " e"],
+    //     "key": "dG",
+    //     "out": [" a", " |b"],
+    // },
+    // "d4G:delete lines between current adn 4": {
+    //     "in": [
+    //         " a",
+    //         "  b",
+    //         "|   c",
+    //         "    d",
+    //         "     e"
+    //     ],
+    //     "key": "d4G",
+    //     "out": [
+    //         " a",
+    //         "  b",
+    //         "     |e"
+    //     ],
+    // },
 };
