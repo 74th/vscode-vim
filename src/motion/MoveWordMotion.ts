@@ -220,6 +220,7 @@ export function GotoWordFoword(num: number): IAction {
     a.Motion = m;
     return a;
 }
+
 /**
  * NW
  */
@@ -230,4 +231,25 @@ export function GotoBlankSeparated(num: number): IAction {
     m.Count = num > 0 ? num : 1;
     a.Motion = m;
     return a;
+}
+
+/**
+ * vNw
+ */
+export function AddToWordFowordMotion(num: number, action: IAction) {
+    let a = <IRequireMotionAction>action;
+    let m = new MoveWordMotion();
+    m.Count = num > 0 ? num : 1;
+    a.Motion = m;
+}
+
+/**
+ * NW
+ */
+export function AddToBlankSeparatedMotion(num: number, action: IAction) {
+    let a = <IRequireMotionAction>action;
+    let m = new MoveWordMotion();
+    m.IsWORD = true;
+    m.Count = num > 0 ? num : 1;
+    a.Motion = m;
 }

@@ -612,10 +612,10 @@ const DefaultKeyBindings: IKeyBindings = {
         // v low priority
         // V low priority
         "w": {
-            AddMotion: ChangeWordMotion.AddWordForwordMotion
+            AddMotion: MoveWordMotion.AddToWordFowordMotion,
         },
         "W": {
-            AddMotion: ChangeWordMotion.AddBlankSparatedMotion
+            AddMotion: MoveWordMotion.AddToBlankSeparatedMotion,
         },
         // x no function
         // X no function

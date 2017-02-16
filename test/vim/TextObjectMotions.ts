@@ -159,7 +159,7 @@ TextObjectMotions["w: N words forward"] = {
         ],
         "key": "vwd",
         "out": [
-            "aaa cc ddd",
+            "aaa |cc ddd",
         ],
     },
 }
