@@ -246,6 +246,11 @@ TextObjectMotions["NE: forward to the end of the Nth blank-separated"] = {
         "key": "2E",
         "out": ["abc abc(abc|) abc"]
     },
+    "vEd:": {
+        "in": ["a|bc abc(abc) abc"],
+        "key": "v2Ed",
+        "out": ["a| abc"]
+    },
 };
 
 TextObjectMotions["Nb: N words backward"] = {
