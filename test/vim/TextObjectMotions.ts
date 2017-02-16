@@ -170,6 +170,11 @@ TextObjectMotions["NW:N blank-separated"] = {
         "key": "2W",
         "out": ["abc abc(abc) |abc"]
     },
+    "d2W:move to next word(skip marks)": {
+        "in": ["ab|c abc(abc) abc"],
+        "key": "d2W",
+        "out": ["ab|abc"]
+    },
     "v2Wd:move to next word(skip marks)": {
         "in": ["ab|c abc(abc) abc"],
         "key": "v2Wd",
