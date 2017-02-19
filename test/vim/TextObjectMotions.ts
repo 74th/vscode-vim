@@ -317,6 +317,19 @@ TextObjectMotions["Nb: N words backward"] = {
             "|bbb ccc",
             "zzz",
         ],
+    },
+    "vbd": {
+        "in": [
+            "zzz",
+            "aaa |bbb ccc",
+            "zzz",
+        ],
+        "key": "vbd",
+        "out": [
+            "zzz",
+            "|bb ccc",
+            "zzz",
+        ],
     }
 };
 
@@ -325,7 +338,17 @@ TextObjectMotions["NB: N blank-separated"] = {
         "in": ["abc abc(abc) a|bc"],
         "key": "2B",
         "out": ["abc |abc(abc) abc"]
-    }
+    },
+    "d2B": {
+        "in": ["abc abc(abc) a|bc"],
+        "key": "d2B",
+        "out": ["abc |bc"]
+    },
+    "v2Bd": {
+        "in": ["abc abc(abc) a|bc"],
+        "key": "v2Bd",
+        "out": ["abc |c"]
+    },
 };
 
 TextObjectMotions["N{: N paragraphs forward"] = {
@@ -379,7 +402,39 @@ TextObjectMotions["N{: N paragraphs forward"] = {
             "",
             "bbbb",
         ]
-    }
+    },
+    "d2{": {
+        "in": [
+            "aaaa",
+            "",
+            "bbbb",
+            "",
+            "cccc",
+            "",
+            "|",
+        ],
+        "key": "d2{",
+        "out": [
+            "aaaa",
+            "|",
+        ]
+    },
+    "v2{d": {
+        "in": [
+            "aaaa",
+            "",
+            "bbbb",
+            "",
+            "cccc",
+            "",
+            "|",
+        ],
+        "key": "v2{d",
+        "out": [
+            "aaaa",
+            "|",
+        ]
+    },
 };
 
 TextObjectMotions["N}: N paragraphs backward"] = {
@@ -433,7 +488,38 @@ TextObjectMotions["N}: N paragraphs backward"] = {
             "",
             "bbb|b",
         ]
-    }
+    },
+    "d2}": {
+        "in": [
+            "|",
+            "",
+            "aaaa",
+            "",
+            "bbbb",
+            "",
+            "cccc",
+        ],
+        "key": "d2}",
+        "out": [
+            "|",
+            "cccc",
+        ]
+    },
+    "v2}d": {
+        "in": [
+            "|",
+            "",
+            "aaaa",
+            "",
+            "bbbb",
+            "",
+            "cccc",
+        ],
+        "key": "v2}d",
+        "out": [
+            "|cccc",
+        ]
+    },
 }
 
 TextObjectMotions["xx:N times back to unclosed x"] = {

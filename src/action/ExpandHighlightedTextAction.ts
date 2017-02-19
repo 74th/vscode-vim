@@ -27,9 +27,19 @@ export class ExpandHighlightedTextAction implements IAction {
         let after = new Range();
         if (nextPosition.IsAfterOrEqual(startPosition)) {
             after.start = startPosition;
-            after.end = new Position(nextPosition.Line, nextPosition.Char + 1);
+            let endLine = editor.ReadLine(nextPosition.Line);
+            if (endLine.length > 0) {
+                after.end = new Position(nextPosition.Line, nextPosition.Char + 1);
+            } else {
+                after.end = nextPosition;
+            }
         } else {
-            after.start = new Position(startPosition.Line, startPosition.Char + 1);
+            let startLine = editor.ReadLine(nextPosition.Line);
+            if (startLine.length > 0) {
+                after.start = new Position(startPosition.Line, startPosition.Char + 1);
+            } else {
+                after.start = startPosition;
+            }
             after.end = nextPosition;
         }
         editor.ShowVisualMode(after, after.end);
