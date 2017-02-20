@@ -41,7 +41,7 @@ ext install vimStyle
 * Nx Nr Ngr
 * d y c dd yy cc D C p P d$ y$ c$ ...
 * Ndd Nyy Ncc
-* v V v..d v..c v..r
+* v V v..d v..c v..y v..r
 * .
 
 * [quickref function list is here.](https://github.com/74th/vscode-vim/blob/master/quickref.md)
@@ -162,6 +162,14 @@ npm run-script build
 ```
 
 ## update
+
+### 0.4.7
+
+* fix visual mode moves
+
+### 0.4.6
+
+* revert 0.4.2
 
 ### 0.4.5
 
