@@ -678,11 +678,11 @@ const DefaultKeyBindings: IKeyBindings = {
         },
         "[": {
             cmd: VimCommand.nothing,
-            state: StateName.RequireBrancketForLeftBrancket
+            state: StateName.RequireBrancketForLeftBrancketMotion
         },
         "]": {
             cmd: VimCommand.nothing,
-            state: StateName.RequireBrancketForRightBrancket
+            state: StateName.RequireBrancketForRightBrancketMotion
         },
     },
 

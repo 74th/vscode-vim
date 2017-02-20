@@ -638,7 +638,7 @@ TextObjectMotions["xx:N times back to unclosed x"] = {
             "func{ func{ me |} };;"
         ]
     },
-    "delete to first left brancket": {
+    "d[(: delete to first left brancket": {
         "in": [
             "func( func( me| ) );;"
         ],
@@ -647,13 +647,31 @@ TextObjectMotions["xx:N times back to unclosed x"] = {
             "func( func| ) );;"
         ]
     },
-    "delete to first righy brancket": {
+    "d]): delete to first righy brancket": {
         "in": [
             "func( func( me| ) );;"
         ],
         "key": "d])",
         "out": [
             "func( func( me|) );;"
+        ]
+    },
+    "v[(d": {
+        "in": [
+            "func( func( me| ) );;"
+        ],
+        "key": "v[(d",
+        "out": [
+            "func( func|) );;"
+        ]
+    },
+    "v])d": {
+        "in": [
+            "func( func( me| ) );;"
+        ],
+        "key": "v])d",
+        "out": [
+            "func( func( me| );;"
         ]
     },
 }
