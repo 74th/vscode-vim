@@ -597,7 +597,9 @@ const DefaultKeyBindings: IKeyBindings = {
             state: StateName.RequireCharForAction
         },
         // R low priority
-        // s ?
+        "s": {
+            CreateAction: DeleteYankChangeHighlightedTextAction.ChangeHighlightedText
+        },
         // S ?
         "t": {
             AddMotion: FindCharacterMotion.AddVisualGoTillCharacterToRightMotion,
