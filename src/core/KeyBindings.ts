@@ -617,7 +617,9 @@ const DefaultKeyBindings: IKeyBindings = {
         "W": {
             AddMotion: MoveWordMotion.AddToBlankSeparatedMotion,
         },
-        // x no function
+        "x": {
+            CreateAction: DeleteYankChangeHighlightedTextAction.DeleteHighlightedText
+        },
         // X no function
         "y": {
             CreateAction: DeleteYankChangeHighlightedTextAction.YankHighlightedText
@@ -707,11 +709,15 @@ const DefaultKeyBindings: IKeyBindings = {
         "c": {
             CreateAction: DeleteYankChangeHighlightedLineAction.ChangeHighligtedLine
         },
-        // V..C no command
+        "C": {
+            CreateAction: DeleteYankChangeHighlightedLineAction.ChangeHighligtedLine
+        },
         "d": {
             CreateAction: DeleteYankChangeHighlightedLineAction.DeleteHighlightedLine
         },
-        // V..D no command
+        "D": {
+            CreateAction: DeleteYankChangeHighlightedLineAction.DeleteHighlightedLine
+        },
         // V..e
         // V..E
         "f": {
@@ -767,9 +773,16 @@ const DefaultKeyBindings: IKeyBindings = {
         // V..V back to normal mode
         // V..w
         // v..W
-        // x no function
-        // X no function
+        "x": {
+            CreateAction: DeleteYankChangeHighlightedLineAction.DeleteHighlightedLine
+        },
+        "X": {
+            CreateAction: DeleteYankChangeHighlightedLineAction.DeleteHighlightedLine
+        },
         "y": {
+            CreateAction: DeleteYankChangeHighlightedLineAction.YankHighlightedLine
+        },
+        "Y": {
             CreateAction: DeleteYankChangeHighlightedLineAction.YankHighlightedLine
         },
         "0": {
