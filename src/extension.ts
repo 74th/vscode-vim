@@ -1,5 +1,6 @@
 import * as vscode from "vscode";
 import { VimStyle } from "./VimStyle";
+import * as utils from "./Utils";
 import { VSCodeEditor, IVSCodeEditorOptions } from "./VSCodeEditor";
 import { VSCodeEditorKeyBindngs } from "./VSCodeEditorKeyBindings";
 
@@ -73,6 +74,15 @@ function activateVimStyle(context: vscode.ExtensionContext) {
 
     let imapEscPointer = 0;
     context.subscriptions.push(vscode.commands.registerCommand("type", (args) => {
+        let text: string;
+        if (args.text && args.text.length > 0) {
+            text = args.text;
+            let charClass = utils.GetCharClass(text.charCodeAt(0));
+            if (charClass !== CharGroup.AlphabetAndNumber && charClass !== CharGroup.Marks) {
+                vscode.commands.executeCommand("default:type", args);
+                return;
+            }
+        }
         if (!vscode.window.activeTextEditor) {
             return;
         }
