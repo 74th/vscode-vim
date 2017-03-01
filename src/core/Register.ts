@@ -6,12 +6,12 @@ export class RegisterItem {
 }
 
 export class Register implements IRegister {
-    private char: IRegisterItem[];
+    private char: { [key: string]: IRegisterItem };
     private roll: IRegisterItem[];
     private yank: IRegisterItem;
     private unName: IRegisterItem;
     constructor() {
-        this.char = [];
+        this.char = {};
         this.roll = [];
         this.yank = null;
         this.unName = null;
@@ -32,9 +32,9 @@ export class Register implements IRegister {
     }
     public Get(key: Key): IRegisterItem {
         switch (key) {
-            case Key.n0:
+            case "0":
                 return this.yank;
-            case Key.Quotation:
+            case "\"":
                 return this.unName;
         }
         switch (Utils.GetKeyType(key)) {
