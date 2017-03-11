@@ -78,7 +78,7 @@ function activateVimStyle(context: vscode.ExtensionContext) {
         if (args.text && args.text.length > 0) {
             text = args.text;
             let charClass = utils.GetCharClass(text.charCodeAt(0));
-            if (charClass !== CharGroup.AlphabetAndNumber && charClass !== CharGroup.Marks) {
+            if (charClass !== CharGroup.AlphabetAndNumber && charClass !== CharGroup.Marks && charClass !== CharGroup.Spaces) {
                 vscode.commands.executeCommand("default:type", args);
                 return;
             }
