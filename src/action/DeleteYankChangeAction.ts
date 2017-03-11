@@ -12,6 +12,7 @@ import { LastCharacterInLineMotion } from "../motion/LastCharacterInLineMotion";
 export class DeleteYankChangeAction extends AbstractInsertTextAction implements IRequireMotionAction, IInsertTextAction {
 
     public Motion: IMotion;
+    public Selection: ISelectionMotion;
     public IsLine: boolean;
     public IsLarge: boolean;
     public IsChange: boolean;
@@ -39,13 +40,21 @@ export class DeleteYankChangeAction extends AbstractInsertTextAction implements 
 
         let range = new Range();
         range.start = editor.GetCurrentPosition();
-        let p = this.Motion.CalculateEnd(editor, vim, range.start);
-        if (p == null) {
-            // cancel
-            return;
+        if (this.Motion) {
+            let p = this.Motion.CalculateEnd(editor, vim, range.start);
+            if (p == null) {
+                // cancel
+                return;
+            }
+            range.end = p;
+            range.Sort();
+        } else if (this.Selection) {
+            range = this.Selection.CalculateRange(editor, vim, range.start);
+            if (range == null) {
+                // cancel
+                return;
+            }
         }
-        range.end = p;
-        range.Sort();
 
         if (this.IsLine) {
             this.deleteLine(range, editor, vim);

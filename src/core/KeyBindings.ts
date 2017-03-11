@@ -10,6 +10,7 @@ import * as DeleteEndOfWordMotion from "../motion/DeleteEndOfWordMotion";
 import * as WordMotion from "../motion/WordMotion";
 import * as ParagraphMotion from "../motion/ParagraphMotion";
 import * as BrancketMotion from "../motion/BrancketMotion";
+import * as TextObjectSelectionBrancket from "../motion/textObjectSelection/Brancket";
 import * as InsertTextAction from "../action/InsertTextAction";
 import * as OpenNewLineAndAppendTextAction from "../action/OpenNewLineAndAppendTextAction";
 import * as DeleteYankChangeAction from "../action/DeleteYankChangeAction";
@@ -31,6 +32,8 @@ class KeyBindings implements IKeyBindings {
     RequireBrancketForRightBrancket: { [key: string]: IVimStyleCommand };
     RequireBrancketForLeftBrancketMotion: { [key: string]: IVimStyleCommand };
     RequireBrancketForRightBrancketMotion: { [key: string]: IVimStyleCommand };
+    RequireInnerTextObject: { [key: string]: IVimStyleCommand };
+    RequireOuterTextObject: { [key: string]: IVimStyleCommand };
     SmallG: { [key: string]: IVimStyleCommand };
     SmallGForMotion: { [key: string]: IVimStyleCommand };
     VisualMode: { [key: string]: IVimStyleCommand };
@@ -69,6 +72,12 @@ export function ApplyKeyBindings(dest: IKeyBindings, src: IKeyBindings) {
     }
     if (dest.RequireBrancketForRightBrancketMotion) {
         applyKeyBindingsByEachState(dest.RequireBrancketForRightBrancketMotion, src.RequireBrancketForRightBrancketMotion);
+    }
+    if (dest.RequireInnerTextObject) {
+        applyKeyBindingsByEachState(dest.RequireInnerTextObject, src.RequireInnerTextObject);
+    }
+    if (dest.RequireOuterTextObject) {
+        applyKeyBindingsByEachState(dest.RequireOuterTextObject, src.RequireOuterTextObject);
     }
     if (dest.SmallG) {
         applyKeyBindingsByEachState(dest.SmallG, src.SmallG);
@@ -301,7 +310,9 @@ const DefaultKeyBindings: IKeyBindings = {
 
     // cm
     RequireMotion: {
-        // da
+        "a": {
+            state: StateName.RequireOuterTextObject
+        },
         // dA
         "b": {
             AddMotion: WordMotion.AddWordBackwardMotion
@@ -342,7 +353,9 @@ const DefaultKeyBindings: IKeyBindings = {
             AddMotion: RightMotion.AddLeftMotion
         },
         // H no function
-        // i
+        "i": {
+            state: StateName.RequireInnerTextObject
+        },
         // I
         "j": {
             AddMotion: DownMotion.AddDownMotion
@@ -508,6 +521,60 @@ const DefaultKeyBindings: IKeyBindings = {
         // c]}
         "}": {
             AddMotion: BrancketMotion.AddToUnclosedRightCurlyBracketMotion
+        },
+    },
+
+    RequireInnerTextObject: {
+        "(": {
+            AddMotion: TextObjectSelectionBrancket.AddInnerUnclosedParenthesisSelection
+        },
+        ")": {
+            AddMotion: TextObjectSelectionBrancket.AddInnerUnclosedParenthesisSelection
+        },
+        "<": {
+            AddMotion: TextObjectSelectionBrancket.AddInnerLessThanSignSelection
+        },
+        ">": {
+            AddMotion: TextObjectSelectionBrancket.AddInnerLessThanSignSelection
+        },
+        "[": {
+            AddMotion: TextObjectSelectionBrancket.AddInnerSquareBlancketSelection
+        },
+        "]": {
+            AddMotion: TextObjectSelectionBrancket.AddInnerSquareBlancketSelection
+        },
+        "{": {
+            AddMotion: TextObjectSelectionBrancket.AddInnerCurlyBrancketSelection
+        },
+        "}": {
+            AddMotion: TextObjectSelectionBrancket.AddInnerCurlyBrancketSelection
+        },
+    },
+
+    RequireOuterTextObject: {
+        "(": {
+            AddMotion: TextObjectSelectionBrancket.AddOuterUnclosedParenthesisSelection
+        },
+        ")": {
+            AddMotion: TextObjectSelectionBrancket.AddOuterUnclosedParenthesisSelection
+        },
+        "<": {
+            AddMotion: TextObjectSelectionBrancket.AddOuterLessThanSignSelection
+        },
+        ">": {
+            AddMotion: TextObjectSelectionBrancket.AddOuterLessThanSignSelection
+        },
+        "[": {
+            AddMotion: TextObjectSelectionBrancket.AddOuterSquareBlancketSelection
+        },
+        "]": {
+            AddMotion: TextObjectSelectionBrancket.AddOuterSquareBlancketSelection
+        },
+        "{": {
+            AddMotion: TextObjectSelectionBrancket.AddOuterCurlyBrancketSelection
+        },
+        "}": {
+            AddMotion: TextObjectSelectionBrancket.AddOuterCurlyBrancketSelection
         },
     },
 
@@ -896,6 +963,8 @@ export function LoadKeyBindings(opts: IVimStyleOptions): IKeyBindings {
         RequireBrancketForLeftBrancketMotion: {},
         RequireBrancketForRightBrancket: {},
         RequireBrancketForRightBrancketMotion: {},
+        RequireInnerTextObject: {},
+        RequireOuterTextObject: {},
         SmallG: {},
         SmallGForMotion: {},
         VisualMode: {},

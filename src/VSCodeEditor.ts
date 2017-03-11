@@ -125,7 +125,11 @@ export class VSCodeEditor implements IEditor {
                 return this.latestPosition;
             }
         }
-        return tranceVimStylePosition(vscode.window.activeTextEditor.selection.active);
+        if (vscode.window.activeTextEditor) {
+            return tranceVimStylePosition(vscode.window.activeTextEditor.selection.active);
+        }
+        // no active editor
+        return null;
     }
     public SetPosition(p: IPosition) {
         let cp = tranceVSCodePosition(p);
@@ -308,6 +312,9 @@ export class VSCodeEditor implements IEditor {
     }
 
     private showBlockCursor() {
+
+        if (vscode.window.activeTextEditor == undefined) return;
+
         if (this.Options.changeCursorStyle) {
             let opt = vscode.window.activeTextEditor.options;
             opt.cursorStyle = vscode.TextEditorCursorStyle.Block;

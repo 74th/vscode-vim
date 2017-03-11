@@ -99,6 +99,12 @@ export class CommandFactory implements ICommandFactory {
                 case StateName.RequireBrancketForRightBrancketMotion:
                     command = this.KeyBindings.RequireBrancketForRightBrancketMotion[keyChar];
                     break;
+                case StateName.RequireInnerTextObject:
+                    command = this.KeyBindings.RequireInnerTextObject[keyChar];
+                    break;
+                case StateName.RequireOuterTextObject:
+                    command = this.KeyBindings.RequireOuterTextObject[keyChar];
+                    break;
                 case StateName.SmallG:
                     command = this.KeyBindings.SmallG[keyChar];
                     break;

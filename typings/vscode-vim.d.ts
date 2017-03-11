@@ -115,6 +115,7 @@ interface IInsertTextAction extends IAction {
 
 interface IRequireMotionAction extends IAction {
     Motion: IMotion;
+    Selection: ISelectionMotion;
     IsLine: boolean;
     IsChange: boolean;
     IsLarge: boolean;
@@ -123,6 +124,11 @@ interface IRequireMotionAction extends IAction {
 interface IMotion {
     Count: number;
     CalculateEnd(editor: IEditor, vim: IVimStyle, start: IPosition): IPosition;
+}
+
+interface ISelectionMotion {
+    Count: number;
+    CalculateRange(editor: IEditor, vim: IVimStyle, start: IPosition): IRange;
 }
 
 interface IRequireCharacterMotion extends IMotion {
@@ -168,6 +174,8 @@ interface IKeyBindings {
     RequireBrancketForRightBrancket?: { [key: string]: IVimStyleCommand };
     RequireBrancketForLeftBrancketMotion?: { [key: string]: IVimStyleCommand };
     RequireBrancketForRightBrancketMotion?: { [key: string]: IVimStyleCommand };
+    RequireInnerTextObject?: { [key: string]: IVimStyleCommand };
+    RequireOuterTextObject?: { [key: string]: IVimStyleCommand };
     SmallG?: { [key: string]: IVimStyleCommand };
     SmallGForMotion?: { [key: string]: IVimStyleCommand };
     VisualMode?: { [key: string]: IVimStyleCommand };
@@ -252,6 +260,8 @@ declare const enum StateName {
     RequireBrancketForRightBrancket,
     RequireBrancketForLeftBrancketMotion,
     RequireBrancketForRightBrancketMotion,
+    RequireInnerTextObject,
+    RequireOuterTextObject,
     SmallG,
     SmallGForMotion,
     VisualMode,
