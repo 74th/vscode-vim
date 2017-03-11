@@ -41,6 +41,8 @@ ext install vimStyle
 * Nx Nr Ngr
 * d y c dd yy cc D C p P d$ y$ c$ ...
 * Ndd Nyy Ncc
+* ci[ ca[
+* Nci[ Nca[
 * v V v..d v..c v..y v..r
 * .
 
@@ -162,6 +164,10 @@ npm run-script build
 ```
 
 ## update
+
+### 0.4.8
+
+* support ci[ ci{ ci( ci< ca[ ca{ ca( ca<
 
 ### 0.4.7
 
