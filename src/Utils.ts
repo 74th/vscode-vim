@@ -81,8 +81,16 @@ export function GetCharClass(charCode: number): CharGroup {
         // A - Z
         return CharGroup.AlphabetAndNumber;
     }
-    if (charCode <= 0x60) {
-        // [ - `
+    if (charCode <= 0x5D) {
+        // [ - ^
+        return CharGroup.Marks;
+    }
+    if (charCode == 0x5F) {
+        // _
+        return CharGroup.AlphabetAndNumber;
+    }
+    if (charCode == 0x60) {
+        // `
         return CharGroup.Marks;
     }
     if (charCode <= 0x7A) {

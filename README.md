@@ -168,6 +168,7 @@ npm run-script build
 ### 0.4.8
 
 * support ci[ ci{ ci( ci< ca[ ca{ ca( ca<
+* treat `_` as alphabet
 
 ### 0.4.7
 
