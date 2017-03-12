@@ -1,12 +1,12 @@
-import { LeftRightMotions } from "./LeftRightMotions";
-import { UpDownMotions } from "./UpDownMotions";
-import { TextObjectMotions } from "./TextObjectMotions";
-import { InsertModeTests } from "./InsertModeTests";
 import { ChangingText } from "./ChangingText";
-import { DeletingText } from "./DeletingTextTests";
 import { CopyAndMovingTextTests } from "./CopyAndMovingTextTests";
+import { DeletingText } from "./DeletingTextTests";
+import { InsertModeTests } from "./InsertModeTests";
+import { LeftRightMotions } from "./LeftRightMotions";
 import { RepeatTests } from "./RepeatTests";
+import { TextObjectMotions } from "./TextObjectMotions";
 import { TextObjects } from "./TextObjects";
+import { UpDownMotions } from "./UpDownMotions";
 
 export let VimTests = {};
 let testsets = [
@@ -18,7 +18,7 @@ let testsets = [
     DeletingText,
     CopyAndMovingTextTests,
     RepeatTests,
-    TextObjects
+    TextObjects,
 ];
 
 for (let testset in testsets) {

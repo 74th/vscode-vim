@@ -1,5 +1,5 @@
-import { Range, Position } from "../VimStyle";
 import { RegisterItem } from "../core/Register";
+import { Position, Range } from "../VimStyle";
 
 /**
  * {VisualLine}d {VisualLine} y {VisualLine}c
@@ -39,7 +39,8 @@ export class DeleteYankChangeHighlightedLineAction implements IInsertTextAction 
     public Execute(editor: IEditor, vim: IVimStyle) {
 
         let s = editor.GetCurrentVisualLineModeSelection();
-        let n1line, n2line: number;
+        let n1line: number;
+        let n2line: number;
         if (s.startLine < s.endLine) {
             n1line = s.startLine;
             n2line = s.endLine;

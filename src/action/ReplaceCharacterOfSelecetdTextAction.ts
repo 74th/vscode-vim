@@ -1,5 +1,5 @@
-import { Range, Position } from "../VimStyle";
 import { RegisterItem } from "../core/Register";
+import { Position, Range } from "../VimStyle";
 
 /**
  * {Visual}c{char}
@@ -32,7 +32,7 @@ export class ReplaceCharacterOfSelectedTextAction implements IRequireCharAction 
             text += "\n";
             for (let l = s.start.Line + 1; l < s.end.Line; l++) {
                 line = editor.ReadLine(l);
-                for (let c = 0; c < line.length; c++) {
+                for (let c of line) {
                     text += char;
                 }
                 text += "\n";

@@ -1,7 +1,7 @@
 import * as vscode from "vscode";
-import { VimStyle } from "./VimStyle";
 import * as utils from "./Utils";
-import { VSCodeEditor, IVSCodeEditorOptions } from "./VSCodeEditor";
+import { VimStyle } from "./VimStyle";
+import { IVSCodeEditorOptions, VSCodeEditor } from "./VSCodeEditor";
 import { VSCodeEditorKeyBindngs } from "./VSCodeEditorKeyBindings";
 
 function checkImapAction(bindkey: string): boolean {
@@ -11,7 +11,7 @@ function checkImapAction(bindkey: string): boolean {
         return false;
     }
     for (let i = 0; i < bindkey.length - 1; i++) {
-        if (line[p.character - (bindkey.length - 1) + i] != bindkey[i]) {
+        if (line[p.character - (bindkey.length - 1) + i] !== bindkey[i]) {
             return false;
         }
     }
@@ -23,7 +23,7 @@ function checkImapAction(bindkey: string): boolean {
         });
     }
     // set position
-    let np = new vscode.Position(p.line, p.character - (bindkey.length - 1))
+    let np = new vscode.Position(p.line, p.character - (bindkey.length - 1));
     vscode.window.activeTextEditor.selection = new vscode.Selection(np, np);
     return true;
 }
@@ -43,7 +43,7 @@ function activateVimStyle(context: vscode.ExtensionContext) {
             showMode: conf.get<boolean>("showMode", true),
             changeCursorStyle: conf.get<boolean>("changeCursorStyle", true),
             defaultMode: conf.get<string>("defaultMode", "normal"),
-            imapEsc: conf.get<string>("imapEsc", "")
+            imapEsc: conf.get<string>("imapEsc", ""),
         };
         vimOpt = {
             useErgonomicKeyForMotion: conf.get<boolean>("useErgonomicKeyForMotion", false),
@@ -78,7 +78,9 @@ function activateVimStyle(context: vscode.ExtensionContext) {
         if (args.text && args.text.length > 0) {
             text = args.text;
             let charClass = utils.GetCharClass(text.charCodeAt(0));
-            if (charClass !== CharGroup.AlphabetAndNumber && charClass !== CharGroup.Marks && charClass !== CharGroup.Spaces) {
+            if (charClass !== CharGroup.AlphabetAndNumber &&
+                charClass !== CharGroup.Marks &&
+                charClass !== CharGroup.Spaces) {
                 vscode.commands.executeCommand("default:type", args);
                 return;
             }
@@ -87,13 +89,13 @@ function activateVimStyle(context: vscode.ExtensionContext) {
             return;
         }
         if (vim.GetMode() === VimMode.Insert) {
-            if (editorOpt.imapEsc.length == 0) {
+            if (editorOpt.imapEsc.length === 0) {
                 vscode.commands.executeCommand("default:type", args);
                 return;
             }
-            if (editorOpt.imapEsc[imapEscPointer] == args.text) {
+            if (editorOpt.imapEsc[imapEscPointer] === args.text) {
                 imapEscPointer++;
-                if (editorOpt.imapEsc.length == imapEscPointer) {
+                if (editorOpt.imapEsc.length === imapEscPointer) {
                     if (checkImapAction(editorOpt.imapEsc)) {
                         imapEscPointer = 0;
                         vim.PushEscKey();
@@ -103,7 +105,7 @@ function activateVimStyle(context: vscode.ExtensionContext) {
                     vscode.commands.executeCommand("default:type", args);
                     return;
                 }
-            } else if (editorOpt.imapEsc[0] == args.text) {
+            } else if (editorOpt.imapEsc[0] === args.text) {
                 imapEscPointer = 1;
                 vscode.commands.executeCommand("default:type", args);
                 return;
@@ -122,16 +124,16 @@ function activateVimStyle(context: vscode.ExtensionContext) {
         context.subscriptions.push(vscode.commands.registerCommand("vim.type-" + c, () => {
             vim.PushKey(c);
         }));
-    }
-    for (let i = 0; i < chars.length; i++) {
-        addTypeVim(chars[i]);
+    };
+    for (let char of chars) {
+        addTypeVim(char);
     }
 
-    vscode.commands.executeCommand('setContext', "vim.enabled", true);
+    vscode.commands.executeCommand("setContext", "vim.enabled", true);
 
     setTimeout(() => {
         if (editorOpt.defaultMode === "insert") {
-            vim.PushKey("i")
+            vim.PushKey("i");
         } else {
             vim.PushEscKey();
         }

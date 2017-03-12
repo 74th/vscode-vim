@@ -2,112 +2,112 @@ export let UpDownMotions = {};
 
 UpDownMotions["line motion"] = {
     "j:move down": {
-        "in": [
+        in: [
             "abc d|ef",
             "abc",
-            "abc def"
+            "abc def",
         ],
-        "key": "j",
-        "out": [
+        key: "j",
+        out: [
             "abc def",
             "ab|c",
-            "abc def"
-        ]
+            "abc def",
+        ],
     },
     "2j:move down over a short line": {
-        "in": [
+        in: [
             "abcd|efg",
             "b",
-            "abcdefg"
+            "abcdefg",
         ],
-        "key": "2j",
-        "out": [
+        key: "2j",
+        out: [
             "abcdefg",
             "b",
-            "abcd|efg"
-        ]
+            "abcd|efg",
+        ],
     },
     "v2j:move down over a short line in visual mode": {
-        "in": [
+        in: [
             "abcd|efg",
             "b",
-            "abcdefg"
+            "abcdefg",
         ],
-        "key": "v2jd",
-        "out": [
-            "abcd|fg"
-        ]
+        key: "v2jd",
+        out: [
+            "abcd|fg",
+        ],
     },
     "k:move up": {
-        "in": [
+        in: [
             "abc def",
             "abc",
-            "abc d|ef"
+            "abc d|ef",
         ],
-        "key": "k",
-        "out": [
+        key: "k",
+        out: [
             "abc def",
             "ab|c",
-            "abc def"
-        ]
+            "abc def",
+        ],
     },
     "kk:move up over a short line": {
-        "in": [
+        in: [
             "abcdef g",
             "a",
-            "abcdef| g"
+            "abcdef| g",
         ],
-        "key": "kk",
-        "out": [
+        key: "kk",
+        out: [
             "abcdef| g",
             "a",
-            "abcdef g"
-        ]
+            "abcdef g",
+        ],
     },
     "vk:move up in visual mode": {
-        "in": [
+        in: [
             "abc def",
             "abc",
-            "abc d|ef"
+            "abc d|ef",
         ],
-        "key": "vkd",
-        "out": [
+        key: "vkd",
+        out: [
             "abc def",
-            "abc|f"
-        ]
+            "abc|f",
+        ],
     },
     "gg:go to line 1": {
-        "in": [
+        in: [
             " a",
             "  b",
             "|   c",
             "    d",
-            "     e"
+            "     e",
         ],
-        "key": "gg",
-        "out": [
+        key: "gg",
+        out: [
             " |a",
             "  b",
             "   c",
             "    d",
-            "     e"
+            "     e",
         ],
     },
     "4gg:go to line 4": {
-        "in": [
+        in: [
             " a",
             "  b",
             "|   c",
             "    d",
-            "     e"
+            "     e",
         ],
-        "key": "4gg",
-        "out": [
+        key: "4gg",
+        out: [
             " a",
             "  b",
             "   c",
             "    |d",
-            "     e"
+            "     e",
         ],
     },
     // #56 https://github.com/74th/vscode-vim/issues/56
@@ -156,14 +156,14 @@ UpDownMotions["line motion"] = {
     //     ],
     // },
     "G:go to final line": {
-        "in": [" a", " b", "| c", " d", " e"],
-        "key": "G",
-        "out": [" a", " b", " c", " d", " |e"],
+        in: [" a", " b", "| c", " d", " e"],
+        key: "G",
+        out: [" a", " b", " c", " d", " |e"],
     },
     "4G:go to line 4": {
-        "in": [" a", " b", "| c", " d", " e"],
-        "key": "4G",
-        "out": [" a", " b", " c", " |d", " e"],
+        in: [" a", " b", "| c", " d", " e"],
+        key: "4G",
+        out: [" a", " b", " c", " |d", " e"],
     },
     // #56 https://github.com/74th/vscode-vim/issues/56
     // "dG:delete lines between first and final line": {

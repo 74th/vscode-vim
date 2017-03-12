@@ -1,7 +1,7 @@
-import { AbstractMotion } from "./AbstractMotion";
 import { GoAction } from "../action/GoAction";
 import * as Utils from "../Utils";
 import { Position } from "../VimStyle";
+import { AbstractMotion } from "./AbstractMotion";
 
 /**
  * e ce de E cE dE
@@ -32,7 +32,7 @@ enum State {
     stop,
     deleteUntilJustBefore,
     moveToPreviousCharacter,
-    reachDocumentEnd
+    reachDocumentEnd,
 }
 
 enum NextCharacter {
@@ -40,20 +40,20 @@ enum NextCharacter {
     sameTypeCharacter,
     differenceTypeCharacter,
     lineFeed,
-    space
+    space,
 }
 
 class Calculater {
-    pos: IPosition;
-    line: string;
-    documentLines: number;
-    count: number;
-    IsWORD: boolean;
-    IsMove: boolean;
+    public pos: IPosition;
+    public line: string;
+    public documentLines: number;
+    public count: number;
+    public IsWORD: boolean;
+    public IsMove: boolean;
 
-    beforeCharacterGroup: CharGroup;
+    public beforeCharacterGroup: CharGroup;
 
-    editor: IEditor;
+    public editor: IEditor;
 
     constructor(start: IPosition, count: number, isWord: boolean, isMove: boolean, editor: IEditor) {
         this.pos = start.Copy();
@@ -67,7 +67,7 @@ class Calculater {
         this.IsMove = isMove;
     };
 
-    getNextCharacter(): NextCharacter {
+    public getNextCharacter(): NextCharacter {
         this.pos.Char++;
         if (this.pos.Char > this.line.length) {
             this.pos.Line++;
@@ -102,7 +102,7 @@ class Calculater {
         return NextCharacter.differenceTypeCharacter;
     }
 
-    doAtFirst(): State {
+    public doAtFirst(): State {
         let nextCharacterGroup: NextCharacter = this.getNextCharacter();
         if (nextCharacterGroup === null) {
             return State.reachDocumentEnd;
@@ -116,7 +116,7 @@ class Calculater {
         }
     };
 
-    doAtFirstCharacter(): State {
+    public doAtFirstCharacter(): State {
         let nextCharacterGroup: NextCharacter = this.getNextCharacter();
         if (nextCharacterGroup === null) {
             return State.reachDocumentEnd;
@@ -131,7 +131,7 @@ class Calculater {
         }
     }
 
-    doAtCharacter(): State {
+    public doAtCharacter(): State {
         let nextCharacterGroup: NextCharacter = this.getNextCharacter();
         if (nextCharacterGroup === null) {
             return State.reachDocumentEnd;
@@ -147,7 +147,7 @@ class Calculater {
         }
     }
 
-    doAtSpaceOrLinefeed(): State {
+    public doAtSpaceOrLinefeed(): State {
         let nextCharacterGroup: NextCharacter = this.getNextCharacter();
         if (nextCharacterGroup === null) {
             return State.reachDocumentEnd;
@@ -161,7 +161,7 @@ class Calculater {
         }
     }
 
-    decreaseCount(): State {
+    public decreaseCount(): State {
         this.count--;
         if (this.count === 0) {
             return State.finalWord;
@@ -169,7 +169,7 @@ class Calculater {
         return State.character;
     }
 
-    doAtFinalWord(): State {
+    public doAtFinalWord(): State {
         let nextCharacterGroup: NextCharacter = this.getNextCharacter();
         if (nextCharacterGroup === null) {
             return State.reachDocumentEnd;
@@ -184,14 +184,14 @@ class Calculater {
         }
     }
 
-    doAtStoppedPos(): State {
+    public doAtStoppedPos(): State {
         if (this.IsMove) {
             return State.moveToPreviousCharacter;
         }
         return State.deleteUntilJustBefore;
     }
 
-    moveToPreviousCharacter() {
+    public moveToPreviousCharacter() {
         if (this.pos.Char > 0) {
             this.pos.Char--;
         }

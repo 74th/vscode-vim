@@ -3,39 +3,39 @@ export const VSCodeEditorKeyBindngs: IKeyBindings = {
     AtStart: {
         "u": {
             CreateActionWithArguments: EditorCommand,
-            argument: "undo"
+            argument: "undo",
         },
         "J": {
             CreateActionWithArguments: EditorCommand,
-            argument: "editor.action.joinLine"
+            argument: "editor.action.joinLine",
         },
         ":": {
             CreateActionWithArguments: EditorCommand,
-            argument: "workbench.action.showCommands"
+            argument: "workbench.action.showCommands",
         },
         "/": {
             CreateActionWithArguments: EditorCommand,
-            argument: "actions.find"
+            argument: "actions.find",
         },
         "n": {
             CreateActionWithArguments: EditorCommand,
-            argument: "editor.action.nextMatchFindAction"
+            argument: "editor.action.nextMatchFindAction",
         },
         "N": {
             CreateActionWithArguments: EditorCommand,
-            argument: "editor.action.previousMatchFindAction"
+            argument: "editor.action.previousMatchFindAction",
         },
         ">": {
             CreateActionWithArguments: EditorCommand,
-            argument: "editor.action.indentLines"
+            argument: "editor.action.indentLines",
         },
         "<": {
             CreateActionWithArguments: EditorCommand,
-            argument: "editor.action.outdentLines"
+            argument: "editor.action.outdentLines",
         },
         "%": {
             CreateActionWithArguments: EditorCommand,
-            argument: "editor.action.jumpToBracket"
+            argument: "editor.action.jumpToBracket",
         },
     },
     FirstNum: {
@@ -59,74 +59,74 @@ export const VSCodeEditorKeyBindngs: IKeyBindings = {
     VisualMode: {
         "u": {
             CreateActionWithArguments: EditorCommand,
-            argument: "undo"
+            argument: "undo",
         },
         ":": {
             CreateActionWithArguments: EditorCommand,
-            argument: "workbench.action.showCommands"
+            argument: "workbench.action.showCommands",
         },
         "/": {
             CreateActionWithArguments: EditorCommand,
-            argument: "actions.find"
+            argument: "actions.find",
         },
         "J": {
             CreateActionWithArguments: EditorCommand,
-            argument: "editor.action.joinLine"
+            argument: "editor.action.joinLine",
         },
         "n": {
             CreateActionWithArguments: EditorCommand,
-            argument: "editor.action.nextMatchFindAction"
+            argument: "editor.action.nextMatchFindAction",
         },
         "N": {
             CreateActionWithArguments: EditorCommand,
-            argument: "editor.action.previousMatchFindAction"
+            argument: "editor.action.previousMatchFindAction",
         },
         ">": {
             CreateActionWithArguments: EditorCommand,
-            argument: "editor.action.indentLines"
+            argument: "editor.action.indentLines",
         },
         "<": {
             CreateActionWithArguments: EditorCommand,
-            argument: "editor.action.outdentLines"
+            argument: "editor.action.outdentLines",
         },
         "%": {
             CreateActionWithArguments: EditorCommand,
-            argument: "editor.action.jumpToBracket"
-        }
+            argument: "editor.action.jumpToBracket",
+        },
     },
     VisualModeNum: {},
     VisualLineMode: {
         "u": {
             CreateActionWithArguments: EditorCommand,
-            argument: "undo"
+            argument: "undo",
         },
         ":": {
             CreateActionWithArguments: EditorCommand,
-            argument: "workbench.action.showCommands"
+            argument: "workbench.action.showCommands",
         },
         "/": {
             CreateActionWithArguments: EditorCommand,
-            argument: "actions.find"
+            argument: "actions.find",
         },
         "n": {
             CreateActionWithArguments: EditorCommand,
-            argument: "editor.action.nextMatchFindAction"
+            argument: "editor.action.nextMatchFindAction",
         },
         "N": {
             CreateActionWithArguments: EditorCommand,
-            argument: "editor.action.previousMatchFindAction"
+            argument: "editor.action.previousMatchFindAction",
         },
         ">": {
             CreateActionWithArguments: EditorCommand,
-            argument: "editor.action.indentLines"
+            argument: "editor.action.indentLines",
         },
         "<": {
             CreateActionWithArguments: EditorCommand,
-            argument: "editor.action.outdentLines"
+            argument: "editor.action.outdentLines",
         },
         "%": {
             CreateActionWithArguments: EditorCommand,
-            argument: "editor.action.jumpToBracket"
-        }
-    }
+            argument: "editor.action.jumpToBracket",
+        },
+    },
 };

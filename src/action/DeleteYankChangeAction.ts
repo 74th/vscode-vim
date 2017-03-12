@@ -1,15 +1,16 @@
-import { AbstractInsertTextAction } from "./AbstractInsertTextAction";
-import { Range, Position } from "../VimStyle";
 import { RegisterItem } from "../core/Register";
-import { RightMotion } from "../motion/RightMotion";
 import { DownMotion } from "../motion/DownMotion";
 import { LastCharacterInLineMotion } from "../motion/LastCharacterInLineMotion";
+import { RightMotion } from "../motion/RightMotion";
+import { Position, Range } from "../VimStyle";
+import { AbstractInsertTextAction } from "./AbstractInsertTextAction";
 
 /**
  * dm ym cm D Y M
  * x X s S
  */
-export class DeleteYankChangeAction extends AbstractInsertTextAction implements IRequireMotionAction, IInsertTextAction {
+export class DeleteYankChangeAction extends AbstractInsertTextAction
+    implements IRequireMotionAction, IInsertTextAction {
 
     public Motion: IMotion;
     public Selection: ISelectionMotion;
@@ -109,14 +110,13 @@ export class DeleteYankChangeAction extends AbstractInsertTextAction implements 
         }
         if (this.IsChange && this.insertText === null) {
             let startLine = editor.ReadLine(range.start.Line);
-            let endLine = editor.ReadLine(range.end.Line);
             let afterLineCount = editor.GetLastLineNum() + 1 - (range.end.Line - range.start.Line);
             vim.ApplyInsertMode(range.start);
             this.insertModeInfo = {
                 DocumentLineCount: afterLineCount,
                 Position: nextPosition,
                 BeforeText: startLine.substring(0, range.start.Char),
-                AfterText: endLine.substring(range.end.Char)
+                AfterText: endLine.substring(range.end.Char),
             };
         }
     }
@@ -204,7 +204,7 @@ export class DeleteYankChangeAction extends AbstractInsertTextAction implements 
                 DocumentLineCount: lastLine + 1,
                 Position: nextPosition,
                 BeforeText: "",
-                AfterText: ""
+                AfterText: "",
             };
         }
 

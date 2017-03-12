@@ -5,9 +5,6 @@ import { Position } from "../VimStyle";
  */
 export class RepeatLastChangeAction implements IAction {
 
-    constructor() {
-    }
-
     public GetActionType(): ActionType {
         return ActionType.Repeat;
     }

@@ -1,24 +1,28 @@
-import * as Utils from "../Utils";
+import { CallEditorCommandAction } from "../action/CallEditorCommandAction";
+import { ExpandHighlightedLineAction } from "../action/ExpandHighlightedLineAction";
+import { ExpandHighlightedTextAction } from "../action/ExpandHighlightedTextAction";
+import { GoAction } from "../action/GoAction";
 import { InsertTextAction } from "../action/InsertTextAction";
 import { OpenNewLineAndAppendTextAction } from "../action/OpenNewLineAndAppendTextAction";
 import { PutRegisterAction } from "../action/PutRegisterAction";
-import { GoAction } from "../action/GoAction";
-import { StartVisualModeAction } from "../action/StartVisualModeAction";
-import { ExpandHighlightedTextAction } from "../action/ExpandHighlightedTextAction";
-import { StartVisualLineModeAction } from "../action/StartVisualLineModeAction";
-import { ExpandHighlightedLineAction } from "../action/ExpandHighlightedLineAction";
+import { RepeatLastChangeAction } from "../action/RepeatLastChangeAction";
 import { ReplaceCharacterAction } from "../action/ReplaceCharacterAction";
 import { ReplaceCharacterOfSelectedTextAction } from "../action/ReplaceCharacterOfSelecetdTextAction";
-import { RepeatLastChangeAction } from "../action/RepeatLastChangeAction";
-import { RightMotion } from "../motion/RightMotion";
+import { StartVisualLineModeAction } from "../action/StartVisualLineModeAction";
+import { StartVisualModeAction } from "../action/StartVisualModeAction";
 import { DownMotion } from "../motion/DownMotion";
-import { LastCharacterInLineMotion } from "../motion/LastCharacterInLineMotion";
-import { WordMotion } from "../motion/WordMotion";
-import { MoveWordMotion } from "../motion/MoveWordMotion";
 import * as FirstCharacterMotion from "../motion/FirstCharacterMotion";
-import { CallEditorCommandAction } from "../action/CallEditorCommandAction";
+import { LastCharacterInLineMotion } from "../motion/LastCharacterInLineMotion";
+import { MoveWordMotion } from "../motion/MoveWordMotion";
+import { RightMotion } from "../motion/RightMotion";
+import { WordMotion } from "../motion/WordMotion";
+import * as Utils from "../Utils";
 
 export class CommandFactory implements ICommandFactory {
+
+    public Nmap: { [key: string]: string };
+    public Nnoremap: { [key: string]: string };
+    public KeyBindings: IKeyBindings;
 
     private state: StateName;
     private action: IAction;
@@ -27,10 +31,6 @@ export class CommandFactory implements ICommandFactory {
     private num: number;
     private registerCharCode: number;
     private commandString: string;
-    public Nmap: { [key: string]: string };
-    public Nnoremap: { [key: string]: string };
-
-    public KeyBindings: IKeyBindings;
 
     constructor() {
         this.Clear();
@@ -225,10 +225,6 @@ export class CommandFactory implements ICommandFactory {
     // Changing text
     // -----
 
-
-
-
-
     // -----
     // Text objects (only in Visual mode or after an operator)
     // -----
@@ -260,7 +256,6 @@ export class CommandFactory implements ICommandFactory {
         this.state = StateName.AtStart;
         return null;
     }
-
 
     private getNumStack() {
         return this.num === 0 ? 1 : this.num;

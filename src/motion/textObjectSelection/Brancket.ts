@@ -1,6 +1,6 @@
-import { AbstractTextObjectSelection } from "./AbstractTextObjectSelection";
-import { Range } from "../../VimStyle";
 import * as Utils from "../../Utils";
+import { Range } from "../../VimStyle";
+import { AbstractTextObjectSelection } from "./AbstractTextObjectSelection";
 
 const INNER = 0;
 const OUTER = 1;
@@ -27,7 +27,7 @@ export class BrancketSelection extends AbstractTextObjectSelection {
             return null;
         }
 
-        if (this.InnerOuter == INNER) {
+        if (this.InnerOuter === INNER) {
             left.Char++;
         } else {
             right.Char++;
@@ -37,45 +37,6 @@ export class BrancketSelection extends AbstractTextObjectSelection {
         result.start = left;
         result.end = right;
         return result;
-    }
-
-    private SearchLeftBrancket(editor: IEditor, vim: IVimStyle, start: IPosition): IPosition {
-        let p = start.Copy();
-        let line = editor.ReadLineAtCurrentPosition();
-        let lastLine = editor.GetLastLineNum();
-        let count = this.Count;
-        while (this.Count > 0) {
-
-            // read 1 char
-            p.Char--;
-            if (p.Char < 0) {
-                p.Line--;
-                if (p.Line < 0) {
-                    return null;
-                }
-                line = editor.ReadLine(p.Line);
-                if (line.length === 0) {
-                    // skip blank line
-                    continue;
-                }
-                p.Char = line.length - 1;
-            }
-
-            let c: string = line[p.Char];
-
-            if (c === this.LeftBrancket) {
-                count--;
-            }
-            if (c === this.RightBrancket) {
-                count++;
-            }
-
-            if (count === 0) {
-                break;
-            }
-        }
-
-        return p;
     }
 
     public SearchRightBrancket(editor: IEditor, vim: IVimStyle, start: IPosition): IPosition {
@@ -117,6 +78,46 @@ export class BrancketSelection extends AbstractTextObjectSelection {
         }
         return p;
     }
+
+    private SearchLeftBrancket(editor: IEditor, vim: IVimStyle, start: IPosition): IPosition {
+        let p = start.Copy();
+        let line = editor.ReadLineAtCurrentPosition();
+        let lastLine = editor.GetLastLineNum();
+        let count = this.Count;
+        while (this.Count > 0) {
+
+            // read 1 char
+            p.Char--;
+            if (p.Char < 0) {
+                p.Line--;
+                if (p.Line < 0) {
+                    return null;
+                }
+                line = editor.ReadLine(p.Line);
+                if (line.length === 0) {
+                    // skip blank line
+                    continue;
+                }
+                p.Char = line.length - 1;
+            }
+
+            let c: string = line[p.Char];
+
+            if (c === this.LeftBrancket) {
+                count--;
+            }
+            if (c === this.RightBrancket) {
+                count++;
+            }
+
+            if (count === 0) {
+                break;
+            }
+        }
+
+        return p;
+    }
+
 }
 
 // ci( ci)

@@ -1,6 +1,6 @@
-import { AbstractMotion } from "./AbstractMotion";
 import * as Utils from "../Utils";
 import { Position } from "../VimStyle";
+import { AbstractMotion } from "./AbstractMotion";
 
 /**
  * dw
@@ -33,7 +33,7 @@ enum State {
     spaceWhenCountEq1,
     deleteUntilLinefeed,
     deleteUntilJustBefore,
-    reachDocumentEnd
+    reachDocumentEnd,
 }
 
 enum NextCharacter {
@@ -41,19 +41,19 @@ enum NextCharacter {
     sameTypeCharacter,
     differenceTypeCharacter,
     lineFeed,
-    space
+    space,
 }
 
 class Calculater {
-    pos: IPosition;
-    line: string;
-    documentLines: number;
-    count: number;
-    IsWORD: boolean;
+    public pos: IPosition;
+    public line: string;
+    public documentLines: number;
+    public count: number;
+    public IsWORD: boolean;
 
-    beforeCharacterGroup: CharGroup;
+    public beforeCharacterGroup: CharGroup;
 
-    editor: IEditor;
+    public editor: IEditor;
 
     constructor(start: IPosition, count: number, isWord: boolean, editor: IEditor) {
         this.pos = start.Copy();
@@ -66,7 +66,7 @@ class Calculater {
         this.IsWORD = isWord;
     };
 
-    getNextCharacter(): NextCharacter {
+    public getNextCharacter(): NextCharacter {
         this.pos.Char++;
         if (this.pos.Char > this.line.length) {
             this.pos.Line++;
@@ -101,14 +101,14 @@ class Calculater {
         return NextCharacter.differenceTypeCharacter;
     }
 
-    doAtFirst(): State {
+    public doAtFirst(): State {
         if (this.count === 1) {
             return State.firstWhenCountEq1;
         }
         return State.firstWhenCountGreaterThan1;
     };
 
-    doAtFirstWhenCountGreaterThan1(): State {
+    public doAtFirstWhenCountGreaterThan1(): State {
         let nextCharacterGroup: NextCharacter = this.getNextCharacter();
         if (nextCharacterGroup === null) {
             return State.reachDocumentEnd;
@@ -123,7 +123,7 @@ class Calculater {
         }
     }
 
-    doAtCharacter(): State {
+    public doAtCharacter(): State {
         let nextCharacterGroup: NextCharacter = this.getNextCharacter();
         if (nextCharacterGroup === null) {
             return State.reachDocumentEnd;
@@ -140,7 +140,7 @@ class Calculater {
         }
     }
 
-    doAtLinefeed(): State {
+    public doAtLinefeed(): State {
         let nextCharacterGroup: NextCharacter = this.getNextCharacter();
         if (nextCharacterGroup === null) {
             return State.reachDocumentEnd;
@@ -155,7 +155,7 @@ class Calculater {
         }
     }
 
-    doAtSpace(): State {
+    public doAtSpace(): State {
         let nextCharacterGroup: NextCharacter = this.getNextCharacter();
         if (nextCharacterGroup === null) {
             return State.reachDocumentEnd;
@@ -170,7 +170,7 @@ class Calculater {
         }
     }
 
-    decreaseCount(): State {
+    public decreaseCount(): State {
         this.count--;
         if (this.count === 1) {
             return State.characterWhenCountEq1;
@@ -178,7 +178,7 @@ class Calculater {
         return State.character;
     }
 
-    decreaseCountAtLinefeed(): State {
+    public decreaseCountAtLinefeed(): State {
         this.count--;
         if (this.count === 1) {
             return State.firstWhenCountEq1;
@@ -186,7 +186,7 @@ class Calculater {
         return State.linefeed;
     }
 
-    doAtFirstWhenCountEq1(): State {
+    public doAtFirstWhenCountEq1(): State {
         let nextCharacterGroup: NextCharacter = this.getNextCharacter();
         if (nextCharacterGroup === null) {
             return State.reachDocumentEnd;
@@ -201,7 +201,7 @@ class Calculater {
         }
     }
 
-    doAtCharacterWhenCountEq1(): State {
+    public doAtCharacterWhenCountEq1(): State {
         let nextCharacterGroup: NextCharacter = this.getNextCharacter();
         if (nextCharacterGroup === null) {
             return State.reachDocumentEnd;
@@ -217,7 +217,7 @@ class Calculater {
         }
     }
 
-    doAtSpaceWhenCountEq1(): State {
+    public doAtSpaceWhenCountEq1(): State {
         let nextCharacterGroup: NextCharacter = this.getNextCharacter();
         if (nextCharacterGroup === null) {
             return State.reachDocumentEnd;

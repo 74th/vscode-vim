@@ -2,58 +2,58 @@ export let RepeatTests = {};
 
 RepeatTests["repeat insert"] = {
     "a.repeat insert text": {
-        "in": [
+        in: [
             "|abc",
         ],
-        "key": "adef_$.",
-        "out": [
+        key: "adef_$.",
+        out: [
             "adefbcde|f",
-        ]
+        ],
     },
     "A.:repeat insert text containing LF": {
-        "in": [
+        in: [
             "|abc",
             "ABC",
         ],
-        "key": "Adef\nghe_j.",
-        "out": [
+        key: "Adef\nghe_j.",
+        out: [
             "abcdef",
             "ghe",
             "ABCdef",
-            "gh|e"
-        ]
+            "gh|e",
+        ],
     },
     "o.:repeat insert text to new line": {
-        "in": [
-            "a|bc"
+        in: [
+            "a|bc",
         ],
-        "key": "odef_.",
-        "out": [
+        key: "odef_.",
+        out: [
             "abc",
             "def",
-            "de|f"
-        ]
+            "de|f",
+        ],
     },
     "cw.:repeat cut command": {
-        "in": [
+        in: [
             "aaa |bbb",
             "ccc ddd",
         ],
-        "key": "c$kkk_jb.",
-        "out": [
+        key: "c$kkk_jb.",
+        out: [
             "aaa kkk",
-            "ccc kk|k"
-        ]
-    }
+            "ccc kk|k",
+        ],
+    },
 };
 RepeatTests["repeat normal command"] = {
     "add text": {
-        "in": [
+        in: [
             "aaa |bbb ccc ddd",
         ],
-        "key": "dw.",
-        "out": [
+        key: "dw.",
+        out: [
             "aaa |ddd",
-        ]
-    }
+        ],
+    },
 };

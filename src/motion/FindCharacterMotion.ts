@@ -1,6 +1,6 @@
-import { AbstractMotion } from "./AbstractMotion";
 import { GoAction } from "../action/GoAction";
 import { Position } from "../VimStyle";
+import { AbstractMotion } from "./AbstractMotion";
 
 /**
  * fx Fx tx Tx ; ,
@@ -115,7 +115,6 @@ export function GotoCharacterToRight(num: number): IAction {
     return a;
 }
 
-
 /**
  * Fx
  */
@@ -165,7 +164,6 @@ export function AddCharacterToRightMotion(num: number, action: IAction): void {
     let a = <IRequireMotionAction>action;
     a.Motion = m;
 }
-
 
 /**
  * cFx

@@ -1,7 +1,7 @@
-import { AbstractMotion } from "./AbstractMotion";
 import { GoAction } from "../action/GoAction";
 import * as Utils from "../Utils";
 import { Position } from "../VimStyle";
+import { AbstractMotion } from "./AbstractMotion";
 
 /**
  * b B e E

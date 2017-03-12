@@ -1,5 +1,5 @@
-import { Range, Position } from "../VimStyle";
 import { RegisterItem } from "../core/Register";
+import { Position, Range } from "../VimStyle";
 
 /**
  * {Visual}d {Visual}y {Visual}c

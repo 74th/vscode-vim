@@ -1,7 +1,7 @@
-import { AbstractInsertTextAction } from "./AbstractInsertTextAction";
-import * as RightMotion from "../motion/RightMotion";
-import * as LastCharacterInLineMotion from "../motion/LastCharacterInLineMotion";
 import * as FirstCharacterMotion from "../motion/FirstCharacterMotion";
+import * as LastCharacterInLineMotion from "../motion/LastCharacterInLineMotion";
+import * as RightMotion from "../motion/RightMotion";
+import { AbstractInsertTextAction } from "./AbstractInsertTextAction";
 
 /**
  * a A i I
@@ -37,7 +37,7 @@ export class InsertTextAction extends AbstractInsertTextAction {
                 DocumentLineCount: editor.GetLastLineNum() + 1,
                 Position: p.Copy(),
                 BeforeText: text.substring(0, p.Char),
-                AfterText: text.substring(p.Char)
+                AfterText: text.substring(p.Char),
             };
         }
     }

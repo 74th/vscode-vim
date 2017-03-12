@@ -11,7 +11,9 @@ export abstract class AbstractInsertTextAction implements IInsertTextAction {
         this.insertText = null;
     }
 
-    abstract GetActionType(): ActionType;
+    public abstract GetActionType(): ActionType;
+
+    public abstract Execute(editor: IEditor, vim: IVimStyle): any;
 
     public GetInsertModeInfo(): any {
         return this.insertModeInfo;
@@ -33,6 +35,4 @@ export abstract class AbstractInsertTextAction implements IInsertTextAction {
         }
         return np;
     }
-
-    abstract Execute(editor: IEditor, vim: IVimStyle): any;
 }

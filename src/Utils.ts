@@ -26,7 +26,7 @@ export function isNumber(val) {
 export function KeyToNum(key: Key): number {
     let num = key.charCodeAt(0) - 0x30;
     if (num < 0 || 9 < num) {
-        return NaN
+        return NaN;
     }
     return num;
 }
@@ -85,11 +85,11 @@ export function GetCharClass(charCode: number): CharGroup {
         // [ - ^
         return CharGroup.Marks;
     }
-    if (charCode == 0x5F) {
+    if (charCode === 0x5F) {
         // _
         return CharGroup.AlphabetAndNumber;
     }
-    if (charCode == 0x60) {
+    if (charCode === 0x60) {
         // `
         return CharGroup.Marks;
     }
@@ -130,8 +130,8 @@ export function GetCharClass(charCode: number): CharGroup {
 
 export function CalcVisialPosition(systemPosition: number, text: string, tabSize: number): number {
     let tabCount = 0;
-    for (let i = 0; i < text.length; i++) {
-        if (text[i] === "\t") {
+    for (let char of text) {
+        if (char === "\t") {
             tabCount++;
         } else {
             break;
@@ -142,8 +142,8 @@ export function CalcVisialPosition(systemPosition: number, text: string, tabSize
 
 export function CalcSystemPosition(visualPosition: number, text: string, tabSize: number): number {
     let tabCount = 0;
-    for (let i = 0; i < text.length; i++) {
-        if (text[i] === "\t") {
+    for (let char of text) {
+        if (char === "\t") {
             tabCount++;
         } else {
             break;

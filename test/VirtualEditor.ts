@@ -1,13 +1,14 @@
 import * as Utils from "../src/Utils";
-import { VimStyle, Position, Range } from "../src/VimStyle";
+import { Position, Range, VimStyle } from "../src/VimStyle";
 
 export class VirtualEditor implements IEditor {
-    private contents: string[];
+
     public CommandStatus: string;
     public ModeStatus: string;
     public Position: Position;
     public VimStyle: IVimStyle;
 
+    private contents: string[];
     private currentVisualLineModeInfo: IVisualLineModeSelectionInfo;
     private currentVisualModeSelection: IRange;
 
@@ -42,7 +43,8 @@ export class VirtualEditor implements IEditor {
             output.push(this.contents[i]);
         }
         let line = output[this.Position.Line];
-        output[this.Position.Line] = line.substr(0, this.Position.Char) + "|" + line.substr(this.Position.Char, line.length);
+        output[this.Position.Line] =
+            line.substr(0, this.Position.Char) + "|" + line.substr(this.Position.Char, line.length);
         return output;
     }
 
@@ -107,7 +109,8 @@ export class VirtualEditor implements IEditor {
             this.contents[range.start.Line] = pre + su;
         } else {
             let line = this.contents[range.start.Line].substr(0, range.start.Char);
-            line += this.contents[range.end.Line].substr(range.end.Char, this.contents[range.end.Line].length - range.end.Char);
+            line += this.contents[range.end.Line].substr(
+                range.end.Char, this.contents[range.end.Line].length - range.end.Char);
             this.contents.splice(range.start.Line, range.end.Line - range.start.Line + 1, line);
         }
         if (position !== undefined) {
@@ -184,9 +187,9 @@ export class VirtualEditor implements IEditor {
 
     public ShowVisualLineMode(startLine: number, endLine: number, focusPosition?: IPosition) {
         this.currentVisualLineModeInfo = {
-            startLine: startLine,
-            endLine: endLine,
-            focusPosition: focusPosition
+            startLine,
+            endLine,
+            focusPosition,
         };
     }
 
@@ -237,6 +240,7 @@ export class VirtualEditor implements IEditor {
         return;
     }
 
+    // tslint:disable-next-line:no-empty
     public CallEditorCommand(argument: string) {
     }
 }

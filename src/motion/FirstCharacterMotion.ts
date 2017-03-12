@@ -1,7 +1,7 @@
-import { AbstractMotion } from "./AbstractMotion";
 import { GoAction } from "../action/GoAction";
 import * as Utils from "../Utils";
 import { Position } from "../VimStyle";
+import { AbstractMotion } from "./AbstractMotion";
 
 /**
  * ^ G gg
@@ -64,7 +64,7 @@ export enum Target {
     Current,
     First,
     Last,
-    Number
+    Number,
 }
 
 /**

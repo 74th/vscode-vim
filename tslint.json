@@ -1,3 +1,19 @@
 {
-    "extends": "tslint:recommended"
+    "extends": "tslint:recommended",
+    "rules": {
+        "max-classes-per-file": [
+            false
+        ],
+        "switch-default": false,
+        "forin": false,
+        "object-literal-sort-keys": false,
+        "whitespace": [
+            "check-branch",
+            "check-decl",
+            "check-module",
+            "check-operator",
+            "check-separator",
+            "check-type"
+        ]
+    }
 }

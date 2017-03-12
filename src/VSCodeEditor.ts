@@ -1,12 +1,12 @@
 import * as vscode from "vscode";
-import { Position, Range } from "./VimStyle";
 import * as Utils from "./Utils";
+import { Position, Range } from "./VimStyle";
 
 enum EditorActionType {
     Insert,
     Replace,
     Delete,
-    SetPosition
+    SetPosition,
 }
 class EditorAction {
     public Type: EditorActionType;
@@ -23,6 +23,9 @@ export interface IVSCodeEditorOptions {
 }
 
 export class VSCodeEditor implements IEditor {
+
+    public Options: IVSCodeEditorOptions;
+
     private modeStatusBarItem: vscode.StatusBarItem;
     private commandStatusBarItem: vscode.StatusBarItem;
     private vimStyle: IVimStyle;
@@ -37,17 +40,15 @@ export class VSCodeEditor implements IEditor {
     private latestPosition: IPosition;
     private latestPositionTimestamp: number;
 
-    public Options: IVSCodeEditorOptions;
-
     public constructor(options: IVSCodeEditorOptions) {
         this.modeStatusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
         this.commandStatusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
         this.commandStatusBarItem.show();
         this.ApplyOptions(options);
 
-        this.inNormalModeContext = new ContextKey('vim.inNormalMode');
-        this.inInsertModeContext = new ContextKey('vim.inInsertMode');
-        this.inVisualModeContext = new ContextKey('vim.inVisualMode');
+        this.inNormalModeContext = new ContextKey("vim.inNormalMode");
+        this.inInsertModeContext = new ContextKey("vim.inInsertMode");
+        this.inVisualModeContext = new ContextKey("vim.inVisualMode");
     }
 
     public SetVimStyle(vim: IVimStyle) {
@@ -109,7 +110,8 @@ export class VSCodeEditor implements IEditor {
         return null;
     }
     public ReadLineAtCurrentPosition(): string {
-        return vscode.window.activeTextEditor.document.lineAt(vscode.window.activeTextEditor.selection.active.line).text;
+        return vscode.window.activeTextEditor.document.lineAt(
+            vscode.window.activeTextEditor.selection.active.line).text;
     }
 
     // Read Range
@@ -134,16 +136,17 @@ export class VSCodeEditor implements IEditor {
     public SetPosition(p: IPosition) {
         let cp = tranceVSCodePosition(p);
         vscode.window.activeTextEditor.selection = new vscode.Selection(cp, cp);
-        vscode.window.activeTextEditor.revealRange(vscode.window.activeTextEditor.selection, vscode.TextEditorRevealType.Default);
+        vscode.window.activeTextEditor.revealRange(
+            vscode.window.activeTextEditor.selection, vscode.TextEditorRevealType.Default);
         this.showBlockCursor();
         this.latestPositionTimestamp = new Date().getTime();
         this.latestPosition = p;
     }
     public GetLastPosition(): IPosition {
-        let end = vscode.window.activeTextEditor.document.lineAt(vscode.window.activeTextEditor.document.lineCount - 1).range.end;
+        let end = vscode.window.activeTextEditor.document.lineAt(
+            vscode.window.activeTextEditor.document.lineCount - 1).range.end;
         return tranceVimStylePosition(end);
     }
-
 
     // Document Info
     public GetLastLineNum(): number {
@@ -226,7 +229,8 @@ export class VSCodeEditor implements IEditor {
         this.visualLineModeEndLine = endLine;
         this.visualLineModeFocusPosition = focusPosition;
 
-        let start: vscode.Position, end: vscode.Position;
+        let start: vscode.Position;
+        let end: vscode.Position;
         let line: string;
         if (startLine <= endLine) {
             start = new vscode.Position(startLine, 0);
@@ -254,7 +258,7 @@ export class VSCodeEditor implements IEditor {
         return {
             startLine: this.visualLineModeStartLine,
             endLine: this.visualLineModeEndLine,
-            focusPosition: this.visualLineModeFocusPosition
+            focusPosition: this.visualLineModeFocusPosition,
         };
     }
 
@@ -296,11 +300,15 @@ export class VSCodeEditor implements IEditor {
             return n as number;
         } else if (ntype === "string") {
             let ns = parseInt(n as string, 10);
-            if (ns !== NaN) {
+            if (isNaN(ns)) {
                 return ns;
             }
         }
         return 4;
+    }
+
+    public CallEditorCommand(argument: string) {
+        vscode.commands.executeCommand(argument, null);
     }
 
     private showLineCursor() {
@@ -313,7 +321,9 @@ export class VSCodeEditor implements IEditor {
 
     private showBlockCursor() {
 
-        if (vscode.window.activeTextEditor == undefined) return;
+        if (vscode.window.activeTextEditor === undefined) {
+            return;
+        }
 
         if (this.Options.changeCursorStyle) {
             let opt = vscode.window.activeTextEditor.options;
@@ -322,9 +332,6 @@ export class VSCodeEditor implements IEditor {
         }
     }
 
-    public CallEditorCommand(argument: string) {
-        vscode.commands.executeCommand(argument, null);
-    }
 }
 
 function tranceVimStylePosition(org: vscode.Position): IPosition {
@@ -349,18 +356,18 @@ function tranceVSCodeRange(org: IRange): vscode.Range {
 }
 
 class ContextKey {
-    private _name: string;
-    private _lastValue: boolean;
+    private name: string;
+    private lastValue: boolean;
 
     constructor(name: string) {
-        this._name = name;
+        this.name = name;
     }
 
     public set(value: boolean): void {
-        if (this._lastValue === value) {
+        if (this.lastValue === value) {
             return;
         }
-        this._lastValue = value;
-        vscode.commands.executeCommand('setContext', this._name, this._lastValue);
+        this.lastValue = value;
+        vscode.commands.executeCommand("setContext", this.name, this.lastValue);
     }
 }

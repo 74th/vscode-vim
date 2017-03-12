@@ -1,4 +1,4 @@
-import { Range, Position } from "../VimStyle";
+import { Position, Range } from "../VimStyle";
 
 /**
  * v

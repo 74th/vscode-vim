@@ -1,6 +1,6 @@
-import { AbstractInsertTextAction } from "./AbstractInsertTextAction";
-import { Position } from "../VimStyle";
 import * as Utils from "../Utils";
+import { Position } from "../VimStyle";
+import { AbstractInsertTextAction } from "./AbstractInsertTextAction";
 
 export class OpenNewLineAndAppendTextAction extends AbstractInsertTextAction {
 
@@ -51,7 +51,7 @@ export class OpenNewLineAndAppendTextAction extends AbstractInsertTextAction {
                 DocumentLineCunt: editor.GetLastLineNum() + 1,
                 Position: selecterPosition.Copy(),
                 BeforeText: insertSpace,
-                AfterText: ""
+                AfterText: "",
             };
 
             vim.ApplyInsertMode(selecterPosition);
