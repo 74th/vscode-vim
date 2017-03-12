@@ -6,6 +6,7 @@ import { ChangingText } from "./ChangingText";
 import { DeletingText } from "./DeletingTextTests";
 import { CopyAndMovingTextTests } from "./CopyAndMovingTextTests";
 import { RepeatTests } from "./RepeatTests";
+import { TextObjects } from "./TextObjects";
 
 export let VimTests = {};
 let testsets = [
@@ -16,7 +17,8 @@ let testsets = [
     ChangingText,
     DeletingText,
     CopyAndMovingTextTests,
-    RepeatTests
+    RepeatTests,
+    TextObjects
 ];
 
 for (let testset in testsets) {
