@@ -22,7 +22,7 @@ for (let target in VimTests) {
                     text += ":normal x\n";
                     let list = spec["key"].split("_");
                     for (let i = 0; i < list.length; i++) {
-                        text += ":exe \":normal " + list[i].replace("\n", "\\<CR>") + "\"\n";
+                        text += ":exe \":normal " + list[i].replace("\n", "\\<CR>").replace("\"", "\\\"") + "\"\n";
                     }
                     text += ":normal i|\n";
                     text += ":w! OriginalVimOutput\n";
