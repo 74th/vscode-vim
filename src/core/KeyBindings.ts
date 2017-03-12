@@ -21,6 +21,7 @@ import * as MoveWordMotion from "../motion/MoveWordMotion";
 import * as ParagraphMotion from "../motion/ParagraphMotion";
 import * as RightMotion from "../motion/RightMotion";
 import * as TextObjectSelectionBrancket from "../motion/textObjectSelection/Brancket";
+import * as TextObjectQuotation from "../motion/textObjectSelection/Quotation";
 import * as WordMotion from "../motion/WordMotion";
 
 class KeyBindings implements IKeyBindings {
@@ -552,6 +553,18 @@ const DefaultKeyBindings: IKeyBindings = {
         "}": {
             AddMotion: TextObjectSelectionBrancket.AddInnerCurlyBrancketSelection,
         },
+        "'": {
+            AddMotion:
+            TextObjectQuotation.AddInnerApostropheSelection,
+        },
+        "\"": {
+            AddMotion:
+            TextObjectQuotation.AddInnerQuotationSelection,
+        },
+        "`": {
+            AddMotion:
+            TextObjectQuotation.AddInnerGraveAccentSelection,
+        },
     },
 
     RequireOuterTextObject: {
@@ -578,6 +591,18 @@ const DefaultKeyBindings: IKeyBindings = {
         },
         "}": {
             AddMotion: TextObjectSelectionBrancket.AddOuterCurlyBrancketSelection,
+        },
+        "'": {
+            AddMotion:
+            TextObjectQuotation.AddOuterApostropheSelection,
+        },
+        "\"": {
+            AddMotion:
+            TextObjectQuotation.AddOuterQuotationSelection,
+        },
+        "`": {
+            AddMotion:
+            TextObjectQuotation.AddOuterGraveAccentSelection,
         },
     },
 
