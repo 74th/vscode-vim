@@ -98,7 +98,7 @@
     "async-file": "^2.0.2",
     "mocha": "^2.3.3",
     "source-map-support": "^0.4.7",
-    "tslint": "~4.2",
+    "tslint": "^4.5.1",
     "typescript": "^2.2.1",
     "vscode": "^1.0.0"
   }
