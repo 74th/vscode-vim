@@ -21,6 +21,10 @@ pipeline {
           "telint": {
             sh 'make tslint'
             
+          },
+          "OriginalVimTest": {
+            sh 'make testOriginalVim'
+            
           }
         )
       }
