@@ -1,7 +1,7 @@
 pipeline {
   agent any
   stages {
-    stage('npm install') {
+    stage('prepare') {
       steps {
         sh 'npm install'
       }
@@ -18,15 +18,17 @@ pipeline {
             sh 'make test'
             
           },
-          "telint": {
-            sh 'make tslint'
-            
-          },
           "OriginalVimTest": {
             sh 'make testOriginalVim'
             
           }
         )
+      }
+    }
+    stage('lint') {
+      steps {
+        echo 'OK'
+        sh 'make tslint'
       }
     }
     stage('release') {
