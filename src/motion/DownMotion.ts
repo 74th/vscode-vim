@@ -23,8 +23,15 @@ export class DownMotion extends AbstractMotion {
         let end = new Position();
         if (this.IsUpDirection) {
             end.Line = start.Line - this.Count;
+            if (end.Line < 0) {
+                end.Line = 0;
+            }
         } else {
+            let lastLine = editor.GetLastLineNum();
             end.Line = start.Line + this.Count;
+            if (end.Line > lastLine) {
+                end.Line = lastLine;
+            }
         }
 
         let startText = editor.ReadLine(start.Line);

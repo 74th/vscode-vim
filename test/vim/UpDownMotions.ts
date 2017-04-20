@@ -27,6 +27,19 @@ UpDownMotions["line motion"] = {
             "abcd|efg",
         ],
     },
+    "3j:move to last line": {
+        in: [
+            "abcd|efg",
+            "b",
+            "abcdefg",
+        ],
+        key: "3j",
+        out: [
+            "abcdefg",
+            "b",
+            "abcd|efg",
+        ],
+    },
     "v2j:move down over a short line in visual mode": {
         in: [
             "abcd|efg",
@@ -58,6 +71,19 @@ UpDownMotions["line motion"] = {
             "abcdef| g",
         ],
         key: "kk",
+        out: [
+            "abcdef| g",
+            "a",
+            "abcdef g",
+        ],
+    },
+    "3k:move to first line": {
+        in: [
+            "abcdef g",
+            "a",
+            "abcdef| g",
+        ],
+        key: "3k",
         out: [
             "abcdef| g",
             "a",
