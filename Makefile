@@ -36,7 +36,11 @@ clean:
 	rm -rf out
 	rm -f *.vsix
 buildcontainer:
-	cd testcontainer;docker build -t vscode-vim .
-testincontainer:
-	docker run -it -v `pwd`:/root/ vscode-vim tsc
-	docker run -it -v `pwd`:/root/ -w /root/out/test/ vscode-vim mocha -g VimStyle .
+	cd testcontainer/centos7;docker build -t vscode-vim-centos7 .
+	cd testcontainer/ubuntu1604;docker build -t vscode-vim-ubuntu1604 .
+testincontainer-originalvim-centos7:
+	docker run -it -v `pwd`:/root/ -w /root/out/ vscode-vim-centos7 vim --version
+	docker run -it -v `pwd`:/root/ -w /root/out/ vscode-vim-centos7 ../$(MOCHA) -g OriginalVim
+testincontainer-originalvim-ubuntu1604:
+	docker run -it -v `pwd`:/root/ -w /root/out/ vscode-vim-ubuntu1604 vim --version
+	docker run -it -v `pwd`:/root/ -w /root/out/ vscode-vim-ubuntu1604 ../$(MOCHA) -g OriginalVim

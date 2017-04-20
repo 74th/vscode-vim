@@ -28,7 +28,7 @@ for (let target in VimTests) {
                     text += ":w! OriginalVimOutput\n";
                     text += ":q!\n";
                     await fs.writeFile("OriginalVimKey", text);
-                    await execAsync("vim -u NONE -s OriginalVimKey OriginalVimInput");
+                    await execAsync("HOME=../test vim -s OriginalVimKey OriginalVimInput");
                     text = await fs.readFile("OriginalVimOutput");
                     let out = text.toString().split("\n");
                     let outText = out[0];
