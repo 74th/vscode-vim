@@ -18,6 +18,7 @@ import { RightMotion } from "../motion/RightMotion";
 import { WordMotion } from "../motion/WordMotion";
 import * as Utils from "../Utils";
 
+// command factory
 export class CommandFactory implements ICommandFactory {
 
     public Nmap: { [key: string]: string };
@@ -220,22 +221,6 @@ export class CommandFactory implements ICommandFactory {
                 return;
         }
     }
-
-    // -----
-    // Changing text
-    // -----
-
-    // -----
-    // Text objects (only in Visual mode or after an operator)
-    // -----
-
-    // -----
-    // Repeating commands
-    // -----
-
-    // -----
-    // other
-    // -----
 
     private pushKeyAtRequireCharForMotion(key: string): IAction {
         const a = this.action as IRequireMotionAction;
