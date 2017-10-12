@@ -24,9 +24,8 @@
 			"sourceMaps": true,
 			"args": [
 				"-g",
-				"VimStyle Ne: forward to the end of the Nth word e:cursor is in word"
+				"VimStyle J:"
 			],
-			"outDir": "${workspaceRoot}/out",
 			"cwd": "${workspaceRoot}/out",
 			"runtimeExecutable": null,
 			"preLaunchTask": "build"
@@ -46,6 +45,16 @@
 			"cwd": "${workspaceRoot}/out",
 			"runtimeExecutable": null,
 			"preLaunchTask": "build"
+		},
+		{
+			"type": "node",
+			"request": "attach",
+			"name": "Attach by Process ID",
+			"processId": "${command:PickProcess}",
+			"outFiles": [
+				"${workspaceRoot}/out"
+			]
 		}
+
 	]
 }

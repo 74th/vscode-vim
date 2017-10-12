@@ -137,7 +137,7 @@ export class VirtualEditor implements IEditor {
         }
         let line = this.contents[range.start.Line];
         let result = line.substr(range.start.Char, line.length - range.start.Char);
-        for (let i = range.start.Line; i < range.end.Line - 1; i++) {
+        for (let i = range.start.Line + 1; i < range.end.Line; i++) {
             result += "\n" + this.contents[i];
         }
         line = this.contents[range.end.Line];

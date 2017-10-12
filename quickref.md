@@ -158,7 +158,7 @@ This is imported from [quickref.txt](https://github.com/vim/vim/blob/master/runt
 |DeleteYankChangeHighlightedTextAction,<br />DeleteYankChangeHighlightedLineAction|`{visual}d`|delete the highlighted text|
 |DeleteYankChangeAction|`Ndd`|delete N lines|
 |DeleteYankChangeAction|`ND`|delete to the end of the line (and N-1 more lines)|
-||`NJ`|join N-1 lines (delete &lt;EOL&gt;s)|
+|JoinLinesAction|`NJ`|join N-1 lines (delete &lt;EOL&gt;s)|
 ||`{visual}J`|join the highlighted lines|
 ||`NgJ`|like "J", but without inserting spaces|
 ||`{visual}gJ`|like "{visual}J", but without inserting spaces|

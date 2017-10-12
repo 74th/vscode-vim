@@ -37,7 +37,7 @@ ext install vimStyle
 
 * h j k l 0 $ ^ w W b B e E { } [{ ]} tx fx Tx Fx ; , gg G
 * Nh Nj Nk Nl Nw NW Nb NB Ne NE N{ N} N[{ N]} Ntx Nfx NTx NFx N; N, NG
-* i a s o x r I A S O X gr
+* i a s o x r I A S O X gr J
 * Nx Nr Ngr
 * d y c dd yy cc D C p P d$ y$ c$ ...
 * Ndd Nyy Ncc

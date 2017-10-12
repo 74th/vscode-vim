@@ -2,6 +2,7 @@ import * as DeleteYankChangeAction from "../action/DeleteYankChangeAction";
 import * as DeleteYankChangeHighlightedLineAction from "../action/DeleteYankChangeHighlightedLineAction";
 import * as DeleteYankChangeHighlightedTextAction from "../action/DeleteYankChangeHighlightedTextAction";
 import * as InsertTextAction from "../action/InsertTextAction";
+import * as JoinLinesAction from "../action/JoinLinesAction";
 import * as OpenNewLineAndAppendTextAction from "../action/OpenNewLineAndAppendTextAction";
 import * as PutRegisterAction from "../action/PutRegisterAction";
 import * as RepeatLastChangeAction from "../action/RepeatLastChangeAction";
@@ -163,7 +164,9 @@ const DefaultKeyBindings: IKeyBindings = {
         "j": {
             CreateAction: DownMotion.GoDown,
         },
-        // J
+        "J": {
+            CreateAction: JoinLinesAction.JoinLines,
+        },
         "k": {
             CreateAction: DownMotion.GoUp,
         },

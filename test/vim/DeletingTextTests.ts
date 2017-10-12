@@ -63,7 +63,7 @@ DeletingText["Ndd:delete N lines"] = {
 
 // ND
 // N3D not support
-DeletingText["2J:join N-1 lines (delete &lt;EOL&gt;s)"] = {
+DeletingText["J:join N-1 lines (delete <EOL>s)"] = {
     "J:join 1 line": {
         in: ["a", "|b", "c", "d"],
         key: "J",
