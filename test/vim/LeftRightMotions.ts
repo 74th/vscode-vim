@@ -314,7 +314,7 @@ LeftRightMotions[";: repeat the last \"f\", \"F\", \"t\", or \"T\" N times"] = {
         ],
         key: "tf;",
         out: [
-            "abcd|efghiabcdefghi",
+            "abcdefghiabcd|efghi",
         ],
     },
     "Tx;": {
@@ -323,7 +323,7 @@ LeftRightMotions[";: repeat the last \"f\", \"F\", \"t\", or \"T\" N times"] = {
         ],
         key: "Tc;",
         out: [
-            "abcdefghiabc|defghi",
+            "abc|defghiabcdefghi",
         ],
     },
     "fx2;": {
