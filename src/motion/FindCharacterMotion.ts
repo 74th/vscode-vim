@@ -66,6 +66,9 @@ export class FindCharacterMotion extends AbstractMotion implements IRequireChara
 
         if (this.Direction === Direction.Right) {
             for (i = start.Char + 1; i < line.length; i++) {
+                if (this.IsTill && i === start.Char + 1) {
+                    continue;
+                }
                 if (this.CharacterCode === line.charCodeAt(i)) {
                     count--;
                     if (count === 0) {
@@ -76,6 +79,9 @@ export class FindCharacterMotion extends AbstractMotion implements IRequireChara
             }
         } else {
             for (i = start.Char - 1; i >= 0; i--) {
+                if (this.IsTill && i === start.Char - 1) {
+                    continue;
+                }
                 if (this.CharacterCode === line.charCodeAt(i)) {
                     count--;
                     if (count === 0) {
