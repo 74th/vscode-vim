@@ -92,7 +92,7 @@ export class VirtualEditor implements IEditor {
         let su = cLine.substr(position.Char, cLine.length - position.Char);
         let lineList = text.split("\n");
         if (lineList.length === 1) {
-            this.contents[this.Position.Line] = pre + text + su;
+            this.contents[position.Line] = pre + text + su;
             return;
         }
         this.contents[position.Line] = pre + lineList[0];

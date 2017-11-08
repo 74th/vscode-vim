@@ -17,6 +17,11 @@ export class DeleteYankChangeHighlightedTextAction implements IInsertTextAction 
     }
 
     public GetActionType(): ActionType {
+        if (this.isOnlyYanc) {
+            return ActionType.Other;
+        } else if (this.isInsert) {
+            return ActionType.Insert;
+        }
         return ActionType.Other;
     }
 

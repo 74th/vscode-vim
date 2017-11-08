@@ -79,4 +79,34 @@ DeletingText["J:join N-1 lines (delete <EOL>s)"] = {
         key: "3J",
         out: ["a", "b", "c", "d| e"],
     },
+    "vJ:join 1 lines": {
+        in: ["a", "b", "|ccc", "d", "e"],
+        key: "vlJ",
+        out: ["a", "b", "ccc| d", "e"],
+    },
+    "vJ:join 3 lines": {
+        in: ["a", "|b", "c", "d", "e"],
+        key: "vjjJ",
+        out: ["a", "b c| d", "e"],
+    },
+    "vJ:join 3 lines include last line": {
+        in: ["a", "b", "|c", "d", "e"],
+        key: "vjjJ",
+        out: ["a", "b", "c d| e"],
+    },
+    "VJ:join 1 lines": {
+        in: ["a", "b", "|ccc", "d", "e"],
+        key: "VlJ",
+        out: ["a", "b", "ccc| d", "e"],
+    },
+    "VJ:join 3 lines": {
+        in: ["a", "|b", "c", "d", "e"],
+        key: "VjjJ",
+        out: ["a", "b c| d", "e"],
+    },
+    "VJ:join 3 lines include last line": {
+        in: ["a", "b", "|c", "d", "e"],
+        key: "VjjJ",
+        out: ["a", "b", "c d| e"],
+    },
 };

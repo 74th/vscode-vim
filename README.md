@@ -43,7 +43,7 @@ ext install vimStyle
 * Ndd Nyy Ncc
 * ci[ ca[ ci" ca"
 * Nci[ Nca[
-* v V v..d v..c v..y v..r
+* v V v..d v..c v..y v..r v..j
 * .
 
 * [quickref function list is here.](https://github.com/74th/vscode-vim/blob/master/quickref.md)
@@ -164,6 +164,10 @@ npm run-script build
 ```
 
 ## update
+
+### 0.5.1
+
+* support J v..J V..J
 
 ### 0.5.0
 

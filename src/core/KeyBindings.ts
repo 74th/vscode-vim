@@ -2,6 +2,7 @@ import * as DeleteYankChangeAction from "../action/DeleteYankChangeAction";
 import * as DeleteYankChangeHighlightedLineAction from "../action/DeleteYankChangeHighlightedLineAction";
 import * as DeleteYankChangeHighlightedTextAction from "../action/DeleteYankChangeHighlightedTextAction";
 import * as InsertTextAction from "../action/InsertTextAction";
+import * as JoinHighlightedLinesAction from "../action/JoinHighlightedLinesAction";
 import * as JoinLinesAction from "../action/JoinLinesAction";
 import * as OpenNewLineAndAppendTextAction from "../action/OpenNewLineAndAppendTextAction";
 import * as PutRegisterAction from "../action/PutRegisterAction";
@@ -675,7 +676,9 @@ const DefaultKeyBindings: IKeyBindings = {
         "j": {
             AddMotion: DownMotion.AddDownMotion,
         },
-        // J?
+        "J": {
+            CreateAction: JoinHighlightedLinesAction.JoinHighlightedText,
+        },
         "k": {
             AddMotion: DownMotion.AddUpMotion,
         },
@@ -841,6 +844,9 @@ const DefaultKeyBindings: IKeyBindings = {
         // V..I
         "j": {
             AddMotion: DownMotion.AddDownMotion,
+        },
+        "J": {
+            CreateAction: JoinHighlightedLinesAction.JoinHighlightedLines,
         },
         // V..J?
         "k": {
