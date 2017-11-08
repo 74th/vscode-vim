@@ -6,8 +6,8 @@ vim emulator for VSCode
 * Visual Studio Marketplace https://marketplace.visualstudio.com/items/74th.vimStyle
 
 [![Build Status](https://travis-ci.org/74th/vscode-vim.svg?branch=master)](https://travis-ci.org/74th/vscode-vim)
-[![Version](http://vsmarketplacebadge.apphb.com/version/74th.vimStyle.svg)](https://marketplace.visualstudio.com/items?itemName=74th.vimStyle)
-[![Installs](http://vsmarketplacebadge.apphb.com/installs/74th.vimStyle.svg)](https://marketplace.visualstudio.com/items?itemName=74th.vimStyle)
+[![Version](https://vsmarketplacebadge.apphb.com/version/74th.vimStyle.svg)](https://marketplace.visualstudio.com/items?itemName=74th.vimStyle)
+[![Installs](https://vsmarketplacebadge.apphb.com/installs/74th.vimStyle.svg)](https://marketplace.visualstudio.com/items?itemName=74th.vimStyle)
 [![Rating](https://vsmarketplacebadge.apphb.com/rating/74th.vimStyle.svg)](https://marketplace.visualstudio.com/items/74th.vimStyle)
 
 ## Require
