@@ -177,6 +177,7 @@ export class VSCodeEditor implements IEditor {
             this.vimStyle.ApplyVisualMode();
             return;
         }
+        this.vimStyle.ApplyNormalMode();
     }
 
     public ApplyNormalMode(p?: Position) {
