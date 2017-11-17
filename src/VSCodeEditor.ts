@@ -40,6 +40,8 @@ export class VSCodeEditor implements IEditor {
     private latestPosition: IPosition;
     private latestPositionTimestamp: number;
 
+    private changeSelectionByVimStyle: boolean;
+
     public constructor(options: IVSCodeEditorOptions) {
         this.modeStatusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
         this.commandStatusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
@@ -160,11 +162,11 @@ export class VSCodeEditor implements IEditor {
 
     // changed focused editor or changed position by user
     public ChangePositionByUser() {
-        if (this.vimStyle.GetMode() === VimMode.Insert) {
-            // do nothing
+        if (this.changeSelectionByVimStyle) {
+            this.changeSelectionByVimStyle = false;
             return;
         }
-        if (this.vimStyle.GetMode() === VimMode.VisualLine) {
+        if (this.vimStyle.GetMode() === VimMode.Insert) {
             // do nothing
             return;
         }
@@ -207,6 +209,7 @@ export class VSCodeEditor implements IEditor {
 
     public ShowVisualMode(range: IRange, focusPosition?: IPosition) {
         let s = new vscode.Selection(tranceVSCodePosition(range.start), tranceVSCodePosition(range.end));
+        this.changeSelectionByVimStyle = true;
         vscode.window.activeTextEditor.selection = s;
         if (focusPosition !== undefined) {
             let p = tranceVSCodePosition(focusPosition);
@@ -229,6 +232,7 @@ export class VSCodeEditor implements IEditor {
         this.visualLineModeStartLine = startLine;
         this.visualLineModeEndLine = endLine;
         this.visualLineModeFocusPosition = focusPosition;
+        this.changeSelectionByVimStyle = true;
 
         let start: vscode.Position;
         let end: vscode.Position;

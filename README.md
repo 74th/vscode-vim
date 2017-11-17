@@ -165,6 +165,10 @@ npm run-script build
 
 ## update
 
+### 0.5.2
+
+* fix #65
+
 ### 0.5.1
 
 * support J v..J V..J
