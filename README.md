@@ -106,22 +106,22 @@ If you would like more vim flavor, you can use `vim.inNormalMode`, `vim.inInsert
 // in visual mode
 {
 	// arrow up
-	"key": "up", "command": "vim.type-k",
+	"key": "up", "command": "vim.type-<Up>",
 	"when": "editorTextFocus && vim.inVisualMode"
 },
 {
 	// arrow down
-	"key": "down", "command": "vim.type-j",
+	"key": "down", "command": "vim.type-<Down>",
 	"when": "editorTextFocus && vim.inVisualMode"
 },
 {
 	// arrow right
-	"key": "down", "command": "vim.type-l",
+	"key": "right", "command": "vim.type-<Right>",
 	"when": "editorTextFocus && vim.inVisualMode"
 },
 {
 	// arrow left
-	"key": "down", "command": "vim.type-h",
+	"key": "left", "command": "vim.type-<Left>",
 	"when": "editorTextFocus && vim.inVisualMode"
 },
 ```
@@ -164,6 +164,10 @@ npm run-script build
 ```
 
 ## update
+
+### 0.5.3
+
+* #57 support arrow keys in visual mode(need add keybindings)
 
 ### 0.5.2
 

@@ -120,6 +120,7 @@ function activateVimStyle(context: vscode.ExtensionContext) {
     }));
 
     let chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890`~!@#$%^&*()-=_+[]\\{}|,./<>?";
+    let otherKeys = ["<Left>", "<Right>", "<Up>", "<Down>"];
     let addTypeVim = (c: string) => {
         context.subscriptions.push(vscode.commands.registerCommand("vim.type-" + c, () => {
             vim.PushKey(c);
@@ -127,6 +128,9 @@ function activateVimStyle(context: vscode.ExtensionContext) {
     };
     for (let char of chars) {
         addTypeVim(char);
+    }
+    for (let key of otherKeys) {
+        addTypeVim(key);
     }
 
     vscode.commands.executeCommand("setContext", "vim.enabled", true);

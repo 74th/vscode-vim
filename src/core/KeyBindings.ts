@@ -306,6 +306,18 @@ const DefaultKeyBindings: IKeyBindings = {
         "}": {
             CreateAction: ParagraphMotion.GotoParagraphFoword,
         },
+        "<Up>": {
+            CreateAction: DownMotion.GoUp,
+        },
+        "<Down>": {
+            CreateAction: DownMotion.GoDown,
+        },
+        "<Left>": {
+            CreateAction: RightMotion.GotoLeft,
+        },
+        "<Right>": {
+            CreateAction: RightMotion.GotoRight,
+        },
     },
 
     // Nx
@@ -477,6 +489,18 @@ const DefaultKeyBindings: IKeyBindings = {
         "]": {
             cmd: VimCommand.nothing,
             state: StateName.RequireBrancketForRightBrancketMotion,
+        },
+        "<Up>": {
+            AddMotion: DownMotion.AddUpMotion,
+        },
+        "<Down>": {
+            AddMotion: DownMotion.AddDownMotion,
+        },
+        "<Left>": {
+            AddMotion: RightMotion.AddLeftMotion,
+        },
+        "<Right>": {
+            AddMotion: RightMotion.AddRightMotion,
         },
     },
 
@@ -789,6 +813,18 @@ const DefaultKeyBindings: IKeyBindings = {
             cmd: VimCommand.nothing,
             state: StateName.RequireBrancketForRightBrancketMotion,
         },
+        "<Up>": {
+            AddMotion: DownMotion.AddUpMotion,
+        },
+        "<Down>": {
+            AddMotion: DownMotion.AddDownMotion,
+        },
+        "<Left>": {
+            AddMotion: RightMotion.AddLeftMotion,
+        },
+        "<Right>": {
+            AddMotion: RightMotion.AddRightMotion,
+        },
     },
 
     // vN
@@ -952,6 +988,18 @@ const DefaultKeyBindings: IKeyBindings = {
         "]": {
             cmd: VimCommand.nothing,
             state: StateName.RequireBrancketForRightBrancket,
+        },
+        "<Up>": {
+            AddMotion: DownMotion.AddUpMotion,
+        },
+        "<Down>": {
+            AddMotion: DownMotion.AddDownMotion,
+        },
+        "<Left>": {
+            AddMotion: RightMotion.AddLeftMotion,
+        },
+        "<Right>": {
+            AddMotion: RightMotion.AddRightMotion,
         },
     },
 };

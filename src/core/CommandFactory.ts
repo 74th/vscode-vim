@@ -45,6 +45,21 @@ export class CommandFactory implements ICommandFactory {
         while (keyStroke.length > 0) {
             let keyChar = keyStroke.substring(0, 1);
             keyStroke = keyStroke.substring(1);
+            if (keyChar === "<") {
+                if (keyStroke.substring(0, 4) === "Up>") {
+                    keyChar = "<Up>";
+                    keyStroke = keyStroke.substring(3);
+                } else if (keyStroke.substring(0, 6) === "Down>") {
+                    keyChar = "<Down>";
+                    keyStroke = keyStroke.substring(5);
+                } else if (keyStroke.substring(0, 7) === "Right>") {
+                    keyChar = "<Right>";
+                    keyStroke = keyStroke.substring(6);
+                } else if (keyStroke.substring(0, 6) === "Left>") {
+                    keyChar = "<Left>";
+                    keyStroke = keyStroke.substring(5);
+                }
+            }
             this.commandString += keyChar;
 
             if (remap && mode === VimMode.Normal && this.Nmap[this.commandString] !== undefined) {
