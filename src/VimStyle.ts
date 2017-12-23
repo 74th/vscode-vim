@@ -161,6 +161,10 @@ export class VimStyle implements IVimStyle {
         }
         let action = this.LastAction as IInsertTextAction;
         let info = action.GetInsertModeInfo();
+        if (!info) {
+            this.LastAction = null;
+            return;
+        }
 
         let lineCount = this.editor.GetLastLineNum() + 1;
         if (info.DocumentLineCount > lineCount) {
