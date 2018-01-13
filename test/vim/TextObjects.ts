@@ -11,6 +11,16 @@ TextObjects["delete inner word"] = {
         key: "d2iw",
         out: ["aaa |ccc ddd"],
     },
+    "d2iw 2": {
+        in: ["aaa b|bb$ccc ddd"],
+        key: "d2iw",
+        out: ["aaa |ccc ddd"],
+    },
+    "d2iw 3": {
+        in: ["aaa bbb ccc d|dd "],
+        key: "d2iw",
+        out: ["aaa bbb ccc |"],
+    },
     "d3iw": {
         in: ["aaa b|bb ccc ddd"],
         key: "d3iw",
@@ -60,10 +70,35 @@ TextObjects["delete outer word"] = {
         key: "daw",
         out: ["aaa |ccc ddd"],
     },
+    "daw 2": {
+        in: ["aaa b|bb$ccc ddd"],
+        key: "daw",
+        out: ["aaa|$ccc ddd"],
+    },
+    "daw 4": {
+        in: ["aaa bbb ccc d|dd"],
+        key: "daw",
+        out: ["aaa bbb ccc|"],
+    },
+    "daw 5": {
+        in: ["aaa bbb ccc d|dd "],
+        key: "daw",
+        out: ["aaa bbb ccc |"],
+    },
+    "daw 3": {
+        in: ["aaa$b|bb$ccc ddd"],
+        key: "daw",
+        out: ["aaa$|$ccc ddd"],
+    },
     "d2aw": {
         in: ["aaa b|bb ccc ddd"],
         key: "d2aw",
         out: ["aaa |ddd"],
+    },
+    "d2aw 2": {
+        in: ["aaa b|bb$ccc ddd"],
+        key: "d2aw",
+        out: ["aaa|ccc ddd"],
     },
     "d3aw": {
         in: ["aaa b|bb ccc ddd"],
