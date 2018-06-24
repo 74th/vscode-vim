@@ -165,6 +165,10 @@ npm run-script build
 
 ## update
 
+### 0.5.5
+
+* fix https://github.com/74th/vscode-vim/issues/73
+
 ### 0.5.4
 
 * fix multi select problem [#64](https://github.com/74th/vscode-vim/issues/64) [#69](https://github.com/74th/vscode-vim/issues/69)
