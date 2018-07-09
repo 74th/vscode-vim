@@ -1,4 +1,4 @@
-vim emulator for VSCode
+Vim emulator for VSCode
 
 ![vimanimetion](https://raw.githubusercontent.com/74th/vscode-vim/master/tutorial/tutorial1.gif)
 
@@ -14,7 +14,7 @@ vim emulator for VSCode
 
 * v0.3 : Visual Studio Code 1.0.0
 
-## feature
+## Features
 
 * pure TypeScript vim engine
 * [have tests comparing with original vim](https://github.com/74th/vscode-vim/tree/master/test/vim)
@@ -27,13 +27,13 @@ vim emulator for VSCode
 
 ![vimanimetion](https://raw.githubusercontent.com/74th/vscode-vim/master/tutorial/tutorial3.gif)
 
-## install
+## Installation
 
 ```
 ext install vimStyle
 ```
 
-## support vim commands
+## Supported vim commands
 
 * h j k l 0 $ ^ w W b B e E { } [{ ]} tx fx Tx Fx ; , gg G
 * Nh Nj Nk Nl Nw NW Nb NB Ne NE N{ N} N[{ N]} Ntx Nfx NTx NFx N; N, NG
@@ -49,13 +49,13 @@ ext install vimStyle
 * [quickref function list is here.](https://github.com/74th/vscode-vim/blob/master/quickref.md)
 * If you need Ctrl-D and Ctrl-U for scrolling, you can use [additional scroll key entention](https://marketplace.visualstudio.com/items?itemName=74th.scrollkey).
 
-## support to call VSCode commands from vim keybind
+## Support to call VSCode commands from vim keybind
 
 * u : / n N &gt; &lt; %
 
 But they do not behave exactly as vim command, and their supports may be changed.
 
-## settings
+## Settings
 
 If you needs optional settings, please copy belong json and paste to your `settings.json`.
 
@@ -126,12 +126,12 @@ If you would like more vim flavor, you can use `vim.inNormalMode`, `vim.inInsert
 },
 ```
 
-## support vimrc settings
+## Support vimrc settings
 
 * `nmap Y y$`
 * `nnoremap Y y$`
 
-## never support
+## Will never be supported
 
 * Ctrl-x Cmd-x Alt-x Meta-x
 
@@ -152,7 +152,7 @@ the vim emulator written type script
 
 MIT License
 
-## contribute
+## Contributing
 
 [function list](https://github.com/74th/vscode-vim/blob/master/quickref.md)
 
@@ -163,7 +163,7 @@ npm install
 npm run-script build
 ```
 
-## update
+## Updates
 
 ### 0.5.5
 
