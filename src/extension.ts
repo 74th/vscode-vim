@@ -111,7 +111,7 @@ function activateVimStyle(context: vscode.ExtensionContext) {
                 return;
             }
             imapEscPointer = 0;
-            vscode.commands.executeCommand("default:type", args);
+            // vscode.commands.executeCommand("default:type", args);
         }
         vim.PushKey(args.text);
     }));
