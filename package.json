@@ -96,10 +96,10 @@
     "@types/mocha": "^2.2.32",
     "@types/node": "^6.0.52",
     "async-file": "^2.0.2",
-    "mocha": "^2.3.3",
+    "mocha": "^5.2.0",
     "source-map-support": "^0.4.7",
     "tslint": "^4.5.1",
     "typescript": "^2.2.1",
-    "vscode": "^1.0.0"
+    "vscode": "^1.1.29"
   }
 }
