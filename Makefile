@@ -23,7 +23,7 @@ release: test
 	vsce package
 	vsce publish
 
-release-avoid-tests: build tslint
+release-avoid-tests: build
 	vsce package
 	vsce publish
 
