@@ -85,6 +85,9 @@ export class VSCodeEditor implements IEditor {
             editBuilder.insert(vscode.window.activeTextEditor.selection.active, char);
         });
     }
+    public TypeDirect(char: string) {
+        vscode.commands.executeCommand("default:type", { text: char });
+    }
     public Insert(position: IPosition, text: string) {
         vscode.window.activeTextEditor.edit((editBuilder) => {
             editBuilder.insert(tranceVSCodePosition(position), text);

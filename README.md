@@ -165,6 +165,10 @@ npm run-script build
 
 ## Updates
 
+### 0.5.7
+
+* fix insert mode
+
 ### 0.5.5
 
 * fix https://github.com/74th/vscode-vim/issues/73

@@ -11,6 +11,7 @@ interface IEditor {
     Insert(position: IPosition, text: string);
     DeleteRange(range: IRange, position?: IPosition);
     ReplaceRange(range: IRange, text: string);
+    TypeDirect(char: string);
 
     // Read Line
     ReadLineAtCurrentPosition(): string;

@@ -16,7 +16,7 @@
 		"type": "git",
 		"url": "https://github.com/74th/vscode-vim.git"
 	},
-	"version": "0.5.6",
+	"version": "0.5.7",
 	"publisher": "74th",
 	"engines": {
 		"vscode": "^1.31.0"

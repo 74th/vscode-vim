@@ -86,6 +86,9 @@ export class VirtualEditor implements IEditor {
         this.contents[this.Position.Line] = pre + char + su;
         this.Position.Char += 1;
     }
+    public TypeDirect(char: string) {
+        this.InsertCharactorAtCurrentPosition(char);
+    }
     public Insert(position: IPosition, text: string) {
         let cLine = this.contents[position.Line];
         let pre = cLine.substr(0, position.Char);

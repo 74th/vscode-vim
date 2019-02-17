@@ -73,7 +73,7 @@ function activateVimStyle(context: vscode.ExtensionContext) {
     context.subscriptions.push(disposable);
 
     let imapEscPointer = 0;
-    context.subscriptions.push(vscode.commands.registerCommand("type", (args) => {
+    context.subscriptions.push(vscode.commands.registerCommand("type", async (args) => {
         let text: string;
         if (args.text && args.text.length > 0) {
             text = args.text;
@@ -81,7 +81,7 @@ function activateVimStyle(context: vscode.ExtensionContext) {
             if (charClass !== CharGroup.AlphabetAndNumber &&
                 charClass !== CharGroup.Marks &&
                 charClass !== CharGroup.Spaces) {
-                vscode.commands.executeCommand("default:type", args);
+                vim.PushKey(args.text);
                 return;
             }
         }
@@ -90,7 +90,7 @@ function activateVimStyle(context: vscode.ExtensionContext) {
         }
         if (vim.GetMode() === VimMode.Insert) {
             if (editorOpt.imapEsc.length === 0) {
-                vscode.commands.executeCommand("default:type", args);
+                vim.PushKey(args.text);
                 return;
             }
             if (editorOpt.imapEsc[imapEscPointer] === args.text) {
@@ -102,18 +102,20 @@ function activateVimStyle(context: vscode.ExtensionContext) {
                         return;
                     }
                 } else {
-                    vscode.commands.executeCommand("default:type", args);
+                    vim.PushKey(args.text);
                     return;
                 }
             } else if (editorOpt.imapEsc[0] === args.text) {
                 imapEscPointer = 1;
-                vscode.commands.executeCommand("default:type", args);
+                vim.PushKey(args.text);
                 return;
             }
             imapEscPointer = 0;
-            // vscode.commands.executeCommand("default:type", args);
+            vim.PushKey(args.text);
+            return;
         }
         vim.PushKey(args.text);
+        return;
     }));
     context.subscriptions.push(vscode.commands.registerCommand("vim.Esc", () => {
         vim.PushEscKey();
