@@ -1,6 +1,6 @@
 **There are no plans to update this project.**
 
-**I recommends using [Neo Vim Extension](https://marketplace.visualstudio.com/items?itemName=asvetliakov.vscode-neovim).**
+**I recommend using [Neo Vim Extension](https://marketplace.visualstudio.com/items?itemName=asvetliakov.vscode-neovim).**
 
 
 Vim emulator for VSCode
